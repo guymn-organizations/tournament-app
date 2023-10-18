@@ -6,6 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  menu = false;
+
+  clickMenu() {
+    this.menu = !this.menu;
+  }
+
   checkTab() {
     return true;
   }
