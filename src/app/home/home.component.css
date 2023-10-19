@@ -1,0 +1,40 @@
+.wrap{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+   grid-column-gap: 6px;
+   grid-row-gap:6px;
+   margin-bottom: 50px;
+   margin-top: 50px;
+}
+.feature img{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    width: 700px;
+    height: 400px;
+    cursor: pointer;
+}
+.tournament{
+    margin-left: 150px;
+}
+.tournament img{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    width: 500px;
+    height: 300px;
+    cursor: pointer;
+}
+h3{
+    font-weight: bold;
+}
+.ads-wrap img{
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+    
+}
+.ads-wrap{
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 50px;
+}
