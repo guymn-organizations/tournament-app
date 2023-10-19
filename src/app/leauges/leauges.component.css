@@ -1,4 +1,4 @@
-.product-item img{
+.tour-item img{
     
     border-radius:8px;
     width: 100%;
@@ -6,7 +6,7 @@
     
     
 }
-.product-item{
+.tour-item{
     cursor: pointer;
     height: 200px;
     width: 300px;
@@ -16,7 +16,7 @@
     border: 0.5px solid #ccc;
    
 }
-.product-list-wrapper{
+.tour-list-wrapper{
     margin-top: 55px;
     margin-bottom: 50px;
    
