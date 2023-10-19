@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { FinderPlayerComponent } from './finder-player/finder-player.component';
 import { FinderTeamComponent } from './finder-team/finder-team.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileGameComponent } from './profile-game/profile-game.component';
+import { ProfileTeamComponent } from './profile-team/profile-team.component';
+import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +30,15 @@ const routes: Routes = [
       { path: 'team', component: FinderTeamComponent },
     ],
   },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    children: [
+      { path: 'profile', component: ProfileProfileComponent },
+      { path: 'game', component: ProfileGameComponent },
+      { path: 'team', component: ProfileTeamComponent },
+    ],
+  },
 ];
 
 @NgModule({
