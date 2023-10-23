@@ -13,12 +13,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
+import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'leauges', component: LeaugesComponent },
+  { path: 'leaugesdetail', component: LeaugesdetailComponent },
   { path: 'scrims', component: ScrimsComponent },
   { path: 'tournament', component: TournamentComponent },
   {
