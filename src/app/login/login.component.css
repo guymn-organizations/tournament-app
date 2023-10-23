@@ -4,7 +4,7 @@
     background-color: #2e2d2d;
 }
 
-.login-page .white-page ,.register .white-page {
+.login-page .white-page ,.register-page .white-page {
     width: 500px;
     height: 100%;
     background-color: #ffffff;
@@ -73,11 +73,13 @@ h3 {
     
 }
 
-.login ,.register {
+.login  {
+    cursor: pointer;
     padding: 5px;
-    border-bottom: 3px solid red;
+    
 }
-.signup{
+.register{
+    cursor: pointer;
     padding: 5px;
     margin-left: 20px;
     

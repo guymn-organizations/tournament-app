@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
 
 @Component({
@@ -6,8 +6,12 @@ import { GobalServiceService } from '../service/gobal-service.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  ngOnInit(): void {
+   this.activeTab = localStorage.getItem('activeTab') || 'login';
+  }
   service: GobalServiceService = inject(GobalServiceService);
+  activeTab!: string;
 
   LoginData = {
     email: '',
@@ -21,10 +25,19 @@ export class LoginComponent {
     password: '',
     repeatPassword: '',
   };
+
+  showlogin(){
+    this.activeTab='login'
+  }
+  showRegister(){
+    this.activeTab='register'
+  }
   submitLoginForm(){
+    
     
   }
   submitRegisterForm(){
     
+   
   }
 }
