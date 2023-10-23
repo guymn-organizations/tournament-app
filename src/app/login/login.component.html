@@ -1,10 +1,11 @@
+<ng-template #loginPage>
 <div class="login-page">
   <div class="white-page">
     <div class="home">
-      <img  src="./assets/img/home-2.png" />
+      <img style="cursor: pointer" src="./assets/img/home-2.png" />
     </div>
     <div class="logo">
-      <img  src="./assets/img/logo.png" />
+      <img src="./assets/img/logo.png" />
     </div>
     <h3>LOG IN TO TOURNAMENT.GG</h3>
     <div class="bar">
@@ -13,20 +14,73 @@
     </div>
     <div class="line-8-83i"></div>
     <div class="form">
-      <p>EMAIL</p>
-      <input type="text" id="email" name="email" placeholder="NAME@MAIL.COM">
-      <p style="margin-top: 10px;">PASSWORD</p>
-      <input type="text" id="password" name="password" placeholder="PASSWORD">
-      <a href=""><img src="./assets/img/eye.png" alt=""></a>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">REMEMBER ME</label>
-      </div>
-      <button type="button" class="btn btn-danger">LOG IN</button>
+      <form #loginForm="ngForm" (ngSubmit)="submitLoginForm()">
+        <p>EMAIL</p>
+        <input
+          type="text"
+          id="loginEmail"
+          name="loginEmail"
+          class="form-control"
+          [(ngModel)]="LoginData.email"
+          required
+          placeholder="NAME@MAIL.COM"
+        />
+
+        <p style="margin-top: 10px">PASSWORD</p>
+        <input
+          type="text"
+          id="loginPassword"
+          name="loginPassword"
+          class="form-control"
+          [(ngModel)]="LoginData.password"
+          required
+          placeholder="PASSWORD"
+        />
+
+        <a href=""><img src="./assets/img/eye.png" alt="" /></a>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+          <label class="form-check-label" for="exampleCheck1">REMEMBER ME</label>
+        </div>
+        <button type="submit" class="btn btn-danger">LOG IN</button>
+      </form>
     </div>
-    
   </div>
 </div>
-<button class="btn btn-primary" (click)="service.toPage('profile')">
-  To profile
-</button>
+</ng-template>
+ <!-- ------------------REGISTER--------------------------------- -->
+ <ng-template #RegisterPage>
+  <div class="register-page">
+    <div class="white-page">
+      <div class="home">
+        <img style="cursor: pointer" src="./assets/img/home-2.png" />
+      </div>
+      <div class="logo">
+        <img src="./assets/img/logo.png" />
+      </div>
+      <h3>LOG IN TO TOURNAMENT.GG</h3>
+      <div class="bar">
+        <div class="register">LOG IN</div>
+        <div class="signup">SIGN UP</div>
+      </div>
+      <div class="line-8-83i"></div>
+      <div class="form">
+        <form #registerForm="ngForm" (ngSubmit)="submitRegisterForm()">
+          
+
+
+
+
+
+
+          
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+           
+          </div>
+          <button type="submit" class="btn btn-danger">REGISTER</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </ng-template>

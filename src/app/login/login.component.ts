@@ -8,4 +8,23 @@ import { GobalServiceService } from '../service/gobal-service.service';
 })
 export class LoginComponent {
   service: GobalServiceService = inject(GobalServiceService);
+
+  LoginData = {
+    email: '',
+    password: '',
+  };
+  RegisterData = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    idCard: '',
+    password: '',
+    repeatPassword: '',
+  };
+  submitLoginForm(){
+    
+  }
+  submitRegisterForm(){
+    
+  }
 }
