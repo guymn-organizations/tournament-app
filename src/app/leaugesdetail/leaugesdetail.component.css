@@ -1,0 +1,105 @@
+.bar {
+
+    display: flex;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.2125;
+    
+    color: #000000;
+    white-space: nowrap;
+    display: flex;
+
+}
+
+.bar a {
+    cursor: pointer;
+}
+
+.line-8-83i {
+    width: 300px;
+    height: 0.2rem;
+    position: absolute;
+    
+    background-color: #777575;
+}
+
+.body {
+    padding: 50px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.status {
+    
+    display: flex;
+    justify-content: center;
+    width: 100%px;
+    height: 120px;
+    
+    
+}
+
+
+.box {
+    margin-top: 15px;
+    width: 20%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 800;
+   
+    
+}
+
+.status-bar {
+    display: inline-block;
+    height: 20px;
+    width: 100%;
+    background-color: #d8d8d8;
+    border: 2px solid gray;
+}
+.img img {
+    width: 700px;
+    border-radius: 10px;
+
+}
+.detail-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    grid-column-gap: 50px;
+    grid-row-gap:6px;
+}
+.btn{
+    border-radius: 50px;
+    width: 100%;
+}
+
+/* เพิ่ม CSS Media Query เพื่อปรับขนาด status-bar ในหน้าจอที่มีความกว้างต่าง ๆ */
+@media (max-width: 768px) {
+    .body {
+        padding: 20px;
+    }
+    .box{
+        font-size: 0.55rem;
+    }
+    .img img{
+        width: 400px;
+    }
+    
+  }
+  
+  @media (max-width: 480px) {
+    .body {
+        padding: 20px;
+    }
+    .img img{
+        width: 300px;
+    }
+    .detail{
+        font-size: 12px;
+    width: 300px;
+    }
+  }

@@ -21,7 +21,7 @@
     margin-top: 55px;
     margin-bottom: 50px;
     display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-   grid-column-gap: 6px;
-   grid-row-gap:6px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-column-gap: 6px;
+    grid-row-gap:6px;
 }
