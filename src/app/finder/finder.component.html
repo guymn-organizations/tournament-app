@@ -1,11 +1,20 @@
-<div class="border border-black">
+<div class="finder">
   <div class="container">
-   
-    <img src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg" alt="Bg rov">
+    <img
+      src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
+      alt="Bg rov"
+    />
 
-    <div>
-      <div *ngFor="let router of childName" class="btn" [routerLink]="router">
-        <label> {{ router }}</label>
+    <div class="d-flex flex-row border-bottom border-white">
+      <div
+        *ngFor="let router of childName"
+        class="p-2"
+        [routerLink]="router.router"
+        [ngClass]="{
+          'border-bottom border-primary border-3': isActive(router.router)
+        }"
+      >
+        <label> {{ router.name }}</label>
       </div>
     </div>
     <router-outlet></router-outlet>

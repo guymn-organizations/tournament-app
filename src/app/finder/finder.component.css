@@ -1,48 +1,11 @@
-/* Apply some basic styles to the outer container */
-.border {
-    border: 2px solid #000;
-    background-color: #222;
-    color: #fff;
-  }
-  
-  /* Style the container inside the border */
-  .container {
-    position: relative;
-  }
-  
-  /* Style the image */
-  img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    
-  }
-  
-  /* Style the buttons */
-  .btn {
-    background-color: #ff0000;
-    color: #fff;
-    padding: 10px;
-    margin: 10px 5px; /* Add margin between the buttons (left and right) */
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .btn:hover {
-    background-color: #9b0f0f;
-  }
-  
-  /* Style the labels inside the buttons */
-  label {
-    font-size: 18px;
-  }
-  
-  /* Style the router outlet content (modify as needed) */
-  router-outlet {
-    margin-top: 20px;
-    border-top: 1px solid #666;
-    padding-top: 20px;
-  }
-  
+.finder {
+  border: 2px solid #000;
+  background-color: #222;
+  color: #fff;
+}
+
+img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
