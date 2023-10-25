@@ -8,10 +8,10 @@ import { GobalServiceService } from '../service/gobal-service.service';
 })
 export class LoginComponent implements OnInit{
   ngOnInit(): void {
-   this.activeTab = localStorage.getItem('activeTab') || 'login';
+   
   }
   service: GobalServiceService = inject(GobalServiceService);
-  activeTab!: string;
+  isLogin: boolean = true; 
 
   LoginData = {
     email: '',
@@ -20,17 +20,20 @@ export class LoginComponent implements OnInit{
   RegisterData = {
     firstName: '',
     lastName: '',
-    username: '',
-    idCard: '',
     password: '',
-    repeatPassword: '',
+    confirmpassword: '',
+    day: '',
+    month: '',
+    year: '',
+    gender: '',
+    email: '',
   };
 
-  showlogin(){
-    this.activeTab='login'
+  showLogin() {
+    this.isLogin = true;
   }
-  showRegister(){
-    this.activeTab='register'
+  showRegister() {
+    this.isLogin = false;
   }
   submitLoginForm(){
     
