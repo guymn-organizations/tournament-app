@@ -42,24 +42,24 @@
         <label for="validationCustom02" class="form-label">EMAIL</label>
         <input
           type="text"
-          id="registerPassword"
-          name="registerPassword"
+          id="register_email"
+          name="register_email"
           class="form-control"
           [(ngModel)]="LoginData.email"
           required
-          placeholder="PASSWORD"
+          placeholder="Email"
         />
       </div>
       <div class="col-md-12">
         <label for="validationCustom02" class="form-label">PASSWORD</label>
         <input
           type="password"
-          id="loginPassword"
-          name="loginPassword"
+          id="login_password"
+          name="login_password"
           class="form-control"
           [(ngModel)]="LoginData.password"
           required
-          placeholder="PASSWORD"
+          placeholder="Password"
         />
       </div>
 
@@ -67,9 +67,7 @@
         <input
           class="form-check-input"
           type="checkbox"
-          [value]="true"
           id="invalidCheck2"
-          [(ngModel)]="LoginData.remember"
           required
         />
         <label class="form-check-label"> REMEMBER ME </label>
@@ -99,36 +97,36 @@
         <label for="validationCustom01" class="form-label">First name</label>
         <input
           type="text"
-          id="registerFname"
-          name="registerFname"
+          id="register_firstname"
+          name="register_firstname"
           class="form-control"
-          [(ngModel)]="RegisterData.firstName"
+          [(ngModel)]="registerData.firstName"
           required
-          placeholder="FIRSTNAME"
+          placeholder="Firstname"
         />
       </div>
       <div class="col-md-6">
         <label for="validationCustom02" class="form-label">Last name</label>
         <input
           type="text"
-          id="registerLname"
-          name="registerLname"
+          id="register_lastname"
+          name="register_lastname"
           class="form-control"
-          [(ngModel)]="RegisterData.lastName"
+          [(ngModel)]="registerData.lastName"
           required
-          placeholder="LASTNAME"
+          placeholder="Lastname"
         />
       </div>
       <div class="col-md-12">
         <label for="validationCustom02" class="form-label">Password</label>
         <input
-          type="text"
-          id="registerPassword"
-          name="registerPassword"
+          type="password"
+          id="register_password"
+          name="register_password"
           class="form-control"
-          [(ngModel)]="RegisterData.password"
+          [(ngModel)]="registerData.password"
           required
-          placeholder="PASSWORD"
+          placeholder="Password"
         />
       </div>
       <div class="col-md-12">
@@ -136,26 +134,35 @@
           >Confirm Password</label
         >
         <input
-          type="text"
-          id="registerconfirmPassword"
-          name="registerconfirmPassword"
+          type="password"
+          id="register_confirm_password"
+          name="register_confirm_password"
           class="form-control"
-          [(ngModel)]="RegisterData.confirmpassword"
+          [(ngModel)]="registerData.confirmpassword"
           required
-          placeholder="CONFIRM PASSWORD"
+          placeholder="Confirm Password"
         />
+        <div
+          *ngIf="
+            registerForm.submitted &&
+            registerData.password !== registerData.confirmpassword
+          "
+          class="text-center text-danger"
+        >
+          Passwords do not match.
+        </div>
       </div>
 
       <div class="col-md-6">
         <label for="validationCustom03" class="form-label">Birthday</label>
         <input
           type="date"
-          id="registerdate"
-          name="registerdate"
+          id="register_date"
+          name="register_date"
           class="form-control"
-          [(ngModel)]="RegisterData.date"
+          [(ngModel)]="registerData.date"
           required
-          placeholder="DATE"
+          placeholder="register_date"
         />
       </div>
 
@@ -163,9 +170,9 @@
         <label for="validationCustom04" class="form-label">Gender</label>
         <select
           class="form-select"
-          id="registergender"
-          name="registergender"
-          [(ngModel)]="RegisterData.gender"
+          id="register_gender"
+          name="register_gender"
+          [(ngModel)]="registerData.gender"
           required
         >
           <option selected disabled value="">Choose...</option>
@@ -178,12 +185,12 @@
         <label for="validationCustom02" class="form-label">Email</label>
         <input
           type="text"
-          id="registeremail"
-          name="registeremail"
+          id="register_email"
+          name="register_email"
           class="form-control"
-          [(ngModel)]="RegisterData.email"
+          [(ngModel)]="registerData.email"
           required
-          placeholder="EMAIL"
+          placeholder="Email"
         />
       </div>
 
