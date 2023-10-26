@@ -1,3 +1,35 @@
+<div class="login-page d-flex justify-content-center justify-content-lg-start">
+  <div class="white-page d-block">
+    <div class="logo">
+      <img src="./assets/img/logo.png" />
+    </div>
+    <h3 class="fs-5 d-lg-none">{{ h3() }}</h3>
+    <h3 class="fs-3 d-lg-block d-none text-center">{{ h3() }}</h3>
+
+    <div
+      class="bar border-bottom border-light border-3 justify-content-around justify-content-lg-start"
+    >
+      <div
+        class="login flex-fill text-center"
+        [ngClass]="{ 'border-bottom border-danger border-3': isLogin }"
+        (click)="showLogin()"
+      >
+        <label> LOG IN </label>
+      </div>
+      <div
+        class="register flex-fill text-center"
+        [ngClass]="{ 'border-bottom border-danger border-3': !isLogin }"
+        (click)="showRegister()"
+      >
+        <label> SIGN UP </label>
+      </div>
+    </div>
+    <ng-container *ngIf="isLogin; else RegisterPage">
+      <ng-container *ngTemplateOutlet="LoginPage"></ng-container
+    ></ng-container>
+  </div>
+</div>
+
 <ng-template #LoginPage>
   <div class="form">
     <form
@@ -189,33 +221,3 @@
     </form>
   </div>
 </ng-template>
-
-<div class="login-page">
-  <div class="white-page">
-    <div class="logo">
-      <img src="./assets/img/logo.png" />
-    </div>
-    <h3>{{ h3() }}</h3>
-
-    <div class="bar">
-      <div
-        class="login"
-        [ngClass]="{ 'border-bottom border-danger border-3': isLogin }"
-        (click)="showLogin()"
-      >
-        LOG IN
-      </div>
-      <div
-        class="register"
-        [ngClass]="{ 'border-bottom border-danger border-3': !isLogin }"
-        (click)="showRegister()"
-      >
-        SIGN UP
-      </div>
-    </div>
-    <div class="line-8-83i"></div>
-    <ng-container *ngIf="isLogin; else RegisterPage">
-      <ng-container *ngTemplateOutlet="LoginPage"></ng-container
-    ></ng-container>
-  </div>
-</div>

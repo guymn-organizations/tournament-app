@@ -1,11 +1,12 @@
 .login-page {
   background: url(https://img.4gamers.com.tw/ckfinder-th/image2/auto/2021-04/rov%20%E0%B8%A5%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C-210429-145224.jpg?versionId=gYjKD2MuiZiAf.WLBCnI2W5Eb2nG_osA);
+  height: 1024px;
 }
 
-.login-page .white-page {
-  width: 500px;
+.white-page {
+  max-width: 500px;
+  width: auto;
   height: 100%;
-
   backdrop-filter: blur(14px);
 }
 
@@ -37,7 +38,6 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
   font-weight: 800;
   line-height: 1.2125;
   font-style: italic;
@@ -48,13 +48,14 @@ h3 {
 .bar {
   display: flex;
   margin-left: 50px;
+  margin-right: 50px;
   font-size: 1rem;
   font-weight: 800;
   line-height: 1.2125;
   font-style: italic;
   color: #ffffff;
   white-space: nowrap;
-  display: flex;
+  padding: auto;
 }
 
 .login {
