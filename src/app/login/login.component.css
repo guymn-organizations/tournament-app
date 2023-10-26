@@ -93,6 +93,7 @@ h3 {
 }
 
 input[type="text"],
+input[type="date"],
 select,
 [type="password"] {
   width: 100%;

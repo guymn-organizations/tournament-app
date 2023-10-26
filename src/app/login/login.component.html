@@ -145,43 +145,20 @@
         />
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <label for="validationCustom03" class="form-label">Birthday</label>
         <input
-          type="text"
-          id="registerday"
-          name="registerday"
+          type="date"
+          id="registerdate"
+          name="registerdate"
           class="form-control"
-          [(ngModel)]="RegisterData.day"
+          [(ngModel)]="RegisterData.date"
           required
-          placeholder="DAY"
+          placeholder="DATE"
         />
       </div>
-      <div class="col-md-4">
-        <label for="validationCustom04" class="form-label">MONTH</label>
-        <input
-          type="text"
-          id="registermonth"
-          name="registermonth"
-          class="form-control"
-          [(ngModel)]="RegisterData.month"
-          required
-          placeholder="MONTH(0-12)"
-        />
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom05" class="form-label">YEAR</label>
-        <input
-          type="text"
-          id="registeryear"
-          name="registeryear"
-          class="form-control"
-          [(ngModel)]="RegisterData.year"
-          required
-          placeholder="YEAR(2023)"
-        />
-      </div>
-      <div class="col-md-12">
+
+      <div class="col-md-6">
         <label for="validationCustom04" class="form-label">GENDER</label>
         <select
           class="form-select"
@@ -191,8 +168,8 @@
           required
         >
           <option selected disabled value="">Choose...</option>
-          <option>MALE</option>
-          <option>FEMALE</option>
+          <option>Male</option>
+          <option>Female</option>
         </select>
         <div class="invalid-feedback">Please select a valid state.</div>
       </div>

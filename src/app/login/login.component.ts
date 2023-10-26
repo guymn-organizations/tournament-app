@@ -20,9 +20,7 @@ export class LoginComponent implements OnInit {
     lastName: '',
     password: '',
     confirmpassword: '',
-    day: '',
-    month: '',
-    year: '',
+    date: '',
     gender: '',
     email: '',
   };
@@ -40,6 +38,6 @@ export class LoginComponent implements OnInit {
     if (this.isLogin) {
       return 'LOG IN TO TOURNAMENT.GG';
     }
-    return 'SIGN UP TO TOURNAMENT.GG'
+    return 'SIGN UP TO TOURNAMENT.GG';
   }
 }
