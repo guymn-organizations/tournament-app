@@ -6,12 +6,10 @@ import { GobalServiceService } from '../service/gobal-service.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit{
-  ngOnInit(): void {
-   
-  }
+export class LoginComponent implements OnInit {
+  ngOnInit(): void {}
   service: GobalServiceService = inject(GobalServiceService);
-  isLogin: boolean = true; 
+  isLogin: boolean = true;
 
   LoginData = {
     email: '',
@@ -35,12 +33,13 @@ export class LoginComponent implements OnInit{
   showRegister() {
     this.isLogin = false;
   }
-  submitLoginForm(){
-    
-    
-  }
-  submitRegisterForm(){
-    
-   
+  submitLoginForm() {}
+  submitRegisterForm() {}
+
+  h3(): string {
+    if (this.isLogin) {
+      return 'LOG IN TO TOURNAMENT.GG';
+    }
+    return 'SIGN UP TO TOURNAMENT.GG'
   }
 }

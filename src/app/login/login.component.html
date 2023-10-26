@@ -1,209 +1,221 @@
 <ng-template #LoginPage>
-  <div class="login-page">
-    
-    <div class="white-page">
-      
-      <div class="logo">
-        <img src="./assets/img/logo.png" />
+  <div class="form">
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="submitLoginForm()"
+      class="row g-3 needs-validation"
+      novalidate
+    >
+      <div class="col-md-12">
+        <label for="validationCustom02" class="form-label">EMAIL</label>
+        <input
+          type="text"
+          id="registerPassword"
+          name="registerPassword"
+          class="form-control"
+          [(ngModel)]="LoginData.email"
+          required
+          placeholder="PASSWORD"
+        />
       </div>
-      <h3>LOG IN TO TOURNAMENT.GG</h3>
+      <div class="col-md-12">
+        <label for="validationCustom02" class="form-label">PASSWORD</label>
+        <input
+          type="password"
+          id="loginPassword"
+          name="loginPassword"
+          class="form-control"
+          [(ngModel)]="LoginData.password"
+          required
+          placeholder="PASSWORD"
+        />
+      </div>
 
-      <div class="bar">
-        <div class="login" style="border-bottom: 3px solid red">
-          <a> LOG IN </a>
-        </div>
-        <div class="register">
-          <a (click)="showRegister()">SIGN UP </a>
-        </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="invalidCheck2"
+          required
+        />
+        <label class="form-check-label"> REMEMBER ME </label>
       </div>
-      <div class="line-8-83i"></div>
-      <div class="form">
-        <form #loginForm="ngForm" (ngSubmit)="submitLoginForm()" class="row g-3 needs-validation" novalidate>
-          <div class="col-md-12">
-            <label for="validationCustom02" class="form-label">EMAIL</label>
-            <input
-              type="text"
-              id="registerPassword"
-              name="registerPassword"
-              class="form-control"
-              [(ngModel)]="LoginData.email"
-              required
-              placeholder="PASSWORD"
-            />
-          </div>
-          <div class="col-md-12">
-            <label for="validationCustom02" class="form-label"
-              >PASSWORD</label
-            >
-            <input
-              type="password"
-              id="loginPassword"
-              name="loginPassword"
-              class="form-control"
-              [(ngModel)]="LoginData.password"
-              required
-              placeholder="PASSWORD"
-            />
-          </div>
 
-          
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-            <label class="form-check-label" >
-              REMEMBER ME
-            </label>
-          </div>
-         
-          <button type="submit" class="btn btn-danger">LOG IN</button>
-        </form>
-      </div>
-    </div>
+      <button
+        type="submit"
+        class="btn btn-danger"
+        [disabled]="!loginForm.form.valid"
+      >
+        LOG IN
+      </button>
+    </form>
   </div>
 </ng-template>
 
 <!-- ------------------REGISTER--------------------------------- -->
 <ng-template #RegisterPage>
-  <div class="register-page">
-    <div class="white-page">
-    
-      <div class="logo">
-        <img src="./assets/img/logo.png" />
+  <div class="form">
+    <form
+      #registerForm="ngForm"
+      class="row g-2 needs-validation"
+      novalidate
+      (ngSubmit)="submitRegisterForm()"
+    >
+      <div class="col-md-6">
+        <label for="validationCustom01" class="form-label">First name</label>
+        <input
+          type="text"
+          id="registerFname"
+          name="registerFname"
+          class="form-control"
+          [(ngModel)]="RegisterData.firstName"
+          required
+          placeholder="FIRSTNAME"
+        />
       </div>
-      <h3>SIGN UP TO TOURNAMENT.GG</h3>
-      <div class="bar">
-        <div class="login"><a (click)="showLogin()"> LOG IN </a></div>
-        <div class="register" style="border-bottom: 3px solid red">SIGN UP</div>
+      <div class="col-md-6">
+        <label for="validationCustom02" class="form-label">Last name</label>
+        <input
+          type="text"
+          id="registerLname"
+          name="registerLname"
+          class="form-control"
+          [(ngModel)]="RegisterData.lastName"
+          required
+          placeholder="LASTNAME"
+        />
       </div>
-      <div class="line-8-83i"></div>
-    
-      <div class="form">
-        <form class="row g-2 needs-validation" novalidate>
-          <div class="col-md-6">
-            <label for="validationCustom01" class="form-label"
-              >First name</label
-            >
-            <input
-              type="text"
-              id="registerFname"
-              name="registerFname"
-              class="form-control"
-              [(ngModel)]="RegisterData.firstName"
-              required
-              placeholder="FIRSTNAME"
-            />
-          </div>
-          <div class="col-md-6">
-            <label for="validationCustom02" class="form-label">Last name</label>
-            <input
-              type="text"
-              id="registerLname"
-              name="registerLname"
-              class="form-control"
-              [(ngModel)]="RegisterData.lastName"
-              required
-              placeholder="LASTNAME"
-            />
-          </div>
-          <div class="col-md-12">
-            <label for="validationCustom02" class="form-label">PASSWORD</label>
-            <input
-              type="text"
-              id="registerPassword"
-              name="registerPassword"
-              class="form-control"
-              [(ngModel)]="RegisterData.password"
-              required
-              placeholder="PASSWORD"
-            />
-          </div>
-          <div class="col-md-12">
-            <label for="validationCustom02" class="form-label"
-              >CONFIRM PASSWORD</label
-            >
-            <input
-              type="text"
-              id="registerconfirmPassword"
-              name="registerconfirmPassword"
-              class="form-control"
-              [(ngModel)]="RegisterData.confirmpassword"
-              required
-              placeholder="CONFIRM PASSWORD"
-            />
-          </div>
+      <div class="col-md-12">
+        <label for="validationCustom02" class="form-label">PASSWORD</label>
+        <input
+          type="text"
+          id="registerPassword"
+          name="registerPassword"
+          class="form-control"
+          [(ngModel)]="RegisterData.password"
+          required
+          placeholder="PASSWORD"
+        />
+      </div>
+      <div class="col-md-12">
+        <label for="validationCustom02" class="form-label"
+          >CONFIRM PASSWORD</label
+        >
+        <input
+          type="text"
+          id="registerconfirmPassword"
+          name="registerconfirmPassword"
+          class="form-control"
+          [(ngModel)]="RegisterData.confirmpassword"
+          required
+          placeholder="CONFIRM PASSWORD"
+        />
+      </div>
 
-          <div class="col-md-4">
-            <label for="validationCustom03" class="form-label">Birthday</label>
-            <input
-              type="text"
-              id="registerday"
-              name="registerday"
-              class="form-control"
-              [(ngModel)]="RegisterData.day"
-              required
-              placeholder="DAY"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="validationCustom04" class="form-label">MONTH</label>
-            <input
-              type="text"
-              id="registermonth"
-              name="registermonth"
-              class="form-control"
-              [(ngModel)]="RegisterData.month"
-              required
-              placeholder="MONTH(0-12)"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="validationCustom05" class="form-label">YEAR</label>
-            <input
-              type="text"
-              id="registeryear"
-              name="registeryear"
-              class="form-control"
-              [(ngModel)]="RegisterData.year"
-              required
-              placeholder="YEAR(2023)"
-            />
-          </div>
-          <div class="col-md-12">
-            <label for="validationCustom04" class="form-label">GENDER</label>
-            <select
-              class="form-select"
-              id="registergender"
-              name="registergender"
-              [(ngModel)]="RegisterData.gender"
-              required
-            >
-              <option selected disabled value="">Choose...</option>
-              <option>MALE</option>
-              <option>FEMALE</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid state.</div>
-          </div>
-          <div class="col-md-12">
-            <label for="validationCustom02" class="form-label">EMAIL</label>
-            <input
-              type="text"
-              id="registeremail"
-              name="registeremail"
-              class="form-control"
-              [(ngModel)]="RegisterData.email"
-              required
-              placeholder="EMAIL"
-            />
-          </div>
-
-          <div class="col-12">
-            <button class="btn btn-danger" type="submit">REGISTER</button>
-          </div>
-        </form>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Birthday</label>
+        <input
+          type="text"
+          id="registerday"
+          name="registerday"
+          class="form-control"
+          [(ngModel)]="RegisterData.day"
+          required
+          placeholder="DAY"
+        />
       </div>
-    </div>
+      <div class="col-md-4">
+        <label for="validationCustom04" class="form-label">MONTH</label>
+        <input
+          type="text"
+          id="registermonth"
+          name="registermonth"
+          class="form-control"
+          [(ngModel)]="RegisterData.month"
+          required
+          placeholder="MONTH(0-12)"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom05" class="form-label">YEAR</label>
+        <input
+          type="text"
+          id="registeryear"
+          name="registeryear"
+          class="form-control"
+          [(ngModel)]="RegisterData.year"
+          required
+          placeholder="YEAR(2023)"
+        />
+      </div>
+      <div class="col-md-12">
+        <label for="validationCustom04" class="form-label">GENDER</label>
+        <select
+          class="form-select"
+          id="registergender"
+          name="registergender"
+          [(ngModel)]="RegisterData.gender"
+          required
+        >
+          <option selected disabled value="">Choose...</option>
+          <option>MALE</option>
+          <option>FEMALE</option>
+        </select>
+        <div class="invalid-feedback">Please select a valid state.</div>
+      </div>
+      <div class="col-md-12">
+        <label for="validationCustom02" class="form-label">EMAIL</label>
+        <input
+          type="text"
+          id="registeremail"
+          name="registeremail"
+          class="form-control"
+          [(ngModel)]="RegisterData.email"
+          required
+          placeholder="EMAIL"
+        />
+      </div>
+
+      <div class="col-12">
+        <button
+          class="btn btn-danger"
+          type="submit"
+          [disabled]="!registerForm.form.valid"
+        >
+          REGISTER
+        </button>
+      </div>
+    </form>
   </div>
 </ng-template>
 
-<ng-container *ngIf="isLogin; else RegisterPage">
-  <ng-container *ngTemplateOutlet="LoginPage"></ng-container>
-</ng-container>
+<div class="login-page">
+  <div class="white-page">
+    <div class="logo">
+      <img src="./assets/img/logo.png" />
+    </div>
+    <h3>{{ h3() }}</h3>
+
+    <div class="bar">
+      <div
+        class="login"
+        [ngClass]="{ 'border-bottom border-danger border-3': isLogin }"
+        (click)="showLogin()"
+      >
+        LOG IN
+      </div>
+      <div
+        class="register"
+        [ngClass]="{ 'border-bottom border-danger border-3': !isLogin }"
+        (click)="showRegister()"
+      >
+        SIGN UP
+      </div>
+    </div>
+    <div class="line-8-83i"></div>
+    <ng-container *ngIf="isLogin; else RegisterPage">
+      <ng-container *ngTemplateOutlet="LoginPage"></ng-container
+    ></ng-container>
+  </div>
+</div>

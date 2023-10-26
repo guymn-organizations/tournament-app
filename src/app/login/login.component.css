@@ -1,136 +1,113 @@
-.login-page,.register-page {
-    width: 100%;
-    height: 1024px;
-    background-image: url(https://img.4gamers.com.tw/ckfinder-th/image2/auto/2021-04/rov%20%E0%B8%A5%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C-210429-145224.jpg?versionId=gYjKD2MuiZiAf.WLBCnI2W5Eb2nG_osA);
+.login-page {
+  background: url(https://img.4gamers.com.tw/ckfinder-th/image2/auto/2021-04/rov%20%E0%B8%A5%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C-210429-145224.jpg?versionId=gYjKD2MuiZiAf.WLBCnI2W5Eb2nG_osA);
 }
 
-.login-page .white-page ,.register-page .white-page {
-    width: 500px;
-    height: 100%;
-    
-    backdrop-filter: blur(14px); 
+.login-page .white-page {
+  width: 500px;
+  height: 100%;
 
+  backdrop-filter: blur(14px);
 }
 
-/* .home {
-    margin-top: 20px;
-    width: 100%;
-    height: 50px;
+.backward {
+  width: 100%;
+  height: 50px;
 }
-
-.home img {
-    width: 50px;
-    position: relative;
-    bottom: 0;
-    left: 20px;
-} */
-.backward{
-    
-    width: 100%;
-    height: 50px;
-}
-.backward img{
-    width: 50px;
-    position: relative;
-    left: 20px;
+.backward img {
+  width: 50px;
+  position: relative;
+  left: 20px;
 }
 
 .logo {
-    width: 100%;
-    height: 150px;
+  width: 100%;
+  height: 150px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo img {
-    width: 250px;
+  width: 250px;
 }
 
 h3 {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    font-weight: 800;
-    line-height: 1.2125;
-    font-style: italic;
-    color: #ff0000;
-    white-space: nowrap;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.2125;
+  font-style: italic;
+  color: #ff0000;
+  white-space: nowrap;
 }
 
 .bar {
-    
-    display: flex;
-    margin-left: 50px;
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1.2125;
-    font-style: italic;
-    color: #ffffff;
-    white-space: nowrap;
-    display: flex;
-    
+  display: flex;
+  margin-left: 50px;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2125;
+  font-style: italic;
+  color: #ffffff;
+  white-space: nowrap;
+  display: flex;
 }
 
-.login  {
-    cursor: pointer;
-    padding: 5px;
-    
+.login {
+  cursor: pointer;
+  padding: 5px;
 }
-.register{
-    cursor: pointer;
-    padding: 5px;
-    margin-left: 20px;
-    
+.register {
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 20px;
 }
 
 .line-8-83i {
-    width: 400px;
-    height: 0.3rem;
-    position: absolute;
-    left: 50px;
-    background-color: #a8a8a8;
+  width: 400px;
+  height: 0.3rem;
+  position: absolute;
+  left: 50px;
+  background-color: #a8a8a8;
 }
 
-.form{
-    font-size: 1rem;
-    font-weight: 800;
-    line-height: 1.2125;
-   
-    color: #ffffff;
-    
-    padding: 50px;
-    
-    
+.form {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2125;
+
+  color: #ffffff;
+
+  padding: 50px;
 }
-.form img{
-    width: 25px;
-    position: relative;
-    right: 40px;
-    cursor: pointer;
+.form img {
+  width: 25px;
+  position: relative;
+  right: 40px;
+  cursor: pointer;
 }
-.formcontrol{
-    
-}
-input[type=text], select,[type=password] {
+
+input[type="text"],
+select,
+[type="password"] {
   width: 100%;
   display: inline-block;
   border: 1px solid #ccc;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   box-sizing: border-box;
 }
 .form-check-input {
-    --bs-form-check-bg: #D9D9D9;
+  --bs-form-check-bg: #d9d9d9;
 }
-.btn{
-    border-radius: 20px;
-   
-    width: 100%;
+.btn {
+  border-radius: 20px;
+
+  width: 100%;
 }
-.FandL{
-    
-    display: flex;
+.FandL {
+  display: flex;
 }
