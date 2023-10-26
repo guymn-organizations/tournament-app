@@ -67,8 +67,9 @@
         <input
           class="form-check-input"
           type="checkbox"
-          value=""
+          [value]="true"
           id="invalidCheck2"
+          [(ngModel)]="LoginData.remember"
           required
         />
         <label class="form-check-label"> REMEMBER ME </label>
@@ -119,7 +120,7 @@
         />
       </div>
       <div class="col-md-12">
-        <label for="validationCustom02" class="form-label">PASSWORD</label>
+        <label for="validationCustom02" class="form-label">Password</label>
         <input
           type="text"
           id="registerPassword"
@@ -132,7 +133,7 @@
       </div>
       <div class="col-md-12">
         <label for="validationCustom02" class="form-label"
-          >CONFIRM PASSWORD</label
+          >Confirm Password</label
         >
         <input
           type="text"
@@ -159,7 +160,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="validationCustom04" class="form-label">GENDER</label>
+        <label for="validationCustom04" class="form-label">Gender</label>
         <select
           class="form-select"
           id="registergender"
@@ -174,7 +175,7 @@
         <div class="invalid-feedback">Please select a valid state.</div>
       </div>
       <div class="col-md-12">
-        <label for="validationCustom02" class="form-label">EMAIL</label>
+        <label for="validationCustom02" class="form-label">Email</label>
         <input
           type="text"
           id="registeremail"
