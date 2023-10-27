@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-finder',
@@ -6,5 +7,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./finder.component.css'],
 })
 export class FinderComponent {
-  childName = ['player', 'team'];
+  childName = [
+    {
+      router: 'player',
+      name: 'Player Finder',
+    },
+    {
+      router: 'team',
+      name: 'Team Finder',
+    },
+  ];
+
+  checkTab: string = '';
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkTab = this.router.url;
+  }
+
+  isActive(router: string): boolean {
+    this.ngOnInit();
+    return `/finder/${router}` === this.checkTab;
+  }
+
+ 
 }
