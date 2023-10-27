@@ -7,6 +7,7 @@
 .bi {
   font-size: 30px;
 }
+
 img {
   width: 30px;
 }
@@ -14,6 +15,19 @@ img {
 .logo {
   width: 100px;
 }
-.pointer, .logo {
+
+.pointer,
+.logo {
   cursor: pointer;
+}
+
+.hover-1 {
+  background-image: linear-gradient(#1a1b20, #1a1b20);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: 0.4s;
+}
+.hover-1:hover {
+  background-size: 100% 100%;
+  color: #fff;
 }

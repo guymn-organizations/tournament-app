@@ -69,7 +69,7 @@ export class LoginComponent {
     ).subscribe(
       (response) => {
         // Handle the response here
-        localStorage.setItem('profile', JSON.stringify(response));
+        localStorage.setItem('profile', response.id);
         this.goHome();
       },
       (error) => {

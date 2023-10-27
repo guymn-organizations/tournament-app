@@ -1,13 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
+import { ProfileService } from '../service/profile.service';
+import { Profile } from '../model/profile';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   service: GobalServiceService = inject(GobalServiceService);
+  profileService: ProfileService = inject(ProfileService);
 
   menu = false;
   navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
@@ -18,7 +21,18 @@ export class NavbarComponent {
     '../../assets/img/nav/FINDER.png',
   ];
 
-  constructor() {}
+  profile: Profile | undefined;
+  profileid: string | null;
+  isLogin: boolean = false;
+
+  constructor() {
+    this.profileid = localStorage.getItem('profile');
+  }
+
+  async ngOnInit() {
+    await this.getProfile();
+    this.isLogin = !!this.profile;
+  }
 
   navBarRow = this.navBarName.map((name, index) => ({
     name: name,
@@ -35,5 +49,25 @@ export class NavbarComponent {
 
   toProfile(page: string) {
     this.service.toPage(page);
+  }
+
+  goLogin(data: string) {
+    localStorage.setItem('isLogin', data);
+    this.service.toPage('login');
+  }
+
+  async getProfile() {
+    if (!this.profileid) {
+      return;
+    }
+
+    try {
+      this.profile = await (
+        await this.profileService.getProfile(this.profileid)
+      ).toPromise();
+    } catch (error) {
+      // Handle the error
+      console.error(error);
+    }
   }
 }
