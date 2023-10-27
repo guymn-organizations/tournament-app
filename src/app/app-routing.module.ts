@@ -37,6 +37,7 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Redirect empty path to 'profile'
           { path: 'profile', component: ProfileProfileComponent },
           { path: 'game', component: ProfileGameComponent },
           { path: 'team', component: ProfileTeamComponent },

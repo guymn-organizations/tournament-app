@@ -17,7 +17,8 @@ img {
 }
 
 .pointer,
-.logo {
+.logo,
+.profile {
   cursor: pointer;
 }
 
@@ -30,4 +31,20 @@ img {
 .hover-1:hover {
   background-size: 100% 100%;
   color: #fff;
+}
+.profile {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile img {
+  width: 100%;
+  position: absolute;
+  padding: 10px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 }

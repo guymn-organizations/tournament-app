@@ -70,4 +70,28 @@ export class NavbarComponent implements OnInit {
       console.error(error);
     }
   }
+  // ////////////////////////////////////////////////// //
+  selectedImageURL: string | ArrayBuffer | null = null;
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+
+  //   if (file) {
+  //     this.saveImage(file);
+  //   }
+  // }
+
+  // saveImage(file: File) {
+  //   console.log('Save image function called with file:', file);
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     if (e.target) {
+  //       this.selectedImageURL = e.target.result;
+  //       console.log(this.selectedImageURL);
+  //     }
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
+
+  
 }
