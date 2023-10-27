@@ -13,6 +13,7 @@
         <div class="d-flex flex-column pb-5 border-end me-4">
           <div
             class="fs-5 mb-4 list me-4"
+            [ngClass]="{'underline' : isActive(router.path)}"
             *ngFor="let router of child"
             [routerLink]="router.path"
           >

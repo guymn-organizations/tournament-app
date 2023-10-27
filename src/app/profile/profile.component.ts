@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,4 +21,17 @@ export class ProfileComponent {
       path: 'team',
     },
   ];
+
+  checkTab: string = '';
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkTab = this.router.url;
+  }
+
+  isActive(router: string): boolean {
+    this.ngOnInit();
+    return `/profile/${router}` === this.checkTab;
+  }
 }
