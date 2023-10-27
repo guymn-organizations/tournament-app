@@ -3,16 +3,19 @@ import { GobalServiceService } from '../service/gobal-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Gender, Profile } from '../model/profile';
 import { ProfileService } from '../service/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  ngOnInit(): void {}
+export class LoginComponent {
   service: GobalServiceService = inject(GobalServiceService);
+  private profileService: ProfileService = inject(ProfileService);
   isLogin: boolean = true;
+
+  errorMessage = ''; // Clear any previous error messages
 
   LoginData = {
     email: '',
@@ -29,7 +32,7 @@ export class LoginComponent implements OnInit {
     email: '',
   };
 
-  constructor(private profileService: ProfileService) {
+  constructor(private router: Router) {
     this.OnInit();
   }
 
@@ -39,10 +42,13 @@ export class LoginComponent implements OnInit {
   }
 
   showLogin() {
+    this.errorMessage = ''; // Clear any previous error messages
     localStorage.setItem('isLogin', 'true');
     this.isLogin = true;
   }
+
   showRegister() {
+    this.errorMessage = ''; // Clear any previous error messages
     localStorage.setItem('isLogin', 'false');
     this.isLogin = false;
   }
@@ -54,8 +60,22 @@ export class LoginComponent implements OnInit {
     return 'SIGN UP TO TOURNAMENT.GG';
   }
 
-  submitLoginForm() {
-    console.log(this.LoginData);
+  async submitLoginForm() {
+    (
+      await this.profileService.login(
+        this.LoginData.email,
+        this.LoginData.password
+      )
+    ).subscribe(
+      (response) => {
+        // Handle the response here
+        localStorage.setItem('profile', JSON.stringify(response));
+      },
+      (error) => {
+        this.errorMessage = error.error;
+        // Handle the error
+      }
+    );
   }
 
   async submitRegisterForm() {
@@ -72,15 +92,21 @@ export class LoginComponent implements OnInit {
       email: this.registerData.email,
     };
 
-    (await this.profileService.createProfile(newProfileData as Profile)).subscribe(
+    (
+      await this.profileService.createProfile(newProfileData as Profile)
+    ).subscribe(
       (response) => {
-        console.log('Response:', response);
         // Handle the response here
+        this.showLogin();
       },
       (error) => {
-        console.error('Error:', error);
+        this.errorMessage = error.error;
         // Handle the error
       }
     );
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 }

@@ -14,4 +14,8 @@ export class ProfileService {
   async createProfile(profile: Profile): Promise<Observable<Profile>> {
     return this.http.post<Profile>(`${this.apiUrl}/register`, profile);
   }
+
+  async login(email: string, password: string): Promise<Observable<Profile>> {
+    return this.http.get<Profile>(`${this.apiUrl}/login/${email}/${password}`);
+  }
 }

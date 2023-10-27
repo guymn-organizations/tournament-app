@@ -1,21 +1,24 @@
 .login-page {
   background: url(https://img.4gamers.com.tw/ckfinder-th/image2/auto/2021-04/rov%20%E0%B8%A5%E0%B8%87%E0%B9%81%E0%B8%A3%E0%B8%87%E0%B8%84%E0%B9%8C-210429-145224.jpg?versionId=gYjKD2MuiZiAf.WLBCnI2W5Eb2nG_osA)
-    no-repeat   fixed;
+    no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 
-  min-height: 1024px;
   height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow-y: scroll;
+
 }
 
 .white-page {
   max-width: 500px;
-  width: auto;
-  min-height: 1024px;
-  height: auto;
-  backdrop-filter: blur(14px);
+  min-height: 100%;
+  height: max-content;
+  width: 100%;
+  backdrop-filter: blur(20px);
 }
 
 .backward {
@@ -53,15 +56,19 @@ h3 {
   white-space: nowrap;
 }
 
+.bar,
+.form {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.2125;
+}
+
 .bar {
   display: flex;
   margin-left: 50px;
   margin-right: 50px;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.2125;
   font-style: italic;
-  color: #ffffff;
   white-space: nowrap;
   padding: auto;
 }
@@ -76,49 +83,26 @@ h3 {
   margin-left: 20px;
 }
 
-.line-8-83i {
-  width: 400px;
-  height: 0.3rem;
-  position: absolute;
-  left: 50px;
-  background-color: #a8a8a8;
-}
-
 .form {
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.2125;
-
-  color: #ffffff;
-
   padding: 50px;
-}
-.form img {
-  width: 25px;
-  position: relative;
-  right: 40px;
-  cursor: pointer;
 }
 
 input[type="text"],
 input[type="date"],
 input[type="password"],
-select,
-[type="password"] {
+select {
   width: 100%;
   display: inline-block;
   border: 1px solid #ccc;
   background-color: #d9d9d9;
   box-sizing: border-box;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 .form-check-input {
   --bs-form-check-bg: #d9d9d9;
 }
 .btn {
   border-radius: 20px;
-
   width: 100%;
-}
-.FandL {
-  display: flex;
 }
