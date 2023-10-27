@@ -1,5 +1,41 @@
-<div class="border border-black">
-  <div class="container">
-    <p>profile-profile works!</p>
+<div class="mb-5">
+  <div class="container row">
+    <div class="col-md-6 flex-column d-flex">
+      <label class="form-label">FIRST NAME</label>
+      <label class="bg-data ps-3 pe-3 p-1">{{ getProfile().firstName }}</label>
+    </div>
+    <div class="col-md-6 flex-column d-flex">
+      <label class="form-label">LAST NAME</label>
+      <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().lastName }} </label>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-12 flex-column d-flex">
+        <label class="form-label">PASSWORD</label>
+        <label class="bg-data ps-3 pe-3 p-1"> ********* </label>
+      </div>
+      <div class="col-md-12 flex-column d-flex">
+        <label class="form-label">BIRTHDAY</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ getProfile().birthday | date : "MMMM d, y" }}
+        </label>
+      </div>
+      <div class="col-md-12 flex-column d-flex">
+        <label class="form-label">GENDER</label>
+        <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().gender }} </label>
+      </div>
+      <div class="col-md-12 flex-column d-flex">
+        <label class="form-label">EMAIL</label>
+        <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().email }} </label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row-md-12 d-flex justify-content-center">
+        <img
+          class="m-5 p-3 border"
+          [src]="getProfile().imageProfileUrl"
+          alt=""
+        />
+      </div>
+    </div>
   </div>
 </div>

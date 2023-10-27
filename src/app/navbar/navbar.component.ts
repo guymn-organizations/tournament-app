@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
   profileid: string | null;
   isLogin: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
     this.profileid = localStorage.getItem('profile');
   }
 
@@ -38,6 +39,10 @@ export class NavbarComponent implements OnInit {
     name: name,
     img: this.navBarImg[index],
   }));
+
+  toPage(page: string) {
+    this.router.navigate([page]);
+  }
 
   clickMenu() {
     this.menu = !this.menu;
@@ -92,6 +97,4 @@ export class NavbarComponent implements OnInit {
   //   };
   //   reader.readAsDataURL(file);
   // }
-
-  
 }
