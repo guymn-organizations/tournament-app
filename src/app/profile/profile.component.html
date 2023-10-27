@@ -1,6 +1,8 @@
 <div class="border border-black">
-  <div class="container">
-    <p>profile works!</p>
+  <div class="container d-flex flex-column">
+    <label class="h1 mt-5">Profile</label>
+    <label class="h2">Manage data profile</label>
+
     <div class="d-flex flex-row">
       <div class="border border-black d-flex flex-column"> 
         <div class="btn" *ngFor="let router of child" [routerLink]="router.path">
