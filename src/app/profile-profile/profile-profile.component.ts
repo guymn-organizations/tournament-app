@@ -9,8 +9,9 @@ import { Profile } from '../model/profile';
 })
 export class ProfileProfileComponent {
   selectedImageURL: string | ArrayBuffer | null = null;
+  nav: NavbarComponent = inject(NavbarComponent);
 
-  constructor(private nav: NavbarComponent) {}
+  constructor() {}
 
   getProfile(): Profile {
     if (this.nav.profile) {

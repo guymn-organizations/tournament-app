@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
 
   profile: Profile | undefined;
   profileid: string | null;
-  isLogin: boolean = false;
 
   constructor(private router: Router) {
     this.profileid = localStorage.getItem('profile');
@@ -32,7 +31,10 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     await this.getProfile();
-    this.isLogin = !!this.profile;
+  }
+
+  isLogin(): boolean {
+    return !!this.profile;
   }
 
   navBarRow = this.navBarName.map((name, index) => ({
@@ -75,29 +77,10 @@ export class NavbarComponent implements OnInit {
       console.error(error);
     }
   }
-  // ////////////////////////////////////////////////// //
-  selectedImageURL: string | ArrayBuffer | null = null;
 
-  // onFileSelected(event: any) {
-  //   const file: File = event.target.files[0];
-
-  //   if (file) {
-  //     this.saveImage(file);
-  //   }
-  // }
-
-  // saveImage(file: File) {
-  //   console.log('Save image function called with file:', file);
-  //   const reader = new FileReader();
-  //   reader.onload = (e) => {
-  //     if (e.target) {
-  //       this.selectedImageURL = e.target.result;
-  //       console.log(this.selectedImageURL);
-  //     }
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
   logout() {
-    
+    localStorage.setItem('profile', '');
+    this.profile = undefined;
+    this.toPage('');
   }
 }

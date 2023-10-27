@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
+  nav: NavbarComponent = inject(NavbarComponent);
+
   child = [
     {
       name: 'Profile',
@@ -24,7 +27,11 @@ export class ProfileComponent {
 
   checkTab: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    if (!this.nav.profile) {
+      this.nav.toPage('login');
+    }
+  }
 
   ngOnInit() {
     this.checkTab = this.router.url;

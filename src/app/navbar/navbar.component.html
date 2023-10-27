@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="align-self-center d-none d-lg-block">
-      <ng-container *ngIf="isLogin; else NoLogin">
+      <ng-container *ngIf="isLogin(); else NoLogin">
         <ng-container *ngTemplateOutlet="IsLogin"></ng-container
       ></ng-container>
     </div>
@@ -45,7 +45,7 @@
       <label class="h4">></label>
     </div>
 
-    <ng-container *ngIf="isLogin; else NoLogin">
+    <ng-container *ngIf="isLogin(); else NoLogin">
       <ng-container *ngTemplateOutlet="IsLogin"></ng-container
     ></ng-container>
   </div>
@@ -80,6 +80,6 @@
     [routerLink]="'profile'"
   >
     &nbsp;
-    <img [src]="selectedImageURL" *ngIf="selectedImageURL" />
+    <img [src]="profile?.imageProfileUrl" *ngIf="profile?.imageProfileUrl" />
   </div>
 </ng-template>
