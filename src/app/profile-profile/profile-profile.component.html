@@ -29,12 +29,24 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="row-md-12 d-flex justify-content-center">
-        <img
-          class="m-5 p-3 border"
-          [src]="getProfile().imageProfileUrl"
-          alt=""
-        />
+      <div class="d-flex justify-content-center">
+        <div class="img border m-5">
+          <label
+            class="custom-file-input"
+            [ngClass]="{ 'd-none': selectedImageURL }"
+          >
+            <span class="custom-file-label">
+              <i class="h1 bi bi-cloud-arrow-up-fill"></i>
+            </span>
+            <input
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              (change)="onFileSelected($event)"
+            />
+          </label>
+          <img class="p-3" [src]="selectedImageURL" *ngIf="selectedImageURL" />
+        </div>
       </div>
     </div>
   </div>
