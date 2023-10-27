@@ -22,4 +22,11 @@ export class ProfileService {
   async getProfile(id: string): Promise<Observable<Profile>> {
     return this.http.get<Profile>(`${this.apiUrl}/${id}`);
   }
+
+  async editProfile(
+    id: string,
+    profile: Profile
+  ): Promise<Observable<Profile>> {
+    return this.http.put<Profile>(`${this.apiUrl}/${id}`, profile);
+  }
 }

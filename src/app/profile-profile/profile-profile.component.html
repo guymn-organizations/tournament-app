@@ -33,7 +33,7 @@
         <div class="img border m-5">
           <label
             class="custom-file-input"
-            [ngClass]="{ 'd-none': selectedImageURL }"
+            [ngClass]="{ 'd-none': getProfile().imageProfileUrl }"
           >
             <span class="custom-file-label">
               <i class="h1 bi bi-cloud-arrow-up-fill"></i>
@@ -45,9 +45,16 @@
               (change)="onFileSelected($event)"
             />
           </label>
-          <img class="p-3" [src]="selectedImageURL" *ngIf="selectedImageURL" />
+          <img
+            class="p-3"
+            [src]="getProfile().imageProfileUrl"
+            *ngIf="getProfile().imageProfileUrl"
+          />
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn bg-danger text-white" (click)="nav.logout()">LOGOUT</button>
     </div>
   </div>
 </div>

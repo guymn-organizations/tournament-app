@@ -97,4 +97,7 @@ export class NavbarComponent implements OnInit {
   //   };
   //   reader.readAsDataURL(file);
   // }
+  logout() {
+    
+  }
 }

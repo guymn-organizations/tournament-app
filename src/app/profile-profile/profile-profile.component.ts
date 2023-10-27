@@ -35,8 +35,26 @@ export class ProfileProfileComponent {
       if (e.target) {
         this.selectedImageURL = e.target.result;
         console.log(this.selectedImageURL);
+        this.uploadImage(this.selectedImageURL as string);
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  async uploadImage(image: string) {
+    try {
+      const newProfileData: Partial<Profile> = {
+        imageProfileUrl: image,
+      };
+      await (
+        await this.nav.profileService.editProfile(
+          this.nav.profile?.id as string,
+          newProfileData as Profile
+        )
+      ).toPromise();
+    } catch (error) {
+      // Handle the error
+      console.error(error);
+    }
   }
 }
