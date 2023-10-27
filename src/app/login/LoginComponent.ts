@@ -70,6 +70,7 @@ export class LoginComponent {
       (response) => {
         // Handle the response here
         localStorage.setItem('profile', JSON.stringify(response));
+        this.goHome();
       },
       (error) => {
         this.errorMessage = error.error;
