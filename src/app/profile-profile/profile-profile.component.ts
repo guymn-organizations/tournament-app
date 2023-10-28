@@ -43,6 +43,7 @@ export class ProfileProfileComponent {
 
   async uploadImage(image: string) {
     try {
+      this.nav.getProfile().imageProfileUrl = image;
       const newProfileData: Partial<Profile> = {
         imageProfileUrl: image,
       };

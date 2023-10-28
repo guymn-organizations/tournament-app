@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     await this.getProfileById();
-    console.log(this.profile);
   }
 
   getProfile(): Profile {

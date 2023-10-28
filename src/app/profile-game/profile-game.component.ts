@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Gender, Profile } from '../model/profile';
 import { ProfileProfileComponent } from '../profile-profile/profile-profile.component';
@@ -24,18 +24,26 @@ export class ProfileGameComponent {
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
-  constructor() {}
-
-  isConnect(): boolean {
-    return !!this.nav.getProfile().profileGame && this.toEdit;
+  constructor() {
+    this.toEdit = localStorage.getItem('editGame') == 'true';
   }
 
-  clickEdit() {
+  async setProfileGameData() {
+    this.profileGameData.name = this.nav.getProfile().profileGame.name;
+    this.profileGameData.openid = this.nav.getProfile().profileGame.openId;
+  }
+
+  isConnect(): boolean {
+    return !!this.nav.getProfile().profileGame && !this.toEdit;
+  }
+
+  async clickEdit() {
+    await this.setProfileGameData();
     this.toEdit = !this.toEdit;
+    localStorage.setItem('editGame', String(this.toEdit));
   }
 
   async onSubmitConnectForm() {
-    this.clickEdit();
     await this.setProfileGame();
   }
 
@@ -52,7 +60,6 @@ export class ProfileGameComponent {
     reader.onload = (e) => {
       if (e.target) {
         this.selectedImageURL = e.target.result;
-        // this.uploadImage(this.selectedImageURL as string);
       }
     };
     reader.readAsDataURL(file);
@@ -71,6 +78,7 @@ export class ProfileGameComponent {
           newProfileData as ProfileGame
         )
       ).toPromise();
+      this.nav.getProfile().imageProfileUrl = this.selectedImageURL as string;
     } catch (error) {
       // Handle the error
       console.error(error);

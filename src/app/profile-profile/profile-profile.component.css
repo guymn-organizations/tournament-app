@@ -1,3 +1,7 @@
+.profile-profile {
+  min-height: 600px;
+}
+
 .bg-data {
   background-color: #28282b;
 }
@@ -38,5 +42,3 @@ img {
   padding: 5px 15px;
   cursor: pointer;
 }
-
-

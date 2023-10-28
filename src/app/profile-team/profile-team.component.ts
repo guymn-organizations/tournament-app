@@ -8,4 +8,23 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ProfileTeamComponent {
   nav: NavbarComponent = inject(NavbarComponent);
+
+  isCreateTeam = false;
+  isFindTeam = false;
+
+  team = {
+    name: ';',
+  };
+
+  constructor() {}
+
+  clickCreateTeam() {
+    this.isCreateTeam = !this.isCreateTeam;
+  }
+
+  clickFindTeam() {
+    this.isFindTeam = !this.isFindTeam;
+  }
+
+  createTeam() {}
 }
