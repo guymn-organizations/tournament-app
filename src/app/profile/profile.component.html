@@ -1,23 +1,28 @@
 <div class="border border-black profile">
   <div class="container">
-    <div class="d-flex flex-column header container">
+    <div class="d-lg-flex flex-column header container d-none">
       <label class="h1 mt-5">Profile</label>
       <label class="h2 mb-4">Manage data profile</label>
     </div>
 
     <div class="text-white">
-      <div class="border-bottom mb-4">
+      <div class="border-bottom  d-none d-lg-flex">
         <label class="fs-5 underline border-2">Manage Profile</label>
       </div>
-      <div class="d-flex flex-row">
-        <div class="d-flex flex-column pb-5 border-end me-4">
+      <div class="d-flex flex-lg-row mt-4 flex-column">
+        <div class="d-flex flex-column pb-5 border-lg-end me-4">
           <div
-            class="fs-5 mb-4 list me-4"
+            class="fs-5 mb-4 list me-4 "
             [ngClass]="{'underline' : isActive(router.path)}"
             *ngFor="let router of child"
             [routerLink]="router.path"
           >
             {{ router.name }}
+          </div>
+          <div class="mt-auto d-flex justify-content-start">
+            <button class="btn bg-danger text-white" (click)="nav.logout()">
+              LOGOUT
+            </button>
           </div>
         </div>
         <div class="flex-fill"><router-outlet></router-outlet></div>

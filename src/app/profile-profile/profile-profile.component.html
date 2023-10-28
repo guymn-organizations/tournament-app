@@ -1,34 +1,34 @@
 <div class="mb-5">
   <div class="container row">
-    <div class="col-md-6 flex-column d-flex">
+    <div class="col-12 col-lg-6 flex-column d-flex">
       <label class="form-label">FIRST NAME</label>
       <label class="bg-data ps-3 pe-3 p-1">{{ getProfile().firstName }}</label>
     </div>
-    <div class="col-md-6 flex-column d-flex">
+    <div class="col-12 col-lg-6 flex-column d-flex">
       <label class="form-label">LAST NAME</label>
       <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().lastName }} </label>
     </div>
-    <div class="col-md-6">
-      <div class="col-md-12 flex-column d-flex">
+    <div class="col-12 col-lg-6">
+      <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">PASSWORD</label>
         <label class="bg-data ps-3 pe-3 p-1"> ********* </label>
       </div>
-      <div class="col-md-12 flex-column d-flex">
+      <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">BIRTHDAY</label>
         <label class="bg-data ps-3 pe-3 p-1">
           {{ getProfile().birthday | date : "MMMM d, y" }}
         </label>
       </div>
-      <div class="col-md-12 flex-column d-flex">
+      <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">GENDER</label>
         <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().gender }} </label>
       </div>
-      <div class="col-md-12 flex-column d-flex">
+      <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">EMAIL</label>
         <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().email }} </label>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6">
       <div class="d-flex justify-content-center">
         <div class="img border m-5">
           <label
@@ -52,9 +52,6 @@
           />
         </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-end">
-      <button class="btn bg-danger text-white" (click)="nav.logout()">LOGOUT</button>
     </div>
   </div>
 </div>
