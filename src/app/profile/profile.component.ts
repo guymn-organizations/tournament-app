@@ -8,6 +8,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
+  title: string = 'Profile';
+  discription: string = 'Manage data profile';
+
   nav: NavbarComponent = inject(NavbarComponent);
 
   child = [

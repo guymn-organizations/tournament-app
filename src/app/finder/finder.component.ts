@@ -7,6 +7,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./finder.component.css'],
 })
 export class FinderComponent {
+  title: string = 'Finder';
+  discription: string = 'Find player or team to join';
+
   childName = [
     {
       router: 'player',
@@ -30,6 +33,4 @@ export class FinderComponent {
     this.ngOnInit();
     return `/finder/${router}` === this.checkTab;
   }
-
- 
 }

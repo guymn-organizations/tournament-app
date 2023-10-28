@@ -39,8 +39,8 @@ export class ProfileTeamComponent {
     (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
       (response) => {
         // Handle the response here
-        console.log(response);
         this.nav.getProfile().profileGame.myTeam = response;
+        this.nav.updateProfile();
       },
       (error) => {
         console.log(error);
@@ -53,7 +53,6 @@ export class ProfileTeamComponent {
     (await this.nav.teamService.getTeamById(this.teamData.id)).subscribe(
       (response) => {
         // Handle the response here
-        console.log(response);
         this.nav.getProfile().profileGame.myTeam = response;
         this.nav.updateProfile();
       },

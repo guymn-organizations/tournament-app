@@ -3,11 +3,6 @@
   color: #fff;
 }
 
-.header {
-  background-image: url(https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg);
-  background-position: center;
-}
-
 .list {
   cursor: pointer;
   border-bottom: 2px solid #15161b;
