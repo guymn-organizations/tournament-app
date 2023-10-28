@@ -1,5 +1,65 @@
-<div class="border border-black">
-  <div class="container">
-    <p>profile-profile works!</p>
+<div class="mb-5">
+  <div class="container row">
+    <div class="col-12 col-lg-6 flex-column d-flex">
+      <label class="form-label">FIRST NAME</label>
+      <label class="bg-data ps-3 pe-3 p-1">{{
+        nav.getProfile().firstName
+      }}</label>
+    </div>
+    <div class="col-12 col-lg-6 flex-column d-flex">
+      <label class="form-label">LAST NAME</label>
+      <label class="bg-data ps-3 pe-3 p-1">
+        {{ nav.getProfile().lastName }}
+      </label>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">PASSWORD</label>
+        <label class="bg-data ps-3 pe-3 p-1"> ********* </label>
+      </div>
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">BIRTHDAY</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().birthday | date : "MMMM d, y" }}
+        </label>
+      </div>
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">GENDER</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().gender }}
+        </label>
+      </div>
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">EMAIL</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().email }}
+        </label>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="d-flex justify-content-center">
+        <div class="img border m-5">
+          <label
+            class="custom-file-input"
+            [ngClass]="{ 'd-none': nav.getProfile().imageProfileUrl }"
+          >
+            <span class="custom-file-label">
+              <i class="h1 bi bi-cloud-arrow-up-fill"></i>
+            </span>
+            <input
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              (change)="onFileSelected($event)"
+            />
+          </label>
+          <img
+            class="p-3"
+            [src]="nav.getProfile().imageProfileUrl"
+            *ngIf="nav.getProfile().imageProfileUrl"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </div>

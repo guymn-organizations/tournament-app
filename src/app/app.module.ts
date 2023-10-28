@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/LoginComponent';
 import { RegisterComponent } from './register/register.component';
 import { LeaugesComponent } from './leauges/leauges.component';
 import { ScrimsComponent } from './scrims/scrims.component';
@@ -21,6 +21,7 @@ import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
     LeaugesdetailComponent,
     LeaugesTeamComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -2,69 +2,84 @@
   <div class="d-flex justify-content-between container align-self-center">
     <div class="d-flex flex-row align-self-center">
       <div class="m-2 p-3 align-self-center">
-        <label class="navbar-brand" routerLink="">
+        <label class="navbar-brand" (click)="clickMenu()" routerLink="">
           <img src="../../assets/img/logo.png" class="logo"
         /></label>
       </div>
       <div class="d-none d-lg-flex flex-row align-self-center">
         <div
-          class="m-2 p-3 d-flex flex-column align-items-center"
+          class="m-2 p-3 d-flex flex-column align-items-center pointer"
           [routerLink]="nav.name"
           *ngFor="let nav of navBarRow"
         >
           <div>
             <img [src]="nav.img" />
           </div>
-          <label class="text-uppercase">{{ nav.name }}</label>
+          <label class="text-uppercase pointer">{{ nav.name }}</label>
         </div>
       </div>
     </div>
-    <div class="d-flex flex-row align-self-center">
-      <button
-        type="button"
-        class="btn btn-outline-danger font-italic m-2 d-none d-lg-block"
-        (click)="service.toPage('login')"
-      >
-        LOG IN
-      </button>
-      <button
-        type="button"
-        class="btn btn-danger font-italic m-2 d-none d-lg-block"
-      >
-        SIGN UP
-      </button>
-      <div (click)="clickMenu()">
-        <i class="btn bi bi-list d-lg-none d-block"></i>
-      </div>
+    <div class="align-self-center d-none d-lg-block">
+      <ng-container *ngIf="isLogin(); else NoLogin">
+        <ng-container *ngTemplateOutlet="IsLogin"></ng-container
+      ></ng-container>
+    </div>
+    <div (click)="clickMenu()" class="align-self-center d-lg-none">
+      <i class="btn bi bi-list d-lg-none d-block"></i>
     </div>
   </div>
 </div>
 
 <div
-  class="bg-light border-top d-block d-lg-none"
+  class="bg-light border-top d-block d-lg-none position-absolute start-0 end-0"
   [ngClass]="{ 'd-none': !menu }"
 >
   <div class="d-flex flex-column align-self-center container">
     <div
-      class="m-2 d-flex flex-row justify-content-between border-bottom pb-1"
+      class="p-2 d-flex flex-row justify-content-between align-items-center border-bottom pb-1 pointer hover-1"
       *ngFor="let nav of navBarName"
+      (click)="clickMenu()"
+      [routerLink]="nav"
     >
-      <label>{{ nav }}</label>
-      <label>></label>
+      <label class="text-uppercase">{{ nav }}</label>
+      <label class="h4">></label>
     </div>
-    <div class="d-flex justify-content-between container">
-      <button
-        type="button"
-        class="btn btn-outline-danger font-italic m-2"
-        (click)="service.toPage('login')"
-      >
-        LOG IN
-      </button>
-      <button type="button" class="btn btn-danger font-italic m-2">
-        SIGN UP
-      </button>
-    </div>
+
+    <ng-container *ngIf="isLogin(); else NoLogin">
+      <ng-container *ngTemplateOutlet="IsLogin"></ng-container
+    ></ng-container>
   </div>
 </div>
 
 <router-outlet></router-outlet>
+
+<!-- -------------------------- -->
+
+<ng-template #NoLogin>
+  <div class="d-flex justify-content-between">
+    <button
+      type="button"
+      class="btn btn-outline-danger font-italic m-2"
+      (click)="goLogin('true')"
+    >
+      LOG IN
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger font-italic m-2"
+      (click)="goLogin('false')"
+    >
+      SIGN UP
+    </button>
+  </div>
+</ng-template>
+<ng-template #IsLogin>
+  <div
+    class="border border-danger rounded-circle profile bg-danger bg-gradient m-auto mt-2 mb-2"
+    (click)="clickMenu()"
+    [routerLink]="'profile'"
+  >
+    &nbsp;
+    <img [src]="profile?.imageProfileUrl" *ngIf="profile?.imageProfileUrl" />
+  </div>
+</ng-template>
