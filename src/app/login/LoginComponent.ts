@@ -55,9 +55,9 @@ export class LoginComponent {
 
   h3(): string {
     if (this.isLogin == true) {
-      return 'LOG IN TO TOURNAMENT.GG';
+      return 'LOGIN TO TOURNAMENT.GG';
     }
-    return 'SIGN UP TO TOURNAMENT.GG';
+    return 'REGISTER TO TOURNAMENT.GG';
   }
 
   async submitLoginForm() {
