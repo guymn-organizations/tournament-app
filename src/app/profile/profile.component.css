@@ -7,10 +7,15 @@
   cursor: pointer;
   border-bottom: 2px solid #15161b;
   padding-right: 50px;
+  transition: 0.4s;
 }
 
 .list:hover {
   border-bottom: 2px solid #00c2ff;
+}
+
+.logout:hover {
+  border-bottom: 2px solid #ff0000;
 }
 
 .underline {

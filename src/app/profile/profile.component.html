@@ -12,15 +12,21 @@
           style="min-width: fit-content"
         >
           <div
-            class="fs-5 mb-4 list me-4"
+            class="fs-5 mb-4 list "
             [ngClass]="{ underline: isActive(router.path) }"
             *ngFor="let router of child"
             [routerLink]="router.path"
           >
             {{ router.name }}
           </div>
-          <div class="fs-5 mb-4 list me-4" (click)="nav.logout()">Logout</div>
+          <div
+            class="fs-5 mb-4 list logout  text-danger"
+            (click)="nav.logout()"
+          >
+            Logout
+          </div>
         </div>
+        <div class="border-start d-none d-lg-block ms-2 me-5"></div>
         <div class="flex-fill outlet"><router-outlet></router-outlet></div>
       </div>
     </div>
