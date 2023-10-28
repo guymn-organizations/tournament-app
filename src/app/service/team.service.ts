@@ -14,4 +14,8 @@ export class TeamService {
   async createTeam(team: Team): Promise<Observable<Team>> {
     return this.http.post<Team>(`${this.apiUrl}`, team);
   }
+
+  async getTeamById(id: string): Promise<Observable<Team>> {
+    return this.http.get<Team>(`${this.apiUrl}/${id}`);
+  }
 }

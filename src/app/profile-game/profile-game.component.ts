@@ -45,6 +45,7 @@ export class ProfileGameComponent {
 
   async onSubmitConnectForm() {
     await this.setProfileGame();
+    this.clickEdit();
   }
 
   onFileSelected(event: any) {
@@ -66,23 +67,12 @@ export class ProfileGameComponent {
   }
 
   async setProfileGame() {
-    try {
-      const newProfileData: Partial<ProfileGame> = {
-        name: this.profileGameData.name,
-        openId: this.profileGameData.openid,
-        imageGameUrl: this.selectedImageURL as string,
-      };
-      await (
-        await this.nav.profileService.setProfileGame(
-          this.nav.profile?.id as string,
-          newProfileData as ProfileGame
-        )
-      ).toPromise();
-      this.nav.getProfile().imageProfileUrl = this.selectedImageURL as string;
-    } catch (error) {
-      // Handle the error
-      console.error(error);
-    }
+    this.nav.getProfile().profileGame.imageGameUrl = this
+      .selectedImageURL as string;
+    this.nav.getProfile().profileGame.name = this.profileGameData.name;
+    this.nav.getProfile().profileGame.openId = this.profileGameData.openid;
+
+    this.nav.updateProfile();
   }
 
   getGenderIcon(): string {

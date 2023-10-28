@@ -23,6 +23,27 @@
           create team
         </button>
       </form>
+
+      <form #findTeamForm="ngForm" (ngSubmit)="getTeamByCode()">
+        <label for="">Find team by code </label>
+        <input
+          type="text"
+          id="team-id"
+          name="team-id"
+          [(ngModel)]="teamData.id"
+          required
+        />
+        <label class="text-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </label>
+        <button
+          type="submit"
+          [disabled]="!findTeamForm.form.valid"
+          class="text-uppercase text-white btn btn-success"
+        >
+          find team
+        </button>
+      </form>
     </div>
   </div>
 </div>

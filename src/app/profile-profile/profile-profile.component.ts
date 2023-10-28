@@ -42,20 +42,7 @@ export class ProfileProfileComponent {
   }
 
   async uploadImage(image: string) {
-    try {
-      this.nav.getProfile().imageProfileUrl = image;
-      const newProfileData: Partial<Profile> = {
-        imageProfileUrl: image,
-      };
-      await (
-        await this.nav.profileService.editProfile(
-          this.nav.profile?.id as string,
-          newProfileData as Profile
-        )
-      ).toPromise();
-    } catch (error) {
-      // Handle the error
-      console.error(error);
-    }
+    this.nav.getProfile().imageProfileUrl = image;
+    await this.nav.updateProfile();
   }
 }

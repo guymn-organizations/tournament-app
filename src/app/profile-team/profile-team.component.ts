@@ -18,37 +18,49 @@ export class ProfileTeamComponent {
     name: '',
   };
 
+  errorMessage = '';
+
   constructor() {}
 
   clickCreateTeam() {
+    this.errorMessage = '';
     this.isCreateTeam = !this.isCreateTeam;
   }
 
   clickFindTeam() {
+    this.errorMessage = '';
     this.isFindTeam = !this.isFindTeam;
   }
 
   async createTeam() {
-    try {
-      const newTeamData: Partial<Team> = {
-        name: this.teamData.name,
-      };
-      await (
-        await this.nav.teamService.createTeam(newTeamData as Team)
-      ).subscribe(
-        (response) => {
-          // Handle the response here
-          console.log(response);
-          this.nav.getProfile().profileGame.myTeam = response;
-        },
-        (error) => {
-          console.log(error);
-          // Handle the error
-        }
-      );
-    } catch (error) {
-      // Handle the error
-      console.error(error);
-    }
+    const newTeamData: Partial<Team> = {
+      name: this.teamData.name,
+    };
+    (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
+      (response) => {
+        // Handle the response here
+        console.log(response);
+        this.nav.getProfile().profileGame.myTeam = response;
+      },
+      (error) => {
+        console.log(error);
+        // Handle the error
+      }
+    );
+  }
+
+  async getTeamByCode() {
+    (await this.nav.teamService.getTeamById(this.teamData.id)).subscribe(
+      (response) => {
+        // Handle the response here
+        console.log(response);
+        this.nav.getProfile().profileGame.myTeam = response;
+        this.nav.updateProfile();
+      },
+      (error) => {
+        this.errorMessage = error.error;
+        // Handle the error
+      }
+    );
   }
 }

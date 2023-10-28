@@ -1,4 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
@@ -24,7 +31,7 @@ export class NavbarComponent implements OnInit {
     '../../assets/img/nav/FINDER.png',
   ];
 
-  profile: Profile | undefined;
+  @Input() profile: Profile | undefined;
   profileid: string | null;
 
   constructor(private router: Router) {
@@ -92,5 +99,21 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem('profile', '');
     this.profile = undefined;
     this.toPage('');
+  }
+
+  async updateProfile() {
+    (
+      await this.profileService.editProfile(
+        this.profile?.id as string,
+        this.profile as Profile
+      )
+    ).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
