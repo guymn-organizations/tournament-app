@@ -20,6 +20,7 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
+import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component'
     ProfileTeamComponent,
     ProfileProfileComponent,
     LeaugesdetailComponent,
+    LeaugesTeamComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

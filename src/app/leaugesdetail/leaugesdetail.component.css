@@ -13,11 +13,14 @@
 }
 
 .bar a {
+    color: #000000;
+    text-decoration: none;
     cursor: pointer;
+    
 }
 
 .line-8-83i {
-    width: 300px;
+    width: 700px;
     height: 0.2rem;
     position: absolute;
     
@@ -69,12 +72,16 @@
 .detail-wrapper{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-    grid-column-gap: 50px;
+    grid-column-gap: 100px;
     grid-row-gap:6px;
 }
 .btn{
     border-radius: 50px;
     width: 100%;
+}
+.bar a:hover{
+    text-shadow: 2px 2px #000000;
+    color: rgb(206, 0, 0);
 }
 
 /* เพิ่ม CSS Media Query เพื่อปรับขนาด status-bar ในหน้าจอที่มีความกว้างต่าง ๆ */
@@ -100,6 +107,9 @@
     }
     .detail{
         font-size: 12px;
-    width: 300px;
+        width: 300px;
+    }
+    .line-8-83i{
+        width: 300px;
     }
   }

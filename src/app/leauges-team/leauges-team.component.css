@@ -1,0 +1,59 @@
+.body {
+    padding: 50px;
+    font-family: 'Kanit', sans-serif;
+}
+.bar {
+
+    display: flex;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.2125;
+    
+    color: #000000;
+    white-space: nowrap;
+    display: flex;
+
+}
+
+.bar a {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    
+}
+
+.line-8-83i {
+    width: 700px;
+    height: 0.2rem;
+    position: absolute;
+    
+    background-color: #777575;
+}
+
+.bar a:hover{
+    text-shadow: 2px 2px #000000;
+    color: rgb(206, 0, 0);
+}
+
+/* เพิ่ม CSS Media Query เพื่อปรับขนาด status-bar ในหน้าจอที่มีความกว้างต่าง ๆ */
+@media (max-width: 768px) {
+    .body {
+        padding: 20px;
+    }
+    .line-8-83i{
+        width: 430px;
+    }
+    
+  }
+  
+  @media (max-width: 480px) {
+    .body {
+        padding: 20px;
+    }
+   
+   
+    .line-8-83i{
+        width: 280px;
+    }
+  }
