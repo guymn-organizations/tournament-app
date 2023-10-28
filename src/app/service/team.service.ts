@@ -11,7 +11,7 @@ export class TeamService {
 
   constructor(private http: HttpClient) {}
 
-  async createTeam(profile: Team): Promise<Observable<Team>> {
-    return this.http.post<Team>(`${this.apiUrl}`, profile);
+  async createTeam(team: Team): Promise<Observable<Team>> {
+    return this.http.post<Team>(`${this.apiUrl}`, team);
   }
 }

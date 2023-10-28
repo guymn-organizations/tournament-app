@@ -6,6 +6,23 @@
     >
       <button class="btn btn-success m-2">Find team by code</button>
       <button class="btn btn-success m-2">Create team</button>
+      <form #teamForm="ngForm" (ngSubmit)="createTeam()">
+        <label for="">Name </label>
+        <input
+          type="text"
+          id="team-name"
+          name="team-name"
+          [(ngModel)]="teamData.name"
+          required
+        />
+        <button
+          type="submit"
+          [disabled]="!teamForm.form.valid"
+          class="text-uppercase text-white btn btn-success"
+        >
+          create team
+        </button>
+      </form>
     </div>
   </div>
 </div>

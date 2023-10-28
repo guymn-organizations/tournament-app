@@ -3,6 +3,7 @@ import { GobalServiceService } from '../service/gobal-service.service';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
 import { Router } from '@angular/router';
+import { TeamService } from '../service/team.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   service: GobalServiceService = inject(GobalServiceService);
   profileService: ProfileService = inject(ProfileService);
+  teamService: TeamService = inject(TeamService);
 
   menu = false;
   navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
