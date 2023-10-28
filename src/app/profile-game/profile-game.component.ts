@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Profile } from '../model/profile';
 import { ProfileProfileComponent } from '../profile-profile/profile-profile.component';
+import { ProfileService } from '../service/profile.service';
+import { ProfileGame } from '../model/profile-game';
+import { connect } from 'rxjs';
 
 @Component({
   selector: 'app-profile-game',
@@ -10,6 +13,7 @@ import { ProfileProfileComponent } from '../profile-profile/profile-profile.comp
 })
 export class ProfileGameComponent {
   nav: NavbarComponent = inject(NavbarComponent);
+  profileService: ProfileService = inject(ProfileService);
 
   profileGameData = {
     name: '',
@@ -22,7 +26,8 @@ export class ProfileGameComponent {
     return !!this.nav.getProfile().profileGame;
   }
 
-  onSubmitConnectForm() {
+  async onSubmitConnectForm() {
+    await this.setProfileGame();
     console.log(this.profileGameData);
   }
 
@@ -43,5 +48,24 @@ export class ProfileGameComponent {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  async setProfileGame() {
+    try {
+      const newProfileData: Partial<ProfileGame> = {
+        name: this.profileGameData.name,
+        openId: this.profileGameData.openid,
+        imageGameUrl: this.selectedImageURL as string,
+      };
+      await (
+        await this.nav.profileService.setProfileGame(
+          this.nav.profile?.id as string,
+          newProfileData as ProfileGame
+        )
+      ).toPromise();
+    } catch (error) {
+      // Handle the error
+      console.error(error);
+    }
   }
 }

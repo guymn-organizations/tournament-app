@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../model/profile';
+import { ProfileGame } from '../model/profile-game';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,15 @@ export class ProfileService {
     profile: Profile
   ): Promise<Observable<Profile>> {
     return this.http.put<Profile>(`${this.apiUrl}/${id}`, profile);
+  }
+
+  async setProfileGame(
+    id: string,
+    profileGame: ProfileGame
+  ): Promise<Observable<Profile>> {
+    return this.http.put<Profile>(
+      `${this.apiUrl}/${id}/set_profile_game`,
+      profileGame
+    );
   }
 }
