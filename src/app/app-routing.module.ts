@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/LoginComponent';
 import { RegisterComponent } from './register/register.component';
@@ -14,6 +14,7 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 
 const routes: Routes = [
   {
@@ -21,9 +22,14 @@ const routes: Routes = [
     component: NavbarComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'leauges', component: LeaugesComponent },
+      {
+        path: 'leauges',
+        component: LeaugesComponent,
+      },
+      { path: 'leauges/:leaugesid', component: LeaugesdetailComponent },
       { path: 'scrims', component: ScrimsComponent },
       { path: 'tournament', component: TournamentComponent },
+
       {
         path: 'finder',
         component: FinderComponent,

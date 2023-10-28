@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-leauges',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./leauges.component.css']
 })
 export class LeaugesComponent {
-
+  nav: NavbarComponent = inject(NavbarComponent);
+  
 }
