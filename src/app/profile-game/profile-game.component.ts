@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { Profile } from '../model/profile';
+import { Gender, Profile } from '../model/profile';
 import { ProfileProfileComponent } from '../profile-profile/profile-profile.component';
 import { ProfileService } from '../service/profile.service';
 import { ProfileGame } from '../model/profile-game';
@@ -20,15 +20,23 @@ export class ProfileGameComponent {
     openid: '',
   };
 
+  toEdit = true;
+
   selectedImageURL: string | ArrayBuffer | null = null;
 
+  constructor() {}
+
   isConnect(): boolean {
-    return !!this.nav.getProfile().profileGame;
+    return !!this.nav.getProfile().profileGame && this.toEdit;
+  }
+
+  clickEdit() {
+    this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
+    this.clickEdit();
     await this.setProfileGame();
-    console.log(this.profileGameData);
   }
 
   onFileSelected(event: any) {
@@ -66,6 +74,14 @@ export class ProfileGameComponent {
     } catch (error) {
       // Handle the error
       console.error(error);
+    }
+  }
+
+  getGenderIcon(): string {
+    if (this.nav.profile?.gender == Gender.Female) {
+      return ' bi h1 m-2 bi-gender-female';
+    } else {
+      return ' bi h1 m-2 bi-gender-male';
     }
   }
 }
