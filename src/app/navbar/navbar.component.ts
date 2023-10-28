@@ -30,7 +30,15 @@ export class NavbarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.getProfile();
+    await this.getProfileById();
+  }
+
+  getProfile(): Profile {
+    if (this.profile) {
+      return this.profile;
+    }
+
+    return new Profile();
   }
 
   isLogin(): boolean {
@@ -63,7 +71,7 @@ export class NavbarComponent implements OnInit {
     this.service.toPage('login');
   }
 
-  async getProfile() {
+  async getProfileById() {
     if (!this.profileid) {
       return;
     }

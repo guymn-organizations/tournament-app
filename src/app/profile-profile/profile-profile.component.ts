@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Profile } from '../model/profile';
+import { GobalServiceService } from '../service/gobal-service.service';
 
 @Component({
   selector: 'app-profile-profile',

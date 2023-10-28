@@ -2,11 +2,15 @@
   <div class="container row">
     <div class="col-12 col-lg-6 flex-column d-flex">
       <label class="form-label">FIRST NAME</label>
-      <label class="bg-data ps-3 pe-3 p-1">{{ getProfile().firstName }}</label>
+      <label class="bg-data ps-3 pe-3 p-1">{{
+        nav.getProfile().firstName
+      }}</label>
     </div>
     <div class="col-12 col-lg-6 flex-column d-flex">
       <label class="form-label">LAST NAME</label>
-      <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().lastName }} </label>
+      <label class="bg-data ps-3 pe-3 p-1">
+        {{ nav.getProfile().lastName }}
+      </label>
     </div>
     <div class="col-12 col-lg-6">
       <div class="col-lg-12 flex-column d-flex">
@@ -16,16 +20,20 @@
       <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">BIRTHDAY</label>
         <label class="bg-data ps-3 pe-3 p-1">
-          {{ getProfile().birthday | date : "MMMM d, y" }}
+          {{ nav.getProfile().birthday | date : "MMMM d, y" }}
         </label>
       </div>
       <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">GENDER</label>
-        <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().gender }} </label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().gender }}
+        </label>
       </div>
       <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">EMAIL</label>
-        <label class="bg-data ps-3 pe-3 p-1"> {{ getProfile().email }} </label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().email }}
+        </label>
       </div>
     </div>
     <div class="col-lg-6">
@@ -33,7 +41,7 @@
         <div class="img border m-5">
           <label
             class="custom-file-input"
-            [ngClass]="{ 'd-none': getProfile().imageProfileUrl }"
+            [ngClass]="{ 'd-none': nav.getProfile().imageProfileUrl }"
           >
             <span class="custom-file-label">
               <i class="h1 bi bi-cloud-arrow-up-fill"></i>
@@ -47,8 +55,8 @@
           </label>
           <img
             class="p-3"
-            [src]="getProfile().imageProfileUrl"
-            *ngIf="getProfile().imageProfileUrl"
+            [src]="nav.getProfile().imageProfileUrl"
+            *ngIf="nav.getProfile().imageProfileUrl"
           />
         </div>
       </div>
