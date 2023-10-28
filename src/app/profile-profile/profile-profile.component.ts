@@ -31,12 +31,10 @@ export class ProfileProfileComponent {
   }
 
   saveImage(file: File) {
-    console.log('Save image function called with file:', file);
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target) {
         this.selectedImageURL = e.target.result;
-        console.log(this.selectedImageURL);
         this.uploadImage(this.selectedImageURL as string);
       }
     };

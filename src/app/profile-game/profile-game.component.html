@@ -1,7 +1,176 @@
 <div class="mb-5">
-  <div class="container position-relative profile-game">
-    <div class="position-absolute top-50 start-50 translate-middle">
-      <button class="btn btn-success m-2">Connect profilegame</button>
+  <ng-container *ngIf="isConnect(); else ConnectPage">
+    <ng-container *ngTemplateOutlet="ConnectedPage"></ng-container
+  ></ng-container>
+</div>
+
+<ng-template #ConnectPage>
+  <div class="d-flex flex-column justify-content-start profile-game">
+    <form
+      #connectForm="ngForm"
+      class="row container"
+      (ngSubmit)="onSubmitConnectForm()"
+    >
+      <div class="col-xl-3 col-12">
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="border img">
+            <img
+              class="p-3"
+              [src]="nav.getProfile().imageProfileUrl"
+              *ngIf="nav.getProfile().imageProfileUrl"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-12 mb-5">
+        <div class="col-lg-12 row align-items-center">
+          <label class="form-label col-md-3 col-2">
+            <i class="bi bi-gender-female h1 m-2"></i>
+          </label>
+          <label class="h4 form-label col-md-9 col-10 justify-content-start">
+            {{ nav.getProfile().firstName }} {{ nav.getProfile().lastName }}
+          </label>
+        </div>
+        <div class="col-lg-12 flex-column d-flex">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control bg-data ps-3 pe-3 p-1 text-white"
+            placeholder="Username in game"
+            id="username"
+            name="username"
+            [(ngModel)]="profileGameData.name"
+            required
+          />
+        </div>
+        <div class="col-lg-12 flex-column d-flex">
+          <label class="form-label">Open ID</label>
+          <input
+            type="text"
+            class="form-control bg-data ps-3 pe-3 p-1 text-white"
+            placeholder="Open ID"
+            id="openid"
+            name="openid"
+            [(ngModel)]="profileGameData.openid"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-xl-5 col-12  gameImg">
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="border img m-4">
+            <img
+              class="p-3"
+              [src]="nav.getProfile().profileGame.imageGameUrl"
+              *ngIf="!selectedImageURL"
+            />
+            <img
+              class="p-3"
+              [src]="selectedImageURL"
+              *ngIf="selectedImageURL"
+            />
+          </div>
+
+          <div class="">
+            <label class="btn btn-success mt-3 pt-0 pb-0">
+              <span>
+                <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+              </span>
+              <input
+                class="d-none"
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                (change)="onFileSelected($event)"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="mt-5 btn btn-success"
+        [disabled]="!connectForm.form.valid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #ConnectedPage>
+  <div class="d-flex flex-column justify-content-start profile-game d-">
+    <form
+      #ConnectForm="ngForm"
+      class="row container"
+      (ngSubmit)="onSubmitConnectForm()"
+    >
+      <div class="col-xl-3 col-12">
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="border img">
+            <img
+              class="p-3"
+              [src]="nav.getProfile().imageProfileUrl"
+              *ngIf="!selectedImageURL"
+            />
+            <img
+              class="p-3"
+              [src]="selectedImageURL"
+              *ngIf="selectedImageURL"
+            />
+          </div>
+
+          <div class="">
+            <label class="btn btn-danger mt-3 pt-0 pb-0">
+              <span>
+                <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+              </span>
+              <input
+                class="d-none"
+                type="file"
+                id="fileInput"
+                name="fileInput"
+                (change)="onFileSelected($event)"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-12">
+        <div class="col-lg-12 row align-items-center">
+          <label class="form-label col-md-3 col-2">
+            <i class="bi bi-gender-female h1 m-2"></i>
+          </label>
+          <label class="h4 form-label col-md-9 col-10 justify-content-start">
+            {{ nav.getProfile().firstName }} {{ nav.getProfile().lastName }}
+          </label>
+        </div>
+        <div class="col-lg-12 flex-column d-flex">
+          <label class="form-label">Name</label>
+          <input class="bg-data ps-3 pe-3 p-1" />
+        </div>
+        <div class="col-lg-12 flex-column d-flex">
+          <label class="form-label">Open ID</label>
+          <input class="bg-data ps-3 pe-3 p-1" />
+        </div>
+      </div>
+      <div class="col-xl-5 col-12">
+        <img
+          class="p-3"
+          [src]="nav.getProfile().profileGame.imageGameUrl"
+          *ngIf="!selectedImageURL"
+        />
+        <img class="p-3" [src]="selectedImageURL" *ngIf="selectedImageURL" />
+      </div>
+    </form>
+    <div class="mt-auto container">
+      <i class="h1 bi bi-chat-left-dots-fill"></i>
     </div>
   </div>
-</div>
+</ng-template>
