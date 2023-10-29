@@ -68,6 +68,11 @@
               [src]="selectedImageURL"
               *ngIf="selectedImageURL"
             />
+            <img
+              class="p-2"
+              [src]="nav.getProfileGame().imageGameUrl"
+              *ngIf="!selectedImageURL"
+            />
           </div>
 
           <div class="">
