@@ -16,11 +16,7 @@
           class="d-flex flex-column justify-content-center align-items-center"
         >
           <div class="border img">
-            <img
-              class="p-3"
-              [src]="nav.getProfile().imageProfileUrl"
-              *ngIf="nav.getProfile().imageProfileUrl"
-            />
+            <img class="p-3" [src]="nav.getProfile().imageProfileUrl" />
           </div>
         </div>
       </div>
@@ -37,7 +33,7 @@
           <label class="form-label">Name</label>
           <input
             type="text"
-            class=" bg-data ps-3 pe-3 p-1 text-white"
+            class="bg-data ps-3 pe-3 p-1 text-white"
             placeholder="Username in game"
             id="username"
             name="username"
@@ -49,7 +45,7 @@
           <label class="form-label">Open ID</label>
           <input
             type="text"
-            class=" bg-data ps-3 pe-3 p-1 text-white"
+            class="bg-data ps-3 pe-3 p-1 text-white"
             placeholder="Open ID"
             id="openid"
             name="openid"
@@ -67,11 +63,6 @@
               class="p-2"
               [src]="selectedImageURL"
               *ngIf="selectedImageURL"
-            />
-            <img
-              class="p-2"
-              [src]="nav.getProfileGame().imageGameUrl"
-              *ngIf="!selectedImageURL"
             />
           </div>
 

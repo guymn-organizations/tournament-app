@@ -36,6 +36,7 @@ export class ProfileGameComponent {
   }
 
   async clickEdit() {
+    this.selectedImageURL = this.nav.getProfileGame().imageGameUrl;
     await this.setProfileGameData();
     this.toEdit = !this.toEdit;
   }
