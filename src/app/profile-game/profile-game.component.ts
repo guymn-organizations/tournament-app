@@ -20,13 +20,11 @@ export class ProfileGameComponent {
     openid: '',
   };
 
-  toEdit = true;
+  toEdit = false;
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
-  constructor() {
-    this.toEdit = localStorage.getItem('editGame') == 'true';
-  }
+  constructor() {}
 
   async setProfileGameData() {
     this.profileGameData.name = this.nav.getProfile().profileGame.name;
@@ -40,7 +38,6 @@ export class ProfileGameComponent {
   async clickEdit() {
     await this.setProfileGameData();
     this.toEdit = !this.toEdit;
-    localStorage.setItem('editGame', String(this.toEdit));
   }
 
   async onSubmitConnectForm() {
