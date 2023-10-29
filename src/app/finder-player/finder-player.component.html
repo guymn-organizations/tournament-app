@@ -76,7 +76,7 @@
       <div class="d-flex flex-column p-4"> <!-- Added padding -->
         <div class="d-flex flex-row align-items-center"> <!-- Added flex and alignment -->
           <div class="col-md-6 col-sm-12">
-            <input type="text" class="form-control m-2" [(ngModel)]="Name"> <!-- Added margin -->
+            <input type="text" class="form-control m-2"> <!-- Added margin -->
           </div>
           <div class="col-md-6 col-sm-12 text-md-end">
             <button type="button" class="btn btn-success m-2">Post Find Team</button>
@@ -85,10 +85,9 @@
         </div>
       </div>
       <div class="Box-player">
-        <div *ngFor="let user of users " class="my-3">
-          <div>Profile: {{user.image}}</div>
-          <div>Lane: {{user.name}}</div>
-          <div>Position: {{user.poolhero}}</div>
+        <div *ngFor="let user of  " class="my-3">
+
+        
         </div>
       </div>
     </div>

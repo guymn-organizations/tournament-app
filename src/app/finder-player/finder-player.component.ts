@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { PlayerpostService } from '../service/playerpost.service';
 
 @Component({
   selector: 'app-finder-player',
@@ -6,33 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./finder-player.component.css']
 })
 export class FinderPlayerComponent implements OnInit {
-
-  Name : String = '';
-  users = [
-    {
-      image : "",
-      name: 'DSL',
-      poolhero: '75+'
-    },
-    {
-      image : "",
-      name: 'JG',
-      poolhero: '75+'
-    },
-    {
-      image : "",
-      name: 'MID',
-      poolhero: '75+'
-    },
-    {
-      image : "",
-      name: 'SUP',
-      poolhero: '75+'
-    },
-
-
-  ]
-
+  service: PlayerpostService = inject(PlayerpostService);
+  
   ngOnInit(): void {
    
   }
