@@ -1,3 +1,21 @@
 .profile-team {
   min-height: 600px;
 }
+
+.bg-data {
+  background-color: #28282b;
+}
+
+img {
+  width: 100%;
+}
+
+.bi-person-fill-add {
+  font-size: 100px;
+  cursor: pointer;
+}
+
+.position {
+  height: 326px;
+  width: 200px;
+}

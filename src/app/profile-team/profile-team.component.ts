@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
+import { Profile } from '../model/profile';
 
 @Component({
   selector: 'app-profile-team',
@@ -17,6 +18,29 @@ export class ProfileTeamComponent {
     id: '',
     name: '',
   };
+
+  position = [
+    {
+      name: 'DARK SLAYER LANE',
+      player: this.nav.getMyTeam().DSL,
+    },
+    {
+      name: 'JUNGLE',
+      player: this.nav.getMyTeam().JG,
+    },
+    {
+      name: 'MID LANE',
+      player: this.nav.getMyTeam().MID,
+    },
+    {
+      name: 'ABYSSAL DRAGON LANE',
+      player: this.nav.getMyTeam().ADL,
+    },
+    {
+      name: 'SUPPORT',
+      player: this.nav.getMyTeam().SUP,
+    },
+  ];
 
   errorMessage = '';
 
@@ -61,5 +85,10 @@ export class ProfileTeamComponent {
         // Handle the error
       }
     );
+  }
+
+  toLeavTeam() {
+    this.nav.getProfileGame().myTeam = null;
+    this.nav.updateProfile();
   }
 }

@@ -1,49 +1,116 @@
 <div class="mb-5">
   <div class="container position-relative profile-team">
-    <div
-      [ngClass]="{ 'd-none': nav.profile?.profileGame?.myTeam }"
-      class="position-absolute top-50 start-50 translate-middle d-flex flex-column"
-    >
-      <button class="btn btn-success m-2">Find team by code</button>
-      <button class="btn btn-success m-2">Create team</button>
-      <form #teamForm="ngForm" (ngSubmit)="createTeam()">
-        <label for="">Name </label>
-        <input
-          type="text"
-          id="team-name"
-          name="team-name"
-          [(ngModel)]="teamData.name"
-          required
-        />
-        <button
-          type="submit"
-          [disabled]="!teamForm.form.valid"
-          class="text-uppercase text-white btn btn-success"
-        >
-          create team
-        </button>
-      </form>
-
-      <form #findTeamForm="ngForm" (ngSubmit)="getTeamByCode()">
-        <label for="">Find team by code </label>
-        <input
-          type="text"
-          id="team-id"
-          name="team-id"
-          [(ngModel)]="teamData.id"
-          required
-        />
-        <label class="text-danger" *ngIf="errorMessage">
-          {{ errorMessage }}
-        </label>
-        <button
-          type="submit"
-          [disabled]="!findTeamForm.form.valid"
-          class="text-uppercase text-white btn btn-success"
-        >
-          find team
-        </button>
-      </form>
+    <div class="mb-5">
+      <ng-container *ngIf="nav.profile?.profileGame?.myTeam; else noTeam">
+        <ng-container *ngTemplateOutlet="isTeam"></ng-container
+      ></ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #isTeam>
+  <div class="column">
+    <div class="col-12 row align-items-end">
+      <div
+        id="team-name"
+        class="fs-1 col-12 col-lg-5"
+        style="width: fit-content"
+      >
+        {{ nav.profile?.profileGame?.myTeam?.name }}
+      </div>
+      <div
+        id="team-id"
+        class="fs-6 ms-0 ms-lg-3 mb-2 text-secondary col-lg-5 col-10"
+      >
+        #{{ nav.profile?.profileGame?.myTeam?.id }}
+      </div>
+      <div class="fs-2 ms-auto col-lg-1 col-1">
+        <i class="bi bi-chat-left-dots-fill"> </i>
+      </div>
+    </div>
+    <div
+      class="col-12 mt-5 main-team d-flex flex-row justify-content-evenly"
+      style="flex-wrap: wrap"
+    >
+      <div
+        class="border border-success d-flex flex-column align-items-center justify-content-end bg-white"
+        *ngFor="let mem of position"
+      >
+        <div
+          class="overflow-hidden position border-bottom border-success d-flex align-items-center flex-column justify-content-end"
+        >
+          <div class="text-dark fw-bolder m-auto">
+            <img
+              [ngClass]="{ 'd-none': !mem?.player }"
+              [src]="mem?.player?.imageProfileUrl"
+              alt=""
+            />
+            <i
+              [ngClass]="{ 'd-none': mem?.player }"
+              class="bi bi-person-fill-add text-success"
+            ></i>
+          </div>
+          <div
+            class="text-dark fw-bolder fs-4 p-2 border-top border-success text-center"
+            style="width: 100%"
+            [ngClass]="{ 'border-top': mem?.player?.profileGame?.name }"
+          >
+            <div>{{ mem?.player?.profileGame?.name }}</div>
+          </div>
+        </div>
+        <label class="text-success fw-bold">{{ mem.name }}</label>
+      </div>
+    </div>
+    <div class="col-12 mt-5 row">
+      <button class="btn btn-danger ms-auto col-2" (click)="toLeavTeam()">Leave team</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noTeam>
+  <div
+    [ngClass]="{ 'd-none': nav.profile?.profileGame?.myTeam }"
+    class="position-absolute top-50 start-50 translate-middle d-flex flex-column"
+  >
+    <button class="btn btn-success m-2">Find team by code</button>
+    <button class="btn btn-success m-2">Create team</button>
+    <form #teamForm="ngForm" (ngSubmit)="createTeam()">
+      <label for="">Name </label>
+      <input
+        type="text"
+        id="team-name"
+        name="team-name"
+        [(ngModel)]="teamData.name"
+        required
+      />
+      <button
+        type="submit"
+        [disabled]="!teamForm.form.valid"
+        class="text-uppercase text-white btn btn-success"
+      >
+        create team
+      </button>
+    </form>
+
+    <form #findTeamForm="ngForm" (ngSubmit)="getTeamByCode()">
+      <label for="">Find team by code </label>
+      <input
+        type="text"
+        id="team-id"
+        name="team-id"
+        [(ngModel)]="teamData.id"
+        required
+      />
+      <label class="text-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </label>
+      <button
+        type="submit"
+        [disabled]="!findTeamForm.form.valid"
+        class="text-uppercase text-white btn btn-success"
+      >
+        find team
+      </button>
+    </form>
+  </div>
+</ng-template>

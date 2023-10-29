@@ -11,6 +11,8 @@ import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
 import { Router } from '@angular/router';
 import { TeamService } from '../service/team.service';
+import { ProfileGame } from '../model/profile-game';
+import { Team } from '../model/team';
 
 @Component({
   selector: 'app-navbar',
@@ -48,6 +50,22 @@ export class NavbarComponent implements OnInit {
     }
 
     return new Profile();
+  }
+
+  getProfileGame(): ProfileGame {
+    if (this.profile?.profileGame) {
+      return this.profile.profileGame;
+    }
+
+    return new ProfileGame();
+  }
+
+  getMyTeam(): Team {
+    if (this.profile?.profileGame.myTeam) {
+      return this.profile.profileGame.myTeam;
+    }
+
+    return new Team();
   }
 
   isLogin(): boolean {
