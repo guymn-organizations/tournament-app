@@ -42,17 +42,18 @@ export class ProfileTeamComponent {
     },
   ];
 
-  errorMessage = '';
+  errorMessageCreate = '';
+  errorMessageFind = '';
 
   constructor() {}
 
   clickCreateTeam() {
-    this.errorMessage = '';
+    this.errorMessageCreate = '';
     this.isCreateTeam = !this.isCreateTeam;
   }
 
   clickFindTeam() {
-    this.errorMessage = '';
+    this.errorMessageFind = '';
     this.isFindTeam = !this.isFindTeam;
   }
 
@@ -67,7 +68,7 @@ export class ProfileTeamComponent {
         this.nav.updateProfile();
       },
       (error) => {
-        console.log(error);
+        this.errorMessageCreate = error.error;
         // Handle the error
       }
     );
@@ -81,7 +82,7 @@ export class ProfileTeamComponent {
         this.nav.updateProfile();
       },
       (error) => {
-        this.errorMessage = error.error;
+        this.errorMessageFind = error.error;
         // Handle the error
       }
     );
