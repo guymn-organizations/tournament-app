@@ -1,29 +1,85 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
+import { ProfileService } from '../service/profile.service';
+import { Profile } from '../model/profile';
+import { Router } from '@angular/router';
+import { TeamService } from '../service/team.service';
+import { ProfileGame } from '../model/profile-game';
+import { Team } from '../model/team';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   service: GobalServiceService = inject(GobalServiceService);
+  profileService: ProfileService = inject(ProfileService);
+  teamService: TeamService = inject(TeamService);
 
   menu = false;
   navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
   navBarImg = [
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140864357437570/370257351_657778326338320_3000149127718713003_n.png?ex=653e7e58&is=652c0958&hm=85b1d127e95ed383906c426ffc1b965388762b7319700229f4b62ec5f4826c21&',
     '../../assets/img/nav/SCRIMS.png',
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140863652794388/387344873_730245708930192_4520940304685637453_n.png?ex=653e7e58&is=652c0958&hm=456aceb3e92d9199bc83cd79393efc0a01d9ef9a597fa0b385041be350413d91&',
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140864139350148/387593649_2840731006069136_1036389285473139054_n.png?ex=653e7e58&is=652c0958&hm=260356779da873b2e5a45570cf89747f1c8935a2fc9e02316c5bad33096ed024&',
+    '../../assets/img/nav/LEAUGES.png',
+    '../../assets/img/nav/TOURNAMENT.png',
+    '../../assets/img/nav/FINDER.png',
   ];
 
-  constructor() {}
+  @Input() profile: Profile | undefined;
+  profileid: string | null;
+
+  constructor(private router: Router) {
+    this.profileid = localStorage.getItem('profile');
+  }
+
+  async ngOnInit() {
+    await this.getProfileById();
+  }
+
+  getProfile(): Profile {
+    if (this.profile) {
+      return this.profile;
+    }
+
+    return new Profile();
+  }
+
+  getProfileGame(): ProfileGame {
+    if (this.profile?.profileGame) {
+      return this.profile.profileGame;
+    }
+
+    return new ProfileGame();
+  }
+
+  getMyTeam(): Team {
+    if (this.profile?.profileGame.myTeam) {
+      return this.profile.profileGame.myTeam;
+    }
+
+    return new Team();
+  }
+
+  isLogin(): boolean {
+    return !!this.profile;
+  }
 
   navBarRow = this.navBarName.map((name, index) => ({
     name: name,
     img: this.navBarImg[index],
   }));
+
+  toPage(page: string) {
+    this.router.navigate([page]);
+  }
 
   clickMenu() {
     this.menu = !this.menu;
@@ -32,9 +88,50 @@ export class NavbarComponent {
   checkTab() {
     return true;
   }
-  
+
   toProfile(page: string) {
     this.service.toPage(page);
   }
 
+  goLogin(data: string) {
+    localStorage.setItem('isLogin', data);
+    this.service.toPage('login');
+  }
+
+  async getProfileById() {
+    if (!this.profileid) {
+      return;
+    }
+
+    try {
+      this.profile = await (
+        await this.profileService.getProfile(this.profileid)
+      ).toPromise();
+    } catch (error) {
+      // Handle the error
+      console.error(error);
+    }
+  }
+
+  logout() {
+    localStorage.setItem('profile', '');
+    this.profile = undefined;
+    this.toPage('');
+  }
+
+  async updateProfile() {
+    (
+      await this.profileService.editProfile(
+        this.profile?.id as string,
+        this.profile as Profile
+      )
+    ).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

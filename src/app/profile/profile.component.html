@@ -1,13 +1,34 @@
-<div class="border border-black">
+<div class="border border-black profile">
   <div class="container">
-    <p>profile works!</p>
-    <div class="d-flex flex-row">
-      <div class="border border-black d-flex flex-column"> 
-        <div class="btn" *ngFor="let router of child" [routerLink]="router.path">
-          {{router.name}} 
-        </div>
+    <app-header [title]="title" [discription]="discription"></app-header>
+
+    <div class="text-white">
+      <div class="border-bottom d-none d-lg-flex">
+        <label class="fs-5 underline border-2">Manage Profile</label>
       </div>
-      <div class="border border-black"><router-outlet></router-outlet>></div>
+      <div class="d-flex flex-lg-row mt-4 flex-column">
+        <div
+          class="d-flex flex-column pb-5 border-lg-end me-4"
+          style="min-width: fit-content"
+        >
+          <div
+            class="fs-5 mb-4 list "
+            [ngClass]="{ underline: isActive(router.path) }"
+            *ngFor="let router of child"
+            [routerLink]="router.path"
+          >
+            {{ router.name }}
+          </div>
+          <div
+            class="fs-5 mb-4 list logout  text-danger"
+            (click)="nav.logout()"
+          >
+            Logout
+          </div>
+        </div>
+        <div class="border-start d-none d-lg-block ms-2 me-5"></div>
+        <div class="flex-fill outlet"><router-outlet></router-outlet></div>
+      </div>
     </div>
   </div>
 </div>

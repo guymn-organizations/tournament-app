@@ -7,10 +7,44 @@
 .bi {
   font-size: 30px;
 }
+
 img {
-    width: 30px;
+  width: 30px;
 }
 
 .logo {
   width: 100px;
+}
+
+.pointer,
+.logo,
+.profile {
+  cursor: pointer;
+}
+
+.hover-1 {
+  background-image: linear-gradient(#1a1b20, #1a1b20);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: 0.4s;
+}
+.hover-1:hover {
+  background-size: 100% 100%;
+  color: #fff;
+}
+.profile {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile img {
+  width: 100%;
+  position: absolute;
+  padding: 10px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 }
