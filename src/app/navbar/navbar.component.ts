@@ -106,6 +106,7 @@ export class NavbarComponent implements OnInit {
     (await this.profileService.getProfile(this.profileid)).subscribe(
       (respon) => {
         this.profile = respon;
+        console.log(this.profile);
       },
       (error) => {
         console.log(error);

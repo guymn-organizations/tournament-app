@@ -107,6 +107,7 @@ export class LoginComponent {
       (error) => {
         this.errorMessage = error.error;
         // Handle the error
+        console.log(error);
       }
     );
   }

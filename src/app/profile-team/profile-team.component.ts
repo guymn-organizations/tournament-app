@@ -20,6 +20,7 @@ export class ProfileTeamComponent {
     id: '',
     name: '',
     position: '',
+    url: '',
   };
 
   position = [
@@ -63,6 +64,10 @@ export class ProfileTeamComponent {
   clickFindTeam() {
     this.errorMessageFind = '';
     this.isFindTeam = !this.isFindTeam;
+  }
+
+  async postImage(){
+    
   }
 
   async createTeam() {
