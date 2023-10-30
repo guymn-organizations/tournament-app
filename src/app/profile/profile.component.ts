@@ -19,23 +19,21 @@ export class ProfileComponent {
     {
       name: 'Profile',
       path: 'profile',
-      status: !this.nav.isLogin(),
     },
     {
       name: 'Profile Game',
       path: 'game',
-      status: !this.nav.isLogin(),
     },
     {
       name: 'Profile Team',
       path: 'team',
-      status: !this.nav.isGame(),
     },
   ];
 
   checkTab: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
     this.checkTab = this.router.url;

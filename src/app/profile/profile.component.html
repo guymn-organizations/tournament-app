@@ -14,8 +14,7 @@
           <div
             class="fs-5 mb-4 list"
             [ngClass]="{
-              underline: isActive(router.path),
-              'd-none': router.status
+              underline: isActive(router.path)
             }"
             *ngFor="let router of child"
             [routerLink]="router.path"
@@ -30,7 +29,7 @@
         <div
           class="flex-fill outlet"
           [ngClass]="{
-            'invisible': !nav.isLogin()
+            invisible: !nav.isLogin()
           }"
         >
           <router-outlet></router-outlet>
