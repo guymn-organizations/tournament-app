@@ -3,7 +3,7 @@ import { Team } from './team';
 export class ProfileGame {
   name!: string;
   openId!: string;
-  myTeam!: Team | null;
+  myTeam!: string | null;
   imageGameUrl!: string;
 
   constructor() {}
