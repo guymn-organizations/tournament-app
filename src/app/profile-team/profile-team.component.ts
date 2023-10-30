@@ -26,33 +26,7 @@ export class ProfileTeamComponent {
     url: '',
   };
 
-  position = [
-    {
-      name: 'DARK SLAYER LANE',
-      value: 'DSL',
-      player: this.nav.getMyTeam().DSL,
-    },
-    {
-      name: 'JUNGLE',
-      value: 'JG',
-      player: this.nav.getMyTeam().JG,
-    },
-    {
-      name: 'MID LANE',
-      value: 'MID',
-      player: this.nav.getMyTeam().MID,
-    },
-    {
-      name: 'ABYSSAL DRAGON LANE',
-      value: 'ADL',
-      player: this.nav.getMyTeam().ADL,
-    },
-    {
-      name: 'SUPPORT',
-      value: 'SUP',
-      player: this.nav.getMyTeam().SUP,
-    },
-  ];
+  position = [];
 
   errorMessageCreate = '';
   errorMessageFind = '';
@@ -86,35 +60,6 @@ export class ProfileTeamComponent {
     );
   }
 
-  async setPosition(newTeamData: Partial<Team>) {
-    switch (this.teamData.position) {
-      case 'DSL': {
-        newTeamData.DSL = this.nav.getProfile();
-        break;
-      }
-      case 'JG': {
-        newTeamData.JG = this.nav.getProfile();
-        break;
-      }
-      case 'MID': {
-        newTeamData.DSL = this.nav.getProfile();
-        break;
-      }
-      case 'ADL': {
-        newTeamData.ADL = this.nav.getProfile();
-        break;
-      }
-      case 'SUP': {
-        newTeamData.SUP = this.nav.getProfile();
-        break;
-      }
-      default: {
-        newTeamData.teamReserve?.push(this.nav.getProfile());
-        break;
-      }
-    }
-  }
-
   async createTeam() {
     // await this.postImage(this.selectedImageURL as string);
 
@@ -124,7 +69,6 @@ export class ProfileTeamComponent {
       teamReserve: [],
     };
 
-    await this.setPosition(newTeamData);
 
     console.log(newTeamData);
 
@@ -144,7 +88,6 @@ export class ProfileTeamComponent {
     (await this.nav.teamService.getTeamById(this.teamData.id)).subscribe(
       (response) => {
         // Handle the response here
-        this.nav.getProfile().profileGame.myTeam = response;
         this.nav.updateProfile();
       },
       (error) => {

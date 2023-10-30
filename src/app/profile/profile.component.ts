@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { GobalServiceService } from '../service/gobal-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ export class ProfileComponent {
   discription: string = 'Manage data profile';
 
   nav: NavbarComponent = inject(NavbarComponent);
+  service: GobalServiceService = inject(GobalServiceService);
 
   child = [
     {
@@ -30,7 +32,11 @@ export class ProfileComponent {
 
   checkTab: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    if (!this.nav.isLogin()) {
+      this.service.toPage('');
+    }
+  }
 
   ngOnInit() {
     this.checkTab = this.router.url;

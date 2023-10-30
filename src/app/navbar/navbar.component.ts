@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
@@ -13,6 +6,7 @@ import { Router } from '@angular/router';
 import { TeamService } from '../service/team.service';
 import { ProfileGame } from '../model/profile-game';
 import { Team } from '../model/team';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -33,20 +27,44 @@ export class NavbarComponent implements OnInit {
     '../../assets/img/nav/FINDER.png',
   ];
 
-  @Input() profile: Profile | undefined;
+  profile?: Profile;
+  team: Team | undefined;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   async ngOnInit() {
-    await this.getProfileById(localStorage.getItem('profile') as string);
+    try {
+      const profileObservable: Observable<Profile> =
+        await this.profileService.getProfileById(
+          localStorage.getItem('profile') as string
+        );
+
+      profileObservable.subscribe(
+        (data: Profile) => {
+          this.profile = data;
+          console.log(this.profile);
+        },
+        (error) => {
+          console.error('Error fetching profile data:', error);
+        }
+      );
+    } catch (error) {
+      console.error('Error getting profile data Promise:', error);
+    }
   }
 
   getProfile(): Profile {
     if (this.profile) {
       return this.profile;
     }
-
     return new Profile();
+  }
+
+  getTeam(): Team {
+    if (this.profile) {
+      return this.team as Team;
+    }
+    return new Team();
   }
 
   getProfileGame(): ProfileGame {
@@ -57,26 +75,18 @@ export class NavbarComponent implements OnInit {
     return new ProfileGame();
   }
 
-  getMyTeam(): Team {
-    if (this.profile?.profileGame.myTeam) {
-      return this.profile.profileGame.myTeam;
-    }
-
-    return new Team();
-  }
-
   isLogin(): boolean {
     return !!this.profile;
+  }
+
+  isTeam(): boolean {
+    return !!this.team;
   }
 
   navBarRow = this.navBarName.map((name, index) => ({
     name: name,
     img: this.navBarImg[index],
   }));
-
-  toPage(page: string) {
-    this.router.navigate([page]);
-  }
 
   clickMenu() {
     this.menu = !this.menu;
@@ -95,22 +105,10 @@ export class NavbarComponent implements OnInit {
     this.service.toPage('login');
   }
 
-  async getProfileById(id: string) {
-    (await this.profileService.getProfile(id)).subscribe(
-      (respon) => {
-        this.profile = respon;
-        console.log(this.profile);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
   logout() {
     localStorage.setItem('profile', '');
     this.profile = undefined;
-    this.toPage('');
+    this.service.toPage('');
   }
 
   async updateProfile() {
