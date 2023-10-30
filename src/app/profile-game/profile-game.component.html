@@ -8,7 +8,7 @@
   <div class="d-flex flex-column justify-content-start profile-game">
     <form
       #connectForm="ngForm"
-      class="row container"
+      class="row container d-flex align-items-center"
       (ngSubmit)="onSubmitConnectForm()"
     >
       <div class="col-xl-3 col-12">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-12">
+      <div class="col-xl-8 col-12">
         <div class="col-lg-12 row align-items-center">
           <label class="form-label col-md-3 col-2">
             <i class="bi h1 m-2" [className]="getGenderIcon()"></i>
@@ -54,9 +54,6 @@
           />
         </div>
       </div>
-      <div class="col-xl-5 col-12 gameImg">
-        
-      </div>
 
       <div class="justify-content-between d-flex">
         <button
@@ -80,21 +77,21 @@
 
 <ng-template #ConnectedPage>
   <div class="d-flex flex-column justify-content-start profile-game d-">
-    <div class="row container">
+    <div class="row container d-flex align-items-center">
       <div class="col-xl-3 col-12">
         <div
           class="d-flex flex-column justify-content-center align-items-center"
         >
           <div class="border img">
             <img
-              class="p-3"
+              class="p-1"
               [src]="nav.getProfile().imageProfileUrl"
               *ngIf="nav.getProfile().imageProfileUrl"
             />
           </div>
         </div>
       </div>
-      <div class="col-xl-4 col-12">
+      <div class="col-xl-8 col-12">
         <div class="col-lg-12 row align-items-center">
           <label class="form-label col-md-3 col-2">
             <i class="" [classList]="getGenderIcon()"></i>
@@ -114,19 +111,6 @@
           <label class="bg-data ps-3 pe-3 p-1">
             {{ nav.getProfile().profileGame.openId }}
           </label>
-        </div>
-      </div>
-      <div class="col-xl-5 col-12 gameImg">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="border img m-4">
-            <img
-              class="p-2"
-              [src]="nav.getProfile().profileGame.imageGameUrl"
-              *ngIf="nav.getProfile().profileGame.imageGameUrl"
-            />
-          </div>
         </div>
       </div>
     </div>

@@ -108,7 +108,7 @@ export class NavbarComponent implements OnInit {
         this.profile = respon;
       },
       (error) => {
-        console.log(error.error);
+        console.log(error);
       }
     );
   }

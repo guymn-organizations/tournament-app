@@ -22,8 +22,6 @@ export class ProfileGameComponent {
 
   toEdit = false;
 
-  selectedImageURL: string | ArrayBuffer | null = null;
-
   constructor() {}
 
   async setProfileGameData() {
@@ -36,39 +34,19 @@ export class ProfileGameComponent {
   }
 
   async clickEdit() {
-    this.selectedImageURL = this.nav.getProfileGame().imageGameUrl;
     await this.setProfileGameData();
     this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
     await this.setProfileGame();
-    this.clickEdit();
-  }
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.saveImage(file);
-    }
-  }
-
-  saveImage(file: File) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (e.target) {
-        this.selectedImageURL = e.target.result;
-      }
-    };
-    reader.readAsDataURL(file);
+    this.toEdit = false;
   }
 
   async setProfileGame() {
-    this.nav.getProfile().profileGame.imageGameUrl = this
-      .selectedImageURL as string;
-    this.nav.getProfile().profileGame.name = this.profileGameData.name;
-    this.nav.getProfile().profileGame.openId = this.profileGameData.openid;
+    this.nav.getProfile().profileGame = new ProfileGame();
+    this.nav.getProfileGame().name = this.profileGameData.name;
+    this.nav.getProfileGame().openId = this.profileGameData.openid;
 
     this.nav.updateProfile();
   }
