@@ -22,7 +22,10 @@ export class PlayerpostService {
   ): Promise<Observable<Playerpost>> {
     return this.http.put<Playerpost>(`${this.apiUrl}/${id}`, profile);
   }
- 
+  getAllPlayerPost(): Observable<Playerpost[]> {
+    return this.http.get<Playerpost[]>(`${this.apiUrl}`);
+  }
+
   }
 
 
