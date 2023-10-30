@@ -27,7 +27,14 @@
           </div>
         </div>
         <div class="border-start d-none d-lg-block ms-2 me-5"></div>
-        <div class="flex-fill outlet"><router-outlet></router-outlet></div>
+        <div
+          class="flex-fill outlet"
+          [ngClass]="{
+            'invisible': !nav.isLogin()
+          }"
+        >
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </div>
   </div>

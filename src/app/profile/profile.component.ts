@@ -35,11 +35,7 @@ export class ProfileComponent {
 
   checkTab: string = '';
 
-  constructor(private router: Router) {
-    if (!this.nav.isLogin()) {
-      this.service.toPage('');
-    }
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.checkTab = this.router.url;
