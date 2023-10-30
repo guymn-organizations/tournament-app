@@ -1,7 +1,7 @@
-<div class="mb-5">
+<div class="mb-5" [ngClass]="{ 'd-none': !nav.getProfile().profileGame }">
   <div class="container position-relative profile-team">
     <div class="mb-5">
-      <ng-container *ngIf="nav.profile?.profileGame?.myTeam; else noTeam">
+      <ng-container *ngIf="false; else noTeam">
         <ng-container *ngTemplateOutlet="isTeam"></ng-container
       ></ng-container>
     </div>
@@ -128,7 +128,7 @@
               class="bg-data text-white col-lg-12 container p-2 text-danger"
               id="position-team"
               name="position-team"
-              [(ngModel)]="teamData.position"
+              [(ngModel)]="position_type"
               required
             >
               <option selected disabled value="">Choose...</option>

@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { Team } from '../model/team';
+import { PositionTypeT, Team } from '../model/team';
 import { Profile } from '../model/profile';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { Image } from '../model/image';
+import { Observable } from 'rxjs';
+import { TeamService } from '../service/team.service';
 
 @Component({
   selector: 'app-profile-team',
@@ -22,11 +24,18 @@ export class ProfileTeamComponent {
   teamData = {
     id: '',
     name: '',
-    position: '',
     url: '',
   };
 
-  position = [];
+  position = [
+    PositionTypeT.DSL,
+    PositionTypeT.ADL,
+    PositionTypeT.JG,
+    PositionTypeT.MID,
+    PositionTypeT.SUP,
+  ];
+
+  position_type: PositionTypeT = PositionTypeT.DSL;
 
   errorMessageCreate = '';
   errorMessageFind = '';
@@ -66,20 +75,34 @@ export class ProfileTeamComponent {
     const newTeamData: Partial<Team> = {
       name: this.teamData.name,
       leader: this.nav.getProfile(),
-      teamReserve: [],
     };
 
-
     console.log(newTeamData);
-
+    console.log(this.nav.getProfile(), this.position_type);
     (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
-      (response) => {
+      async (response) => {
         // Handle the response here
         console.log(response);
+        this.nav.getProfileGame().myTeam = response.id;
+        await this.nav.updateProfile();
+        await this.addPlayer(response.id, this.nav.getProfile().id);
       },
       (error) => {
         this.errorMessageCreate = error.error;
         // Handle the error
+      }
+    );
+  }
+
+  async addPlayer(id: string, player: string) {
+    (
+      await this.nav.teamService.addTeamPlayer(id, player, this.position_type)
+    ).subscribe(
+      async (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.error('Error fetching profile data:', error);
       }
     );
   }
