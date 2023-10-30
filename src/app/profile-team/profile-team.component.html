@@ -77,7 +77,32 @@
     <div class="mb-5">
       <h2 class="text-uppercase">create team</h2>
       <form #teamForm="ngForm" (ngSubmit)="createTeam()" class="row container">
-        <div class="col-12">
+        <div
+          class="col-12 col-xxl-3 mb-5 d-flex d-lg-block justify-content-center"
+        >
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <div class="border img">
+              <img class="p-1" [src]="selectedImageURL" *ngIf="selectedImageURL" />
+            </div>
+            <div class="">
+              <label class="btn btn-success mt-3 pt-0 pb-0">
+                <span>
+                  <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+                </span>
+                <input
+                  class="d-none"
+                  type="file"
+                  id="fileInput"
+                  name="fileInput"
+                  (change)="onFileSelected($event)"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-xxl-9">
           <div class="col-lg-12 flex-column d-flex">
             <label class="form-label">Name</label>
             <input
@@ -92,6 +117,22 @@
             <label class="text-center text-danger">
               &nbsp;{{ errorMessageCreate }}
             </label>
+          </div>
+          <div class="col-lg-12 flex-column d-flex">
+            <label class="form-label">Position</label>
+            <select
+              class="bg-data text-white col-lg-12 container p-2 text-danger"
+              id="position-team"
+              name="position-team"
+              [(ngModel)]="teamData.position"
+              required
+            >
+              <option selected disabled value="">Choose...</option>
+              <option *ngFor="let po of position" [value]="po.value">
+                {{ po.name }}
+              </option>
+              <option class="text-uppercase">reserve</option>
+            </select>
           </div>
         </div>
         <div id="div-submit" class="justify-content-end d-flex">
@@ -109,7 +150,7 @@
     <div class="border"></div>
 
     <div class="mt-5">
-      <h2 class="text-uppercase">find team by code</h2>
+      <h2 class="text-uppercase mb-5">find team by code</h2>
       <form
         #findTeamForm="ngForm"
         (ngSubmit)="getTeamByCode()"

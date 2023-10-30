@@ -103,14 +103,14 @@ export class NavbarComponent implements OnInit {
       return;
     }
 
-    try {
-      this.profile = await (
-        await this.profileService.getProfile(this.profileid)
-      ).toPromise();
-    } catch (error) {
-      // Handle the error
-      console.error(error);
-    }
+    (await this.profileService.getProfile(this.profileid)).subscribe(
+      (respon) => {
+        this.profile = respon;
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 
   logout() {

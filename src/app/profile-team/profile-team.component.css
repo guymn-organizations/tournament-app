@@ -6,8 +6,15 @@
   background-color: #28282b;
 }
 
+.img {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+}
+
 img {
-  width: 100%;
+  width: 200px;
+  height: 200px;
 }
 
 .bi-person-fill-add {
@@ -33,4 +40,13 @@ input {
 ::placeholder {
   color: white;
   opacity: 0.5; /* Firefox */
+}
+
+.form-select {
+  border-radius: unset;
+  background-color: #28282b;
+}
+
+select {
+  border: #28282b;
 }

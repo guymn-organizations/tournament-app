@@ -12,6 +12,7 @@ export class Team {
   SUP!: Profile;
   teamReserve!: Profile[];
   messages!: Message[];
+  imageTeamUrl!: string;
 
   constructor() {}
 }

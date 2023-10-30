@@ -73,6 +73,10 @@ export class LoginComponent {
         this.goHome();
       },
       (error) => {
+        if (error.status == 200) {
+          localStorage.setItem('profile', error.status);
+          this.goHome();
+        }
         this.errorMessage = error.error;
         // Handle the error
       }
