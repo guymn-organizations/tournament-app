@@ -79,6 +79,10 @@ export class NavbarComponent implements OnInit {
     return !!this.profile;
   }
 
+  isGame(): boolean {
+    return !!this.profile?.profileGame;
+  }
+
   isTeam(): boolean {
     return !!this.team;
   }

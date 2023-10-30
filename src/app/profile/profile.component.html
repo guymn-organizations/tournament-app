@@ -14,7 +14,8 @@
           <div
             class="fs-5 mb-4 list"
             [ngClass]="{
-              underline: isActive(router.path)
+              underline: isActive(router.path),
+              'd-none': router.status
             }"
             *ngFor="let router of child"
             [routerLink]="router.path"

@@ -11,12 +11,4 @@ export class ProfileProfileComponent {
   nav: NavbarComponent = inject(NavbarComponent);
 
   constructor() {}
-
-  getProfile(): Profile {
-    if (this.nav.profile) {
-      return this.nav.profile;
-    }
-
-    return new Profile();
-  }
 }
