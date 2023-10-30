@@ -16,8 +16,8 @@ export class GobalServiceService {
     this.router.navigate([page]);
   }
 
-  async postImage(imgUrl: string): Promise<Observable<Image>> {
-    return this.http.post<Image>(`${this.apiImageUrl}/${imgUrl}`, null);
+  async postImage(image: Image): Promise<Observable<Image>> {
+    return this.http.post<Image>(`${this.apiImageUrl}/post_image`, image);
   }
 
   async getImage(id: string): Promise<Observable<Image>> {

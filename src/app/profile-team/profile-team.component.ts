@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
 import { Profile } from '../model/profile';
+import { GobalServiceService } from '../service/gobal-service.service';
+import { Image } from '../model/image';
 
 @Component({
   selector: 'app-profile-team',
@@ -10,6 +12,7 @@ import { Profile } from '../model/profile';
 })
 export class ProfileTeamComponent {
   nav: NavbarComponent = inject(NavbarComponent);
+  gobal: GobalServiceService = inject(GobalServiceService);
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
@@ -66,17 +69,24 @@ export class ProfileTeamComponent {
     this.isFindTeam = !this.isFindTeam;
   }
 
-  async postImage(){
-    
-  }
-
-  async createTeam() {
-    const newTeamData: Partial<Team> = {
-      name: this.teamData.name,
-      imageTeamUrl: this.selectedImageURL as string,
-      leader: this.nav.getProfile(),
+  async postImage(imgUrl: string) {
+    const newImageData: Partial<Image> = {
+      url: imgUrl,
     };
 
+    (await this.gobal.postImage(newImageData as Image)).subscribe(
+      (response) => {
+        this.teamData.url = response.id;
+      },
+      (error) => {
+        if (error.status == 200) {
+          this.teamData.url = error.error.text;
+        }
+      }
+    );
+  }
+
+  async setPosition(newTeamData: Partial<Team>) {
     switch (this.teamData.position) {
       case 'DSL': {
         newTeamData.DSL = this.nav.getProfile();
@@ -103,12 +113,25 @@ export class ProfileTeamComponent {
         break;
       }
     }
+  }
+
+  async createTeam() {
+    // await this.postImage(this.selectedImageURL as string);
+
+    const newTeamData: Partial<Team> = {
+      name: this.teamData.name,
+      leader: this.nav.getProfile(),
+      teamReserve: [],
+    };
+
+    await this.setPosition(newTeamData);
+
+    console.log(newTeamData);
 
     (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
       (response) => {
         // Handle the response here
-        this.nav.getProfile().profileGame.myTeam = response;
-        this.nav.updateProfile();
+        console.log(response);
       },
       (error) => {
         this.errorMessageCreate = error.error;

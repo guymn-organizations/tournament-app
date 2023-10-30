@@ -34,14 +34,11 @@ export class NavbarComponent implements OnInit {
   ];
 
   @Input() profile: Profile | undefined;
-  profileid: string | null;
 
-  constructor(private router: Router) {
-    this.profileid = localStorage.getItem('profile');
-  }
+  constructor(private router: Router) {}
 
   async ngOnInit() {
-    await this.getProfileById();
+    await this.getProfileById(localStorage.getItem('profile') as string);
   }
 
   getProfile(): Profile {
@@ -98,12 +95,8 @@ export class NavbarComponent implements OnInit {
     this.service.toPage('login');
   }
 
-  async getProfileById() {
-    if (!this.profileid) {
-      return;
-    }
-
-    (await this.profileService.getProfile(this.profileid)).subscribe(
+  async getProfileById(id: string) {
+    (await this.profileService.getProfile(id)).subscribe(
       (respon) => {
         this.profile = respon;
         console.log(this.profile);
@@ -129,9 +122,11 @@ export class NavbarComponent implements OnInit {
     ).subscribe(
       (response) => {
         console.log(response);
+        console.log(this.profile);
       },
       (error) => {
         console.log(error);
+        console.log(this.profile);
       }
     );
   }

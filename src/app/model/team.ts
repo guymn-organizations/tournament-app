@@ -5,14 +5,50 @@ export class Team {
   id!: string;
   name!: string;
   leader!: Profile;
-  DSL!: Profile;
-  JG!: Profile;
-  MID!: Profile;
-  ADL!: Profile;
-  SUP!: Profile;
+  positions: {
+    position_type: PositionTypeT;
+    position_name: string;
+    player: Profile | null;
+  }[] = [];
   teamReserve!: Profile[];
   messages!: Message[];
   imageTeamUrl!: string;
 
   constructor() {}
 }
+
+export enum PositionTypeT {
+  DSL = 'DSL',
+  JG = 'JG',
+  MID = 'MID',
+  ADL = 'ADL',
+  SUP = 'SUP',
+}
+
+// constructor() {
+//   this.positions.push({
+//     position: 'DSL',
+//     position_name: 'DARK SLAYER LANE',
+//     player: null,
+//   });
+//   this.positions.push({
+//     position: 'JG',
+//     position_name: 'JUNGLE',
+//     player: null,
+//   });
+//   this.positions.push({
+//     position: 'MID',
+//     position_name: 'MID LANE',
+//     player: null,
+//   });
+//   this.positions.push({
+//     position: 'ADL',
+//     position_name: 'ABYSSAL DRAGON LANE',
+//     player: null,
+//   });
+//   this.positions.push({
+//     position: 'SUP',
+//     position_name: 'SUPPORT',
+//     player: null,
+//   });
+// }
