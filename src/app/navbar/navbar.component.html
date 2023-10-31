@@ -79,11 +79,8 @@
     (click)="clickMenu()"
     [routerLink]="'profile'"
   >
-    <img class="m-auto" [src]="imageProfile" *ngIf="profile?.imageProfileUrl" />
-    <i
-      *ngIf="!profile?.imageProfileUrl"
-      class="bi bi-person-fill text-body-tertiary"
-      style="font-size: 80px"
-    ></i>
+    <!-- <img class="m-auto" [src]="imageProfile" *ngIf="profile?.imageProfileUrl" /> -->
+    <!-- *ngIf="!profile?.imageProfileUrl" -->
+    <i class="bi bi-person-fill text-body-tertiary" style="font-size: 80px"></i>
   </div>
 </ng-template>

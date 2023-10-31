@@ -33,6 +33,8 @@ export class ProfileProfileComponent {
     this.profileData.last_name = this.nav.profile?.lastName;
     this.profileData.email = this.nav.profile?.email;
     this.profileData.birthday = this.nav.profile?.birthday;
+    this.profileData.password = '';
+    this.profileData.confirm_password = '';
   }
   isEdit(): boolean {
     return !!this.toEdit;

@@ -35,6 +35,8 @@ export class ProfileTeamComponent implements OnInit {
     PositionTypeT.SUP,
   ];
 
+  playerImages: string[] = [];
+
   position_type: PositionTypeT = PositionTypeT.DSL;
 
   errorMessageCreate = '';
@@ -48,6 +50,7 @@ export class ProfileTeamComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.setTeam();
     await this.setImageTeam();
+    await this.setPlayerImages();
   }
 
   async setTeam() {
@@ -56,7 +59,6 @@ export class ProfileTeamComponent implements OnInit {
       this.team = await (
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
-      console.log(this.team);
     } catch (teamError) {
       console.error('Error fetching team data:', teamError);
     }
@@ -211,5 +213,33 @@ export class ProfileTeamComponent implements OnInit {
 
   checkMessage(): boolean {
     return this.team?.messages.length == 0;
+  }
+
+  async setPlayerImages() {
+    const image_id = (this.team?.positions || []).map((position) => {
+      if (position.player !== null && position.player.imageProfileUrl) {
+        return position.player.imageProfileUrl;
+      } else {
+        return '';
+      }
+    });
+
+    for (let id = 0; id < 5; id++) {
+      if (image_id[id]) {
+        (await this.nav.service.getImage(image_id[id])).subscribe(
+          (res) => {},
+          async (result) => {
+            this.playerImages[id] = result.error.text;
+          }
+        );
+      }
+    }
+  }
+
+  getPosition() {
+    return this.team?.positions.map((data, index) => ({
+      ...data,
+      imageUrl: this.playerImages[index] || '',
+    }));
   }
 }

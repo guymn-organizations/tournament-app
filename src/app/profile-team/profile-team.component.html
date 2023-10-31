@@ -34,7 +34,7 @@
     >
       <div
         class="border border-success d-flex flex-column align-items-center justify-content-end bg-white"
-        *ngFor="let mem of team?.positions"
+        *ngFor="let mem of getPosition()"
       >
         <div
           class="overflow-hidden position border-bottom border-success d-flex align-items-center flex-column justify-content-end"
@@ -42,8 +42,8 @@
           <div class="text-dark fw-bolder m-auto">
             <img
               [ngClass]="{ 'd-none': !mem.player }"
-              [src]="mem.player?.imageProfileUrl"
-              *ngIf="mem.player?.imageProfileUrl"
+              [src]="mem.imageUrl"
+              *ngIf="mem.imageUrl"
             />
             <i
               *ngIf="!mem.player?.imageProfileUrl && mem.player"

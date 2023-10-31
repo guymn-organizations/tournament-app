@@ -44,7 +44,6 @@ export class NavbarComponent implements OnInit {
       this.profile = await (
         await this.profileService.getProfileById(profile_id)
       ).toPromise();
-      console.log(this.getProfile());
       localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
     } catch (error) {
       console.error('Error getting profile data:', error);
