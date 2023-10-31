@@ -39,7 +39,7 @@
         <div
           class="overflow-hidden position border-bottom border-success d-flex align-items-center flex-column justify-content-end"
         >
-          <div class="text-dark fw-bolder m-auto ">
+          <div class="text-dark fw-bolder m-auto">
             <img
               [ngClass]="{ 'd-none': !mem.player }"
               [src]="mem.player?.imageProfileUrl"
@@ -66,8 +66,29 @@
         <label class="text-success fw-bold">{{ mem.position_name }}</label>
       </div>
     </div>
+    <div class="col-12 mt-5 row" id="team_reserve">
+      <label class="fs-3">Team Reserve</label>
+      <div>
+        <div
+          class="row col-12 col-lg-6 p-0 m-3 border-top border-success bg-white text-dark "
+        >
+          <div
+            class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
+            *ngFor="let mem of nav.getTeam().teamReserve"
+          >
+            <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
+            <div class="m-auto p-2 bg-success">
+              <i class="bi bi-arrow-bar-up text-white"></i>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success m-3 col-12 col-lg-6">
+          <i class="bi bi-plus-circle-fill"></i>
+        </button>
+      </div>
+    </div>
     <div class="col-12 mt-5 row">
-      <button class="btn btn-danger ms-auto col-2" (click)="toLeavTeam()">
+      <button class="btn btn-danger m-3 ms-md-auto col-md-2" (click)="toLeavTeam()">
         Leave team
       </button>
     </div>

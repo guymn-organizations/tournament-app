@@ -20,10 +20,10 @@ img {
 .bi-person-fill-add,
 .bi-person-fill {
   font-size: 100px;
-  cursor: pointer;
 }
 
-.bi-person-fill-add {
+.bi-person-fill-add,
+.bi-arrow-bar-up {
   cursor: pointer;
 }
 
