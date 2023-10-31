@@ -4,19 +4,19 @@
     <div class="wrap">
       <div class="feature">
         <h3>FEATURE</h3>
-        <img [src]="featuredTournament?.imageTourUrl" alt=""/>
+        <img [src]="featuredTournament.imageTourUrl" alt=""/>
       </div>
     </div>
 
 
     <div class="ads-wrap">
-     
+
       <div class="advert" *ngFor="let advert of adverts">
-        <a [routerLink]="advert.linkAdvertUrl">
-          <img [src]="advert.imageAdvertUrl" alt=""/>
-        </a>
+          <a [routerLink]="advert.linkAdvertUrl">
+            <img [src]="advert.imageAdvertUrl" class="d-block w-100" alt=""/>
+          </a>
       </div>
-      
+  
     </div>
     
   </div>
