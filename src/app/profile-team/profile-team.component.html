@@ -53,7 +53,7 @@
               id="add_player"
               *ngIf="!mem.player"
               (click)="nav.service.toPage('finder/player')"
-              [ngClass]="{ 'd-none': mem.player }"
+              [ngClass]="{ 'd-none': mem.player || !isLeader() }"
               class="bi bi-person-fill-add text-success"
             ></i>
           </div>
@@ -79,22 +79,31 @@
             *ngFor="let mem of nav.getTeam().teamReserve"
           >
             <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
-            <div class="m-auto p-2 bg-success">
+            <div class="m-auto p-2 bg-success" *ngIf="isLeader()">
               <i class="bi bi-arrow-bar-up text-white"></i>
             </div>
           </div>
         </div>
-        <button class="btn btn-success m-3 col-12 col-lg-6">
+        <button class="btn btn-success m-3 col-12 col-lg-6" *ngIf="isLeader()">
           <i class="bi bi-plus-circle-fill"></i>
         </button>
       </div>
     </div>
     <div class="col-12 mt-5 row">
       <button
+        *ngIf="!isLeader()"
         class="btn btn-danger m-3 ms-md-auto col-md-2"
         (click)="toLeavTeam()"
       >
         Leave team
+      </button>
+
+      <button
+        *ngIf="isLeader()"
+        class="btn btn-danger m-3 ms-md-auto col-md-2"
+        (click)="deleteTeam()"
+      >
+        Delete team
       </button>
     </div>
   </div>

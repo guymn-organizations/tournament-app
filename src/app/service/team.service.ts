@@ -26,4 +26,8 @@ export class TeamService {
   ): Promise<Observable<Team>> {
     return this.http.put<Team>(`${this.apiUrl}/${id}/${type}/${player}`, null);
   }
+
+  async leavePlayer(id: string, player: string): Promise<Observable<Team>> {
+    return this.http.put<Team>(`${this.apiUrl}/${id}/leave/${player}`, null);
+  }
 }

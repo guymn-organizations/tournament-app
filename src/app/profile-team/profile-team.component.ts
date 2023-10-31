@@ -81,9 +81,11 @@ export class ProfileTeamComponent {
       async (response) => {
         // Handle the response here
         console.log(response);
-        this.nav.getProfileGame().myTeam = response.id;
-        await this.nav.updateProfile();
-        await this.addPlayer(response.id, this.nav.getProfile().id);
+        await this.addPlayer(
+          response.id,
+          this.nav.getProfile().id,
+          this.position_type
+        );
       },
       (error) => {
         this.errorMessageCreate = error.error;
@@ -92,16 +94,14 @@ export class ProfileTeamComponent {
     );
   }
 
-  async addPlayer(id: string, player: string) {
-    (
-      await this.nav.teamService.addTeamPlayer(id, player, this.position_type)
-    ).subscribe(
+  async addPlayer(id: string, player: string, type: PositionTypeT) {
+    (await this.nav.teamService.addTeamPlayer(id, player, type)).subscribe(
       async (response) => {
-        await this.nav.setTeam();
+        await this.nav.ngOnInit();
       },
       async (error) => {
         if (error.status == 201) {
-          await this.nav.setTeam();
+          await this.nav.ngOnInit();
         }
       }
     );
@@ -112,7 +112,6 @@ export class ProfileTeamComponent {
       (response) => {
         // Handle the response here
         this.nav.updateProfile();
-        
       },
       (error) => {
         this.errorMessageFind = error.error;
@@ -121,11 +120,26 @@ export class ProfileTeamComponent {
     );
   }
 
-  toLeavTeam() {
-    this.nav.getProfileGame().myTeam = null;
-    this.nav.team = undefined;
-    this.nav.updateProfile();
+  async toLeavTeam() {
+    try {
+      await (
+        await this.nav.teamService.leavePlayer(
+          this.nav.getTeam().id,
+          this.nav.getProfile().id
+        )
+      ).toPromise();
+    } catch (teamError) {
+      console.error('Error fetching team data:', teamError);
+    }
   }
+
+  getMyPosition() {
+    return this.nav.getTeam().positions.find((data) => {
+      return data.player?.id == this.nav.getProfile().id;
+    });
+  }
+
+  deleteTeam() {}
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -143,5 +157,9 @@ export class ProfileTeamComponent {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  isLeader() {
+    return this.nav.getProfile().id == this.nav.getTeam().leader.id;
   }
 }
