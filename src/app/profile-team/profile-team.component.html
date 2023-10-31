@@ -1,7 +1,7 @@
 <div class="mb-5" [ngClass]="{ 'd-none': !nav.getProfile().profileGame }">
   <div class="container position-relative profile-team">
     <div class="mb-5">
-      <ng-container *ngIf="nav.isTeam(); else noTeam">
+      <ng-container *ngIf="nav.getProfile().profileGame?.myTeam; else noTeam">
         <ng-container *ngTemplateOutlet="isTeam"></ng-container
       ></ng-container>
     </div>
@@ -50,7 +50,9 @@
               class="bi bi-person-fill text-body-tertiary"
             ></i>
             <i
+              id="add_player"
               *ngIf="!mem.player"
+              (click)="nav.service.toPage('finder/player')"
               [ngClass]="{ 'd-none': mem.player }"
               class="bi bi-person-fill-add text-success"
             ></i>
@@ -70,7 +72,7 @@
       <label class="fs-3">Team Reserve</label>
       <div>
         <div
-          class="row col-12 col-lg-6 p-0 m-3 border-top border-success bg-white text-dark "
+          class="row col-12 col-lg-6 p-0 m-3 border-top border-success bg-white text-dark"
         >
           <div
             class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
@@ -88,7 +90,10 @@
       </div>
     </div>
     <div class="col-12 mt-5 row">
-      <button class="btn btn-danger m-3 ms-md-auto col-md-2" (click)="toLeavTeam()">
+      <button
+        class="btn btn-danger m-3 ms-md-auto col-md-2"
+        (click)="toLeavTeam()"
+      >
         Leave team
       </button>
     </div>
@@ -161,7 +166,7 @@
               <option *ngFor="let po of position" [value]="po">
                 {{ po }}
               </option>
-              <option class="text-uppercase">reserve</option>
+              <option class="text-uppercase" value="reserver">reserve</option>
             </select>
           </div>
         </div>

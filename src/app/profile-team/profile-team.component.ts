@@ -77,8 +77,6 @@ export class ProfileTeamComponent {
       leader: this.nav.getProfile(),
     };
 
-    console.log(newTeamData);
-    console.log(this.nav.getProfile(), this.position_type);
     (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
       async (response) => {
         // Handle the response here
@@ -99,10 +97,12 @@ export class ProfileTeamComponent {
       await this.nav.teamService.addTeamPlayer(id, player, this.position_type)
     ).subscribe(
       async (response) => {
-        console.log(response);
+        await this.nav.setTeam();
       },
-      (error) => {
-        console.error('Error fetching profile data:', error);
+      async (error) => {
+        if (error.status == 201) {
+          await this.nav.setTeam();
+        }
       }
     );
   }
@@ -112,6 +112,7 @@ export class ProfileTeamComponent {
       (response) => {
         // Handle the response here
         this.nav.updateProfile();
+        
       },
       (error) => {
         this.errorMessageFind = error.error;
@@ -122,6 +123,7 @@ export class ProfileTeamComponent {
 
   toLeavTeam() {
     this.nav.getProfileGame().myTeam = null;
+    this.nav.team = undefined;
     this.nav.updateProfile();
   }
 

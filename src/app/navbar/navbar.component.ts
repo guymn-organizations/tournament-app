@@ -28,8 +28,7 @@ export class NavbarComponent implements OnInit {
   ];
 
   profile?: Profile;
-  team: Team | undefined;
-
+  team?: Team;
   constructor() {}
 
   async ngOnInit() {
@@ -44,8 +43,9 @@ export class NavbarComponent implements OnInit {
   async setProfile() {
     try {
       const profileId = localStorage.getItem('profile') as string;
-      this.profile = await (await this.profileService.getProfileById(profileId)).toPromise();
-      console.log(this.profile);
+      this.profile = await (
+        await this.profileService.getProfileById(profileId)
+      ).toPromise();
     } catch (error) {
       console.error('Error getting profile data:', error);
     }
@@ -54,8 +54,9 @@ export class NavbarComponent implements OnInit {
   async setTeam() {
     try {
       const teamId = this.profile?.profileGame.myTeam as string;
-      this.team = await (await this.teamService.getTeamById(teamId)).toPromise();
-      console.log(this.team);
+      this.team = await (
+        await this.teamService.getTeamById(teamId)
+      ).toPromise();
     } catch (teamError) {
       console.error('Error fetching team data:', teamError);
     }
@@ -132,11 +133,9 @@ export class NavbarComponent implements OnInit {
     ).subscribe(
       (response) => {
         console.log(response);
-        console.log(this.profile);
       },
       (error) => {
         console.log(error);
-        console.log(this.profile);
       }
     );
   }
