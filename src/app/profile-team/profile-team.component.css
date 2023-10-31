@@ -17,8 +17,13 @@ img {
   height: 200px;
 }
 
-.bi-person-fill-add {
+.bi-person-fill-add,
+.bi-person-fill {
   font-size: 100px;
+  cursor: pointer;
+}
+
+.bi-person-fill-add {
   cursor: pointer;
 }
 
@@ -49,4 +54,8 @@ input {
 
 select {
   border: #28282b;
+}
+
+.none-img {
+  font-size: 120px;
 }
