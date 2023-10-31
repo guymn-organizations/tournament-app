@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Profile } from '../model/profile';
+import { Image } from '../model/image';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-profile-profile',
@@ -17,7 +19,6 @@ export class ProfileProfileComponent {
     password: '',
     confirm_password: '',
     birthday: this.nav.profile?.birthday,
-    imageProfileUrl: '',
   };
 
   toEdit = false;
@@ -64,23 +65,50 @@ export class ProfileProfileComponent {
     reader.readAsDataURL(file);
   }
 
-  onSubmitEditForm() {
+  async onSubmitEditForm() {
     if (this.profileData.password !== this.profileData.confirm_password) {
       this.errorMessage = 'Password and confirm do not math';
       return;
     }
 
-    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
-      this.nav.service.deleteImageById(this.nav.getProfile().imageProfileUrl);
-    }
+    const imageData: Partial<Image> = {
+      imageUrl: this.selectedImageURL as string,
+    };
+
+    (await this.nav.service.postImage(imageData as Image))
+      .pipe(
+        map((response) => response['text']()) // Use ['text'] to access the text() method
+      )
+      .subscribe(
+        (result) => console.log(result),
+        async (error) => {
+          if (error.status == 200) {
+            await this.deleteImage();
+            this.nav.getProfile().imageProfileUrl = error.error.text;
+            this.nav.getProfile().birthday = this.profileData.birthday as Date;
+            this.nav.getProfile().firstName = this.profileData
+              .first_name as string;
+            this.nav.getProfile().lastName = this.profileData
+              .last_name as string;
+            this.nav.getProfile().email = this.profileData.email as string;
+            this.nav.getProfile().password = this.profileData
+              .password as string;
+            await this.nav.updateProfile();
+            await this.nav.setProfileImage();
+          }
+        }
+      );
 
     this.clickOutEdit();
+  }
 
-    this.nav.getProfile().birthday = this.profileData.birthday as Date;
-    this.nav.getProfile().firstName = this.profileData.first_name as string;
-    this.nav.getProfile().lastName = this.profileData.last_name as string;
-    this.nav.getProfile().email = this.profileData.email as string;
-    this.nav.getProfile().password = this.profileData.password as string;
-    this.nav.updateProfile();
+  async deleteImage() {
+    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
+      (
+        await this.nav.service.deleteImageById(
+          this.nav.getProfile().imageProfileUrl
+        )
+      ).subscribe();
+    }
   }
 }

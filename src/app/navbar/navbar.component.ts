@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     await this.setProfile();
-    await this.setProfileTeam();
+    await this.setProfileImage();
   }
 
   async setProfile() {
@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  async setProfileTeam() {
+  async setProfileImage() {
     (
       await this.service.getImage(this.profile?.imageProfileUrl as string)
     ).subscribe(
