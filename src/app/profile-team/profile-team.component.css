@@ -17,6 +17,11 @@ img {
   height: 200px;
 }
 
+.isTeam img {
+  width: 100px;
+  height: 100px;
+}
+
 .bi-person-fill-add,
 .bi-person-fill {
   font-size: 100px;

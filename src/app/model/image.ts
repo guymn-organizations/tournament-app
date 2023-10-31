@@ -1,6 +1,7 @@
 export class Image {
+  [x: string]: any;
   id!: string;
-  url!: string;
+  imageUrl!: string;
 
   constructor() {}
 }

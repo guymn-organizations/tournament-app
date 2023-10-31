@@ -75,11 +75,15 @@
 </ng-template>
 <ng-template #IsLogin>
   <div
-    class="border border-danger rounded-circle profile bg-danger bg-gradient m-auto mt-2 mb-2"
+    class="border border-tertiary rounded-circle profile bg-gradient m-auto mt-2 mb-2 d-flex justify-content-center align-items-center"
     (click)="clickMenu()"
     [routerLink]="'profile'"
   >
-    &nbsp;
     <img [src]="profile?.imageProfileUrl" *ngIf="profile?.imageProfileUrl" />
+    <i
+      *ngIf="!profile?.imageProfileUrl"
+      class="bi bi-person-fill text-body-tertiary"
+      style="font-size: 80px"
+    ></i>
   </div>
 </ng-template>

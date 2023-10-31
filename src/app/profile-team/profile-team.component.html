@@ -10,22 +10,18 @@
 
 <ng-template #isTeam>
   <div class="column">
-    <div class="col-12 row align-items-end">
-      <div
-        id="team-name"
-        class="fs-1 col-12 col-lg-5"
-        style="width: fit-content"
-      >
-        {{ nav.getTeam().name }}
+    <div class="align-items-end d-flex flex-row flex-wrap">
+      <div class="isTeam me-3">
+        <img class="border" [src]="imageTeam" />
       </div>
-      <div
-        id="team-id"
-        class="fs-6 ms-0 ms-lg-3 mb-2 text-secondary col-lg-5 col-10"
-      >
-        #{{ nav.getTeam().id }}
+      <div id="team-name" class="fs-1" style="width: fit-content">
+        {{ team?.name }}
       </div>
-      <div class="fs-2 ms-auto col-lg-1 col-1">
-        <i class="bi bi-chat-left-dots-fill"> </i>
+      <div id="team-id" class="fs-6 m- ms-md-3 mb-2 text-secondary">
+        #{{ team?.id }}
+      </div>
+      <div class="fs-2 ms-auto">
+        <i class="bi bi-chat-left-dots-fill"></i>
       </div>
     </div>
     <div
@@ -34,7 +30,7 @@
     >
       <div
         class="border border-success d-flex flex-column align-items-center justify-content-end bg-white"
-        *ngFor="let mem of nav.getTeam().positions"
+        *ngFor="let mem of team?.positions"
       >
         <div
           class="overflow-hidden position border-bottom border-success d-flex align-items-center flex-column justify-content-end"
@@ -76,7 +72,7 @@
         >
           <div
             class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
-            *ngFor="let mem of nav.getTeam().teamReserve"
+            *ngFor="let mem of team?.teamReserve"
           >
             <div class="flex-grow-1 ps-2">{{ mem.profileGame?.name }}</div>
             <div class="m-auto p-2 bg-success" *ngIf="isLeader()">
@@ -146,6 +142,7 @@
                   id="fileInput"
                   name="fileInput"
                   (change)="onFileSelected($event)"
+                  accept="image/jpeg, image/png"
                 />
               </label>
             </div>
@@ -157,17 +154,15 @@
             <input
               type="text"
               class="bg-data ps-3 pe-3 p-1 text-white"
-              placeholder="Team name"
+              placeholder="Team name (0 - 15 character)"
               id="team-name"
               name="team-name"
               [(ngModel)]="teamData.name"
               required
+              [maxLength]="15"
             />
-            <label class="text-center text-danger">
-              &nbsp;{{ errorMessageCreate }}
-            </label>
           </div>
-          <div class="col-lg-12 flex-column d-flex">
+          <div class="col-lg-12 flex-column d-flex mt-4">
             <label class="form-label">Position</label>
             <select
               class="bg-data text-white col-lg-12 container p-2 text-danger"
@@ -183,6 +178,9 @@
               <option class="text-uppercase" value="reserver">reserve</option>
             </select>
           </div>
+          <label class="text-center text-danger col-12">
+            &nbsp;{{ errorMessageCreate }}
+          </label>
         </div>
         <div id="div-submit" class="justify-content-end d-flex">
           <button

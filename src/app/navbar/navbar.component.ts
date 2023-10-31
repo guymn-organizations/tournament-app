@@ -2,11 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
-import { Router } from '@angular/router';
 import { TeamService } from '../service/team.service';
 import { ProfileGame } from '../model/profile-game';
 import { Team } from '../model/team';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -28,37 +27,24 @@ export class NavbarComponent implements OnInit {
   ];
 
   profile?: Profile;
-  team?: Team;
+  profileSubscription: Subscription | undefined;
+
   constructor() {}
 
   async ngOnInit() {
-    try {
-      await this.setProfile();
-      await this.setTeam();
-    } catch (error) {
-      console.error('Error getting profile data Promise:', error);
-    }
+    await this.setProfile();
   }
 
   async setProfile() {
     try {
-      const profileId = localStorage.getItem('profile') as string;
+      const profile_id = localStorage.getItem('profile') as string;
       this.profile = await (
-        await this.profileService.getProfileById(profileId)
+        await this.profileService.getProfileById(profile_id)
       ).toPromise();
+      console.log(this.getProfile());
+      localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
     } catch (error) {
       console.error('Error getting profile data:', error);
-    }
-  }
-
-  async setTeam() {
-    try {
-      const teamId = this.profile?.profileGame?.myTeam as string;
-      this.team = await (
-        await this.teamService.getTeamById(teamId)
-      ).toPromise();
-    } catch (teamError) {
-      console.error('Error fetching team data:', teamError);
     }
   }
 
@@ -67,13 +53,6 @@ export class NavbarComponent implements OnInit {
       return this.profile;
     }
     return new Profile();
-  }
-
-  getTeam(): Team {
-    if (this.profile) {
-      return this.team as Team;
-    }
-    return new Team();
   }
 
   getProfileGame(): ProfileGame {
@@ -90,10 +69,6 @@ export class NavbarComponent implements OnInit {
 
   isGame(): boolean {
     return !!this.profile?.profileGame;
-  }
-
-  isTeam(): boolean {
-    return !!this.team;
   }
 
   navBarRow = this.navBarName.map((name, index) => ({

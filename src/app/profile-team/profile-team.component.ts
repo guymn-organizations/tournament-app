@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionTypeT, Team } from '../model/team';
 import { Profile } from '../model/profile';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'; // Import the map operator
 import { TeamService } from '../service/team.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { TeamService } from '../service/team.service';
   templateUrl: './profile-team.component.html',
   styleUrls: ['./profile-team.component.css'],
 })
-export class ProfileTeamComponent {
+export class ProfileTeamComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
   gobal: GobalServiceService = inject(GobalServiceService);
 
@@ -40,7 +41,27 @@ export class ProfileTeamComponent {
   errorMessageCreate = '';
   errorMessageFind = '';
 
+  imageTeam: Image | undefined;
+  team?: Team;
+
   constructor() {}
+
+  async ngOnInit(): Promise<void> {
+    await this.setTeam();
+    await this.setImageTeam();
+  }
+
+  async setTeam() {
+    try {
+      const teamId = localStorage.getItem('team') as string;
+      this.team = await (
+        await this.nav.teamService.getTeamById(teamId)
+      ).toPromise();
+      console.log(this.team);
+    } catch (teamError) {
+      console.error('Error fetching team data:', teamError);
+    }
+  }
 
   clickCreateTeam() {
     this.errorMessageCreate = '';
@@ -52,32 +73,36 @@ export class ProfileTeamComponent {
     this.isFindTeam = !this.isFindTeam;
   }
 
-  async postImage(imgUrl: string) {
-    const newImageData: Partial<Image> = {
-      url: imgUrl,
+  async createTeam() {
+    const imageData: Partial<Image> = {
+      imageUrl: this.selectedImageURL as string,
     };
 
-    (await this.gobal.postImage(newImageData as Image)).subscribe(
-      (response) => {
-        this.teamData.url = response.id;
-      },
-      (error) => {
-        if (error.status == 200) {
-          this.teamData.url = error.error.text;
-        }
-      }
-    );
-  }
-
-  async createTeam() {
-    // await this.postImage(this.selectedImageURL as string);
-
-    const newTeamData: Partial<Team> = {
+    const teamData: Partial<Team> = {
       name: this.teamData.name,
       leader: this.nav.getProfile(),
     };
 
-    (await this.nav.teamService.createTeam(newTeamData as Team)).subscribe(
+    console.log(imageData);
+    (await this.gobal.postImage(imageData as Image))
+      .pipe(
+        map((response) => response['text']()) // Use ['text'] to access the text() method
+      )
+      .subscribe(
+        (result) => console.log(result),
+        async (error) => {
+          if (error.status == 406) {
+            this.errorMessageCreate = error.error;
+          } else if (error.status == 200) {
+            teamData.imageTeamUrl = error.error.text;
+            await this.postTeam(teamData as Team);
+          }
+        }
+      );
+  }
+
+  async postTeam(teamData: Team) {
+    (await this.nav.teamService.createTeam(teamData)).subscribe(
       async (response) => {
         // Handle the response here
         console.log(response);
@@ -124,7 +149,7 @@ export class ProfileTeamComponent {
     try {
       await (
         await this.nav.teamService.leavePlayer(
-          this.nav.getTeam().id,
+          this.team?.id as string,
           this.nav.getProfile().id
         )
       ).toPromise();
@@ -135,20 +160,19 @@ export class ProfileTeamComponent {
 
   async deleteTeam() {
     const response = (
-      await this.nav.teamService.deleteTeam(this.nav.getTeam().id)
+      await this.nav.teamService.deleteTeam(this.team?.id as string)
     ).subscribe(
       async (response) => {},
       async (error) => {
         if (error.status == 202) {
-          this.nav.getProfile().profileGame = null;
-          this.nav.setTeam();
+          this.nav.ngOnInit();
         }
       }
     );
   }
 
   getMyPosition() {
-    return this.nav.getTeam().positions.find((data) => {
+    return this.team?.positions.find((data) => {
       return data.player?.id == this.nav.getProfile().id;
     });
   }
@@ -172,6 +196,15 @@ export class ProfileTeamComponent {
   }
 
   isLeader() {
-    return this.nav.getProfile().id == this.nav.getTeam().leader.id;
+    return this.nav.getProfile().id == this.team?.leader.id;
+  }
+
+  async setImageTeam() {
+    (await this.gobal.getImage(this.team?.imageTeamUrl as string)).subscribe(
+      (res) => {},
+      (result) => {
+        this.imageTeam = result.error.text;
+      }
+    );
   }
 }
