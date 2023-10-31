@@ -4,36 +4,18 @@
     <div class="wrap">
       <div class="feature">
         <h3>FEATURE</h3>
-        <a routerLink=""  >
-          <img src="https://i.ytimg.com/vi/aAkF5gYW0RU/maxresdefault.jpg" alt="" />
-        </a>
-      </div>
-      <div class="tournament">
-        <h3>TOURNAMENT</h3>
-        <a routerLink="" >
-          <img src="https://www.game-ded.com/wordpress/wp-content/uploads/2018/09/RoV1.jpg" alt="" />
-        </a>
+        <img [src]="featuredTournament?.imageTourUrl" alt=""/>
       </div>
     </div>
 
 
-
-    
     <div class="ads-wrap">
      
-        <a routerLink=""  >
-          <img src="https://setting.ihavecpu.com/uploads/article/shop1/0357671217592756793360710.jpg" alt="" />
+      <div class="advert" *ngFor="let advert of adverts">
+        <a [routerLink]="advert.linkAdvertUrl">
+          <img [src]="advert.imageAdvertUrl" alt=""/>
         </a>
-        <a routerLink=""  >
-          <img src="https://mercular.s3.ap-southeast-1.amazonaws.com/images/products/2020/Brand%20Page/9_9-Gaming-Clearance-1230x600(2).jpg" alt="" />
-        </a>
-        <a routerLink=""  >
-          <img src="https://cdn.hub88.io/swintt/swt_golden888.jpg" alt="" />
-        </a>
-        <a routerLink=""  >
-          <img src="https://www.ktc.co.th/pub/media/Promotion/Online/Shopping/2023/AW_SEP23-264-Shopee_10.10_2023_WEB_TH_SMALL379x285_TH_.webp" alt="" />
-        </a>
-      
+      </div>
       
     </div>
     
