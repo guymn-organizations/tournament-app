@@ -34,22 +34,30 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const profileObservable: Observable<Profile> =
-        await this.profileService.getProfileById(
-          localStorage.getItem('profile') as string
-        );
-
-      profileObservable.subscribe(
-        (data: Profile) => {
-          this.profile = data;
-          console.log(this.profile);
-        },
-        (error) => {
-          console.error('Error fetching profile data:', error);
-        }
-      );
+      await this.setProfile();
+      await this.setTeam();
     } catch (error) {
       console.error('Error getting profile data Promise:', error);
+    }
+  }
+
+  async setProfile() {
+    try {
+      const profileId = localStorage.getItem('profile') as string;
+      this.profile = await (await this.profileService.getProfileById(profileId)).toPromise();
+      console.log(this.profile);
+    } catch (error) {
+      console.error('Error getting profile data:', error);
+    }
+  }
+
+  async setTeam() {
+    try {
+      const teamId = this.profile?.profileGame.myTeam as string;
+      this.team = await (await this.teamService.getTeamById(teamId)).toPromise();
+      console.log(this.team);
+    } catch (teamError) {
+      console.error('Error fetching team data:', teamError);
     }
   }
 
