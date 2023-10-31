@@ -79,7 +79,7 @@
     (click)="clickMenu()"
     [routerLink]="'profile'"
   >
-    <img [src]="profile?.imageProfileUrl" *ngIf="profile?.imageProfileUrl" />
+    <img class="m-auto" [src]="imageProfile" *ngIf="profile?.imageProfileUrl" />
     <i
       *ngIf="!profile?.imageProfileUrl"
       class="bi bi-person-fill text-body-tertiary"

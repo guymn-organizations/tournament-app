@@ -6,6 +6,7 @@ import { TeamService } from '../service/team.service';
 import { ProfileGame } from '../model/profile-game';
 import { Team } from '../model/team';
 import { Subscription } from 'rxjs';
+import { Image } from '../model/image';
 
 @Component({
   selector: 'app-navbar',
@@ -28,11 +29,13 @@ export class NavbarComponent implements OnInit {
 
   profile?: Profile;
   profileSubscription: Subscription | undefined;
+  imageProfile: Image | undefined;
 
   constructor() {}
 
   async ngOnInit() {
     await this.setProfile();
+    await this.setProfileTeam();
   }
 
   async setProfile() {
@@ -46,6 +49,17 @@ export class NavbarComponent implements OnInit {
     } catch (error) {
       console.error('Error getting profile data:', error);
     }
+  }
+
+  async setProfileTeam() {
+    (
+      await this.service.getImage(this.profile?.imageProfileUrl as string)
+    ).subscribe(
+      (res) => {},
+      (result) => {
+        this.imageProfile = result.error.text;
+      }
+    );
   }
 
   getProfile(): Profile {

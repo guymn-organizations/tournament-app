@@ -17,10 +17,13 @@ export class ProfileProfileComponent {
     password: '',
     confirm_password: '',
     birthday: this.nav.profile?.birthday,
+    imageProfileUrl: '',
   };
 
   toEdit = false;
   errorMessage: string = '';
+
+  selectedImageURL: string | ArrayBuffer | null = null;
 
   constructor() {}
 
@@ -43,11 +46,34 @@ export class ProfileProfileComponent {
     this.toEdit = false;
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.saveImage(file);
+    }
+  }
+
+  saveImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target) {
+        this.selectedImageURL = e.target.result;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
   onSubmitEditForm() {
     if (this.profileData.password !== this.profileData.confirm_password) {
       this.errorMessage = 'Password and confirm do not math';
       return;
     }
+
+    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
+      this.nav.service.deleteImageById(this.nav.getProfile().imageProfileUrl);
+    }
+
     this.clickOutEdit();
 
     this.nav.getProfile().birthday = this.profileData.birthday as Date;

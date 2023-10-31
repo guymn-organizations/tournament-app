@@ -23,4 +23,8 @@ export class GobalServiceService {
   async getImage(id: string): Promise<Observable<Image>> {
     return this.http.get<Image>(`${this.apiImageUrl}/${id}`);
   }
+
+  async deleteImageById(id: string): Promise<Observable<Image>> {
+    return this.http.delete<Image>(`${this.apiImageUrl}/${id}`);
+  }
 }

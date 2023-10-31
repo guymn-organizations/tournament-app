@@ -15,7 +15,6 @@ import { TeamService } from '../service/team.service';
 })
 export class ProfileTeamComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
-  gobal: GobalServiceService = inject(GobalServiceService);
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
@@ -84,7 +83,7 @@ export class ProfileTeamComponent implements OnInit {
     };
 
     console.log(imageData);
-    (await this.gobal.postImage(imageData as Image))
+    (await this.nav.service.postImage(imageData as Image))
       .pipe(
         map((response) => response['text']()) // Use ['text'] to access the text() method
       )
@@ -200,7 +199,9 @@ export class ProfileTeamComponent implements OnInit {
   }
 
   async setImageTeam() {
-    (await this.gobal.getImage(this.team?.imageTeamUrl as string)).subscribe(
+    (
+      await this.nav.service.getImage(this.team?.imageTeamUrl as string)
+    ).subscribe(
       (res) => {},
       (result) => {
         this.imageTeam = result.error.text;
