@@ -25,8 +25,8 @@ export class ProfileGameComponent {
   constructor() {}
 
   async setProfileGameData() {
-    this.profileGameData.name = this.nav.getProfile().profileGame.name;
-    this.profileGameData.openid = this.nav.getProfile().profileGame.openId;
+    this.profileGameData.name = this.nav.getProfile().profileGame?.name as string;
+    this.profileGameData.openid = this.nav.getProfile().profileGame?.openId as string;
   }
 
   isConnect(): boolean {

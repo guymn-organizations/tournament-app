@@ -133,13 +133,25 @@ export class ProfileTeamComponent {
     }
   }
 
+  async deleteTeam() {
+    const response = (
+      await this.nav.teamService.deleteTeam(this.nav.getTeam().id)
+    ).subscribe(
+      async (response) => {},
+      async (error) => {
+        if (error.status == 202) {
+          this.nav.getProfile().profileGame = null;
+          this.nav.setTeam();
+        }
+      }
+    );
+  }
+
   getMyPosition() {
     return this.nav.getTeam().positions.find((data) => {
       return data.player?.id == this.nav.getProfile().id;
     });
   }
-
-  deleteTeam() {}
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];

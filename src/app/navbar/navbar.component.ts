@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
 
   async setTeam() {
     try {
-      const teamId = this.profile?.profileGame.myTeam as string;
+      const teamId = this.profile?.profileGame?.myTeam as string;
       this.team = await (
         await this.teamService.getTeamById(teamId)
       ).toPromise();
