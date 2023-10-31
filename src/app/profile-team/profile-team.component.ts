@@ -207,4 +207,8 @@ export class ProfileTeamComponent implements OnInit {
       }
     );
   }
+
+  checkMessage(): boolean {
+    return this.team?.messages.length == 0;
+  }
 }

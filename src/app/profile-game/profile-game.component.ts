@@ -25,8 +25,10 @@ export class ProfileGameComponent {
   constructor() {}
 
   async setProfileGameData() {
-    this.profileGameData.name = this.nav.getProfile().profileGame?.name as string;
-    this.profileGameData.openid = this.nav.getProfile().profileGame?.openId as string;
+    this.profileGameData.name = this.nav.getProfile().profileGame
+      ?.name as string;
+    this.profileGameData.openid = this.nav.getProfile().profileGame
+      ?.openId as string;
   }
 
   isConnect(): boolean {
@@ -57,5 +59,9 @@ export class ProfileGameComponent {
     } else {
       return ' bi h1 m-2 bi-gender-male';
     }
+  }
+
+  checkMessage(): boolean {
+    return this.nav.getProfile().messages.length == 0;
   }
 }
