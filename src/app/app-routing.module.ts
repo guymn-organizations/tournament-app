@@ -27,6 +27,7 @@ const routes: Routes = [
         path: 'leauges',
         component: LeaugesComponent,
       },
+      {path:'createtournament',component:CreateTourComponent},
       { path: 'leauges/:leaugesid', component: LeaugesdetailComponent },
       { path: 'scrims', component: ScrimsComponent },
       { path: 'tournament', component: TournamentComponent },
@@ -54,7 +55,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  {path:'createtournament',component:CreateTourComponent}
+  
 ];
 
 @NgModule({

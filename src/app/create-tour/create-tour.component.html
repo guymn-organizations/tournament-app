@@ -1,1 +1,126 @@
-<p>create-tour works!</p>
+<link
+  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div class="body d-flex justify-content-center justify-content-lg-start">
+  <div class="createfrom">
+    <h1>Create Tournament</h1>
+    <div class="line-8-83i"></div>
+    <div class="form">
+      <form
+        #registerForm="ngForm"
+        class="row g-3 needs-validation"
+        novalidate
+        (ngSubmit)="submitCreatetourForm()"
+      >
+        <div class="col-md-7">
+          <label for="validationCustom01" class="form-label"
+            >TOURNAMENT NAME</label
+          >
+          <input
+            type="text"
+            id="Tournament_name"
+            name="Tournament_name"
+            class="form-control"
+            [(ngModel)]="tournamentData.name"
+            required
+            placeholder="Tournament name"
+          />
+        </div>
+        <div class="col-md-5">
+          <label for="validationCustom01" class="form-label"
+            >NUMBER OF TEAM</label
+          >
+          <input
+            type="text"
+            id="Tournament_number"
+            name="Tournament_number"
+            class="form-control"
+            [(ngModel)]="tournamentData.number"
+            required
+            placeholder="TEAM"
+          />
+        </div>
+        <div class="col-md-7">
+          <label for="validationCustom01" class="form-label">DETAIL</label>
+          <textarea
+            class="form-control"
+            id="Tournament_detail"
+            name="Tournament_detail"
+            [(ngModel)]="tournamentData.detail"
+            rows="5"
+          >
+          </textarea>
+        </div>
+       
+          <div class="col-md-5">
+            <div class="row g-2">
+              <div class="col-md-12">
+                <label for="formFileLg" class="form-label">PICTURE</label>
+                <input
+                  class="form-control form-control-lg"
+                  id="formFileLg"
+                  type="file"
+                />
+              </div>
+
+              <div class="col-md-12">
+                <label for="formFileLg" class="form-label">SELECT TYPE OF TYPE</label>
+                <select
+                class="form-select"
+                id="Tournament_type"
+                name="Tournament_type"
+                [(ngModel)]="tournamentData.type"
+                required
+              >
+                <option selected disabled value="">Choose...</option>
+                <option>paid</option>
+                <option>free</option>
+              </select>
+              </div>
+           
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label"
+              >REWARD</label
+            >
+            <input
+              type="text"
+              id="Tournament_reward"
+              name="Tournament_reward"
+              class="form-control"
+              [(ngModel)]="tournamentData.reward"
+              required
+              placeholder="BATH ฿"
+            />
+          </div>
+          
+          <div class="col-md-4">
+            <label for="validationCustom03" class="form-label">DATE</label>
+            <input
+              type="date"
+              id="Tournament_date"
+              name="Tournament_date"
+              class="form-control"
+              [(ngModel)]="tournamentData.date"
+              required
+              placeholder="register_date"
+              
+            />
+          </div>
+          
+
+        <button
+          type="submit"
+          class="btn btn-danger rounded-pill"
+          [disabled]="!registerForm.form.valid"
+        >
+          CREATE
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

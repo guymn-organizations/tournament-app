@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-tour.component.css']
 })
 export class CreateTourComponent {
+    tournamentData = {
+    name: '',
+    number: '',
+    detail: '',
+    reward: '',
+    date: undefined,
+    type: '',
+    
+  };
+  selectedImageURL: string | ArrayBuffer | null = null;
 
+  async submitCreatetourForm(){
+   
+  }
 }
