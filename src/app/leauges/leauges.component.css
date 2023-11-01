@@ -25,3 +25,8 @@
     grid-column-gap: 6px;
     grid-row-gap:6px;
 }
+.bar{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
