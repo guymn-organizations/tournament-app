@@ -21,8 +21,8 @@ export class NavbarComponent implements OnInit {
   menu = false;
   navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
   navBarImg = [
-    '../../assets/img/nav/SCRIMS.png',
     '../../assets/img/nav/LEAUGES.png',
+    '../../assets/img/nav/SCRIMS.png',
     '../../assets/img/nav/TOURNAMENT.png',
     '../../assets/img/nav/FINDER.png',
   ];
