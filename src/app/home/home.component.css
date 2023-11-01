@@ -41,3 +41,40 @@ h3{
     display: flex;
     margin-bottom: 50px;
 }
+.advert-slider {
+    display: flex;
+    overflow: hidden;
+}
+.advert {
+    min-width: 200px; 
+    transition: transform 1s ease-in-out; 
+}
+.advert img {
+    width: 100%;
+    height: auto;
+}
+
+@keyframes slide {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(-200%);
+    }
+    75% {
+      transform: translateX(-300%);
+    }
+  }
+  
+  .advert-slider .advert {
+    animation: slide 12s infinite;
+  }
+  
+  .ads-wrap {
+    width: 800px; 
+    overflow: hidden;
+    margin: 0 auto;
+  }
