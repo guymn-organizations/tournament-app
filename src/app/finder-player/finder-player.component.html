@@ -79,8 +79,8 @@
             <input type="text" class="form-control m-2"> <!-- Added margin -->
           </div>
           <div class="col-md-6 col-sm-12 text-md-end">
-            <button type="button" class="btn btn-success m-2">Post Find Team</button>
-            <!-- Button added and aligned to the right -->
+            <button  type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Post Find Team</button>
+                        <!-- Button added and aligned to the right -->
           </div>
         </div>
       </div>
@@ -94,5 +94,38 @@
       </div>
     </div>
   </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="playerPostForm">
+          <h2>Create Player Post</h2>
+          <label for="id">ID GAME:</label>
+          <input type="text" id="id" name="idgame"  required [(ngModel)]="id"><br><br>
+          <label for="profileGame">Profile Game:</label>
+          <input type="text" id="profileGame" name="profileGame" required [(ngModel)]="profileGame"><br><br>
+          <label for="position">Position:</label>
+          <select id="position" name="position" required [(ngModel)]="position">
+              <option value="DSL">DSL</option>
+              <option value="JG">JG</option>
+              <option value="MID">MID</option>
+              <option value="ADL">ADL</option>
+              <option value="SUP">SUP</option>
+          </select><br><br>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="submitform"  (click)="Postform()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
   <p class="m-2 text-center">finder-player works!</p> <!-- Added margin and centered text -->
 </div>
+

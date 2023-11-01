@@ -13,7 +13,7 @@ export class PlayerpostService {
 
   constructor(private http: HttpClient) { }
   async createPost(playerPost: Playerpost): Promise<Observable<Playerpost>> {
-    return this.http.post<Playerpost>(`${this.apiUrl}/register`, playerPost);
+    return this.http.post<Playerpost>(`${this.apiUrl}/create`, playerPost);
   }
 
   async editPost(
