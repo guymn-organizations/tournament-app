@@ -16,43 +16,31 @@
 .feature{
     margin-left: 50px;
 }
-.tournament{
-    margin-left: 50px;
-}
-.tournament img{
-    border: 2px solid rgb(0, 0, 0);
-    border-radius: 10px;
-    width: 500px;
-    height: 300px;
-    cursor: pointer;
-}
+
 h3{
     font-weight: bold;
 }
-.ads-wrap img{
+.advert img{
     border: 2px solid rgb(0, 0, 0);
     border-radius: 5px;
     width: 200px;
     height: 200px;
     
 }
-.ads-wrap{
-    justify-content: space-between;
-    display: flex;
-    margin-bottom: 50px;
-}
+
 .advert-slider {
+    justify-content: space-between;
+    width: 100%;
     display: flex;
     overflow: hidden;
 }
 .advert {
+    margin-left: 20px;
+    display: flex;
     min-width: 200px; 
     transition: transform 1s ease-in-out; 
 }
-.advert img {
-    width: 100%;
-    height: auto;
-}
+
 
 @keyframes slide {
     0%, 100% {
@@ -74,7 +62,9 @@ h3{
   }
   
   .ads-wrap {
-    width: 800px; 
+    
+    width: 100%; 
     overflow: hidden;
-    margin: 0 auto;
+    display: flex;
+    margin-bottom: 50px;
   }
