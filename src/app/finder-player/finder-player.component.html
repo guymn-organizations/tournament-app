@@ -95,37 +95,46 @@
     </div>
   </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="playerPostForm">
-          <h2>Create Player Post</h2>
-          <label for="id">ID GAME:</label>
-          <input type="text" id="id" name="idgame"  required [(ngModel)]="id"><br><br>
-          <label for="profileGame">Profile Game:</label>
-          <input type="text" id="profileGame" name="profileGame" required [(ngModel)]="profileGame"><br><br>
-          <label for="position">Position:</label>
-          <select id="position" name="position" required [(ngModel)]="position">
-              <option value="DSL">DSL</option>
-              <option value="JG">JG</option>
-              <option value="MID">MID</option>
-              <option value="ADL">ADL</option>
-              <option value="SUP">SUP</option>
-          </select><br><br>
-      </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="submitform"  (click)="Postform()">Save changes</button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Create Player Post</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="playerPostForm">
+            <h2 class="mt-2" >Player Information</h2>
+            <div class="mb-3">
+              <label for="id" class="form-label ">ID GAME:</label>
+              <input type="text" id="id" name="idgame" class="form-control" required [(ngModel)]="id">
+            </div>
+  
+            <div class="mb-3">
+              <label for="profileGame" class="form-label ">Profile Game:</label>
+              <input type="text" id="profileGame" name="profileGame" class="form-control" required [(ngModel)]="profileGame">
+            </div>
+  
+            <div class="mb-3">
+              <label for="position" class="form-label ">Position:</label>
+              <select id="position" name="position" class="form-select" required [(ngModel)]="position">
+                <option value="DSL">DSL</option>
+                <option value="JG">JG</option>
+                <option value="MID">MID</option>
+                <option value="ADL">ADL</option>
+                <option value="SUP">SUP</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" id="submitform"  (click)="Postform()" >Save Changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  
   <p class="m-2 text-center">finder-player works!</p> <!-- Added margin and centered text -->
 </div>
 
