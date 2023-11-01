@@ -15,6 +15,8 @@ export class ProfileGameComponent {
   nav: NavbarComponent = inject(NavbarComponent);
   profileService: ProfileService = inject(ProfileService);
 
+  selectedImageURL: string | ArrayBuffer | null = null;
+
   profileGameData = {
     name: '',
     openid: '',
@@ -63,5 +65,23 @@ export class ProfileGameComponent {
 
   checkMessage(): boolean {
     return this.nav.getProfile().messages.length == 0;
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.saveImage(file);
+    }
+  }
+
+  saveImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target) {
+        this.selectedImageURL = e.target.result;
+      }
+    };
+    reader.readAsDataURL(file);
   }
 }
