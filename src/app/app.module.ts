@@ -22,6 +22,7 @@ import { ProfileProfileComponent } from './profile-profile/profile-profile.compo
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateTourComponent } from './create-tour/create-tour.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileProfileComponent,
     LeaugesdetailComponent,
     LeaugesTeamComponent,
+    CreateTourComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

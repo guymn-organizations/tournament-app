@@ -15,6 +15,7 @@ import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
+import { CreateTourComponent } from './create-tour/create-tour.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {path:'createtournament',component:CreateTourComponent}
 ];
 
 @NgModule({
