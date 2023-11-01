@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Gender, Profile } from '../model/profile';
-import { ProfileProfileComponent } from '../profile-profile/profile-profile.component';
 import { ProfileService } from '../service/profile.service';
 import { ProfileGame } from '../model/profile-game';
-import { connect } from 'rxjs';
+import { Image } from '../model/image';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-game',
@@ -48,11 +48,30 @@ export class ProfileGameComponent {
   }
 
   async setProfileGame() {
-    this.nav.getProfile().profileGame = new ProfileGame();
-    this.nav.getProfileGame().name = this.profileGameData.name;
-    this.nav.getProfileGame().openId = this.profileGameData.openid;
+    const imageData: Partial<Image> = {
+      imageUrl: this.selectedImageURL as string,
+    };
 
-    this.nav.updateProfile();
+    (await this.nav.service.postImage(imageData as Image))
+      .pipe(
+        map((response) => response['text']()) // Use ['text'] to access the text() method
+      )
+      .subscribe(
+        (result) => console.log(result),
+        async (error) => {
+          if (error.status == 406) {
+          } else if (error.status == 200) {
+            if (!this.nav.getProfile().profileGame) {
+              this.nav.getProfile().profileGame = new ProfileGame();
+            }
+            this.nav.getProfileGame().name = this.profileGameData.name;
+            this.nav.getProfileGame().openId = this.profileGameData.openid;
+            this.nav.getProfileGame().imageGameUrl = error.error.text;
+
+            this.nav.updateProfile();
+          }
+        }
+      );
   }
 
   getGenderIcon(): string {

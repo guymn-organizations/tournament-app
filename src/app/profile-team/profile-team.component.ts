@@ -84,7 +84,6 @@ export class ProfileTeamComponent implements OnInit {
       leader: this.nav.getProfile(),
     };
 
-    console.log(imageData);
     (await this.nav.service.postImage(imageData as Image))
       .pipe(
         map((response) => response['text']()) // Use ['text'] to access the text() method
