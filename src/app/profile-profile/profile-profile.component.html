@@ -11,7 +11,15 @@
       <img
         [src]="nav.imageProfile"
         class="col-12 ms-auto me-auto mt-5 border"
+        *ngIf="nav.imageProfile"
       />
+      <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+        <i
+          class="bi bi-person-fill text-body-tertiary border"
+          *ngIf="!nav.imageProfile"
+          style="font-size: 200px; height: 250px"
+        ></i>
+      </div>
     </div>
     <div class="col-12 col-lg-8">
       <div class="col-12 flex-column d-flex">
