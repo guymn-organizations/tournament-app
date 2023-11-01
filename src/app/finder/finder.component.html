@@ -1,4 +1,7 @@
-<div class="finder">
+<div
+  class="finder"
+  [ngClass]="{ 'visually-hidden': !nav.getProfile().profileGame }"
+>
   <div class="container">
     <app-header [title]="title" [discription]="discription"></app-header>
 

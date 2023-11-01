@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-finder',
@@ -7,6 +8,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./finder.component.css'],
 })
 export class FinderComponent {
+  nav: NavbarComponent = inject(NavbarComponent);
   title: string = 'Finder';
   discription: string = 'Find player or team to join';
 

@@ -6,7 +6,7 @@ export class Team {
   name!: string;
   leader!: Profile;
   positions: {
-    position_type: PositionTypeT;
+    position_type: PositionType;
     position_name: string;
     player: Profile | null;
   }[] = [];
@@ -17,7 +17,7 @@ export class Team {
   constructor() {}
 }
 
-export enum PositionTypeT {
+export enum PositionType {
   DSL = 'DSL',
   JG = 'JG',
   MID = 'MID',

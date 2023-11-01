@@ -1,63 +1,53 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { PlayerpostService } from '../service/playerpost.service';
-import { Playerpost, Position } from '../model/playerpost';
-
-
+import { Playerpost } from '../model/playerpost';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { PositionType } from '../model/team';
 
 @Component({
   selector: 'app-playerpost',
   templateUrl: './finder-player.component.html',
-  styleUrls: ['./finder-player.component.css']
+  styleUrls: ['./finder-player.component.css'],
 })
-export class FinderPlayerComponent  {
-  service : PlayerpostService = inject (PlayerpostService)
-  playerPosts: Playerpost[] = [];
-  id: string = ''; // Change this variable name to 'id' to match the HTML template
-  profileGame: string = '';
-  position: Position = Position.DSL; // Set a default value
+export class FinderPlayerComponent {
+  playerPostService: PlayerpostService = inject(PlayerpostService);
+  nav: NavbarComponent = inject(NavbarComponent);
 
+  playerPosts: Playerpost[] = [];
+
+  positionsData: PositionType[] = [];
   playerPostData = {
-    id: '', // Match the variable name to 'id'
-    profileGame: '',
-    position: '',
+    position: PositionType.DSL,
   };
 
-  constructor(private playerpostService: PlayerpostService) { }
+  position = [
+    PositionType.DSL,
+    PositionType.ADL,
+    PositionType.JG,
+    PositionType.MID,
+    PositionType.SUP,
+  ];
+
+  constructor() {}
 
   ngOnInit() {
-    this.playerpostService.getAllPlayerPost().subscribe(data => {
+    this.playerPostService.getAllPlayerPost().subscribe((data) => {
       this.playerPosts = data;
     });
   }
 
-  Postform() {
-    const id = this.id; // Update this variable to 'id'
-    const profileGame = this.profileGame;
-    const position = this.position;
+  async Postform() {
+    this.positionsData.push(this.playerPostData.position);
 
-    console.log(id);
-    console.log(profileGame);
-    console.log(position);
-  }
-
-  async submitRegisterForm() {
-    const newProfileData: Partial<Playerpost> = {
-      id: this.playerPostData.id, // Match the variable name to 'id'
-      // profileGame: this.playerPostData.profileGame,
-      // position: this.playerPostData.position,
+    const postPlayerData: Partial<Playerpost> = {
+      profile: this.nav.getProfile(),
+      positions: this.positionsData,
     };
 
+    console.log(postPlayerData);
+
     (
-      await this.playerpostService.createPost(newProfileData as Playerpost)
-    ).subscribe(
-      (response) => {
-        // Handle the response here
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-        // Handle the error
-      }
-    );
+      await this.playerPostService.createPost(postPlayerData as Playerpost)
+    ).subscribe();
   }
 }

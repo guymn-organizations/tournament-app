@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { PositionTypeT, Team } from '../model/team';
+import { PositionType, Team } from '../model/team';
 import { Profile } from '../model/profile';
 import { GobalServiceService } from '../service/gobal-service.service';
 import { Image } from '../model/image';
@@ -28,16 +28,16 @@ export class ProfileTeamComponent implements OnInit {
   };
 
   position = [
-    PositionTypeT.DSL,
-    PositionTypeT.ADL,
-    PositionTypeT.JG,
-    PositionTypeT.MID,
-    PositionTypeT.SUP,
+    PositionType.DSL,
+    PositionType.ADL,
+    PositionType.JG,
+    PositionType.MID,
+    PositionType.SUP,
   ];
 
   playerImages: string[] = [];
 
-  position_type: PositionTypeT = PositionTypeT.DSL;
+  position_type: PositionType = PositionType.DSL;
 
   errorMessageCreate = '';
   errorMessageFind = '';
@@ -120,7 +120,7 @@ export class ProfileTeamComponent implements OnInit {
     );
   }
 
-  async addPlayer(id: string, player: string, type: PositionTypeT) {
+  async addPlayer(id: string, player: string, type: PositionType) {
     (await this.nav.teamService.addTeamPlayer(id, player, type)).subscribe(
       async (response) => {
         await this.nav.ngOnInit();

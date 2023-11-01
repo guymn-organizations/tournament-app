@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PositionTypeT, Team } from '../model/team';
+import { PositionType, Team } from '../model/team';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class TeamService {
   async addTeamPlayer(
     id: string,
     player: string,
-    type: PositionTypeT
+    type: PositionType
   ): Promise<Observable<Team>> {
     return this.http.put<Team>(`${this.apiUrl}/${id}/${type}/${player}`, null);
   }
