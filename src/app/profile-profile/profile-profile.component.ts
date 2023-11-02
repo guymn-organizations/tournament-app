@@ -73,6 +73,25 @@ export class ProfileProfileComponent {
       return;
     }
 
+    const profileData: Partial<Profile> = {
+      firstName: this.profileData.first_name,
+      lastName: this.profileData.last_name,
+      email: this.profileData.email,
+      password: this.profileData.password,
+      birthday: this.profileData.birthday,
+      imageProfileUrl: this.selectedImageURL as string,
+    };
+
+    (
+      await this.nav.profileService.editProfile(
+        this.nav.getProfile().id,
+        profileData as Profile
+      )
+    ).subscribe((respon) => {
+      this.nav.setProfileData(respon);
+      this.nav.setProfileImage();
+    });
+
     this.clickOutEdit();
   }
 }

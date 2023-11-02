@@ -38,6 +38,10 @@ export class NavbarComponent implements OnInit {
     await this.setProfileImage();
   }
 
+  setProfileData(profile: Profile) {
+    this.profile = profile;
+  }
+
   async setProfile() {
     try {
       const profile_id = localStorage.getItem('profile') as string;

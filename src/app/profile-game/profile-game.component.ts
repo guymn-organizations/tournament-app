@@ -68,11 +68,7 @@ export class ProfileGameComponent implements OnInit {
       )
     ).subscribe(
       (respon) => {
-        console.log(respon);
         this.nav.getProfile().profileGame = respon;
-      },
-      (error) => {
-        console.log(error);
       }
     );
   }
