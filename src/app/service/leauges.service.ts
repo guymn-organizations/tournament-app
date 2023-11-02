@@ -10,9 +10,9 @@ export class LeaugesService {
 
   constructor(private http: HttpClient) {}
 
-  private apiUrl = 'http://localhost:4200/tournament';
+  private apiUrl = 'http://localhost:8000/tournament';
   
-  addTournament(data: Tournament): Observable<any> {
+  async addTournament(data: Tournament): Promise<Observable<any>> {
     return this.http.post(`${this.apiUrl}/create`, data);
   }
 }

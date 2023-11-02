@@ -1,45 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { LeaugesService } from '../service/leauges.service';
-import { TournamenType, Tournament } from '../model/tournament';
+import { Status, TournamenType, Tournament } from '../model/tournament';
 
 @Component({
   selector: 'app-create-tour',
   templateUrl: './create-tour.component.html',
-  styleUrls: ['./create-tour.component.css']
+  styleUrls: ['./create-tour.component.css'],
 })
 export class CreateTourComponent {
-  
-    tournamentData = {
-      id: '', // ให้ id เป็นสตริงว่างไว้หรือกำหนดค่าที่เหมาะสม
-      name: '', // ใช้ข้อมูลจากฟอร์ม
-      detail: '', // ใช้ข้อมูลจากฟอร์ม
-      reward: 0, // ใช้ข้อมูลจากฟอร์ม
-      startRegisterDate: new Date(), // ใช้ข้อมูลจากฟอร์ม
-      endRegisterDate: new Date(), // ใช้ข้อมูลจากฟอร์ม
-      startTourDate: new Date(), // ใช้ข้อมูลจากฟอร์ม
-      imageTourUrl: '', // ใช้ข้อมูลจากฟอร์ม
-      
-      BOqualifyingRound: 0, // ใช้ข้อมูลจากฟอร์ม
-      BOfinalRound: 0, // ใช้ข้อมูลจากฟอร์ม
-      teamJoin: [], // ใช้ข้อมูลจากฟอร์ม (แนะนำสร้างอ็อบเจกต์เปล่า หรือสร้างโครงสร้างสำหรับ TeamInTournament)
-      status: {}, // ใช้ข้อมูลจากฟอร์ม (แนะนำสร้างอ็อบเจกต์เปล่า หรือสร้างโครงสร้างสำหรับ Status)
-      matchList: [] // ใช้ข้อมูลจากฟอร์ม (แนะนำสร้างอ็อบเจกต์เปล่า หรือสร้างโครงสร้างสำหรับ Match)
+  tournamentData = {
     
+    name: '',
+    detail: '',
+    reward: 0,
+    startRegisterDate: new Date(),
+    endRegisterDate: new Date(),
+    startTourDate: new Date(),
+    imageTourUrl: '',
+    BOqualifyingRound: 0,
+    BOfinalRound: 0,
+    // teamJoin: [],
+    // status: [],
+    // matchList: [],
+    tournamenType: [], // เพิ่ม tournamenType เข้ามาใน tournamentData
   };
-  tournametType=[
-   TournamenType.Free,
-   TournamenType.Paid
-  ];
   
+  tournametType = [TournamenType.Free, TournamenType.Paid];
 
   tournament_type: TournamenType = TournamenType.Free;
-  
+
+  selectedImageURL: string | ArrayBuffer | null = null;
 
   constructor(private leauges: LeaugesService) {}
-  
-  
+
   async submitCreatetourForm(data: Tournament) {
-    
+    console.warn(data);
+    (await this.leauges.addTournament(data)).subscribe((response) => {
+      console.log('Response from service:', response);
+    });
   }
 }

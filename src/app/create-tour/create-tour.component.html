@@ -13,7 +13,7 @@
         #createtourForm="ngForm"
         class="row g-3 needs-validation"
         novalidate
-        (ngSubmit)="submitCreatetourForm()"
+        (ngSubmit)="submitCreatetourForm(tournamentData)"
       >
         <div class="col-md-7">
           <label for="validationCustom01" class="form-label"
@@ -134,9 +134,9 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option >BO3</option>
-            <option >BO5</option>
-            <option >BO7</option>
+            <option >3</option>
+            <option >5</option>
+            <option >7</option>
           </select>
           </div>
 
@@ -150,9 +150,9 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option >BO3</option>
-            <option >BO5</option>
-            <option >BO7</option>
+            <option >3</option>
+            <option >5</option>
+            <option >7</option>
           </select>
           </div>
           

@@ -3,7 +3,7 @@ import { TeamInTournament } from "./team-in-tournament";
 
 
 export class Tournament {
-  id: string | undefined;
+  
   name: string | undefined;
   detail: string | undefined;
   reward: number| undefined;
@@ -14,9 +14,9 @@ export class Tournament {
   tournamenType: TournamenType[]| undefined; // Adjust the type as needed
   BOqualifyingRound: number| undefined;
   BOfinalRound: number| undefined;
-  teamJoin: TeamInTournament[]| undefined;
-  status: Status[]| undefined; // Adjust the type as needed
-  matchList: Match[]| undefined;
+  // teamJoin: TeamInTournament[]| undefined;
+  // status: Status[]| undefined; // Adjust the type as needed
+  // matchList: Match[]| undefined;
 
   constructor(){
 
@@ -24,11 +24,11 @@ export class Tournament {
 }
 
 export enum Status {
-    รอดำเนินการ,
-    เปิดรับสมัคร,
-    ปิดรับสมัคร,
-    กำลังแข่งขัน,
-    จบการแข่งขัน
+    รอดำเนินการ='รอดำเนินการ',
+    เปิดรับสมัคร='เปิดรับสมัคร',
+    ปิดรับสมัคร='ปิดรับสมัคร',
+    กำลังแข่งขัน='กำลังแข่งขัน',
+    จบการแข่งขัน='จบการแข่งขัน'
   }
   
 export enum TournamenType {
