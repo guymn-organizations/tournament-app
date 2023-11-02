@@ -16,6 +16,7 @@ export class FinderPlayerComponent {
   playerPosts: Playerpost[] = [];
 
   positionsData: PositionType[] = [];
+  Image : String[] = [];
   playerPostData = {
     position: PositionType.DSL,
   };
@@ -42,6 +43,7 @@ export class FinderPlayerComponent {
     const postPlayerData: Partial<Playerpost> = {
       profile: this.nav.getProfile(),
       positions: this.positionsData,
+      
     };
 
     console.log(postPlayerData);

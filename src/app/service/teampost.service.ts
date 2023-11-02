@@ -7,11 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TeampostService {
+  
   private apiUrl = 'http://localhost:8000/team_post'
 
   constructor(private http: HttpClient) { }
-  async createPost(playerPost: Teampost): Promise<Observable<Teampost>> {
-    return this.http.post<Teampost>(`${this.apiUrl}/register`, playerPost);
+  async createPost(Teampost: Teampost): Promise<Observable<Teampost>> {
+    return this.http.post<Teampost>(`${this.apiUrl}/create`, Teampost);
   }
 
   async editPost(
@@ -19,5 +20,8 @@ export class TeampostService {
     profile: Teampost
   ): Promise<Observable<Teampost>> {
     return this.http.put<Teampost>(`${this.apiUrl}/${id}`, profile);
+  }
+  getAllTeamPost(): Observable<Teampost[]> {
+    return this.http.get<Teampost[]>(`${this.apiUrl}`);
   }
 }
