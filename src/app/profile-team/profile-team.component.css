@@ -62,3 +62,7 @@ select {
 .none-img {
   font-size: 120px;
 }
+
+.bi-chat {
+  cursor: pointer;
+}

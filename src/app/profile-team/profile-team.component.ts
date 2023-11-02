@@ -218,4 +218,11 @@ export class ProfileTeamComponent implements OnInit {
       imageUrl: this.playerImages[index] || '',
     }));
   }
+
+  goMessage() {
+    if (!this.isLeader()) {
+      return;
+    }
+    console.log('MessageTeam');
+  }
 }

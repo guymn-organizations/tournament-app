@@ -115,4 +115,8 @@ export class ProfileGameComponent implements OnInit {
       }
     );
   }
+
+  goMessage() {
+    console.log('MessageGame');
+  }
 }

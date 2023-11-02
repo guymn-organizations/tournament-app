@@ -1,7 +1,7 @@
 <div class="mb-5">
   <div class="d-flex flex-row">
     <h1>Profile Game</h1>
-    <div class="position-relative ms-auto me-4">
+    <div class="position-relative ms-auto me-4" (click)="goMessage()">
       <i class="h1 bi bi-chat me-1"> </i>
       <i
         class="bi bi-circle-fill position-absolute top-0 end-0 text-warning"
@@ -35,7 +35,7 @@
           "
         />
         <div
-          class="d-flex justify-content-center align-items-center "
+          class="d-flex justify-content-center align-items-center"
           *ngIf="
             !nav.getProfile().profileGame?.imageGameUrl && !selectedImageURL
           "
