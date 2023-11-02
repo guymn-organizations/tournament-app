@@ -1,5 +1,5 @@
-export interface Advert {
-    id:string
-    imageAdvertUrl:string
-    linkAdvertUrl:string
+export class Advert {
+    id:string | undefined
+    imageAdvertUrl:string | undefined
+    linkAdvertUrl:string | undefined
 }

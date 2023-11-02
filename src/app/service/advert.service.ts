@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Advert } from '../model/advert';
-import { Observable, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, map, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,7 @@ export class AdvertService {
 
   constructor(private http: HttpClient) { }
 
-  createAdvert(advert: FormData): Observable<Advert> {
+  async createAdvert(advert: Advert): Promise<Observable<Advert>> {
     return this.http.post<Advert>(this.apiUrl + '/create', advert)
-      .pipe(
-        map((response: any) => {
-          return response.createdAdvert as Advert;
-        })
-      );
   }
 }
