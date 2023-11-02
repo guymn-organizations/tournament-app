@@ -3,17 +3,19 @@
 }
 
 .img {
-  margin-top: 20px;
   width: 200px;
   height: 200px;
 }
-
 img {
   width: 200px;
   height: 200px;
 }
 
 .isTeam img {
+  width: 100px;
+  height: 100px;
+}
+.isTeam .img {
   width: 100px;
   height: 100px;
 }
