@@ -68,14 +68,6 @@ export class NavbarComponent implements OnInit {
     return new Profile();
   }
 
-  getProfileGame(): ProfileGame {
-    if (this.profile?.profileGame) {
-      return this.profile.profileGame;
-    }
-
-    return new ProfileGame();
-  }
-
   isLogin(): boolean {
     return !!this.profile;
   }
@@ -113,6 +105,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async updateProfile() {
+    console.log(this.profile);
     (
       await this.profileService.editProfile(
         this.profile?.id as string,

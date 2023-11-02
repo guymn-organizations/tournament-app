@@ -78,7 +78,7 @@
             class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
             *ngFor="let mem of team?.teamReserve"
           >
-            <div class="flex-grow-1 ps-2">{{ mem.profileGame?.name }}</div>
+            <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
             <div class="m-auto p-2 bg-success" *ngIf="isLeader()">
               <i class="bi bi-arrow-bar-up text-white"></i>
             </div>

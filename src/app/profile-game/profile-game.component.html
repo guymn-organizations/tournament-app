@@ -109,6 +109,19 @@
 <ng-template #ConnectedPage>
   <div class="row container d-flex align-items-start profile-game">
     <div class="col-12">
+      <div class="border row col-12 mt-4 game-img">
+        <img
+          [src]="selectedImageURL"
+          class="col-12 ms-auto me-auto border p-0"
+          *ngIf="selectedImageURL"
+        />
+        <div
+          class="col-12 d-flex justify-content-center align-items-center game-img"
+          *ngIf="!selectedImageURL"
+        >
+          <label class="text-white">Upload profile in game ROV</label>
+        </div>
+      </div>
       <div class="col-lg-12 row align-items-center">
         <label class="form-label col-md-3 col-2">
           <i class="" [classList]="getGenderIcon()"></i>
@@ -120,17 +133,17 @@
       <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">Name</label>
         <label class="bg-data ps-3 pe-3 p-1">
-          {{ nav.getProfile().profileGame?.name }}
+          {{ nav.getProfile().profileGame.name }}
         </label>
       </div>
       <div class="col-lg-12 flex-column d-flex">
         <label class="form-label">Open ID</label>
         <label class="bg-data ps-3 pe-3 p-1">
-          {{ nav.getProfile().profileGame?.openId }}
+          {{ nav.getProfile().profileGame.openId }}
         </label>
       </div>
     </div>
-    <div class="mt-auto container d-flex justify-content-between">
+    <div class="mt-5 container d-flex justify-content-between">
       <button
         class="btn btn-success text-uppercase ms-auto"
         (click)="clickEdit()"

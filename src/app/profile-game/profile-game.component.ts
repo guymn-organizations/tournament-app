@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './profile-game.component.html',
   styleUrls: ['./profile-game.component.css'],
 })
-export class ProfileGameComponent {
+export class ProfileGameComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
   profileService: ProfileService = inject(ProfileService);
 
@@ -24,7 +24,12 @@ export class ProfileGameComponent {
 
   toEdit = false;
 
+  profileGame: ProfileGame | undefined;
+
   constructor() {}
+  async ngOnInit(): Promise<void> {
+    await this.setImageGame();
+  }
 
   async setProfileGameData() {
     this.profileGameData.name = this.nav.getProfile().profileGame
@@ -64,9 +69,10 @@ export class ProfileGameComponent {
             if (!this.nav.getProfile().profileGame) {
               this.nav.getProfile().profileGame = new ProfileGame();
             }
-            this.nav.getProfileGame().name = this.profileGameData.name;
-            this.nav.getProfileGame().openId = this.profileGameData.openid;
-            this.nav.getProfileGame().imageGameUrl = error.error.text;
+            this.nav.getProfile().profileGame.name = this.profileGameData.name;
+            this.nav.getProfile().profileGame.openId =
+              this.profileGameData.openid;
+            this.nav.getProfile().profileGame.imageGameUrl = error.error.text;
 
             this.nav.updateProfile();
           }
@@ -83,7 +89,7 @@ export class ProfileGameComponent {
   }
 
   checkMessage(): boolean {
-    return this.nav.getProfile().messages.length == 0;
+    return this.nav.getProfile().messages?.length == 0;
   }
 
   onFileSelected(event: any) {
@@ -102,5 +108,17 @@ export class ProfileGameComponent {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  async setImageGame() {
+    console.log(this.nav.profile);
+    // (
+    //   await this.nav.service.getImage(this.nav.getProfileGame().imageGameUrl)
+    // ).subscribe(
+    //   (respon) => {},
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }
 }

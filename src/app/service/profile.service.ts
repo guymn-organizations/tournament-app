@@ -30,14 +30,4 @@ export class ProfileService {
   ): Promise<Observable<Profile>> {
     return this.http.put<Profile>(`${this.apiUrl}/${id}`, profile);
   }
-
-  async setProfileGame(
-    id: string,
-    profileGame: ProfileGame
-  ): Promise<Observable<Profile>> {
-    return this.http.put<Profile>(
-      `${this.apiUrl}/${id}/set_profile_game`,
-      profileGame
-    );
-  }
 }

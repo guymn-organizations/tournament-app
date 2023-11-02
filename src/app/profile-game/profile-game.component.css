@@ -18,4 +18,5 @@ label {
 .game-img,
 img {
   height: 400px;
+  object-fit: cover; /* Ensures the image covers the container */
 }
