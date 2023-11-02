@@ -61,6 +61,8 @@ export class ProfileGameComponent implements OnInit {
       imageGameUrl: this.selectedImageURL as string,
     };
 
+    console.log(profileData);
+
     (
       await this.nav.profileService.editProfileGame(
         this.nav.getProfile().id,
@@ -69,7 +71,8 @@ export class ProfileGameComponent implements OnInit {
     ).subscribe(
       (respon) => {
         this.nav.getProfile().profileGame = respon;
-      }
+      },
+      (error) => {}
     );
   }
 
@@ -106,7 +109,7 @@ export class ProfileGameComponent implements OnInit {
   async setImageGame() {
     (
       await this.nav.service.getImage(
-        this.nav.getProfile()?.profileGame.imageGameUrl as string
+        this.nav.getProfile()?.profileGame?.imageGameUrl as string
       )
     ).subscribe(
       (res) => {},
