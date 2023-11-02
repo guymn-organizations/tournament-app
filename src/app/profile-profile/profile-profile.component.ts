@@ -36,6 +36,7 @@ export class ProfileProfileComponent {
     this.profileData.password = '';
     this.profileData.confirm_password = '';
   }
+
   isEdit(): boolean {
     return !!this.toEdit;
   }

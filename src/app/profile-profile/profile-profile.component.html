@@ -61,9 +61,12 @@
     <div class="mt-5 d-flex">
       <button
         type="button"
-        class="btn btn-success ms-auto"
-        (click)="clickEdit()"
+        class="btn btn-danger ms-auto"
+        (click)="nav.logout()"
       >
+        Logout
+      </button>
+      <button type="button" class="btn btn-success ms-3" (click)="clickEdit()">
         Edit Profile
       </button>
     </div>

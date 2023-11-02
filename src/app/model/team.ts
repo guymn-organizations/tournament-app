@@ -11,8 +11,8 @@ export class Team {
     player: Profile | null;
   }[] = [];
   teamReserve!: Profile[];
-  messages!: Message[];
   imageTeamUrl!: string;
+  messages!: Message[];
 
   constructor() {}
 }

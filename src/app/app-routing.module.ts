@@ -43,13 +43,12 @@ const routes: Routes = [
           {
             path: 'game',
             component: ProfileGameComponent,
-            children: [{ path: 'message', component: MessageComponent }],
           },
           {
             path: 'team',
             component: ProfileTeamComponent,
-            children: [{ path: 'message', component: MessageComponent }],
           },
+          { path: 'message', component: MessageComponent },
         ],
       },
     ],

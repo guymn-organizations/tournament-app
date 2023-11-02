@@ -96,10 +96,15 @@ export class ProfileTeamComponent implements OnInit {
         this.teamData.id,
         this.nav.getProfile().id
       )
-    ).subscribe(async (respon) => {
-      await this.setTeamId(respon.id);
-      await this.ngOnInit();
-    });
+    ).subscribe(
+      async (respon) => {
+        await this.setTeamId(respon.id);
+        await this.ngOnInit();
+      },
+      (error) => {
+        this.errorMessageFind = error.error;
+      }
+    );
   }
 
   async addPlayer(id: string) {
@@ -187,10 +192,6 @@ export class ProfileTeamComponent implements OnInit {
     );
   }
 
-  checkMessage(): boolean {
-    return this.team?.messages.length == 0;
-  }
-
   async setPlayerImages() {
     const image_id = (this.team?.positions || []).map((position) => {
       if (position.player !== null && position.player.imageProfileUrl) {
@@ -217,12 +218,5 @@ export class ProfileTeamComponent implements OnInit {
       ...data,
       imageUrl: this.playerImages[index] || '',
     }));
-  }
-
-  goMessage() {
-    if (!this.isLeader()) {
-      return;
-    }
-    console.log('MessageTeam');
   }
 }

@@ -1,13 +1,6 @@
 <div class="mb-5">
   <div class="d-flex flex-row">
     <h1>Profile Game</h1>
-    <div class="position-relative ms-auto me-4" (click)="goMessage()">
-      <i class="h1 bi bi-chat me-1"> </i>
-      <i
-        class="bi bi-circle-fill position-absolute top-0 end-0 text-warning"
-        [ngClass]="{ 'd-none': checkMessage() }"
-      ></i>
-    </div>
   </div>
   <ng-container *ngIf="isConnect(); else ConnectPage">
     <ng-container *ngTemplateOutlet="ConnectedPage"></ng-container
@@ -21,7 +14,7 @@
     (ngSubmit)="onSubmitConnectForm()"
   >
     <div class="row d-flex justify-content-center">
-      <div class="border row col-12 mt-4 p-0 img-content">
+      <div class="border row col-12 mt-4 p-0">
         <img
           [src]="selectedImageURL"
           class="border m-0 p-0"
@@ -40,7 +33,9 @@
             !nav.getProfile().profileGame?.imageGameUrl && !selectedImageURL
           "
         >
-          <label class="text-white">Upload profile in game ROV</label>
+          <label class="text-white" style="padding: 20%"
+            >Upload profile in game ROV</label
+          >
         </div>
       </div>
 
@@ -110,7 +105,7 @@
 <ng-template #ConnectedPage>
   <div class="row d-flex justify-content-center">
     <div class="row d-flex justify-content-center">
-      <div class="border row col-12 mt-4 p-0 img-content">
+      <div class="border row col-12 mt-4 p-0">
         <img
           [src]="selectedImageURL"
           class="border m-0 p-0"
@@ -120,7 +115,9 @@
           class="d-flex justify-content-center align-items-center"
           *ngIf="!selectedImageURL"
         >
-          <label class="text-white">Upload profile in game ROV</label>
+          <label class="text-white" style="padding: 20%"
+            >Upload profile in game ROV</label
+          >
         </div>
       </div>
     </div>
@@ -154,3 +151,5 @@
     </button>
   </div>
 </ng-template>
+
+<router-outlet></router-outlet>

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { GobalServiceService } from '../service/gobal-service.service';
+import { ProfileTeamComponent } from '../profile-team/profile-team.component';
 
 @Component({
   selector: 'app-profile',
@@ -28,12 +29,15 @@ export class ProfileComponent {
       name: 'Profile Team',
       path: 'team',
     },
+    {
+      name: 'Message',
+      path: 'message',
+    },
   ];
 
   checkTab: string = '';
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.checkTab = this.router.url;

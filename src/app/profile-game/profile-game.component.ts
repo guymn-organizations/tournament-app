@@ -81,10 +81,6 @@ export class ProfileGameComponent implements OnInit {
     }
   }
 
-  checkMessage(): boolean {
-    return this.nav.getProfile().messages?.length == 0;
-  }
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
 
@@ -118,5 +114,6 @@ export class ProfileGameComponent implements OnInit {
 
   goMessage() {
     console.log('MessageGame');
+    this.nav.service.toPage('profile/game/message');
   }
 }

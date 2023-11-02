@@ -38,6 +38,10 @@ export class NavbarComponent implements OnInit {
     await this.setProfileImage();
   }
 
+  getProfileMessage() {
+    return this.getProfile()?.messages;
+  }
+
   setProfileData(profile: Profile) {
     this.profile = profile;
   }
