@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Profile } from '../model/profile';
-import { GobalServiceService } from '../service/gobal-service.service';
+import { Image } from '../model/image';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-profile-profile',
@@ -9,17 +10,43 @@ import { GobalServiceService } from '../service/gobal-service.service';
   styleUrls: ['./profile-profile.component.css'],
 })
 export class ProfileProfileComponent {
-  selectedImageURL: string | ArrayBuffer | null = null;
   nav: NavbarComponent = inject(NavbarComponent);
+
+  profileData = {
+    first_name: this.nav.profile?.firstName,
+    last_name: this.nav.profile?.lastName,
+    email: this.nav.profile?.email,
+    password: '',
+    confirm_password: '',
+    birthday: this.nav.profile?.birthday,
+  };
+
+  toEdit = false;
+  errorMessage: string = '';
+
+  selectedImageURL: string | ArrayBuffer | null = null;
 
   constructor() {}
 
-  getProfile(): Profile {
-    if (this.nav.profile) {
-      return this.nav.profile;
-    }
+  async setprofileData() {
+    this.profileData.first_name = this.nav.profile?.firstName;
+    this.profileData.last_name = this.nav.profile?.lastName;
+    this.profileData.email = this.nav.profile?.email;
+    this.profileData.birthday = this.nav.profile?.birthday;
+    this.profileData.password = '';
+    this.profileData.confirm_password = '';
+  }
+  isEdit(): boolean {
+    return !!this.toEdit;
+  }
 
-    return new Profile();
+  clickEdit() {
+    this.setprofileData();
+    this.toEdit = true;
+  }
+
+  clickOutEdit() {
+    this.toEdit = false;
   }
 
   onFileSelected(event: any) {
@@ -35,26 +62,55 @@ export class ProfileProfileComponent {
     reader.onload = (e) => {
       if (e.target) {
         this.selectedImageURL = e.target.result;
-        this.uploadImage(this.selectedImageURL as string);
       }
     };
     reader.readAsDataURL(file);
   }
 
-  async uploadImage(image: string) {
-    try {
-      const newProfileData: Partial<Profile> = {
-        imageProfileUrl: image,
-      };
-      await (
-        await this.nav.profileService.editProfile(
-          this.nav.profile?.id as string,
-          newProfileData as Profile
+  async onSubmitEditForm() {
+    if (this.profileData.password !== this.profileData.confirm_password) {
+      this.errorMessage = 'Password and confirm do not math';
+      return;
+    }
+
+    const imageData: Partial<Image> = {
+      imageUrl: this.selectedImageURL as string,
+    };
+
+    (await this.nav.service.postImage(imageData as Image))
+      .pipe(
+        map((response) => response['text']()) // Use ['text'] to access the text() method
+      )
+      .subscribe(
+        (result) => console.log(result),
+        async (error) => {
+          if (error.status == 200) {
+            await this.deleteImage();
+            this.nav.getProfile().imageProfileUrl = error.error.text;
+            this.nav.getProfile().birthday = this.profileData.birthday as Date;
+            this.nav.getProfile().firstName = this.profileData
+              .first_name as string;
+            this.nav.getProfile().lastName = this.profileData
+              .last_name as string;
+            this.nav.getProfile().email = this.profileData.email as string;
+            this.nav.getProfile().password = this.profileData
+              .password as string;
+            await this.nav.updateProfile();
+            await this.nav.setProfileImage();
+          }
+        }
+      );
+
+    this.clickOutEdit();
+  }
+
+  async deleteImage() {
+    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
+      (
+        await this.nav.service.deleteImageById(
+          this.nav.getProfile().imageProfileUrl
         )
-      ).toPromise();
-    } catch (error) {
-      // Handle the error
-      console.error(error);
+      ).subscribe();
     }
   }
 }

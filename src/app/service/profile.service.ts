@@ -20,7 +20,7 @@ export class ProfileService {
     return this.http.get<Profile>(`${this.apiUrl}/login/${email}/${password}`);
   }
 
-  async getProfile(id: string): Promise<Observable<Profile>> {
+  async getProfileById(id: string): Promise<Observable<Profile>> {
     return this.http.get<Profile>(`${this.apiUrl}/${id}`);
   }
 

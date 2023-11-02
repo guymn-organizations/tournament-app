@@ -1,9 +1,9 @@
-<div class="finder">
+<div
+  class="finder"
+  [ngClass]="{ 'visually-hidden': !nav.getProfile().profileGame }"
+>
   <div class="container">
-    <img
-      src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
-      alt="Bg rov"
-    />
+    <app-header [title]="title" [discription]="discription"></app-header>
 
     <div class="d-flex flex-row border-bottom border-white">
       <div

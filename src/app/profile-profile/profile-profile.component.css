@@ -1,15 +1,19 @@
+.profile-profile {
+  min-height: 600px;
+}
+
 .bg-data {
   background-color: #28282b;
 }
 
 .img {
   width: 200px;
-  height: 250px;
+  height: 200px;
 }
 
 img {
-  width: 100%;
-  height: 250px;
+  width: 200px;
+  height: 200px;
 }
 
 .form-label {
@@ -39,4 +43,10 @@ img {
   cursor: pointer;
 }
 
+::placeholder {
+  color: #fff;
+}
 
+input {
+  color: #fff;
+}

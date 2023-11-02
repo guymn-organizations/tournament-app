@@ -10,7 +10,7 @@ export class Profile {
   lastName!: string;
   password!: string;
   imageProfileUrl!: string;
-  profileGame!: ProfileGame;
+  profileGame!: ProfileGame | null;
   messages!: Message[];
 
   constructor() {}

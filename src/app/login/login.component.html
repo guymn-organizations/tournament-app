@@ -18,7 +18,7 @@
         [ngClass]="{ 'border-bottom border-danger border-3': isLogin }"
         (click)="showLogin()"
       >
-        <label> LOG IN </label>
+        <label> SIGN IN </label>
       </div>
       <div
         class="register flex-fill text-center"
@@ -69,17 +69,6 @@
       <div *ngIf="errorMessage" class="text-center text-danger">
         {{ errorMessage }}
       </div>
-
-      <!-- <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="invalidCheck2"
-          required
-        />
-        <label class="form-check-label"> REMEMBER ME </label>
-      </div> -->
-
       <button
         type="submit"
         class="btn btn-danger rounded-pill"

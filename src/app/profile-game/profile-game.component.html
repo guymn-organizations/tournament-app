@@ -1,166 +1,140 @@
 <div class="mb-5">
+  <div class="d-flex flex-row">
+    <h1>Profile Game</h1>
+    <div class="position-relative ms-auto me-4">
+      <i class="h1 bi bi-chat me-1"> </i>
+      <i
+        class="bi bi-circle-fill position-absolute top-0 end-0 text-warning"
+        [ngClass]="{ 'd-none': checkMessage() }"
+      ></i>
+    </div>
+  </div>
   <ng-container *ngIf="isConnect(); else ConnectPage">
     <ng-container *ngTemplateOutlet="ConnectedPage"></ng-container
   ></ng-container>
 </div>
 
 <ng-template #ConnectPage>
-  <div class="d-flex flex-column justify-content-start profile-game">
-    <form
-      #connectForm="ngForm"
-      class="row container"
-      (ngSubmit)="onSubmitConnectForm()"
-    >
-      <div class="col-xl-3 col-12">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="border img">
-            <img
-              class="p-3"
-              [src]="nav.getProfile().imageProfileUrl"
-              *ngIf="nav.getProfile().imageProfileUrl"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-12">
-        <div class="col-lg-12 row align-items-center">
-          <label class="form-label col-md-3 col-2">
-            <i class="bi h1 m-2" [className]="getGenderIcon()"></i>
-          </label>
-          <label class="h4 form-label col-md-9 col-10 justify-content-start">
-            {{ nav.getProfile().firstName }} {{ nav.getProfile().lastName }}
-          </label>
-        </div>
-        <div class="col-lg-12 flex-column d-flex">
-          <label class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control bg-data ps-3 pe-3 p-1 text-white"
-            placeholder="Username in game"
-            id="username"
-            name="username"
-            [(ngModel)]="profileGameData.name"
-            required
+  <form
+    #connectForm="ngForm"
+    class="row container d-flex align-items-start profile-game"
+    (ngSubmit)="onSubmitConnectForm()"
+  >
+    <div class="col-12">
+      <div class="col-12 d-flex flex-column justify-content-center">
+        <div class="border row col-12 mt-4 game-img">
+          <img
+            [src]="selectedImageURL"
+            class="col-12 ms-auto me-auto border p-0"
+            *ngIf="selectedImageURL"
           />
-        </div>
-        <div class="col-lg-12 flex-column d-flex">
-          <label class="form-label">Open ID</label>
-          <input
-            type="text"
-            class="form-control bg-data ps-3 pe-3 p-1 text-white"
-            placeholder="Open ID"
-            id="openid"
-            name="openid"
-            [(ngModel)]="profileGameData.openid"
-            required
+          <img
+            [src]="nav.imageProfile"
+            class="col-12 ms-auto me-auto border p-0"
+            *ngIf="
+              !selectedImageURL && nav.getProfile().profileGame?.imageGameUrl
+            "
           />
+          <div
+            class="col-12 d-flex justify-content-center align-items-center game-img"
+            *ngIf="
+              !nav.getProfile().profileGame?.imageGameUrl && !selectedImageURL
+            "
+          >
+            <label class="text-white">Upload profile in game ROV</label>
+          </div>
         </div>
-      </div>
-      <div class="col-xl-5 col-12 gameImg">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="border img m-4">
-            <img
-              class="p-2"
-              [src]="nav.getProfile().profileGame.imageGameUrl"
-              *ngIf="nav.getProfile().profileGame.imageGameUrl"
+
+        <div class="ms-auto me-auto">
+          <label class="btn btn-success mt-3 pt-0 pb-0">
+            <span>
+              <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+            </span>
+            <input
+              class="d-none"
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              (change)="onFileSelected($event)"
+              accept="image/jpeg, image/png"
             />
-          </div>
-
-          <div class="">
-            <label class="btn btn-success mt-3 pt-0 pb-0">
-              <span>
-                <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
-              </span>
-              <input
-                class="d-none"
-                type="file"
-                id="fileInput"
-                name="fileInput"
-                (change)="onFileSelected($event)"
-              />
-            </label>
-          </div>
+          </label>
         </div>
       </div>
-
-      <div class="justify-content-between d-flex">
-        <button
-          type="submit"
-          class="mt-5 btn btn-success col-md-4"
-          [disabled]="!connectForm.form.valid"
-        >
-          Submit
-        </button>
-        <button
-          type="reset"
-          class="mt-5 btn btn-danger col-md-4"
-          (click)="clickEdit()"
-        >
-          Cancel
-        </button>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">Name</label>
+        <input
+          type="text"
+          class="bg-data ps-3 pe-3 p-1 text-white"
+          placeholder="Username in game"
+          id="username"
+          name="username"
+          [(ngModel)]="profileGameData.name"
+          required
+        />
       </div>
-    </form>
-  </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">Open ID</label>
+        <input
+          type="text"
+          class="bg-data ps-3 pe-3 p-1 text-white"
+          placeholder="Open ID"
+          id="openid"
+          name="openid"
+          [(ngModel)]="profileGameData.openid"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="mt-auto justify-content-between d-flex">
+      <button
+        type="submit"
+        class="mt-5 btn btn-success col-md-4"
+        [disabled]="!connectForm.form.valid"
+      >
+        Submit
+      </button>
+      <button
+        type="reset"
+        class="mt-5 btn btn-danger col-md-4"
+        (click)="clickEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 </ng-template>
 
 <ng-template #ConnectedPage>
-  <div class="d-flex flex-column justify-content-start profile-game d-">
-    <div class="row container">
-      <div class="col-xl-3 col-12">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="border img">
-            <img
-              class="p-3"
-              [src]="nav.getProfile().imageProfileUrl"
-              *ngIf="nav.getProfile().imageProfileUrl"
-            />
-          </div>
-        </div>
+  <div class="row container d-flex align-items-start profile-game">
+    <div class="col-12">
+      <div class="col-lg-12 row align-items-center">
+        <label class="form-label col-md-3 col-2">
+          <i class="" [classList]="getGenderIcon()"></i>
+        </label>
+        <label class="h4 form-label col-md-9 col-10 justify-content-start">
+          {{ nav.getProfile().firstName }} {{ nav.getProfile().lastName }}
+        </label>
       </div>
-      <div class="col-xl-4 col-12">
-        <div class="col-lg-12 row align-items-center">
-          <label class="form-label col-md-3 col-2">
-            <i class="" [classList]="getGenderIcon()"></i>
-          </label>
-          <label class="h4 form-label col-md-9 col-10 justify-content-start">
-            {{ nav.getProfile().firstName }} {{ nav.getProfile().lastName }}
-          </label>
-        </div>
-        <div class="col-lg-12 flex-column d-flex">
-          <label class="form-label">Name</label>
-          <label class="bg-data ps-3 pe-3 p-1">
-            {{ nav.getProfile().profileGame.name }}
-          </label>
-        </div>
-        <div class="col-lg-12 flex-column d-flex">
-          <label class="form-label">Open ID</label>
-          <label class="bg-data ps-3 pe-3 p-1">
-            {{ nav.getProfile().profileGame.openId }}
-          </label>
-        </div>
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">Name</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().profileGame?.name }}
+        </label>
       </div>
-      <div class="col-xl-5 col-12 gameImg">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center"
-        >
-          <div class="border img m-4">
-            <img
-              class="p-2"
-              [src]="nav.getProfile().profileGame.imageGameUrl"
-            />
-          </div>
-        </div>
+      <div class="col-lg-12 flex-column d-flex">
+        <label class="form-label">Open ID</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().profileGame?.openId }}
+        </label>
       </div>
     </div>
     <div class="mt-auto container d-flex justify-content-between">
-      <i class="h1 bi bi-chat-left-dots-fill"></i>
-      <button class="btn btn-success text-uppercase" (click)="clickEdit()">
+      <button
+        class="btn btn-success text-uppercase ms-auto"
+        (click)="clickEdit()"
+      >
         edit profile game
       </button>
     </div>

@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Gender, Profile } from '../model/profile';
-import { ProfileProfileComponent } from '../profile-profile/profile-profile.component';
 import { ProfileService } from '../service/profile.service';
 import { ProfileGame } from '../model/profile-game';
-import { connect } from 'rxjs';
+import { Image } from '../model/image';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-game',
@@ -15,28 +15,75 @@ export class ProfileGameComponent {
   nav: NavbarComponent = inject(NavbarComponent);
   profileService: ProfileService = inject(ProfileService);
 
+  selectedImageURL: string | ArrayBuffer | null = null;
+
   profileGameData = {
     name: '',
     openid: '',
   };
 
-  toEdit = true;
-
-  selectedImageURL: string | ArrayBuffer | null = null;
+  toEdit = false;
 
   constructor() {}
 
-  isConnect(): boolean {
-    return !!this.nav.getProfile().profileGame && this.toEdit;
+  async setProfileGameData() {
+    this.profileGameData.name = this.nav.getProfile().profileGame
+      ?.name as string;
+    this.profileGameData.openid = this.nav.getProfile().profileGame
+      ?.openId as string;
   }
 
-  clickEdit() {
+  isConnect(): boolean {
+    return !!this.nav.getProfile().profileGame && !this.toEdit;
+  }
+
+  async clickEdit() {
+    await this.setProfileGameData();
     this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
-    this.clickEdit();
     await this.setProfileGame();
+    this.toEdit = false;
+  }
+
+  async setProfileGame() {
+    const imageData: Partial<Image> = {
+      imageUrl: this.selectedImageURL as string,
+    };
+
+    (await this.nav.service.postImage(imageData as Image))
+      .pipe(
+        map((response) => response['text']()) // Use ['text'] to access the text() method
+      )
+      .subscribe(
+        (result) => console.log(result),
+        async (error) => {
+          if (error.status == 406) {
+          } else if (error.status == 200) {
+            if (!this.nav.getProfile().profileGame) {
+              this.nav.getProfile().profileGame = new ProfileGame();
+            }
+            this.nav.getProfileGame().name = this.profileGameData.name;
+            this.nav.getProfileGame().openId = this.profileGameData.openid;
+            this.nav.getProfileGame().imageGameUrl = error.error.text;
+
+            this.nav.updateProfile();
+          }
+        }
+      );
+  }
+
+  getGenderIcon(): string {
+    if (this.nav.profile?.gender == Gender.Female) {
+      return ' bi h1 m-2 bi-gender-female';
+    } else {
+      return ' bi h1 m-2 bi-gender-male';
+    }
+  }
+
+  checkMessage(): boolean {
+    return this.nav.getProfile().messages.length == 0;
   }
 
   onFileSelected(event: any) {
@@ -52,36 +99,8 @@ export class ProfileGameComponent {
     reader.onload = (e) => {
       if (e.target) {
         this.selectedImageURL = e.target.result;
-        // this.uploadImage(this.selectedImageURL as string);
       }
     };
     reader.readAsDataURL(file);
-  }
-
-  async setProfileGame() {
-    try {
-      const newProfileData: Partial<ProfileGame> = {
-        name: this.profileGameData.name,
-        openId: this.profileGameData.openid,
-        imageGameUrl: this.selectedImageURL as string,
-      };
-      await (
-        await this.nav.profileService.setProfileGame(
-          this.nav.profile?.id as string,
-          newProfileData as ProfileGame
-        )
-      ).toPromise();
-    } catch (error) {
-      // Handle the error
-      console.error(error);
-    }
-  }
-
-  getGenderIcon(): string {
-    if (this.nav.profile?.gender == Gender.Female) {
-      return ' bi h1 m-2 bi-gender-female';
-    } else {
-      return ' bi h1 m-2 bi-gender-male';
-    }
   }
 }
