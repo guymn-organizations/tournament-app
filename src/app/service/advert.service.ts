@@ -13,5 +13,5 @@ export class AdvertService {
 
   createAdvert(advert: FormData): Observable<Advert> {
     return this.http.post<Advert>(this.apiUrl + '/create', advert);
-}
+  }
 }
