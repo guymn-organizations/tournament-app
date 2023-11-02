@@ -31,6 +31,7 @@ export class CreateTourComponent {
    TournamenType.Free,
    TournamenType.Paid
   ];
+  
 
   tournament_type: TournamenType = TournamenType.Free;
   

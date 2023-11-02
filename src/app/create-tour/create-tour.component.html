@@ -70,7 +70,11 @@
 
               <div class="col-md-12">
                 <label for="formFileLg" class="form-label">SELECT TYPE OF TYPE</label>
-                <select [(ngModel)]="tournament_type" name="tournamenType">
+                <select 
+                [(ngModel)]="tournament_type" 
+                name="tournamenType"
+                class="form-select"
+                >
                   <option *ngFor="let TourT of tournametType"[value]="TourT">{{TourT}}</option>
                   
                 </select>
@@ -130,9 +134,9 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option value="3">BO3</option>
-            <option value="5">BO5</option>
-            <option value="7">BO7</option>
+            <option >BO3</option>
+            <option >BO5</option>
+            <option >BO7</option>
           </select>
           </div>
 
@@ -146,9 +150,9 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option value="3">BO3</option>
-            <option value="5">BO5</option>
-            <option value="7">BO7</option>
+            <option >BO3</option>
+            <option >BO5</option>
+            <option >BO7</option>
           </select>
           </div>
           
