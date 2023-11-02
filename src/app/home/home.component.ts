@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GobalServiceService } from '../service/gobal-service.service';
+import { TournamentService } from '../service/tournament.service';
+import { AdvertService } from '../service/advert.service';
 import { Advert } from '../model/advert.model';
 import { Tournament } from '../model/tournament.model';
 
@@ -12,10 +13,10 @@ export class HomeComponent implements OnInit{
   featuredTournament: Tournament | any;
   adverts!: Advert[] | any;
 
-  constructor(private GobalServiceService: GobalServiceService) {}
+  constructor(private TournamentService: TournamentService,private AdvertService: AdvertService) {}
 
   ngOnInit() {
-    this.GobalServiceService.getFeaturedTournament().subscribe(
+    this.TournamentService.getFeaturedTournament().subscribe(
       (tournament: Tournament ) => {
         this.featuredTournament = tournament;
       },
@@ -23,12 +24,12 @@ export class HomeComponent implements OnInit{
         console.error('Error fetching featured tournament:', error);
       }
     );
-    this.GobalServiceService.getAllAdvert().subscribe(
+    this.AdvertService.getAllAdvert().subscribe(
       (advert: Advert) => {
         this.adverts = advert;
       },
       (error) => {
-        console.error('Error fetching featured tournament:', error);
+        console.error('Error fetching featured advert:', error);
       }
     );
   }

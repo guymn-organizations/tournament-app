@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Tournament } from '../model/tournament.model';
-import { Advert } from '../model/advert.model';
+import { Image } from '../model/image';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GobalServiceService {
-  private apiUrl = 'http://localhost:8000/';
+  private apiImageUrl = 'http://localhost:8000/images'; // Replace with your actual API URL
 
-  constructor(private router: Router,private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   toPage(page: string) {
     this.router.navigate([page]);
   }
-  getFeaturedTournament(): Observable<Tournament> {
-    return this.http.get<Tournament>(this.apiUrl + 'tournament/Featured');
+
+  async postImage(image: Image): Promise<Observable<Image>> {
+    return this.http.post<Image>(`${this.apiImageUrl}/post_image`, image);
   }
-  getAllAdvert() :Observable<Advert>{
-    return this.http.get<Advert>(this.apiUrl + 'advert');
+
+  async getImage(id: string): Promise<Observable<Image>> {
+    return this.http.get<Image>(`${this.apiImageUrl}/${id}`);
+  }
+
+  async deleteImageById(id: string): Promise<Observable<Image>> {
+    return this.http.delete<Image>(`${this.apiImageUrl}/${id}`);
   }
 }
