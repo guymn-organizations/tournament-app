@@ -96,6 +96,7 @@ export class ProfileTeamComponent implements OnInit {
           } else if (error.status == 200) {
             teamData.imageTeamUrl = error.error.text;
             await this.postTeam(teamData as Team);
+            await this.ngOnInit();
           }
         }
       );

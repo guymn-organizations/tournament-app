@@ -27,7 +27,9 @@ export class ProfileGameComponent implements OnInit {
   profileGame: ProfileGame | undefined;
 
   constructor() {}
+
   async ngOnInit(): Promise<void> {
+    await this.nav.ngOnInit();
     await this.setImageGame();
   }
 
@@ -53,31 +55,26 @@ export class ProfileGameComponent implements OnInit {
   }
 
   async setProfileGame() {
-    const imageData: Partial<Image> = {
-      imageUrl: this.selectedImageURL as string,
+    const profileData: Partial<ProfileGame> = {
+      name: this.profileGameData.name,
+      openId: this.profileGameData.openid,
+      imageGameUrl: this.selectedImageURL as string,
     };
 
-    (await this.nav.service.postImage(imageData as Image))
-      .pipe(
-        map((response) => response['text']()) // Use ['text'] to access the text() method
+    (
+      await this.nav.profileService.editProfileGame(
+        this.nav.getProfile().id,
+        profileData as ProfileGame
       )
-      .subscribe(
-        (result) => console.log(result),
-        async (error) => {
-          if (error.status == 406) {
-          } else if (error.status == 200) {
-            if (!this.nav.getProfile().profileGame) {
-              this.nav.getProfile().profileGame = new ProfileGame();
-            }
-            this.nav.getProfile().profileGame.name = this.profileGameData.name;
-            this.nav.getProfile().profileGame.openId =
-              this.profileGameData.openid;
-            this.nav.getProfile().profileGame.imageGameUrl = error.error.text;
-
-            this.nav.updateProfile();
-          }
-        }
-      );
+    ).subscribe(
+      (respon) => {
+        console.log(respon);
+        this.nav.getProfile().profileGame = respon;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   getGenderIcon(): string {
@@ -111,14 +108,15 @@ export class ProfileGameComponent implements OnInit {
   }
 
   async setImageGame() {
-    console.log(this.nav.profile);
-    // (
-    //   await this.nav.service.getImage(this.nav.getProfileGame().imageGameUrl)
-    // ).subscribe(
-    //   (respon) => {},
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    (
+      await this.nav.service.getImage(
+        this.nav.getProfile()?.profileGame.imageGameUrl as string
+      )
+    ).subscribe(
+      (res) => {},
+      (result) => {
+        this.selectedImageURL = result.error.text;
+      }
+    );
   }
 }

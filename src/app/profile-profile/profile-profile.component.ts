@@ -73,44 +73,6 @@ export class ProfileProfileComponent {
       return;
     }
 
-    const imageData: Partial<Image> = {
-      imageUrl: this.selectedImageURL as string,
-    };
-
-    (await this.nav.service.postImage(imageData as Image))
-      .pipe(
-        map((response) => response['text']()) // Use ['text'] to access the text() method
-      )
-      .subscribe(
-        (result) => console.log(result),
-        async (error) => {
-          if (error.status == 200) {
-            await this.deleteImage();
-            this.nav.getProfile().imageProfileUrl = error.error.text;
-            this.nav.getProfile().birthday = this.profileData.birthday as Date;
-            this.nav.getProfile().firstName = this.profileData
-              .first_name as string;
-            this.nav.getProfile().lastName = this.profileData
-              .last_name as string;
-            this.nav.getProfile().email = this.profileData.email as string;
-            this.nav.getProfile().password = this.profileData
-              .password as string;
-            await this.nav.updateProfile();
-            await this.nav.setProfileImage();
-          }
-        }
-      );
-
     this.clickOutEdit();
-  }
-
-  async deleteImage() {
-    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
-      (
-        await this.nav.service.deleteImageById(
-          this.nav.getProfile().imageProfileUrl
-        )
-      ).subscribe();
-    }
   }
 }

@@ -1,7 +1,3 @@
-.profile-game {
-  min-height: 600px;
-}
-
 .bg-data {
   background-color: #28282b;
 }
@@ -15,8 +11,13 @@ label {
   opacity: 0.5; /* Firefox */
 }
 
-.game-img,
 img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill; /* Ensures the image covers the container */
+}
+
+.img-content {
+  width: 800px;
   height: 400px;
-  object-fit: cover; /* Ensures the image covers the container */
 }
