@@ -21,6 +21,7 @@ import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HeaderComponent } from './header/header.component';
     ProfileTeamComponent,
     ProfileProfileComponent,
     HeaderComponent,
+    MessageComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

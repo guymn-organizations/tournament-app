@@ -14,6 +14,7 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { MessageComponent } from './message/message.component';
 
 const routes: Routes = [
   {
@@ -39,8 +40,16 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Redirect empty path to 'profile'
           { path: 'profile', component: ProfileProfileComponent },
-          { path: 'game', component: ProfileGameComponent },
-          { path: 'team', component: ProfileTeamComponent },
+          {
+            path: 'game',
+            component: ProfileGameComponent,
+            children: [{ path: 'message', component: MessageComponent }],
+          },
+          {
+            path: 'team',
+            component: ProfileTeamComponent,
+            children: [{ path: 'message', component: MessageComponent }],
+          },
         ],
       },
     ],
