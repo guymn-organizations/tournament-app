@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
+import { AdvertComponent } from './advert/advert.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ProfileProfileComponent } from './profile-profile/profile-profile.compo
     ProfileGameComponent,
     ProfileTeamComponent,
     ProfileProfileComponent,
+    AdvertComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

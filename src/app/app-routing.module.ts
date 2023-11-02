@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
+import { AdvertComponent } from './advert/advert.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'leauges', component: LeaugesComponent },
   { path: 'scrims', component: ScrimsComponent },
   { path: 'tournament', component: TournamentComponent },
+  { path: 'advert', component: AdvertComponent},
   {
     path: 'finder',
     component: FinderComponent,
