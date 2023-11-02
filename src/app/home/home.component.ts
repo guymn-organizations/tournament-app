@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../Api.service';
-import { HttpClient } from '@angular/common/http';
-import { Advert } from '../advert.model';
-import { Tournament } from '../tournament.model';
+import { GobalServiceService } from '../service/gobal-service.service';
+import { Advert } from '../model/advert.model';
+import { Tournament } from '../model/tournament.model';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +12,10 @@ export class HomeComponent implements OnInit{
   featuredTournament: Tournament | any;
   adverts!: Advert[] | any;
 
-  constructor(private ApiService: ApiService, private http: HttpClient) {}
+  constructor(private GobalServiceService: GobalServiceService) {}
 
   ngOnInit() {
-    this.ApiService.getFeaturedTournament().subscribe(
+    this.GobalServiceService.getFeaturedTournament().subscribe(
       (tournament: Tournament ) => {
         this.featuredTournament = tournament;
       },
@@ -24,7 +23,7 @@ export class HomeComponent implements OnInit{
         console.error('Error fetching featured tournament:', error);
       }
     );
-    this.ApiService.getAllAdvert().subscribe(
+    this.GobalServiceService.getAllAdvert().subscribe(
       (advert: Advert) => {
         this.adverts = advert;
       },
