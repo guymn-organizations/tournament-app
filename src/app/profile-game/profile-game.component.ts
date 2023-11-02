@@ -68,12 +68,9 @@ export class ProfileGameComponent implements OnInit {
         this.nav.getProfile().id,
         profileData as ProfileGame
       )
-    ).subscribe(
-      (respon) => {
-        this.nav.getProfile().profileGame = respon;
-      },
-      (error) => {}
-    );
+    ).subscribe((respon) => {
+      this.nav.getProfile().profileGame = respon;
+    });
   }
 
   getGenderIcon(): string {
