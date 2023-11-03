@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leauges',
@@ -14,7 +15,7 @@ export class LeaugesComponent implements OnInit {
 
   images: string[] = [];
 
-  constructor(private tournament: LeaugesService) {}
+  constructor(private tournament: LeaugesService, private router: Router) {}
   async ngOnInit(): Promise<void> {
     (await this.tournament.getAllTournament()).subscribe(
       async (tournaments) => {
@@ -37,7 +38,6 @@ export class LeaugesComponent implements OnInit {
       return;
     }
     for (const image of this.allTournament) {
-      console.log(image.imageTourUrl);
       (await this.nav.service.getImage(image.imageTourUrl as string)).subscribe(
         (res) => {},
         (error) => {

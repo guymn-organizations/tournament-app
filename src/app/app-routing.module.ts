@@ -28,8 +28,8 @@ const routes: Routes = [
         path: 'leauges',
         component: LeaugesComponent,
       },
-      {path:'createtournament',component:CreateTourComponent},
-      { path: 'leauges/:leaugesid', component: LeaugesdetailComponent },
+      { path: 'createtournament', component: CreateTourComponent },
+      { path: 'leagues/:id', component: LeaugesdetailComponent },
       { path: 'scrims', component: ScrimsComponent },
       { path: 'tournament', component: TournamentComponent },
 
@@ -56,11 +56,11 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  
+
   { path: 'leauges', component: LeaugesComponent },
   { path: 'scrims', component: ScrimsComponent },
   { path: 'tournament', component: TournamentComponent },
-  { path: 'advert', component: AdvertComponent},
+  { path: 'advert', component: AdvertComponent },
   {
     path: 'finder',
     component: FinderComponent,

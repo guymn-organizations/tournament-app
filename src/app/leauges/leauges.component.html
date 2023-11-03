@@ -16,7 +16,7 @@
       <div
         class="tour-item"
         *ngFor="let tournament of getAllTournament()"
-        (click)="nav.service.toPage('leauges/detail')"
+        (click)="nav.service.toPage('leagues/' + tournament.tour.id)"
       >
         <a>
           <img [src]="tournament.image" alt="" />
