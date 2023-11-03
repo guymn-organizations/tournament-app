@@ -1,5 +1,5 @@
 <h2>Advert Form</h2>
-<form (ngSubmit)="onSubmit(advert)" #advertForm="ngForm">
+<form (ngSubmit)="onSubmit()" #advertForm="ngForm">
   <div class="form-group">
     <label for="imageFile">Image File:</label>
     <input type="file" id="imageFile" (change)="onFileSelected($event)" class="form-control" accept="image/*" required>

@@ -8,7 +8,7 @@ import { Advert } from '../model/advert';
   styleUrls: ['./advert.component.css']
 })
 export class AdvertComponent {
-  advert: any = {
+  advert = {
     linkAdvertUrl: ''
   };
   imageBase64: string | null = null;
@@ -28,11 +28,12 @@ export class AdvertComponent {
     }
   }
 
-  async onSubmit(data: Advert) {
+  async onSubmit() {
     console.log(this.imageBase64);
     console.log(this.advert.linkAdvertUrl);
+    const advertData : Partial<Advert>
     
-    (await this.advertService.createAdvert(data)).subscribe((response) => {
+    (await this.advertService.createAdvert(advertData as Advert)).subscribe((response) => {
       console.log('Response from service :',response)
     })
   }
