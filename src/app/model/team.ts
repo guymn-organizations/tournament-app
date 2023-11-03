@@ -13,6 +13,7 @@ export class Team {
   teamReserve!: Profile[];
   imageTeamUrl!: string;
   messages!: Message[];
+  contact!: string;
 
   constructor() {}
 }

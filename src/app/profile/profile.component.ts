@@ -33,6 +33,10 @@ export class ProfileComponent {
       name: 'Message',
       path: 'message',
     },
+    {
+      name: 'List Scrims',
+      path: 'scrims',
+    },
   ];
 
   checkTab: string = '';

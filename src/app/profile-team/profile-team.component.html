@@ -68,14 +68,12 @@
         <label class="text-success fw-bold">{{ mem.position_name }}</label>
       </div>
     </div>
-    <div class="col-12 mt-5 row" id="team_reserve">
-      <label class="fs-3">Team Reserve</label>
-      <div>
-        <div
-          class="row col-12 col-lg-6 p-0 m-3 border-top border-success bg-white text-dark"
-        >
+    <div class="col-12 row d-flex align-items-start justify-content-evenly">
+      <div class="col-12 col-lg-6 mt-5 row" id="team_reserve">
+        <label class="fs-3">Team Reserve</label>
+        <div class="row col-12 p-0 m-3 border-top border-success text-dark">
           <div
-            class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
+            class="border border-top-0 p-0 border-success flex-row d-flex align-items-center bg-white"
             *ngFor="let mem of team?.teamReserve"
           >
             <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
@@ -90,11 +88,38 @@
         </div>
         <button
           id="find_reserve"
-          class="btn btn-success m-3 col-12 col-lg-6"
+          class="btn btn-success m-3 col-12"
           *ngIf="isLeader()"
           (click)="nav.service.toPage('finder/player')"
         >
           <i class="bi bi-plus-circle-fill"></i>
+        </button>
+      </div>
+      <div class="col-12 col-lg-6 mt-5 row ms-lg-auto">
+        <label class="fs-3">Contact</label>
+        <textarea
+          type="text"
+          class="col-12 bg-data m-3 text-white"
+          style="height: 100px"
+          [disabled]="!isLeader() || !editContact"
+          [(ngModel)]="teamData.contact"
+        >
+        </textarea>
+        <button
+          class="col-12 btn btn-success ms-auto"
+          style="width: fit-content"
+          [ngClass]="{ 'd-none': !isLeader() || !editContact }"
+          (click)="saveContact()"
+        >
+          Save
+        </button>
+        <button
+          class="col-12 btn btn-success ms-auto"
+          style="width: fit-content"
+          [ngClass]="{ 'd-none': !isLeader() || editContact }"
+          (click)="toEditContact()"
+        >
+          Edit
         </button>
       </div>
     </div>

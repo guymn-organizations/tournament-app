@@ -1,0 +1,29 @@
+<div class="mb-5">
+  <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+    <h1>TEAM SCRIM</h1>
+    <button type="button" class="btn btn-success" (click)="postScrim()">
+      {{ getTextButtom() }}
+    </button>
+  </div>
+  <ng-container *ngIf="isScrims; else showScrims">
+    <ng-container *ngTemplateOutlet="createScrims"></ng-container
+  ></ng-container>
+</div>
+
+<ng-template #createScrims>
+  <div class="create" [ngClass]="{ 'd-none': !isScrims }">
+    <h2>Create scrims</h2>
+  </div>
+</ng-template>
+
+<ng-template #showScrims>
+  <div class="d-flex justify-content-evenly align-items-center mb-3">
+    <div class="vs">VS</div>
+    <div class="logo-team border">
+      <img src="../../assets/img/logo.png" alt="" />
+    </div>
+    <div class="fs-2">16/10/2023</div>
+    <div class="fs-2">20:00</div>
+    <button type="button" class="btn btn-success">Edit</button>
+  </div>
+</ng-template>

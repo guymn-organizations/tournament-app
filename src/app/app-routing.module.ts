@@ -15,6 +15,7 @@ import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MessageComponent } from './message/message.component';
+import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
             component: ProfileTeamComponent,
           },
           { path: 'message', component: MessageComponent },
+          { path: 'scrims', component: ProfileListScrimComponent },
         ],
       },
     ],

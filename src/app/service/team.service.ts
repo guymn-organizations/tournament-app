@@ -41,4 +41,8 @@ export class TeamService {
   async deleteTeam(id: string): Promise<Observable<Team>> {
     return this.http.delete<Team>(`${this.apiUrl}/${id}`);
   }
+
+  async setConact(id: string, contact: string): Promise<Observable<string>> {
+    return this.http.put<string>(`${this.apiUrl}/${id}/set_contact`, contact);
+  }
 }

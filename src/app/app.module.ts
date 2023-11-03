@@ -22,6 +22,7 @@ import { ProfileProfileComponent } from './profile-profile/profile-profile.compo
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component';
+import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MessageComponent } from './message/message.component';
     ProfileProfileComponent,
     HeaderComponent,
     MessageComponent,
+    ProfileListScrimComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

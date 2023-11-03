@@ -21,6 +21,7 @@ export class ProfileTeamComponent implements OnInit {
   teamData = {
     id: '',
     name: '',
+    contact: '',
   };
 
   position = [
@@ -60,6 +61,7 @@ export class ProfileTeamComponent implements OnInit {
       this.team = await (
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
+      this.teamData.contact = this.team?.contact as string;
     } catch (teamError) {
       console.error('Error fetching team data:', teamError);
     }
@@ -218,5 +220,26 @@ export class ProfileTeamComponent implements OnInit {
       ...data,
       imageUrl: this.playerImages[index] || '',
     }));
+  }
+
+  editContact: boolean = false;
+
+  toEditContact() {
+    this.editContact = !this.editContact;
+  }
+
+  async saveContact() {
+    if (this.teamData.contact == this.team?.contact) {
+      this.toEditContact();
+      return;
+    }
+
+    (
+      await this.nav.teamService.setConact(
+        this.team?.id as string,
+        this.teamData.contact as string
+      )
+    ).subscribe();
+    this.toEditContact();
   }
 }
