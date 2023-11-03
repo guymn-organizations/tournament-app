@@ -29,8 +29,6 @@ export class AdvertComponent {
   }
 
   async onSubmit() {
-    console.log(this.imageBase64);
-    console.log(this.advert.linkAdvertUrl);
     const advertData: Partial<Advert> = {
       id: undefined ,
       linkAdvertUrl: this.advert.linkAdvertUrl,
