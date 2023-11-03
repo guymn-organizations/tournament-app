@@ -3,6 +3,9 @@ import { TeamInTournament } from "./team-in-tournament";
 
 
 export class Tournament {
+  getAllTournament() {
+    throw new Error('Method not implemented.');
+  }
   
   name: string | undefined;
   detail: string | undefined;

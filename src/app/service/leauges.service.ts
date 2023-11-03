@@ -15,4 +15,7 @@ export class LeaugesService {
   async addTournament(data: Tournament): Promise<Observable<any>> {
     return this.http.post(`${this.apiUrl}/create`, data);
   }
+  async getAllTournament(): Promise<Observable<any>>{
+    return this.http.get<Tournament[]>(`${this.apiUrl}`);
+  }
 }
