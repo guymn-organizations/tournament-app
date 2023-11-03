@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/LoginComponent';
 import { RegisterComponent } from './register/register.component';
 import { LeaugesComponent } from './leauges/leauges.component';
 import { ScrimsComponent } from './scrims/scrims.component';
@@ -19,8 +19,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
-import { AdvertComponent } from './advert/advert.component';
+import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
+import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateTourComponent } from './create-tour/create-tour.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +43,12 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileGameComponent,
     ProfileTeamComponent,
     ProfileProfileComponent,
-    AdvertComponent,
+    LeaugesdetailComponent,
+    LeaugesTeamComponent,
+    CreateTourComponent,
+    HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

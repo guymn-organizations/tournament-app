@@ -10,7 +10,6 @@ import { Status, TournamenType, Tournament } from '../model/tournament';
 })
 export class CreateTourComponent {
   tournamentData = {
-    
     name: '',
     detail: '',
     reward: 0,
@@ -23,17 +22,31 @@ export class CreateTourComponent {
     // teamJoin: [],
     // status: [],
     // matchList: [],
-    tournamenType: [], // เพิ่ม tournamenType เข้ามาใน tournamentData
+    tournamenType: [], 
   };
-  
-  tournametType = [TournamenType.Free, TournamenType.Paid];
 
-  tournament_type: TournamenType = TournamenType.Free;
+  // tournametType = [TournamenType.Free, TournamenType.Paid];
+
+  // tournament_type: TournamenType = TournamenType.Free;
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
-  constructor(private leauges: LeaugesService) {}
+  imageBase64: string | null = null;
 
+  constructor(private leauges: LeaugesService) {}
+  
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target) {
+          this.imageBase64 = e.target.result as string;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   async submitCreatetourForm(data: Tournament) {
     console.warn(data);
     (await this.leauges.addTournament(data)).subscribe((response) => {
