@@ -87,24 +87,27 @@
       </div>
       <div class="container">
         <div class="row">
-          <div *ngFor="let post of teamPosts" class="col-md-6 my-3">
-            <div class="card mb-3" style="max-width: 400px; border: 2px solid rgb(189, 2, 2); background-color: rgb(73, 73, 73); color: white; margin: 10px; padding: 10px;">
-              <div class="row g-0">
-                <div class="col-md-4 mt-4 mb-4">
-                  <img src="..." class="img-fluid rounded-start" alt="..." style="margin: 10px; padding: 10px;">
+          <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
+            <div class="card mb-3"
+              style="max-width: 400px; border: 2px solid rgb(189, 2, 2); background-color: rgb(73, 73, 73); color: white; margin: 10px; padding: 10px;">
+              <div class="row g-0 d-flex align-items-center">
+                <div class="col-lg-4 col-12">
+                  <div class="d-flex justify-content-center border m-2 img">
+                    <img [src]="post.image" class="img-fluid rounded-start" alt="..." style="max-width: 200px;">
+                  </div>
                 </div>
-                <div class="col-md-8 mt-4 mb-4">
-
-                    <h5 class="card-title">PROFILE :
-                      <span class="profile-info">{{ post.profile.firstName }} {{ post.profile.lastName }}</span>
+                <div class="col-lg-8 col-12">
+                  <div class="d-flex flex-column justify-content-start">
+                    <h5 class="card-title text-start">PROFILE:
+                      <span class="profile-info">{{ post.post.profile.firstName }} {{ post.post.profile.lastName }}</span>
                     </h5>
-                    <h5 class="card-title">IN-GAME :
-                      <span class="profile-game">{{ post.profile.profileGame?.name }}</span>
+                    <h5 class="card-title text-start">IN-GAME:
+                      <span class="profile-game">{{ post.post.profile.profileGame?.name }}</span>
                     </h5>
-                    <h5 class="card-title">POSITIONS :
-                      <span class="positions">{{ post.positions }}</span>
+                    <h5 class="card-title text-start overflow-ellipsis">POSITIONS:
+                      <span class="positions">{{ post.post.positions }}</span>
                     </h5>
-        
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,34 +115,44 @@
         </div>
       </div>
 
-
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Create Player Post
+                Create Team Post
               </h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="playerPostForm">
-                <h2 class="mt-2">Player Information</h2>
-
-                <div class="mb-3">
-                  <label for="position" class="form-label">Position:</label>
-                  <select id="position" name="position" class="form-select" required
-                    [(ngModel)]="playerPostData.position">
-                    <option *ngFor="let po of position" [value]="po">
-                      {{ po }}
-                    </option>
-                  </select>
+              <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="teamPostForm">
+                <h2 class="mt-2">Team Information</h2>
+      
+                <div class="mb-3 ">
+                  <label for="position" class="form-label">POSITIONS</label>
+                  <div class="switch-container" *ngFor="let position of position">
+                    <label class="switch">
+                      <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
+                      <span class="slider round"></span>
+                    </label>
+                    <div class="mt-1">
+                      <h4>{{ position }}</h4>
+                    </div>
+                  </div>
                 </div>
+                <!-- Additional input fields for more information -->
+                <div class="mb-3">
+                  <label for="teamName" class="form-label">DESIRED POOL HERO</label>
+                  <input type="text" name="teamName" class="form-control" ngModel>
+                </div>
+      
+                <!-- Additional input fields for more information -->
+      
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
-                  <button type="submit" class="btn btn-success" id="submitform" [disabled]="!PostPlayerForm.form.valid">
+                  <button type="submit" class="btn btn-success" id="submitform" [disabled]="!PostPlayerForm.form.valid" data-bs-dismiss="modal">
                     Save Changes
                   </button>
                 </div>

@@ -16,10 +16,9 @@ export class FinderTeamComponent {
   teamPosts: Teampost[] = [];
 
   positionsData: PositionType[] = [];
-  Image : String[] = [];
-  playerPostData = {
-    position: PositionType.DSL,
-  };
+  images: String[] = [];
+
+  selectedPositions: PositionType[] = [];
 
   position = [
     PositionType.DSL,
@@ -37,18 +36,41 @@ export class FinderTeamComponent {
   }
 
   async Postform() {
-    this.positionsData.push(this.playerPostData.position);
 
-    const postPlayerData: Partial<Teampost> = {
+
+    const postTeamData: Partial<Teampost> = {
       profile: this.nav.getProfile(),
       positions: this.positionsData,
       
     };
 
-    console.log(postPlayerData);
+    console.log(postTeamData);
 
     (
-      await this.teamPostService.createPost(postPlayerData as Teampost)
+      await this.teamPostService.createPost(postTeamData as Teampost)
     ).subscribe();
   }
+  updateSelection(checked: any, position: PositionType): void {
+    if (checked) {
+      if (!this.selectedPositions.includes(position)) {
+        this.selectedPositions.push(position);
+      }
+      else {
+        const index = this.selectedPositions.indexOf(position);
+        if (index !== -1) {
+          this.selectedPositions.splice(index, 1);
+        }
+      }
+    }
+    console.log(this.selectedPositions);
+
+  }
+  getTeamPosts() {
+    const postData = this.teamPosts.map((post, index) => ({
+      post: post,
+      image: this.images[index],
+    }));
+    return postData
+  }
+
 }
