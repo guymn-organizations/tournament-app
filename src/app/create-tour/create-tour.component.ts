@@ -16,41 +16,57 @@ export class CreateTourComponent {
     startRegisterDate: new Date(),
     endRegisterDate: new Date(),
     startTourDate: new Date(),
-    imageTourUrl: '',
     BOqualifyingRound: 0,
     BOfinalRound: 0,
     // teamJoin: [],
     // status: [],
     // matchList: [],
-    tournamenType: [], 
+    tournamenType: [],
   };
-
-  // tournametType = [TournamenType.Free, TournamenType.Paid];
-
-  // tournament_type: TournamenType = TournamenType.Free;
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
-  imageBase64: string | null = null;
+ 
 
   constructor(private leauges: LeaugesService) {}
-  
+
   onFileSelected(event: any) {
-    const file = event.target.files[0];
+    const file: File = event.target.files[0];
+
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target) {
-          this.imageBase64 = e.target.result as string;
-        }
-      };
-      reader.readAsDataURL(file);
+      this.saveImage(file);
     }
   }
-  async submitCreatetourForm(data: Tournament) {
-    console.warn(data);
-    (await this.leauges.addTournament(data)).subscribe((response) => {
-      console.log('Response from service:', response);
-    });
+
+  saveImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target) {
+        this.selectedImageURL = e.target.result;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async submitCreatetourForm() {
+    const tourData: Partial<Tournament> = {
+      name: this.tournamentData.name,
+      detail: this.tournamentData.detail,
+      reward: this.tournamentData.reward,
+      startRegisterDate: this.tournamentData.startRegisterDate,
+      endRegisterDate: this.tournamentData.endRegisterDate,
+      startTourDate: this.tournamentData.startTourDate,
+      imageTourUrl: this.selectedImageURL as string,
+      BOfinalRound: this.tournamentData.BOfinalRound,
+      BOqualifyingRound: this.tournamentData.BOqualifyingRound,
+      tournamenType: this.tournamentData.tournamenType,
+    };
+    console.log(tourData);
+
+    (await this.leauges.addTournament(tourData as Tournament)).subscribe(
+      (response) => {
+        console.log('Response from service:', response);
+      }
+    );
   }
 }

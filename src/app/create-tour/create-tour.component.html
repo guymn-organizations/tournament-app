@@ -16,7 +16,7 @@
         #createtourForm="ngForm"
         class="row g-3 needs-validation"
         novalidate
-        (ngSubmit)="submitCreatetourForm(tournamentData)"
+        (ngSubmit)="submitCreatetourForm()"
       >
         <div class="col-md-7">
           <label for="validationCustom01" class="form-label"
@@ -42,6 +42,8 @@
             [(ngModel)]="tournamentData.reward"
             required
             placeholder="BATH ฿"
+            min="0" 
+            step="100"
           />
         </div>
 
@@ -67,12 +69,12 @@
                 class="form-control form-control-lg"
                 id="formFileLg"
                 type="file"
-                [(ngModel)]="tournamentData.imageTourUrl"
+                [(ngModel)]="selectedImageURL"
               />
             </div>
             <!-- Image Preview -->
-            <div class="form-group" *ngIf="imageBase64">
-              <img [src]="imageBase64" alt="Selected Image" width="150" />
+            <div class="form-group" *ngIf="selectedImageURL">
+              <img [src]="selectedImageURL" alt="Selected Image" width="150" />
             </div>
 
             <div class="col-md-12">
