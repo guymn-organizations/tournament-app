@@ -2,7 +2,7 @@
 <form (ngSubmit)="onSubmit()" #advertForm="ngForm">
   <div class="form-group">
     <label for="imageFile">Image File:</label>
-    <input type="file" id="imageFile" (change)="onFileSelected($event)" class="form-control" accept="image/*" required>
+    <input type="file" id="imageFile" (change)="onFileSelected($event)" [(ngModel)]="imageBase64" class="form-control" accept="image/*" required>
   </div>
 
   <!-- Image Preview -->

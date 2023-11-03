@@ -11,7 +11,7 @@ export class AdvertComponent {
   advert = {
     linkAdvertUrl: ''
   };
-  imageBase64: string | null = null;
+  imageBase64!: string ;
 
   constructor(private advertService: AdvertService) {}
 
@@ -31,8 +31,11 @@ export class AdvertComponent {
   async onSubmit() {
     console.log(this.imageBase64);
     console.log(this.advert.linkAdvertUrl);
-    const advertData : Partial<Advert>
-    
+    const advertData: Partial<Advert> = {
+      id: undefined ,
+      linkAdvertUrl: this.advert.linkAdvertUrl,
+      imageAdvertUrl: this.imageBase64 as string,
+    };
     (await this.advertService.createAdvert(advertData as Advert)).subscribe((response) => {
       console.log('Response from service :',response)
     })
