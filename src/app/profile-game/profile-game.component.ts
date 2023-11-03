@@ -61,8 +61,6 @@ export class ProfileGameComponent implements OnInit {
       imageGameUrl: this.selectedImageURL as string,
     };
 
-    console.log(profileData);
-
     (
       await this.nav.profileService.editProfileGame(
         this.nav.getProfile().id,
@@ -113,7 +111,6 @@ export class ProfileGameComponent implements OnInit {
   }
 
   goMessage() {
-    console.log('MessageGame');
     this.nav.service.toPage('profile/game/message');
   }
 }

@@ -5,25 +5,52 @@
       {{ getTextButtom() }}
     </button>
   </div>
-  <ng-container *ngIf="isScrims; else showScrims">
-    <ng-container *ngTemplateOutlet="createScrims"></ng-container
+  <ng-container *ngIf="isScrims; else ShowScrims">
+    <ng-container *ngTemplateOutlet="CreateScrims"></ng-container
   ></ng-container>
 </div>
 
-<ng-template #createScrims>
-  <div class="create" [ngClass]="{ 'd-none': !isScrims }">
-    <h2>Create scrims</h2>
+<ng-template #CreateScrims>
+  <div>
+    <div class="create" [ngClass]="{ 'd-none': !isScrims }">
+      <h2>Create scrims</h2>
+    </div>
+    <form #ScrimsForm="ngForm" (ngSubmit)="createScrims()">
+      <div class="d-flex flex-column">
+        <label class="fs-3">Select date</label>
+        <input
+          type="datetime-local"
+          id="datetime-scrims"
+          name="datetime-scrims"
+          class="m-3"
+          [(ngModel)]="startDate"
+          required
+        />
+      </div>
+      <div class="d-flex m-3">
+        <button
+          type="submit"
+          class="btn btn-success ms-auto"
+          [disabled]="!ScrimsForm.form.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
 </ng-template>
 
-<ng-template #showScrims>
-  <div class="d-flex justify-content-evenly align-items-center mb-3">
+<ng-template #ShowScrims>
+  <div
+    class="d-flex justify-content-evenly align-items-center mb-3"
+    *ngFor="let scrim of getScrims()"
+  >
     <div class="vs">VS</div>
     <div class="logo-team border">
-      <img src="../../assets/img/logo.png" alt="" />
+      <img [src]="scrim.image" alt="" />
     </div>
-    <div class="fs-2">16/10/2023</div>
-    <div class="fs-2">20:00</div>
+    <div class="fs-2">{{ scrim.scrim.startDate | date : "d/M/y" }}</div>
+    <div class="fs-2">{{ scrim.scrim.startDate | date : "HH:mm" }}</div>
     <button type="button" class="btn btn-success">Edit</button>
   </div>
 </ng-template>

@@ -1,12 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType, Team } from '../model/team';
-import { Profile } from '../model/profile';
-import { GobalServiceService } from '../service/gobal-service.service';
 import { Image } from '../model/image';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // Import the map operator
-import { TeamService } from '../service/team.service';
 
 @Component({
   selector: 'app-profile-team',
@@ -62,9 +57,7 @@ export class ProfileTeamComponent implements OnInit {
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
       this.teamData.contact = this.team?.contact as string;
-    } catch (teamError) {
-      console.error('Error fetching team data:', teamError);
-    }
+    } catch (teamError) {}
   }
 
   async createTeam() {
@@ -92,7 +85,6 @@ export class ProfileTeamComponent implements OnInit {
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
 
-    console.log(this.teamData.id);
     (
       await this.nav.teamService.addReserverPlayer(
         this.teamData.id,
@@ -117,7 +109,6 @@ export class ProfileTeamComponent implements OnInit {
         this.position_type
       )
     ).subscribe(async (res) => {
-      console.log(res);
       await this.ngOnInit();
     });
   }
@@ -133,9 +124,7 @@ export class ProfileTeamComponent implements OnInit {
       localStorage.setItem('team', '');
       this.nav.getProfile().profileGame.myTeam = null;
       this.ngOnInit();
-    } catch (teamError) {
-      console.error('Error fetching team data:', teamError);
-    }
+    } catch (teamError) {}
   }
 
   async deleteTeam() {
