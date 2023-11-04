@@ -7,7 +7,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-profile-list-scrim',
   templateUrl: './profile-list-scrim.component.html',
-  styleUrls: ['./profile-list-scrim.component.css'],
+  styleUrls: ['./profile-list-scrim.component.css', '../profile/profile.component.css'],
 })
 export class ProfileListScrimComponent implements OnInit {
   scrimsService: ScrimsService = inject(ScrimsService);

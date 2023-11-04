@@ -6,7 +6,10 @@ import { Image } from '../model/image';
 @Component({
   selector: 'app-profile-team',
   templateUrl: './profile-team.component.html',
-  styleUrls: ['./profile-team.component.css'],
+  styleUrls: [
+    './profile-team.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileTeamComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);

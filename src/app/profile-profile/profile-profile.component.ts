@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-profile-profile',
   templateUrl: './profile-profile.component.html',
-  styleUrls: ['./profile-profile.component.css'],
+  styleUrls: ['./profile-profile.component.css', '../profile/profile.component.css'],
 })
 export class ProfileProfileComponent {
   nav: NavbarComponent = inject(NavbarComponent);

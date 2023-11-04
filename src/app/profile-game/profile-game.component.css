@@ -1,27 +1,9 @@
-.bg-data {
-  background-color: #28282b;
-}
-
 label {
   padding-top: 20px;
-}
-
-::placeholder {
-  color: white;
-  opacity: 0.5; /* Firefox */
 }
 
 img {
   height: 100%;
   width: 100%;
   object-fit: fill; /* Ensures the image covers the container */
-}
-
-.img-content {
-  width: 800px;
-  height: 400px;
-}
-
-.bi-chat {
-  cursor: pointer;
 }

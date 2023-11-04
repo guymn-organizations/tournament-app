@@ -1,11 +1,8 @@
-.bg-data {
-  background-color: #28282b;
-}
-
 .img {
   width: 200px;
   height: 200px;
 }
+
 img {
   width: 200px;
   height: 200px;
@@ -15,6 +12,7 @@ img {
   width: 100px;
   height: 100px;
 }
+
 .isTeam .img {
   width: 100px;
   height: 100px;
@@ -43,11 +41,6 @@ img {
 
 input {
   background-color: #d9d9d9;
-}
-
-::placeholder {
-  color: white;
-  opacity: 0.5; /* Firefox */
 }
 
 .form-select {

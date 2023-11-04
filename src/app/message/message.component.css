@@ -28,7 +28,8 @@
   font-size: medium;
 }
 
-.type, .time {
+.type,
+.time {
   font-weight: normal;
   font-size: small;
 }

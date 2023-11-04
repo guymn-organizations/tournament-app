@@ -6,8 +6,10 @@
     <div class="col-12 col-lg-6">
       <h1>Message&nbsp;Profile</h1>
       <div
+        #messageProfileContenter
         id="profile_message "
         class="d-flex flex-column border message-contenter p-0 bg-light text-dark"
+        (scroll)="onScrollProfileMessage()"
       >
         <div
           name="message"
@@ -18,9 +20,10 @@
             id="header-message"
             class="d-flex flex-xl-row flex-column justify-content-between align-items-xl-center border p-4"
             data-bs-toggle="collapse"
-            [attr.href]="'#message-content-' + i"
+            [attr.href]="'#message-profile-content-' + i"
             role="button"
             aria-expanded="false"
+            (click)="loadMessageProfile()"
           >
             <div class="message-text">From : {{ message.sender }}</div>
             <div class="message-text type">{{ message.messageType }}</div>
@@ -30,33 +33,68 @@
           </div>
           <div
             class="collapse ps-4 pe-4 bg-light text-dark"
-            [id]="'message-content-' + i"
+            [id]="'message-profile-content-' + i"
           >
-            <div class="pb-4">
-              Some placeholder content for the collapse component. This panel is
-              hidden by default but revealed when the user activates the
-              relevant trigger.
-            </div>
+            <div class="pb-4" [innerHTML]="message.content"></div>
           </div>
+        </div>
+
+        <div
+          class="lds-ellipsis m-auto"
+          *ngIf="message_profile.length !== nav.profile?.messages?.length"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
     </div>
 
     <div class="col-12 col-lg-6">
       <h1>Message&nbsp;Team</h1>
-      <div id="team_message" class="border message-contenter">
+      <div
+        #messageTeamContenter
+        id="team_message"
+        class="d-flex flex-column border message-contenter p-0 bg-light text-dark"
+        (scroll)="onScrollTeamMessage()"
+      >
         <div
           name="message"
-          class="d-flex flex-column border message-contenter p-0 bg-light text-dark"
+          class="message d-flex flex-column border"
+          *ngFor="let message of message_team; let i = index"
         >
           <div
-            name="message"
-            class="message d-flex flex-row justify-content-between border p-4"
-            *ngFor="let message of message_team"
+            id="header-message"
+            class="d-flex flex-xl-row flex-column justify-content-between align-items-xl-center border p-4"
+            data-bs-toggle="collapse"
+            [attr.href]="'#message-team-content-' + i"
+            role="button"
+            aria-expanded="false"
+            (click)="loadMessageProfile()"
           >
-            <div>From : {{ message.sender }}</div>
-            <div>{{ message.sendDate | date : "d/M/y" }}</div>
+            <div class="message-text">From : {{ message.sender }}</div>
+            <div class="message-text type">{{ message.messageType }}</div>
+            <div class="message-text time">
+              {{ message.sendDate | date : "d-M-y" }}
+            </div>
           </div>
+          <div
+            class="collapse ps-4 pe-4 bg-light text-dark"
+            [id]="'message-team-content-' + i"
+          >
+            <div class="pb-4" [innerHTML]="message.content"></div>
+          </div>
+        </div>
+
+        <div
+          class="lds-ellipsis m-auto"
+          *ngIf="message_team.length !== team?.messages?.length"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
     </div>

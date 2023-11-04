@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-profile-game',
   templateUrl: './profile-game.component.html',
-  styleUrls: ['./profile-game.component.css'],
+  styleUrls: ['./profile-game.component.css', '../profile/profile.component.css'],
 })
 export class ProfileGameComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
