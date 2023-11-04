@@ -1,11 +1,8 @@
 <div class="mb-5" [ngClass]="{ 'd-none': !nav.getProfile().profileGame }">
-  <div class="container position-relative">
-    <div class="mb-5">
-      <ng-container *ngIf="nav.getProfile().profileGame?.myTeam; else noTeam">
-        <ng-container *ngTemplateOutlet="isTeam"></ng-container
-      ></ng-container>
-    </div>
-  </div>
+  <h1 class="mb-4">Profile Team</h1>
+  <ng-container *ngIf="nav.getProfile().profileGame?.myTeam; else noTeam">
+    <ng-container *ngTemplateOutlet="isTeam"></ng-container
+  ></ng-container>
 </div>
 
 <ng-template #isTeam>

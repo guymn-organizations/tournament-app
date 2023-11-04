@@ -26,18 +26,6 @@ export class ProfileComponent implements OnInit {
       name: 'Profile&nbsp;Game',
       path: 'game',
     },
-    {
-      name: 'Profile&nbsp;Team',
-      path: 'team',
-    },
-    {
-      name: 'Message',
-      path: 'message',
-    },
-    {
-      name: 'List&nbsp;Scrims',
-      path: 'scrims',
-    },
   ];
 
   checkTab: string = '';

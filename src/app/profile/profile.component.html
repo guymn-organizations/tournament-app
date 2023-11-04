@@ -17,6 +17,35 @@
             [routerLink]="router.path"
             [innerHTML]="router.name"
           ></div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{
+              underline: isActive('team'),
+              'd-none': !nav.getProfile().profileGame
+            }"
+            routerLink="team"
+          >
+            Profile&nbsp;Team
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{
+              underline: isActive('scrims'),
+              'd-none': !nav.getProfile().profileGame.myTeam
+            }"
+            routerLink="scrims"
+          >
+            List&nbsp;Scrims
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{
+              underline: isActive('message')
+            }"
+            routerLink="message"
+          >
+            Message
+          </div>
         </div>
         <div class="border-start d-none d-lg-block ms-2 me-5"></div>
         <div
