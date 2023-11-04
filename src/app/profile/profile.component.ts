@@ -23,11 +23,11 @@ export class ProfileComponent implements OnInit {
       path: 'profile',
     },
     {
-      name: 'Profile Game',
+      name: 'Profile&nbsp;Game',
       path: 'game',
     },
     {
-      name: 'Profile Team',
+      name: 'Profile&nbsp;Team',
       path: 'team',
     },
     {
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
       path: 'message',
     },
     {
-      name: 'List Scrims',
+      name: 'List&nbsp;Scrims',
       path: 'scrims',
     },
   ];
