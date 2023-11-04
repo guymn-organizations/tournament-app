@@ -46,8 +46,23 @@
     *ngFor="let scrim of getScrims()"
   >
     <div class="vs">VS</div>
-    <div class="logo-team border">
-      <img [src]="scrim.image" alt="" />
+    <div class="logo-team border d-flex bg-white">
+      <img
+        [src]="scrim.image"
+        *ngIf="scrim.image && checkTeamEnemy(scrim.scrim)"
+      />
+      <h1
+        class="text-secondary m-auto text-uppercase"
+        *ngIf="!scrim.image && checkTeamEnemy(scrim.scrim)"
+      >
+        {{ unImgTeam(scrim.scrim) }}
+      </h1>
+      <h1
+        class="text-secondary m-auto text-uppercase"
+        *ngIf="!checkTeamEnemy(scrim.scrim)"
+      >
+        ?
+      </h1>
     </div>
     <div class="fs-2">{{ scrim.scrim.startDate | date : "d/M/y" }}</div>
     <div class="fs-2">{{ scrim.scrim.startDate | date : "HH:mm" }}</div>

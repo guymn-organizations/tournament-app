@@ -77,23 +77,37 @@ export class ProfileListScrimComponent implements OnInit {
 
   async setImages() {
     const images = this.scrims
-      ?.map((scrim) =>
-        this.team?.id === scrim.teamB?.id
-          ? scrim.teamA.imageTeamUrl
-          : scrim.teamB.imageTeamUrl
-      )
-      .filter((team) => team !== null); // Filter out potential null values
+      ?.map((scrim) => {
+        const teamAImage = scrim.teamA?.imageTeamUrl || '';
+        const teamBImage = scrim.teamB?.imageTeamUrl || '';
+        return this.team?.id === scrim.teamB?.id ? teamAImage : teamBImage;
+      })
+      .filter((team) => team !== null);
 
     if (!images) {
       return;
     }
-    for (const item of images) {
-      (await this.nav.service.getImage(item)).subscribe(
+    for (let i = 0; i < images.length; i++) {
+      (await this.nav.service.getImage(images[i])).subscribe(
         (res) => {},
         (error) => {
-          this.images.push(error.error.text);
+          this.images[i] = error.error.text;
         }
       );
     }
+  }
+
+  unImgTeam(scrim: Scrims) {
+    if (scrim.teamA.id == this.team?.id) {
+      return scrim.teamB.name[0];
+    }
+    return scrim.teamA.name[0];
+  }
+
+  checkTeamEnemy(scrims: Scrims): boolean {
+    if (scrims.teamA == null || scrims.teamB == null) {
+      return false;
+    }
+    return true;
   }
 }
