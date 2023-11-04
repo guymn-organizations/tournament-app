@@ -12,7 +12,7 @@ export class Team {
   }[] = [];
   teamReserve!: Profile[];
   imageTeamUrl!: string;
-  messages!: Message[];
+  messages!: string[];
   contact!: string;
 
   constructor() {}

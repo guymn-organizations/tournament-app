@@ -46,8 +46,4 @@ export class TeamService {
   async setConact(id: string, contact: string): Promise<Observable<string>> {
     return this.http.put<string>(`${this.apiUrl}/${id}/set_contact`, contact);
   }
-
-  async getMessage(id: string): Promise<Observable<Message[]>> {
-    return this.http.get<Message[]>(`${this.apiUrl}/${id}/message`);
-  }
 }

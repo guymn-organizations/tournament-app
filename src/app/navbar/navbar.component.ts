@@ -31,11 +31,14 @@ export class NavbarComponent implements OnInit {
   profileSubscription: Subscription | undefined;
   imageProfile: Image | undefined;
 
+  team: Team | undefined;
+
   constructor() {}
 
   async ngOnInit() {
     await this.setProfile();
     await this.setProfileImage();
+    await this.setTeam();
   }
 
   getProfileMessage() {
@@ -59,6 +62,9 @@ export class NavbarComponent implements OnInit {
   }
 
   async setProfileImage() {
+    if (!this.profile?.imageProfileUrl) {
+      return;
+    }
     (
       await this.service.getImage(this.profile?.imageProfileUrl as string)
     ).subscribe(
@@ -67,6 +73,18 @@ export class NavbarComponent implements OnInit {
         this.imageProfile = result.error.text;
       }
     );
+  }
+
+  async setTeam() {
+    try {
+      if (!this.profile?.profileGame.myTeam) {
+        return;
+      }
+      const teamId = localStorage.getItem('team') as string;
+      this.team = await (
+        await this.teamService.getTeamById(teamId)
+      ).toPromise();
+    } catch (teamError) {}
   }
 
   getProfile(): Profile {

@@ -1,12 +1,13 @@
 export class Message {
-  sender: string;
+  id!: string;
+  sender!: string;
   messageType: MessageType;
-  content: string;
+  content!: string;
+  sendDate: Date;
 
-  constructor(sender: string, messageType: MessageType, content: string) {
-    this.sender = sender;
+  constructor(messageType: MessageType) {
+    this.sendDate = new Date();
     this.messageType = messageType;
-    this.content = content;
   }
 }
 

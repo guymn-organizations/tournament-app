@@ -2,8 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ScrimsService } from '../service/scrims.service';
 import { Scrims } from '../model/scrims';
 import { Team } from '../model/team';
-import { ProfileTeamComponent } from '../profile-team/profile-team.component';
-import { ProfileComponent } from '../profile/profile.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -18,7 +16,7 @@ export class ProfileListScrimComponent implements OnInit {
   isScrims: boolean = false;
 
   startDate: Date | undefined;
-  scrims: Scrims[] | undefined;
+  scrims: Scrims[] = [];
 
   team?: Team;
   images: String[] = [];

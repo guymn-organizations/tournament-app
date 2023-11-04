@@ -31,7 +31,7 @@
             class="fs-5 mb-4 list"
             [ngClass]="{
               underline: isActive('scrims'),
-              'd-none': !nav.getProfile().profileGame.myTeam
+              'd-none': !nav.team
             }"
             routerLink="scrims"
           >

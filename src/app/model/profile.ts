@@ -11,7 +11,7 @@ export class Profile {
   password!: string;
   imageProfileUrl!: string;
   profileGame!: ProfileGame ;
-  messages!: Message[];
+  messages!: string[];
 
   constructor() {}
 }
