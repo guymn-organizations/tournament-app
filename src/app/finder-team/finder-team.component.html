@@ -69,20 +69,12 @@
 
     <!-- Right Side -->
     <div class="col-md-9 col-sm-12">
-      <div class="d-flex flex-column p-4">
+      <div class="d-flex flex-column p-4 align-items-end">
         <!-- Added padding -->
-        <div class="d-flex flex-row align-items-center">
-          <!-- Added flex and alignment -->
-          <div class="col-md-6 col-sm-12">
-            <input type="text" class="form-control m-2" [(ngModel)]="searchRole" placeholder="Search Role" />
-            <!-- Added margin -->
-          </div>
-          <div class="col-md-6 col-sm-12 text-md-end">
-            <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Post Find Player
-            </button>
-            <!-- Button added and aligned to the right -->
-          </div>
+        <div class="col-md-6 col-sm-12 text-md-end">
+          <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Post Find Player
+          </button>
         </div>
       </div>
       <div class="container">

@@ -15,7 +15,7 @@ export class FinderPlayerComponent {
   nav: NavbarComponent = inject(NavbarComponent);
   
 
-  searchRole: string = '';
+
   selectedRole: PositionType | null = null;
   playerPosts: Playerpost[] = [];
 

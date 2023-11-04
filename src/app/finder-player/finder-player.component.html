@@ -69,23 +69,20 @@
 
     <!-- Right Side -->
     <div class="col-md-9 col-sm-12">
-      <div class="d-flex flex-column p-4">
+      <div class="d-flex flex-column p-4 align-items-end">
         <!-- Added padding -->
-        <div class="d-flex flex-row align-items-center">
-          <div class="col-md-6 col-sm-12">
-            <input type="text" class="form-control m-2" [(ngModel)]="searchRole" placeholder="Search Role" />
-          </div>
-          <div class="col-md-6 col-sm-12 text-md-end">
-            <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Post Find Team
-            </button>
-          </div>
+
+        <div class="col-md-6 col-sm-12 text-md-end">
+          <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Post Find Team
+          </button>
         </div>
       </div>
       <div class="container">
         <div class="row">
           <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3">
-            <div class="card mb-3" style="max-width: 400px; border: 2px solid rgb(189, 2, 2); background-color: rgb(73, 73, 73); color: white; margin: 10px; padding: 10px;">
+            <div class="card mb-3"
+              style="max-width: 400px; border: 2px solid rgb(189, 2, 2); background-color: rgb(73, 73, 73); color: white; margin: 10px; padding: 10px;">
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">
                   <div class="d-flex justify-content-center border m-2 img">
@@ -95,7 +92,8 @@
                 <div class="col-lg-8 col-12">
                   <div class="d-flex flex-column justify-content-start">
                     <h5 class="card-title text-start">PROFILE:
-                      <span class="profile-info">{{ post.post.profile.firstName }} {{ post.post.profile.lastName }}</span>
+                      <span class="profile-info">{{ post.post.profile.firstName }} {{ post.post.profile.lastName
+                        }}</span>
                     </h5>
                     <h5 class="card-title text-start">IN-GAME:
                       <span class="profile-game">{{ post.post.profile.profileGame?.name }}</span>
