@@ -19,3 +19,12 @@ img {
 .create {
   transition: 0.4s;
 }
+
+.list {
+  opacity: 1;
+}
+
+.list:hover {
+  opacity: 1.5;
+  cursor: pointer;
+}
