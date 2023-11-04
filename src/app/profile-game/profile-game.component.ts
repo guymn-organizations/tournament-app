@@ -26,6 +26,8 @@ export class ProfileGameComponent implements OnInit {
 
   profileGame: ProfileGame | undefined;
 
+  errorMessage = '';
+
   constructor() {}
 
   async ngOnInit(): Promise<void> {
@@ -46,12 +48,12 @@ export class ProfileGameComponent implements OnInit {
 
   async clickEdit() {
     await this.setProfileGameData();
+    this.errorMessage = '';
     this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
     await this.setProfileGame();
-    this.toEdit = false;
   }
 
   async setProfileGame() {
@@ -66,9 +68,15 @@ export class ProfileGameComponent implements OnInit {
         this.nav.getProfile().id,
         profileData as ProfileGame
       )
-    ).subscribe((respon) => {
-      this.nav.getProfile().profileGame = respon;
-    });
+    ).subscribe(
+      (respon) => {
+        this.nav.getProfile().profileGame = respon;
+        this.toEdit = false;
+      },
+      (error) => {
+        this.errorMessage = error.error;
+      }
+    );
   }
 
   getGenderIcon(): string {
