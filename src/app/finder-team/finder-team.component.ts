@@ -17,6 +17,7 @@ export class FinderTeamComponent {
 
   positionsData: PositionType[] = [];
   images: String[] = [];
+  searchRole: string = '';
 
   selectedPositions: PositionType[] = [];
 
@@ -29,27 +30,16 @@ export class FinderTeamComponent {
   ];
   constructor() {}
 
-  ngOnInit() {
-    this.teamPostService.getAllTeamPost().subscribe((data) => {
+  async ngOnInit() {
+    console.log("reload")
+    this.teamPostService.getAllTeamPost().subscribe(async (data) => {
       this.teamPosts = data;
     });
   }
-
-  async Postform() {
-
-
-    const postTeamData: Partial<Teampost> = {
-      profile: this.nav.getProfile(),
-      positions: this.positionsData,
-      
-    };
-
-    console.log(postTeamData);
-
-    (
-      await this.teamPostService.createPost(postTeamData as Teampost)
-    ).subscribe();
+  isSelected(position: PositionType): boolean {
+    return this.selectedPositions.includes(position);
   }
+
   updateSelection(checked: any, position: PositionType): void {
     if (checked) {
       if (!this.selectedPositions.includes(position)) {
@@ -72,5 +62,42 @@ export class FinderTeamComponent {
     }));
     return postData
   }
+  async Postform() {
 
+
+    const postTeamData: Partial<Teampost> = {
+      profile: this.nav.getProfile(),
+      positions: this.selectedPositions,
+      
+    };
+
+    (
+      await this.teamPostService.createPost(postTeamData as Teampost)
+    ).subscribe((res) => {
+    },
+      async (error) => {
+        await this.ngOnInit();
+      });
+  }
+
+  onChange(event:any,index:any){
+    console.log(event.target.checked)
+    var cl = document.getElementsByClassName(index);
+    if (event.target.checked) {
+      console.log(index);
+      for (let i = 0; i < cl.length; i++) {
+        cl[i].classList.add("positions");
+        
+      }
+      
+    } else {
+      for (let i = 0; i < cl.length; i++) {
+        cl[i].classList.remove("positions");
+        
+      }
+      
+    }
 }
+  }
+
+

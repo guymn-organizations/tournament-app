@@ -3,6 +3,7 @@ import { PlayerpostService } from '../service/playerpost.service';
 import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType } from '../model/team';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-playerpost',
@@ -14,6 +15,8 @@ export class FinderPlayerComponent {
   nav: NavbarComponent = inject(NavbarComponent);
   
 
+  searchRole: string = '';
+  selectedRole: PositionType | null = null;
   playerPosts: Playerpost[] = [];
 
   positionsData: PositionType[] = [];
@@ -97,5 +100,22 @@ export class FinderPlayerComponent {
 
     }
   }
-  
+  onChange(event:any,index:any){
+      console.log(event.target.checked)
+      var cl = document.getElementsByClassName(index);
+      if (event.target.checked) {
+        console.log(index);
+        for (let i = 0; i < cl.length; i++) {
+          cl[i].classList.add("positions");
+          
+        }
+        
+      } else {
+        for (let i = 0; i < cl.length; i++) {
+          cl[i].classList.remove("positions");
+          
+        }
+        
+      }
+  }
 }

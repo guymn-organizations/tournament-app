@@ -117,3 +117,7 @@ body {
 .slider.round {
   border-radius: 34px;
 }
+
+.hidden {
+  display: none;
+}
