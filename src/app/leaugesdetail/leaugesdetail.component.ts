@@ -24,7 +24,7 @@ export class LeaugesdetailComponent implements OnInit {
       // Access the parameter by its name, in this case, 'id'
       const id = params.get('id');
       this.checked_id = id as string;
-
+      
       await this.setTournament();
     });
   }
@@ -40,10 +40,14 @@ export class LeaugesdetailComponent implements OnInit {
 
   async setImage(image: string) {
     (await this.nav.service.getImage(image)).subscribe(
-      (res) => {},
+      (res) => {
+        this.image = res.toString(); 
+      },
       (error) => {
-        this.image = error.error.text;
+        this.image = ''; 
       }
     );
   }
+  
+
 }
