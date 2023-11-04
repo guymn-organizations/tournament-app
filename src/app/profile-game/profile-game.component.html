@@ -105,20 +105,24 @@
 
 <ng-template #ConnectedPage>
   <div class="row d-flex justify-content-center">
-    <div class="row d-flex justify-content-center">
-      <div class="border row col-12 mt-4 p-0">
+    <div class="row d-flex justify-content-center mb-4">
+      <div class="border row col-12 mt-4 p-0 img-content">
         <img
           [src]="selectedImageURL"
-          class="border m-0 p-0"
+          class="m-0 p-0"
           *ngIf="selectedImageURL"
         />
         <div
           class="d-flex justify-content-center align-items-center"
           *ngIf="!selectedImageURL"
+          style="padding: 20%"
         >
-          <label class="text-white" style="padding: 20%"
-            >Upload profile in game ROV</label
-          >
+          <div class="lds-ellipsis m-auto">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       </div>
     </div>

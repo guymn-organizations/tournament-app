@@ -54,22 +54,18 @@
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
-  background-color: #1a1b20;
 }
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
-  background-color: #1a1b20;
 }
 .lds-ellipsis div:nth-child(3) {
   left: 32px;
   animation: lds-ellipsis2 0.6s infinite;
-  background-color: #1a1b20;
 }
 .lds-ellipsis div:nth-child(4) {
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
-  background-color: #1a1b20;
 }
 @keyframes lds-ellipsis1 {
   0% {

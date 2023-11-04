@@ -8,15 +8,15 @@
 <ng-template #isTeam>
   <div class="column" [ngClass]="{ 'd-none': !team }">
     <div class="align-items-end d-flex flex-row flex-wrap isTeam">
-      <div class="isTeam me-3 border img bg-light">
+      <div class="isTeam me-3 border img bg-light d-flex">
         <img class="border" [src]="imageTeam" *ngIf="imageTeam" />
-        <h1
-          class="text-center text-secondary text-uppercase"
-          style="font-size: 80px"
-          *ngIf="!imageTeam"
-        >
-          {{ unImgTeam() }}
-        </h1>
+
+        <div class="lds-ellipsis m-auto" *ngIf="!imageTeam">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
       <div id="team-name" class="fs-1" style="width: fit-content">
         {{ team?.name }}
@@ -42,6 +42,15 @@
               [src]="mem.imageUrl"
               *ngIf="mem.imageUrl"
             />
+            <div
+              class="lds-ellipsis m-auto"
+              *ngIf="!mem.imageUrl && mem.player"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
             <i
               *ngIf="!mem.player?.imageProfileUrl && mem.player"
               class="bi bi-person-fill text-body-tertiary"

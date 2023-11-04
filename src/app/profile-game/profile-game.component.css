@@ -2,8 +2,29 @@ label {
   padding-top: 20px;
 }
 
-img {
+img,
+.img-content {
   height: 100%;
   width: 100%;
   object-fit: fill; /* Ensures the image covers the container */
+}
+
+:root {
+  --ellipsis-color: white;
+}
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: --ellipsis-color;
 }

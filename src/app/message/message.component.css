@@ -33,3 +33,23 @@
   font-weight: normal;
   font-size: small;
 }
+
+:root {
+  --ellipsis-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: --ellipsis-color;
+}

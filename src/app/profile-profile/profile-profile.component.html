@@ -11,14 +11,26 @@
       <img
         [src]="nav.imageProfile"
         class="col-12 ms-auto me-auto mt-5 border"
-        *ngIf="nav.imageProfile"
+        *ngIf="nav.imageProfile && nav.profile?.imageProfileUrl"
       />
-      <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+      <div
+        class="col-12 m-auto mt-5 d-flex justify-content-center align-items-center border img-content"
+        *ngIf="!nav.imageProfile"
+      >
         <i
           class="bi bi-person-fill text-body-tertiary border"
-          *ngIf="!nav.imageProfile"
+          *ngIf="!nav.imageProfile && !nav.profile?.imageProfileUrl"
           style="font-size: 200px; height: 250px"
         ></i>
+        <div
+          class="lds-ellipsis m-auto"
+          *ngIf="!nav.imageProfile && nav.profile?.imageProfileUrl"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-lg-8">
