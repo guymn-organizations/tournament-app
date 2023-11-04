@@ -1,0 +1,9 @@
+.message-contenter {
+  height: 60vh;
+  width: 60vh;
+  overflow-y: scroll;
+}
+
+.message-contenter::-webkit-scrollbar {
+  width: 1em;
+}

@@ -88,7 +88,7 @@ export class ProfileTeamComponent implements OnInit {
     (
       await this.nav.teamService.addReserverPlayer(
         this.teamData.id,
-        this.nav.getProfile().id
+        this.nav.getProfile().profileGame.name
       )
     ).subscribe(
       async (respon) => {
@@ -105,7 +105,7 @@ export class ProfileTeamComponent implements OnInit {
     (
       await this.nav.teamService.addTeamPlayer(
         id,
-        this.nav.getProfile().id,
+        this.nav.getProfile().profileGame.name,
         this.position_type
       )
     ).subscribe(async (res) => {
@@ -118,7 +118,7 @@ export class ProfileTeamComponent implements OnInit {
       await (
         await this.nav.teamService.leavePlayer(
           this.team?.id as string,
-          this.nav.getProfile().id
+          this.nav.getProfile().profileGame.name
         )
       ).toPromise();
       localStorage.setItem('team', '');
@@ -134,6 +134,9 @@ export class ProfileTeamComponent implements OnInit {
         if (error.status == 202) {
           localStorage.setItem('team', '');
           this.nav.getProfile().profileGame.myTeam = null;
+          this.selectedImageURL = null;
+          this.teamData.name = '';
+          this.position_type = PositionType.DSL;
           this.ngOnInit();
         }
       }
