@@ -79,30 +79,29 @@
       </div>
       <div class="container">
         <div class="row">
-          <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
-            <div class="card mb-3"
-              style="max-width: 400px; border: 2px solid rgb(189, 2, 2); background-color: rgb(73, 73, 73); color: white; margin: 10px; padding: 10px;">
-              <div class="row g-0 d-flex align-items-center">
-                <div class="col-lg-4 col-12">
-                  <div class="d-flex justify-content-center border  img">
-                    <img [src]="post.image" class="img-fluid rounded-start" alt="..." style="max-width: 200px;">
-                  </div>
+            <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
+                <div class="card game-card mb-3">
+                    <div class="row g-0 d-flex align-items-center">
+                        <div class="col-lg-4 col-12">
+                            <div class="d-flex justify-content-center border img">
+                                <img [src]="post.image" class="img-fluid game-image" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-12">
+                          <div class="d-flex flex-column justify-content-start">
+                              <h5 class="card-title text-start game-profile">
+                                  TEAM: <span class="profile-info"></span>
+                              </h5>
+                              <h5 class="card-title text-start game-positions overflow-ellipsis">
+                                  POSITIONS: <span class="positions">{{ post.post.positions }}</span>
+                              </h5>
+                          </div>
+                      </div>
+                    </div>
                 </div>
-                <div class="col-lg-8 col-12">
-                  <div class="d-flex flex-column justify-content-start">
-                    <h5 class="card-title text-start">TEAM:
-                      <span class="profile-team"></span>
-                    </h5>
-                    <h5 class="card-title text-start">FIND:
-                      <span class="profile-game">{{post.post.positions}}</span>
-                    </h5>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

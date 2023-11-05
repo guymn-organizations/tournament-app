@@ -109,3 +109,52 @@ body {
 .slider.round {
   border-radius: 34px;
 }
+.image-container {
+  padding: 10px;
+  margin: 20px;
+}
+
+.image-container img {
+  width: 200px;
+  height: 20px; /* You may adjust the image height as needed */
+}
+
+.game-card {
+  background-color: #1a1a1a;
+  border: 2px solid #ff9900;
+  color: #ff9900;
+  box-shadow: 0 0 10px rgba(255, 153, 0, 0.6);
+  margin: 20px;
+}
+
+.game-title {
+  color: #ff9900;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.game-image {
+  width: 200px;
+  height: 150px;
+  border: 4px solid #ff9900;
+}
+
+.game-date,
+.game-time {
+  font-size: 18px;
+}
+
+.game-date {
+  color: #ff9900;
+  margin-top: 10px;
+}
+
+.game-time {
+  color: #ff0909;
+  margin-top: 10px;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
