@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Teampost } from '../model/teampost';
 import { PositionType } from '../model/team';
 import { TeampostService } from '../service/teampost.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-finder-team',
@@ -12,12 +13,10 @@ import { TeampostService } from '../service/teampost.service';
 export class FinderTeamComponent {
   teamPostService : TeampostService = inject(TeampostService)
   nav: NavbarComponent = inject(NavbarComponent);
-
   teamPosts: Teampost[] = [];
 
   positionsData: PositionType[] = [];
   images: String[] = [];
-  searchRole: string = '';
 
   selectedPositions: PositionType[] = [];
 
@@ -34,6 +33,7 @@ export class FinderTeamComponent {
     console.log("reload")
     this.teamPostService.getAllTeamPost().subscribe(async (data) => {
       this.teamPosts = data;
+      await this.setImage();
     });
   }
   isSelected(position: PositionType): boolean {
@@ -62,6 +62,8 @@ export class FinderTeamComponent {
     }));
     return postData
   }
+
+
   async Postform() {
 
 
@@ -78,8 +80,18 @@ export class FinderTeamComponent {
       async (error) => {
         await this.ngOnInit();
       });
+      
   }
+  async setImage() {
+    for (let item of this.teamPosts) {
 
+      (await this.nav.service.getImage(item.profile.imageProfileUrl)).subscribe((res) => {
+      }, (error) => {
+        this.images.push(error.error.text)
+      })
+
+    }
+  }
   onChange(event:any,index:any){
     console.log(event.target.checked)
     var cl = document.getElementsByClassName(index);
