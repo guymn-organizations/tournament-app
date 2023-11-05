@@ -47,7 +47,10 @@ export class ProfileTeamComponent implements OnInit {
   constructor() {}
 
   async ngOnInit(): Promise<void> {
-    await this.setTeam();
+    this.team = this.nav.team;
+    if (!this.team) {
+      await this.setTeam();
+    }
     await this.setImageTeam();
     await this.setPlayerImages();
   }
