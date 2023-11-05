@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   profile?: Profile;
   profileSubscription: Subscription | undefined;
-  imageProfile: Image | undefined;
+  imageProfile: string | undefined;
 
   team: Team | undefined;
 
@@ -47,6 +47,10 @@ export class NavbarComponent implements OnInit {
 
   setProfileData(profile: Profile) {
     this.profile = profile;
+  }
+
+  setImageProfile(imageProfile: string) {
+    this.imageProfile = imageProfile;
   }
 
   async setProfile() {
