@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message } from '../model/message';
+import { Message, MessageType } from '../model/message';
 import { Observable } from 'rxjs';
+import { PositionType } from '../model/team';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,28 @@ export class MessageService {
     });
 
     return this.http.get<Message[]>(this.apiUrl, { params });
+  }
+
+  async sendJoinTeam(
+    team_name: string,
+    profile_game_name: string,
+    positionType: PositionType,
+    messageType: MessageType
+  ): Promise<Observable<Message>> {
+    return this.http.put<Message>(
+      `${this.apiUrl}/${team_name}/${messageType}/${profile_game_name}`,
+      positionType
+    );
+  }
+
+  async sendToScrims(
+    teamA: string,
+    scrims_id: string,
+    teamB: string
+  ): Promise<Observable<Message>> {
+    return this.http.put<Message>(
+      `${this.apiUrl}/${teamA}/REQUEST_TO_JOIN_TEAM/${teamB}`,
+      scrims_id
+    );
   }
 }
