@@ -17,7 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { AdvertComponent } from './advert/advert.component';
-import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
+
 
 const routes: Routes = [
   {
@@ -34,9 +34,7 @@ const routes: Routes = [
       { 
         path: 'leagues/:id', 
         component: LeaugesdetailComponent,
-        children: [
-          { path: 'teamjoin',component:LeaugesTeamComponent}
-        ],
+        
        },
       { path: 'scrims', component: ScrimsComponent },
       { 

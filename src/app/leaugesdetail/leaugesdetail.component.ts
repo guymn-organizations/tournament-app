@@ -11,12 +11,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./leaugesdetail.component.css'],
 })
 export class LeaugesdetailComponent implements OnInit {
-  child = [
-    {
-      name: 'Teamjoin',
-      path: 'teamjoin',
-    },
-  ];
+  
   tournamentService: LeaugesService = inject(LeaugesService);
   nav: NavbarComponent = inject(NavbarComponent);
   checkTab: string = '';
@@ -24,10 +19,19 @@ export class LeaugesdetailComponent implements OnInit {
   tournament: Tournament | undefined;
   image: string | undefined;
   
+  isOverview: boolean = true;
 
-  constructor(private route: ActivatedRoute,private router: Router) {}
+  touritems: any[] = Array(10).fill({});
+
+  constructor(private route: ActivatedRoute,private router: Router) {
+    this.ngOnInit();
+  }
 
   async ngOnInit() {
+    let data = localStorage.getItem('isOverview');
+    this.isOverview = data == 'true';
+
+
     this.checkTab = this.router.url
     this.route.paramMap.subscribe(async (params) => {
       // Access the parameter by its name, in this case, 'id'
@@ -64,9 +68,16 @@ export class LeaugesdetailComponent implements OnInit {
     );
   }
 
-  isActive(router: string): boolean {
-    this.ngOnInit();
-    return `/'leagues/:id'/${router}` === this.checkTab;
+  showTeamjoin() {
+    
+    localStorage.setItem('isOverview', 'false');
+    this.isOverview = false;
   }
-
+  
+  
+  showOverview() {
+    
+    localStorage.setItem('isOverview', 'true');
+    this.isOverview = true;
+  }
 }

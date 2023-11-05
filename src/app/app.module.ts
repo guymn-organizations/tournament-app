@@ -20,7 +20,7 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
-import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { HeaderComponent } from './header/header.component';
@@ -44,7 +44,7 @@ import { HeaderComponent } from './header/header.component';
     ProfileTeamComponent,
     ProfileProfileComponent,
     LeaugesdetailComponent,
-    LeaugesTeamComponent,
+   
     CreateTourComponent,
     HeaderComponent,
   ],
