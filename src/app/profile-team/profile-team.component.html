@@ -251,11 +251,26 @@
               [(ngModel)]="teamNameToFind"
               required
             />
-            <label class="text-center text-danger">
-              &nbsp;{{ errorMessageFind }}
-            </label>
           </div>
         </div>
+        <div class="col-lg-12 flex-column d-flex mt-4">
+          <label class="form-label">Position</label>
+          <select
+            class="bg-data text-white col-lg-12 container p-2 text-danger"
+            id="position-team"
+            name="position-team"
+            [(ngModel)]="teamPositionToFind"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option *ngFor="let po of position" [value]="po">
+              {{ po }}
+            </option>
+          </select>
+        </div>
+        <label class="text-center text-danger">
+          &nbsp;{{ errorMessageFind }}
+        </label>
         <div id="div-submit" class="justify-content-end d-flex">
           <button
             type="submit"

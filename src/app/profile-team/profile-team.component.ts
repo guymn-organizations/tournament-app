@@ -89,6 +89,7 @@ export class ProfileTeamComponent implements OnInit {
   }
 
   teamNameToFind: string | undefined;
+  teamPositionToFind: PositionType = PositionType.DSL;
   async getTeamByName() {
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
@@ -97,7 +98,7 @@ export class ProfileTeamComponent implements OnInit {
       await this.messageService.sendJoinTeam(
         this.teamNameToFind as string,
         this.nav.profile?.profileGame.name as string,
-        PositionType.reserver,
+        this.teamPositionToFind,
         MessageType.REQUEST_TO_JOIN_TEAM
       )
     ).subscribe(
