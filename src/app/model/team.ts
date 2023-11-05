@@ -1,4 +1,3 @@
-import { Message } from './message';
 import { Profile } from './profile';
 
 export class Team {
@@ -6,8 +5,8 @@ export class Team {
   name!: string;
   leader!: Profile;
   positions: {
-    position_type: PositionType;
-    position_name: string;
+    positionType: PositionType;
+    positionName: string;
     player: Profile | null;
   }[] = [];
   teamReserve!: Profile[];
