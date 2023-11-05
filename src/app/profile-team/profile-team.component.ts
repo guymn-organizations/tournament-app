@@ -28,6 +28,7 @@ export class ProfileTeamComponent implements OnInit {
     PositionType.JG,
     PositionType.MID,
     PositionType.SUP,
+    PositionType.reserver,
   ];
 
   playerImages: string[] = [];
@@ -87,21 +88,6 @@ export class ProfileTeamComponent implements OnInit {
   async getTeamByCode() {
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
-
-    (
-      await this.nav.teamService.addReserverPlayer(
-        this.teamData.id,
-        this.nav.getProfile().profileGame.name
-      )
-    ).subscribe(
-      async (respon) => {
-        await this.setTeamId(respon.id);
-        await this.ngOnInit();
-      },
-      (error) => {
-        this.errorMessageFind = error.error;
-      }
-    );
   }
 
   async addPlayer(id: string) {
@@ -134,14 +120,12 @@ export class ProfileTeamComponent implements OnInit {
     (await this.nav.teamService.deleteTeam(this.team?.id as string)).subscribe(
       async (response) => {},
       async (error) => {
-        if (error.status == 202) {
-          localStorage.setItem('team', '');
-          this.nav.getProfile().profileGame.myTeam = null;
-          this.selectedImageURL = null;
-          this.teamData.name = '';
-          this.position_type = PositionType.DSL;
-          this.ngOnInit();
-        }
+        localStorage.setItem('team', '');
+        this.nav.profile!.profileGame.myTeam = null;
+        this.selectedImageURL = null;
+        this.teamData.name = '';
+        this.position_type = PositionType.DSL;
+        this.ngOnInit();
       }
     );
   }

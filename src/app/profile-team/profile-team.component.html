@@ -11,12 +11,13 @@
       <div class="isTeam me-3 border img bg-light d-flex">
         <img class="border" [src]="imageTeam" *ngIf="imageTeam" />
 
-        <div class="lds-ellipsis m-auto" *ngIf="!imageTeam">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <h1
+          class="text-center text-secondary text-uppercase m-auto"
+          style="font-size: 80px"
+          *ngIf="!imageTeam"
+        >
+          {{ unImgTeam() }}
+        </h1>
       </div>
       <div id="team-name" class="fs-1" style="width: fit-content">
         {{ team?.name }}
@@ -45,7 +46,6 @@
             <div
               class="lds-ellipsis m-auto"
               *ngIf="!mem.imageUrl && mem.player?.imageProfileUrl"
-
             >
               <div></div>
               <div></div>
@@ -215,7 +215,6 @@
               <option *ngFor="let po of position" [value]="po">
                 {{ po }}
               </option>
-              <option class="text-uppercase" value="reserver">reserve</option>
             </select>
           </div>
           <label class="text-center text-danger col-12">

@@ -24,6 +24,7 @@ export enum PositionType {
   MID = 'MID',
   ADL = 'ADL',
   SUP = 'SUP',
+  reserver = 'reserver',
 }
 
 // constructor() {
