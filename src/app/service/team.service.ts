@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PositionType, Team } from '../model/team';
 import { Observable } from 'rxjs';
 import { Message } from '../model/message';
+import { Profile } from '../model/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,16 @@ export class TeamService {
     player: string
   ): Promise<Observable<Team>> {
     return this.http.put<Team>(`${this.apiUrl}/${id}/reserver/${player}`, null);
+  }
+
+  async outTeamPosition(
+    team_name: string,
+    player_index: number
+  ): Promise<Observable<Profile[]>> {
+    return this.http.put<Profile[]>(
+      `${this.apiUrl}/${team_name}/out_reserver/${player_index}`,
+      null
+    );
   }
 
   async leavePlayer(id: string, player: string): Promise<Observable<Team>> {

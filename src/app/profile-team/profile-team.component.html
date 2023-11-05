@@ -78,15 +78,45 @@
         <div class="row col-12 p-0 m-3 border-top border-success text-dark">
           <div
             class="border border-top-0 p-0 border-success flex-row d-flex align-items-center bg-white"
-            *ngFor="let mem of team?.teamReserve"
+            *ngFor="let mem of team?.teamReserve; let i = index"
           >
-            <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
-            <div class="m-auto p-2 bg-success">
-              <i
-                class="bi bi-arrow-bar-up text-white"
-                [ngClass]="{ 'bi bi-arrow-bar-up': isLeader() }"
-                >&nbsp;</i
+            <div class="flex-grow-1 ps-2">
+              {{ mem.profileGame.name }}
+            </div>
+            <div class="btn-group dropend">
+              <button
+                type="button"
+                class="m-auto p-2 bg-success"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                [disabled]="!isLeader()"
               >
+                <i
+                  class="text-white"
+                  [ngClass]="{ 'bi bi-arrow-bar-up': isLeader() }"
+                  >&nbsp;</i
+                >
+              </button>
+              <ul class="dropdown-menu">
+                <li
+                  class="dropdown-item"
+                  (click)="
+                    addReservervrToMainTeam(
+                      position.positionType,
+                      mem.profileGame.name,
+                      i,
+                      index_position
+                    )
+                  "
+                  *ngFor="
+                    let position of team?.positions;
+                    let index_position = index
+                  "
+                  [ngClass]="{ 'd-none': position.player }"
+                >
+                  {{ position.positionName }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -209,7 +239,7 @@
               required
             >
               <option selected disabled value="">Choose...</option>
-              <option *ngFor="let po of position" [value]="po">
+              <option *ngFor="let po of positions" [value]="po">
                 {{ po }}
               </option>
             </select>
@@ -263,7 +293,7 @@
             required
           >
             <option selected disabled value="">Choose...</option>
-            <option *ngFor="let po of position" [value]="po">
+            <option *ngFor="let po of positions" [value]="po">
               {{ po }}
             </option>
           </select>

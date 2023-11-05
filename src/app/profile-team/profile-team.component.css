@@ -56,11 +56,10 @@ select {
   font-size: 120px;
 }
 
-.bi-chat {
+.bi-chat,
+li {
   cursor: pointer;
 }
-
-
 
 :root {
   --ellipsis-color: #1a1b20;

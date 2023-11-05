@@ -4,6 +4,7 @@ import { PositionType, Team } from '../model/team';
 import { Image } from '../model/image';
 import { MessageService } from '../service/message.service';
 import { MessageType } from '../model/message';
+import { Profile } from '../model/profile';
 
 @Component({
   selector: 'app-profile-team',
@@ -25,7 +26,7 @@ export class ProfileTeamComponent implements OnInit {
     contact: '',
   };
 
-  position = [
+  positions = [
     PositionType.DSL,
     PositionType.ADL,
     PositionType.JG,
@@ -244,5 +245,53 @@ export class ProfileTeamComponent implements OnInit {
       )
     ).subscribe();
     this.toEditContact();
+  }
+
+  async addTeamPlayer(
+    positionType: PositionType,
+    player: string,
+    index: number
+  ) {
+    (
+      await this.nav.teamService.addTeamPlayer(
+        this.team?.id as string,
+        player,
+        positionType
+      )
+    ).subscribe(async (respon) => {
+      this.team = respon;
+      await this.setImage(
+        respon.positions[index].player?.imageProfileUrl as string,
+        index
+      );
+    });
+  }
+
+  async addReservervrToMainTeam(
+    positionType: PositionType,
+    player: string,
+    index: number,
+    index_position: number
+  ) {
+    (
+      await this.nav.teamService.outTeamPosition(
+        this.team?.name as string,
+        index
+      )
+    ).subscribe(async (respon) => {
+      if (this.team) {
+        this.team.teamReserve = respon;
+        await this.addTeamPlayer(positionType, player, index_position);
+      }
+    });
+  }
+
+  async setImage(id: string, index: number) {
+    (await this.nav.service.getImage(id)).subscribe(
+      (res) => {},
+      async (result) => {
+        this.playerImages[index] = result.error.text;
+      }
+    );
   }
 }
