@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 })
 export class LeaugesComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
-  
+
   allTournament: undefined | Tournament[];
 
   images: string[] = [];
 
   constructor(private tournament: LeaugesService, private router: Router) {}
+
   async ngOnInit(): Promise<void> {
     (await this.tournament.getAllTournament()).subscribe(
       async (tournaments) => {
@@ -40,11 +41,13 @@ export class LeaugesComponent implements OnInit {
     }
     for (const image of this.allTournament) {
       (await this.nav.service.getImage(image.imageTourUrl as string)).subscribe(
-        (res) => {},
+        (res) => {
+        },
         (error) => {
           this.images.push(error.error.text);
         }
       );
+      
     }
   }
 }

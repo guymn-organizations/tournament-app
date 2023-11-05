@@ -14,8 +14,8 @@ export class Tournament {
   startTourDate: Date | undefined;
   imageTourUrl: string | undefined;
   tournamenType: TournamenType[] | undefined; // Adjust the type as needed
-  BOqualifyingRound: number | undefined;
-  BOfinalRound: number | undefined;
+  bOqualifyingRound: number | undefined;
+  bOfinalRound: number | undefined;
   // teamJoin: TeamInTournament[]| undefined;
   // status: Status[]| undefined; // Adjust the type as needed
   // matchList: Match[]| undefined;

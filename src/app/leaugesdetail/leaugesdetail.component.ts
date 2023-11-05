@@ -23,6 +23,7 @@ export class LeaugesdetailComponent implements OnInit {
   checked_id: string = '';
   tournament: Tournament | undefined;
   image: string | undefined;
+  
 
   constructor(private route: ActivatedRoute,private router: Router) {}
 

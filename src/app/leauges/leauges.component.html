@@ -14,19 +14,21 @@
         </button>
       </div>
     </div>
-
+    
+    
     <div class="tour-list-wrapper">
    
       
       <div
         class="tour-item"
-        *ngFor="let tournament of getAllTournament()"
-        (click)="nav.service.toPage('leagues/' + tournament.tour.id)"
+        *ngFor="let tournament of allTournament; let i = index"
+        (click)="nav.service.toPage('leagues/' + tournament.id)"
       >
+      
         <a>
-          <img [src]="tournament.image" alt="" />
+          <img [src]="images[i]" alt="Tournament Image">
         </a>
-        <h3>{{ tournament.tour.name }}</h3>
+        <h3>{{tournament.name}}</h3>
       </div>
     </div>
   </div>

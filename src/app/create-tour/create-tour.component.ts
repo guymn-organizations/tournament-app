@@ -18,8 +18,8 @@ export class CreateTourComponent {
     startRegisterDate: new Date(),
     endRegisterDate: new Date(),
     startTourDate: new Date(),
-    BOqualifyingRound: 0,
-    BOfinalRound: 0,
+    bOqualifyingRound: 0,
+    bOfinalRound: 0,
     // teamJoin: [],
     // status: [],
     // matchList: [],
@@ -59,8 +59,8 @@ export class CreateTourComponent {
       endRegisterDate: this.tournamentData.endRegisterDate,
       startTourDate: this.tournamentData.startTourDate,
       imageTourUrl: this.selectedImageURL as string,
-      BOfinalRound: this.tournamentData.BOfinalRound,
-      BOqualifyingRound: this.tournamentData.BOqualifyingRound,
+      bOfinalRound: this.tournamentData.bOfinalRound,
+      bOqualifyingRound: this.tournamentData.bOqualifyingRound,
       tournamenType: this.tournamentData.tournamenType,
     };
     console.log(tourData);
@@ -84,8 +84,8 @@ export class CreateTourComponent {
       this.tournamentData.detail &&
       this.selectedImageURL &&
       this.tournamentData.tournamenType &&
-      this.tournamentData.BOfinalRound &&
-      this.tournamentData.BOqualifyingRound&&
+      this.tournamentData.bOfinalRound &&
+      this.tournamentData.bOqualifyingRound&&
       this.tournamentData.startRegisterDate !== null &&
       this.tournamentData.endRegisterDate !== null &&
       this.tournamentData.startTourDate !== null
