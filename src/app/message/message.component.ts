@@ -131,11 +131,9 @@ export class MessageComponent implements OnInit {
 
   acceptMessage(message: Message) {
     if (message.messageType == MessageType.INVITE_TO_JOIN_TEAM) {
-      console.log(message.messageType);
-
+      this.acceptInviteToJoinTeam(message.scrimsId, message.positionType);
     } else if (message.messageType == MessageType.REQUEST_TO_JOIN_TEAM) {
       this.acceptRequestToJoinTeam(message.sender, message.positionType);
-
     } else if (message.messageType == MessageType.INVITE_TO_SCRIMS) {
       this.acceptScrims(message.scrimsId, message.sender);
     }
@@ -147,6 +145,15 @@ export class MessageComponent implements OnInit {
 
   async acceptRequestToJoinTeam(player: string, type: PositionType) {
     const team_id = localStorage.getItem('team') as string;
-    (await this.nav.teamService.addTeamPlayer(team_id,player,type)).subscribe();
+    (
+      await this.nav.teamService.addTeamPlayer(team_id, player, type)
+    ).subscribe();
+  }
+
+  async acceptInviteToJoinTeam(scrims_id: string, type: PositionType) {
+    const player = this.nav.profile?.profileGame.name as string;
+    (
+      await this.nav.teamService.addTeamPlayer(scrims_id, player, type)
+    ).subscribe();
   }
 }
