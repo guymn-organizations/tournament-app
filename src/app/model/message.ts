@@ -1,9 +1,13 @@
+import { PositionType } from './team';
+
 export class Message {
   id!: string;
   sender!: string;
   messageType: MessageType;
   content!: string;
   sendDate: Date;
+  scrimsId!: string;
+  positionType!: PositionType;
 
   constructor(messageType: MessageType) {
     this.sendDate = new Date();
