@@ -8,12 +8,12 @@ import { Message } from '../model/message';
   providedIn: 'root',
 })
 export class TeamService {
-  private apiUrl = 'http://localhost:8000/teams'; // Replace with your actual API URL
+  private apiUrl = 'http://localhost:8000/team_post'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 
   async createTeam(team: Team): Promise<Observable<Team>> {
-    return this.http.post<Team>(`${this.apiUrl}`, team);
+    return this.http.post<Team>(`${this.apiUrl}/create`, team);
   }
 
   async getTeamById(id: string): Promise<Observable<Team>> {
