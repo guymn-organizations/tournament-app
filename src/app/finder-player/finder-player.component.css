@@ -121,7 +121,6 @@ body {
 .hidden {
   display: none;
 }
-
 .image-container {
   padding: 10px;
   margin: 20px;
@@ -176,4 +175,21 @@ body {
 .game-card:hover {
   transform: scale(1.05); /* Scale the card on hover for an interactive effect */
   transition: transform 0.2s ease;
+}
+
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: --ellipsis-color;
 }

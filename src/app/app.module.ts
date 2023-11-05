@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component';
 import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
+import { TeampostDetailComponent } from './teampost-detail/teampost-detail.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scr
     HeaderComponent,
     MessageComponent,
     ProfileListScrimComponent,
+    TeampostDetailComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
