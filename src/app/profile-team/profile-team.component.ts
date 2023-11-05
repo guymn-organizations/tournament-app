@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType, Team } from '../model/team';
 import { Image } from '../model/image';
+import { MessageService } from '../service/message.service';
+import { MessageType } from '../model/message';
 
 @Component({
   selector: 'app-profile-team',
@@ -13,6 +15,7 @@ import { Image } from '../model/image';
 })
 export class ProfileTeamComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
+  messageService: MessageService = inject(MessageService);
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
@@ -85,9 +88,26 @@ export class ProfileTeamComponent implements OnInit {
     );
   }
 
-  async getTeamByCode() {
+  teamNameToFind: string | undefined;
+  async getTeamByName() {
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
+
+    (
+      await this.messageService.sendJoinTeam(
+        this.teamNameToFind as string,
+        this.nav.profile?.profileGame.name as string,
+        PositionType.reserver,
+        MessageType.REQUEST_TO_JOIN_TEAM
+      )
+    ).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   async addPlayer(id: string) {

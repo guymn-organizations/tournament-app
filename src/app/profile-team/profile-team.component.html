@@ -22,9 +22,6 @@
       <div id="team-name" class="fs-1" style="width: fit-content">
         {{ team?.name }}
       </div>
-      <div id="team-id" class="fs-6 m- ms-md-3 mb-2 text-secondary">
-        #{{ team?.id }}
-      </div>
     </div>
     <div
       class="col-12 mt-5 main-team d-flex flex-row justify-content-evenly"
@@ -236,22 +233,22 @@
     <div class="border"></div>
 
     <div class="mt-5">
-      <h2 class="text-uppercase mb-5">find team by code</h2>
+      <h2 class="text-uppercase mb-5">find team by name</h2>
       <form
         #findTeamForm="ngForm"
-        (ngSubmit)="getTeamByCode()"
+        (ngSubmit)="getTeamByName()"
         class="row container"
       >
         <div class="col-12">
           <div class="col-lg-12 flex-column d-flex">
-            <label class="form-label">Team code</label>
+            <label class="form-label">Team name</label>
             <input
               type="text"
               class="bg-data ps-3 pe-3 p-1 text-white"
-              placeholder="Team code"
-              id="team-code"
-              name="team-code"
-              [(ngModel)]="teamData.id"
+              placeholder="Team name"
+              id="team-name"
+              name="team-name"
+              [(ngModel)]="teamNameToFind"
               required
             />
             <label class="text-center text-danger">
