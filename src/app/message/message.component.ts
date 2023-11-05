@@ -6,10 +6,11 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { Message } from '../model/message';
+import { Message, MessageType } from '../model/message';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
 import { MessageService } from '../service/message.service';
+import { ScrimsService } from '../service/scrims.service';
 
 @Component({
   selector: 'app-message',
@@ -25,6 +26,7 @@ export class MessageComponent implements OnInit {
 
   nav: NavbarComponent = inject(NavbarComponent);
   message: MessageService = inject(MessageService);
+  scrimsService: ScrimsService = inject(ScrimsService);
 
   message_team: Message[] = [];
   message_profile: Message[] = [];
@@ -125,5 +127,20 @@ export class MessageComponent implements OnInit {
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
     } catch (teamError) {}
+  }
+
+  acceptMessage(message: Message) {
+    if (message.messageType == MessageType.INVITE_TO_JOIN_TEAM) {
+      console.log(message.messageType);
+    } else if (message.messageType == MessageType.REQUEST_TO_JOIN_TEAM) {
+      console.log(message.messageType);
+    } else if (message.messageType == MessageType.INVITE_TO_SCRIMS) {
+      console.log(message.messageType);
+      this.acceptScrims(message.scrimsId, message.sender);
+    }
+  }
+
+  async acceptScrims(scrims_id: string, team_name: string) {
+    (await this.scrimsService.setTeamB(scrims_id, team_name)).subscribe();
   }
 }

@@ -36,6 +36,13 @@
             [id]="'message-profile-content-' + i"
           >
             <div class="pb-4" [innerHTML]="message.content"></div>
+            <button
+              type="button"
+              class="btn btn-success mb-3 text-end"
+              (click)="acceptMessage(message)"
+            >
+              accept
+            </button>
           </div>
         </div>
 
@@ -84,6 +91,13 @@
             [id]="'message-team-content-' + i"
           >
             <div class="pb-4" [innerHTML]="message.content"></div>
+            <button
+              type="button"
+              class="btn btn-success mb-3 text-end"
+              (click)="acceptMessage(message)"
+            >
+              accept
+            </button>
           </div>
         </div>
 

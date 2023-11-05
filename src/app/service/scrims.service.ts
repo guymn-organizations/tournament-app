@@ -18,4 +18,8 @@ export class ScrimsService {
   async createScrims(scrims: Scrims): Promise<Observable<Scrims>> {
     return this.http.post<Scrims>(`${this.apiUrl}/create`, scrims);
   }
+
+  async setTeamB(id: string, team_name: string): Promise<Observable<Scrims>> {
+    return this.http.put<Scrims>(`${this.apiUrl}/${id}/add_teamB`, team_name);
+  }
 }
