@@ -11,16 +11,23 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./leaugesdetail.component.css'],
 })
 export class LeaugesdetailComponent implements OnInit {
+  child = [
+    {
+      name: 'Teamjoin',
+      path: 'teamjoin',
+    },
+  ];
   tournamentService: LeaugesService = inject(LeaugesService);
   nav: NavbarComponent = inject(NavbarComponent);
-
+  checkTab: string = '';
   checked_id: string = '';
   tournament: Tournament | undefined;
   image: string | undefined;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,private router: Router) {}
 
   async ngOnInit() {
+    this.checkTab = this.router.url
     this.route.paramMap.subscribe(async (params) => {
       // Access the parameter by its name, in this case, 'id'
       const id = params.get('id');
@@ -55,6 +62,10 @@ export class LeaugesdetailComponent implements OnInit {
       }
     );
   }
-  
+
+  isActive(router: string): boolean {
+    this.ngOnInit();
+    return `/'leagues/:id'/${router}` === this.checkTab;
+  }
 
 }

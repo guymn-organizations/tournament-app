@@ -1,20 +1,23 @@
 <div class="border border-black" style="background-color: rgb(39, 38, 38)">
   <div class="container" style="color: white">
-    <div class="bar">
-      <h1 style="font-family: sans-serif">LEAUGES</h1>
-
-      <button
-        class="btn btn-success"
-        type="submit"
-        (click)="nav.service.toPage('createtournament')"
-      >
-        สร้างทัวร์นาเมนต์
-      </button>
+    <div class="row" style="padding: 30px;">
+      <div class="col-md-10">
+        <h1 style="font-family: sans-serif">LEAUGES</h1>
+      </div>
+      <div class="col-md-2">
+        <button
+          class="btn btn-success"
+          type="submit"
+          (click)="nav.service.toPage('createtournament')"
+        >
+          สร้างทัวร์นาเมนต์
+        </button>
+      </div>
     </div>
-    
-
 
     <div class="tour-list-wrapper">
+   
+      
       <div
         class="tour-item"
         *ngFor="let tournament of getAllTournament()"
@@ -23,8 +26,7 @@
         <a>
           <img [src]="tournament.image" alt="" />
         </a>
-        <h1>{{ tournament.tour.name }}</h1>
-        
+        <h3>{{ tournament.tour.name }}</h3>
       </div>
     </div>
   </div>

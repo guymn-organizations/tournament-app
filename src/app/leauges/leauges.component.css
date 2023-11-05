@@ -17,6 +17,7 @@
    
 }
 .tour-list-wrapper{
+    
     margin-left: 20px;
     margin-top: 55px;
     margin-bottom: 50px;
@@ -25,8 +26,4 @@
     grid-column-gap: 6px;
     grid-row-gap:6px;
 }
-.bar{
-    display: flex;
-    justify-content: space-between;
-    padding: 30px;
-}
+

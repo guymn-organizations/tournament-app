@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit() {
     this.checkTab = this.router.url;
-  }
+  } 
 
   isActive(router: string): boolean {
     this.ngOnInit();

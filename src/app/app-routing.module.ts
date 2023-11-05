@@ -17,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { AdvertComponent } from './advert/advert.component';
+import { LeaugesTeamComponent } from './leauges-team/leauges-team.component';
 
 const routes: Routes = [
   {
@@ -27,11 +28,22 @@ const routes: Routes = [
       {
         path: 'leauges',
         component: LeaugesComponent,
+       
       },
       { path: 'createtournament', component: CreateTourComponent },
-      { path: 'leagues/:id', component: LeaugesdetailComponent },
+      { 
+        path: 'leagues/:id', 
+        component: LeaugesdetailComponent,
+        children: [
+          { path: 'teamjoin',component:LeaugesTeamComponent}
+        ],
+       },
       { path: 'scrims', component: ScrimsComponent },
-      { path: 'tournament', component: TournamentComponent },
+      { 
+        path: 'tournament', 
+        component: TournamentComponent, 
+       
+       },
 
       {
         path: 'finder',
