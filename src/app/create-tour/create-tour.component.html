@@ -42,7 +42,7 @@
             [(ngModel)]="tournamentData.reward"
             required
             placeholder="BATH ฿"
-            min="0" 
+            min="0"
             step="100"
           />
         </div>
@@ -61,45 +61,53 @@
 
         <div class="col-md-5">
           <div class="row g-2">
-            <div class="col-md-12">
-              <label for="formFileLg" class="form-label">PICTURE</label>
-              <input
-                accept="image/*"
-                (change)="onFileSelected($event)"
-                class="form-control form-control-lg"
-                id="formFileLg"
-                type="file"
-                [(ngModel)]="selectedImageURL"
-              />
+            <div class="col-md-6">
+              <div class="col-md-12">
+                <label for="formFileLg" class="form-label">PICTURE</label>
+                <input
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                  class="form-control form-control-lg"
+                  id="formFileLg"
+                  type="file"
+                  [(ngModel)]="selectedImageURL"
+                />
+              </div>
+              <div class="col-md-12">
+                <label for="formFileLg" class="form-label"
+                  >SELECT TYPE OF TYPE</label
+                >
+                <select
+                  id="tournamentType"
+                  class="form-select"
+                  name="tournamentType"
+                  [(ngModel)]="tournamentData.tournamenType"
+                >
+                  <option selected disabled value="">Choose...</option>
+                  <option value="Free">Free</option>
+                  <option value="Paid">Paid</option>
+                </select>
+                <!-- <select
+                  [(ngModel)]="tournament_type"
+                  name="tournamenType"
+                  class="form-select"
+                >
+                  <option *ngFor="let TourT of tournametType" [value]="TourT">
+                    {{ TourT }}
+                  </option>
+                </select> -->
+              </div>
             </div>
-            <!-- Image Preview -->
-            <div class="form-group" *ngIf="selectedImageURL">
-              <img [src]="selectedImageURL" alt="Selected Image" width="150" />
-            </div>
-
-            <div class="col-md-12">
-              <label for="formFileLg" class="form-label"
-                >SELECT TYPE OF TYPE</label
-              >
-              <select
-                id="tournamentType"
-                class="form-select"
-                name="tournamentType"
-                [(ngModel)]="tournamentData.tournamenType"
-              >
-                <option selected disabled value="">Choose...</option>
-                <option value="Free">Free</option>
-                <option value="Paid">Paid</option>
-              </select>
-              <!-- <select
-                [(ngModel)]="tournament_type"
-                name="tournamenType"
-                class="form-select"
-              >
-                <option *ngFor="let TourT of tournametType" [value]="TourT">
-                  {{ TourT }}
-                </option>
-              </select> -->
+            <div class="col-md-6">
+              <!-- Image Preview -->
+              <div class="form-group" *ngIf="selectedImageURL">
+                <img
+                  [src]="selectedImageURL"
+                  alt="Selected Image"
+                  width="300"
+                  height="150"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -178,10 +186,12 @@
         <button
           type="submit"
           class="btn btn-danger rounded-pill"
-          [disabled]="!createtourForm.form.valid"
+          [disabled]="!createtourForm.form.valid|| !isFormValid()"
+          
         >
           CREATE
         </button>
+        
       </form>
     </div>
   </div>

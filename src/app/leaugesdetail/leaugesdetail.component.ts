@@ -4,6 +4,7 @@ import { Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 
+
 @Component({
   selector: 'app-leaugesdetail',
   templateUrl: './leaugesdetail.component.html',
@@ -26,6 +27,7 @@ export class LeaugesdetailComponent implements OnInit {
       this.checked_id = id as string;
       
       await this.setTournament();
+      
     });
   }
 
@@ -33,18 +35,23 @@ export class LeaugesdetailComponent implements OnInit {
     (await this.tournamentService.getTournamentById(this.checked_id)).subscribe(
       async (res) => {
         this.tournament = res;
-        await this.setImage(this.tournament?.imageTourUrl as string);
+        
+        await this.setImage(this.tournament?.imageTourUrl as string );
       }
     );
   }
+ 
 
   async setImage(image: string) {
+    if (!this.tournament) {
+      return;
+    }
     (await this.nav.service.getImage(image)).subscribe(
       (res) => {
-        this.image = res.toString(); 
+        
       },
       (error) => {
-        this.image = ''; 
+        
       }
     );
   }

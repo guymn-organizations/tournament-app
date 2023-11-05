@@ -49,8 +49,9 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-        <div class="img">
-            <img [src]="tournament.imageTourUrl" alt="Tournament Image" />
+        <div class="img" >
+            <img *ngIf="tournament?.imageTourUrl" [src]="tournament.imageTourUrl" alt="Tournament Image" />
+           
           </div>
     </div>
     <div class="col-md-6">

@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 
 import { LeaugesService } from '../service/leauges.service';
 import { Status, TournamenType, Tournament } from '../model/tournament';
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-create-tour',
@@ -26,9 +28,9 @@ export class CreateTourComponent {
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
- 
+  nav: NavbarComponent = inject(NavbarComponent);
 
-  constructor(private leauges: LeaugesService) {}
+  constructor(private leauges: LeaugesService, private router: Router) {}
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -66,7 +68,27 @@ export class CreateTourComponent {
     (await this.leauges.addTournament(tourData as Tournament)).subscribe(
       (response) => {
         console.log('Response from service:', response);
+        this.router.navigate(['/leauges']);
       }
+    );
+    if (this.isFormValid()) {
+      this.router.navigate(['/leauges']);
+    }
+  }
+
+  isFormValid() {
+   
+    return (
+      this.tournamentData.name &&
+      this.tournamentData.reward > 0 &&
+      this.tournamentData.detail &&
+      this.selectedImageURL &&
+      this.tournamentData.tournamenType &&
+      this.tournamentData.BOfinalRound &&
+      this.tournamentData.BOqualifyingRound&&
+      this.tournamentData.startRegisterDate !== null &&
+      this.tournamentData.endRegisterDate !== null &&
+      this.tournamentData.startTourDate !== null
     );
   }
 }
