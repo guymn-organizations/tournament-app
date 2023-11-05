@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Message, MessageType } from '../model/message';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { Team } from '../model/team';
+import { PositionType, Team } from '../model/team';
 import { MessageService } from '../service/message.service';
 import { ScrimsService } from '../service/scrims.service';
 
@@ -132,15 +132,21 @@ export class MessageComponent implements OnInit {
   acceptMessage(message: Message) {
     if (message.messageType == MessageType.INVITE_TO_JOIN_TEAM) {
       console.log(message.messageType);
+
     } else if (message.messageType == MessageType.REQUEST_TO_JOIN_TEAM) {
-      console.log(message.messageType);
+      this.acceptRequestToJoinTeam(message.sender, message.positionType);
+
     } else if (message.messageType == MessageType.INVITE_TO_SCRIMS) {
-      console.log(message.messageType);
       this.acceptScrims(message.scrimsId, message.sender);
     }
   }
 
   async acceptScrims(scrims_id: string, team_name: string) {
     (await this.scrimsService.setTeamB(scrims_id, team_name)).subscribe();
+  }
+
+  async acceptRequestToJoinTeam(player: string, type: PositionType) {
+    const team_id = localStorage.getItem('team') as string;
+    (await this.nav.teamService.addTeamPlayer(team_id,player,type)).subscribe();
   }
 }

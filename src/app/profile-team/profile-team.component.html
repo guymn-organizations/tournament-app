@@ -44,7 +44,8 @@
             />
             <div
               class="lds-ellipsis m-auto"
-              *ngIf="!mem.imageUrl && mem.player"
+              *ngIf="!mem.imageUrl && mem.player?.imageProfileUrl"
+
             >
               <div></div>
               <div></div>

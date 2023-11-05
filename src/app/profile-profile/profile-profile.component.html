@@ -14,8 +14,11 @@
         *ngIf="nav.imageProfile && nav.profile?.imageProfileUrl"
       />
       <div
-        class="col-12 m-auto mt-5 d-flex justify-content-center align-items-center border img-content"
+        class="col-12 m-auto mt-5 d-flex justify-content-center align-items-center img-content"
         *ngIf="!nav.imageProfile"
+        [ngClass]="{
+          border: !nav.imageProfile && nav.profile?.imageProfileUrl
+        }"
       >
         <i
           class="bi bi-person-fill text-body-tertiary border"
