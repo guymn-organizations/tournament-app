@@ -1,4 +1,4 @@
-<div class="border border-black" style="background-color: #28282b">
+<div class="border border-black" style="background-color: rgba(7, 12, 21, 0.8)"> 
   <div class="container" style="color: white">
     <div class="row" style="padding: 30px;">
       <div class="col-md-10">
@@ -15,7 +15,23 @@
       </div>
     </div>
     
-    
+    <!-- <div class="row g-3">
+      <div 
+      class="col-md-4"
+      class="tour-item"
+      *ngFor="let tournament of allTournament; let i = index"
+        (click)="nav.service.toPage('leagues/' + tournament.id)"
+      >
+      <div class="row">
+       
+          <img [src]="images[i]" alt="Tournament Image">
+     
+      </div>
+      </div>
+
+      
+
+    </div> -->
     <div class="tour-list-wrapper">
    
       
