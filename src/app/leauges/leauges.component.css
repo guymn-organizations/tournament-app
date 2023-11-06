@@ -29,14 +29,13 @@
     border: 0.5px solid rgb(146, 146, 146);
 
 }
-.tour-item:hover {
-    
-  }
+
+.tour-item:hover {}
 
 .tour-list-wrapper {
 
     margin-left: 20px;
-    margin-top: 55px;
+    margin-top: 20px;
     margin-bottom: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));

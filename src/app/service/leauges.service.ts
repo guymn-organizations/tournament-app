@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LeaugesService {
+  
+  
   constructor(private http: HttpClient) {}
 
   private apiUrl = 'http://localhost:8000/tournament';
