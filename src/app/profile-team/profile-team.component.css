@@ -62,10 +62,6 @@ li {
   cursor: pointer;
 }
 
-:root {
-  --ellipsis-color: #1a1b20;
-}
-
 .lds-ellipsis div:nth-child(1) {
   background-color: #1a1b20;
 }

@@ -17,6 +17,7 @@ export class MessageService {
     idList.forEach((id) => {
       params = params.append('id', id);
     });
+    console.log(this.apiUrl, { params });
 
     return this.http.get<Message[]>(this.apiUrl, { params });
   }
