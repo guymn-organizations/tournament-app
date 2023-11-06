@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/LoginComponent';
 import { RegisterComponent } from './register/register.component';
@@ -14,7 +14,10 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MessageComponent } from './message/message.component';
+import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
+import { CreateTourComponent } from './create-tour/create-tour.component';
+import { AdvertComponent } from './advert/advert.component';
+
 
 const routes: Routes = [
   {
@@ -22,9 +25,24 @@ const routes: Routes = [
     component: NavbarComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'leauges', component: LeaugesComponent },
+      {
+        path: 'leauges',
+        component: LeaugesComponent,
+       
+      },
+      { path: 'createtournament', component: CreateTourComponent },
+      { 
+        path: 'leagues/:id', 
+        component: LeaugesdetailComponent,
+        
+       },
       { path: 'scrims', component: ScrimsComponent },
-      { path: 'tournament', component: TournamentComponent },
+      { 
+        path: 'tournament', 
+        component: TournamentComponent, 
+       
+       },
+
       {
         path: 'finder',
         component: FinderComponent,
@@ -40,22 +58,37 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Redirect empty path to 'profile'
           { path: 'profile', component: ProfileProfileComponent },
-          {
-            path: 'game',
-            component: ProfileGameComponent,
-            children: [{ path: 'message', component: MessageComponent }],
-          },
-          {
-            path: 'team',
-            component: ProfileTeamComponent,
-            children: [{ path: 'message', component: MessageComponent }],
-          },
+          { path: 'game', component: ProfileGameComponent },
+          { path: 'team', component: ProfileTeamComponent },
         ],
       },
     ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
+  { path: 'leauges', component: LeaugesComponent },
+  { path: 'scrims', component: ScrimsComponent },
+  { path: 'tournament', component: TournamentComponent },
+  { path: 'advert', component: AdvertComponent },
+  {
+    path: 'finder',
+    component: FinderComponent,
+    children: [
+      { path: '', redirectTo: 'player', pathMatch: 'full' }, // Redirect empty path to 'player'
+      { path: 'player', component: FinderPlayerComponent },
+      { path: 'team', component: FinderTeamComponent },
+    ],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    children: [
+      { path: 'profile', component: ProfileProfileComponent },
+      { path: 'game', component: ProfileGameComponent },
+      { path: 'team', component: ProfileTeamComponent },
+    ],
+  },
 ];
 
 @NgModule({

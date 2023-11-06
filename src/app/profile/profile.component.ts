@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { GobalServiceService } from '../service/gobal-service.service';
@@ -8,7 +8,7 @@ import { GobalServiceService } from '../service/gobal-service.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
   title: string = 'Profile';
   discription: string = 'Manage data profile';
 
@@ -37,7 +37,7 @@ export class ProfileComponent {
 
   ngOnInit() {
     this.checkTab = this.router.url;
-  }
+  } 
 
   isActive(router: string): boolean {
     this.ngOnInit();
