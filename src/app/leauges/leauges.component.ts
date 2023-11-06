@@ -39,15 +39,18 @@ export class LeaugesComponent implements OnInit {
     if (!this.allTournament) {
       return;
     }
-    for (const image of this.allTournament) {
-      (await this.nav.service.getImage(image.imageTourUrl as string)).subscribe(
-        (res) => {
-        },
+    
+    for (let i = 0; i < this.allTournament?.length; i++) {
+      (
+        await this.nav.service.getImage(
+          this.allTournament[i].imageTourUrl as string
+        )
+      ).subscribe(
+        (res) => {},
         (error) => {
-          this.images.push(error.error.text);
+          this.images[i] = error.error.text;
         }
       );
-      
     }
   }
 }

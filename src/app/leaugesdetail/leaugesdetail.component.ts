@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
-
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-leaugesdetail',
@@ -11,19 +11,18 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./leaugesdetail.component.css'],
 })
 export class LeaugesdetailComponent implements OnInit {
-  
   tournamentService: LeaugesService = inject(LeaugesService);
   nav: NavbarComponent = inject(NavbarComponent);
   checkTab: string = '';
   checked_id: string = '';
   tournament: Tournament | undefined;
   image: string | undefined;
-  
+
   isOverview: boolean = true;
 
   touritems: any[] = Array(10).fill({});
 
-  constructor(private route: ActivatedRoute,private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.ngOnInit();
   }
 
@@ -31,15 +30,12 @@ export class LeaugesdetailComponent implements OnInit {
     let data = localStorage.getItem('isOverview');
     this.isOverview = data == 'true';
 
-
-    this.checkTab = this.router.url
+    this.checkTab = this.router.url;
     this.route.paramMap.subscribe(async (params) => {
-      // Access the parameter by its name, in this case, 'id'
       const id = params.get('id');
       this.checked_id = id as string;
-      
+      await this.setImage();
       await this.setTournament();
-      
     });
   }
 
@@ -47,36 +43,33 @@ export class LeaugesdetailComponent implements OnInit {
     (await this.tournamentService.getTournamentById(this.checked_id)).subscribe(
       async (res) => {
         this.tournament = res;
-        
-        await this.setImage(this.tournament?.imageTourUrl as string );
+
+        console.log(res);
       }
     );
   }
- 
 
-  async setImage(image: string) {
+  async setImage() {
     if (!this.tournament) {
       return;
     }
-    (await this.nav.service.getImage(image)).subscribe(
-      (res) => {
-        
-      },
+   
+    (
+      await this.nav.service.getImage(this.tournament.imageTourUrl as string)
+    ).subscribe(
+      (res) => {},
       (error) => {
-        
+        console.log('error');
       }
     );
   }
 
   showTeamjoin() {
-    
     localStorage.setItem('isOverview', 'false');
     this.isOverview = false;
   }
-  
-  
+
   showOverview() {
-    
     localStorage.setItem('isOverview', 'true');
     this.isOverview = true;
   }
