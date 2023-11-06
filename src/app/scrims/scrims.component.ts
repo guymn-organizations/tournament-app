@@ -30,8 +30,7 @@ export class ScrimsComponent implements OnInit {
   loading: boolean = false;
 
   scrims_lists: { team: Team; image: string; scrims: Scrims[] }[] = [];
-
-  teams: Team[] = [];
+  image_id: string[] = [];
 
   constructor() {}
 
@@ -40,9 +39,6 @@ export class ScrimsComponent implements OnInit {
     if (!this.team) {
       await this.setTeam();
     }
-
-    // this.teams = [this.team as Team, ...this.teams];
-    await this.setImageTeam();
     await this.loadTeamScrims();
   }
 
@@ -50,10 +46,6 @@ export class ScrimsComponent implements OnInit {
   async onScrollScrimsContenter(): Promise<void> {
     const nativeElement = this.messageProfileElement?.nativeElement;
 
-    console.log(
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop),
-      nativeElement.scrollHeight
-    );
     if (
       nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
       nativeElement.scrollHeight
@@ -68,44 +60,58 @@ export class ScrimsComponent implements OnInit {
       this.team = await (
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
+      const dataToPush = {
+        team: this.team as Team,
+        image: '',
+        scrims: [],
+      };
+      this.scrims_lists.unshift(dataToPush);
+      this.image_id.unshift(this.team?.imageTeamUrl as string);
     } catch (teamError) {}
   }
 
   async setImageTeam() {
-    (
-      await this.nav.service.getImage(this.team?.imageTeamUrl as string)
-    ).subscribe(
-      (res) => {},
-      (result) => {
-        if (result.error.text) {
-          this.team!.imageTeamUrl = result.error.text;
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.image_id.length;
+      index++
+    ) {
+      (await this.nav.service.getImage(this.image_id[index])).subscribe(
+        (res) => {},
+        (result) => {
+          if (result.status == 200) {
+            this.scrims_lists[index].image = result.error.text;
+          }
         }
-      }
-    );
+      );
+    }
+  }
+
+  async setTeamScrims(teamsData: Team[]) {
+    for (let index = 0; index < teamsData.length; index++) {
+      const dataToPush = {
+        team: teamsData[index],
+        image: '',
+        scrims: [],
+      };
+      this.scrims_lists.push(dataToPush);
+      this.image_id.push(teamsData[index].imageTeamUrl);
+    }
   }
 
   async loadTeamScrims() {
     this.loading = true;
-    console.log(this.team?.name);
     (
       await this.nav.teamService.getTeamToShowScrims(
         this.pageIndex,
         this.pageSize
       )
-    ).subscribe((data) => {
-      this.teams = [...this.teams, ...data];
+    ).subscribe(async (data) => {
+      const teamsData = data.filter((team) => team.name != this.team?.name);
+      await this.setTeamScrims(teamsData);
+      await this.setImageTeam();
+      this.pageIndex++;
       this.loading = false;
-      console.log(data);
     });
-  }
-
-  async addScrimsList(team: Team, image: string, scrims: Scrims[]) {
-    const scrimsData = {
-      team: team,
-      image: image, // Corrected property name to match the scrims_lists structure
-      scrims: scrims,
-    };
-
-    this.scrims_lists.push(scrimsData);
   }
 }

@@ -9,23 +9,37 @@
 
       <div
         #ScrimsContenter
-        class="d-flex flex-warp flex-row"
+        class="d-flex flex-row justify-content-start align-items-center flex-wrap"
         (scroll)="onScrollScrimsContenter()"
       >
-        <div class="card d-flex flex-column mt-2">
-          <h4 class="m-auto team-name">My Team</h4>
-          <div class="m-auto d-flex img-content border border-danger border-2">
-            <img
-              [src]="team?.imageTeamUrl"
-              *ngIf="team?.imageTeamUrl"
-              class="m-auto"
-            />
-            <div class="lds-ellipsis m-auto" *ngIf="!team?.imageTeamUrl">
+        <div
+          class="card d-flex flex-column mt-2"
+          *ngFor="let scrims of scrims_lists; let index = index"
+        >
+          <h4 class="m-auto team-name" [innerHTML]="scrims.team.name"></h4>
+          <div
+            class="m-auto d-flex flex-column img-content border border-2 rounded bg-light"
+          >
+            <div
+              id="loading "
+              class="lds-ellipsis m-auto"
+              *ngIf="!scrims.image && image_id[index]"
+            >
               <div></div>
               <div></div>
               <div></div>
               <div></div>
             </div>
+            <img
+              [src]="scrims.image"
+              *ngIf="scrims.image && image_id[index]"
+              class="m-auto"
+            />
+            <h1
+              *ngIf="!image_id[index]"
+              [innerHTML]="scrims.team.name[0]"
+              class="text-uppercase text-dark unimage"
+            ></h1>
           </div>
           <div class="card-body">
             <div class="scrim-list d-flex justify-content-between">
