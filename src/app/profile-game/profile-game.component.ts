@@ -9,7 +9,10 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-profile-game',
   templateUrl: './profile-game.component.html',
-  styleUrls: ['./profile-game.component.css', '../profile/profile.component.css'],
+  styleUrls: [
+    './profile-game.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileGameComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
@@ -71,6 +74,7 @@ export class ProfileGameComponent implements OnInit {
     ).subscribe(
       (respon) => {
         this.nav.getProfile().profileGame = respon;
+        this.nav.setTeam();
         this.toEdit = false;
       },
       (error) => {

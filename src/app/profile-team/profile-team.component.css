@@ -31,6 +31,7 @@ img {
 .position {
   height: 326px;
   width: 200px;
+  overflow: hidden;
 }
 
 .popup {
