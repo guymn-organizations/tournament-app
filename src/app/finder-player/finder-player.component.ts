@@ -14,6 +14,7 @@ export class FinderPlayerComponent {
   playerPostService: PlayerpostService = inject(PlayerpostService);
   nav: NavbarComponent = inject(NavbarComponent);
   
+  selectedPositions: string[] = []; // Initialize an empty array
 
 
   selectedRole: PositionType | null = null;
@@ -22,7 +23,7 @@ export class FinderPlayerComponent {
   positionsData: PositionType[] = [];
   images: String[] = [];
 
-  selectedPositions: PositionType[] = [];
+  // selectedPositions: PositionType[] = [];
 
   position = [
     PositionType.DSL,
@@ -77,7 +78,7 @@ export class FinderPlayerComponent {
 
     const postPlayerData: Partial<Playerpost> = {
       profile: this.nav.getProfile(),
-      positions: this.selectedPositions,
+      // positions: this.selectedPositions,
 
     };
 
@@ -100,24 +101,16 @@ export class FinderPlayerComponent {
 
     }
   }
-  onChange(event:any,index:any){
-      console.log(event.target.checked)
-      var cl = document.getElementsByClassName(index);
-      if (event.target.checked) {
-        console.log(index);
-        for (let i = 0; i < cl.length; i++) {
-          cl[i].classList.add("positions");
-          
+  onChange(event: any, positions: string) {
+    if (event.target.checked) {
+        this.selectedPositions.push(positions);
+    } else {
+        const index = this.selectedPositions.indexOf(positions);
+        if (index !== -1) {
+            this.selectedPositions.splice(index, 1);
         }
-        
-      } else {
-        for (let i = 0; i < cl.length; i++) {
-          cl[i].classList.remove("positions");
-          
-        }
-        
-      }
-  }
+    }
+}
 
- 
+
 }

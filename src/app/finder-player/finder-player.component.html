@@ -55,7 +55,7 @@
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'SUP')" />
+            <input type="checkbox" (change)="onChange($event,'')" />
             <span class="slider round"></span>
           </label>
           <h3>SUP</h3>
@@ -80,32 +80,33 @@
       </div>
       <div class="container">
         <div class="row">
-            <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3">
-                <div class="card mb-3 game-card">
-                    <div class="row g-0 d-flex align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="d-flex justify-content-center border m-2 img">
-                                <img [src]="post.image" class="img-fluid rounded-start game-image" alt="Profile Image">
-                            </div>
-                        </div>
-                        <div class="col-lg-8 col-12">
-                            <div class="d-flex flex-column justify-content-start">
-                                <h5 class="card-title text-start game-profile">
-                                    PROFILE: <span class="profile-info">{{ post.post.profile.firstName }} {{ post.post.profile.lastName }}</span>
-                                </h5>
-                                <h5 class="card-title text-start game-game">
-                                    IN-GAME: <span class="profile-game">{{ post.post.profile.profileGame?.name }}</span>
-                                </h5>
-                                <h5 class="card-title text-start game-positions overflow-ellipsis">
-                                    POSITIONS: <span class="positions">{{ post.post.positions }}</span>
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
+          <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3"     [ngClass]="{ 'hidden': !isSelected(post.post.positions[0]) }">
+            <div class="card mb-3 game-card">
+              <div class="row g-0 d-flex align-items-center">
+                <div class="col-lg-4 col-12">
+                  <div class="d-flex justify-content-center border m-2 img">
+                    <img [src]="post.image" class="img-fluid rounded-start game-image">
+                  </div>
                 </div>
+                <div class="col-lg-8 col-12">
+                  <div class="d-flex flex-column justify-content-start">
+                    <h5 class="card-title text-start game-profile">
+                      PROFILE: <span class="profile-info">{{ post.post.profile.firstName }} {{
+                        post.post.profile.lastName }}</span>
+                    </h5>
+                    <h5 class="card-title text-start game-game">
+                      IN-GAME: <span class="profile-game">{{ post.post.profile.profileGame?.name }}</span>
+                    </h5>
+                    <h5 class="card-title text-start game-positions overflow-ellipsis">
+                      POSITIONS: <span class="positions">{{ post.post.positions }}</span>
+                    </h5>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -147,7 +148,6 @@
           </div>
         </div>
       </div>
-
 
       <p class="m-2 text-center">finder-player works!</p>
       <!-- Added margin and centered text -->
