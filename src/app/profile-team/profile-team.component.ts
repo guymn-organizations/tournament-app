@@ -59,6 +59,7 @@ export class ProfileTeamComponent implements OnInit {
   async setTeamId(id: string) {
     this.nav.getProfile().profileGame.myTeam = id;
     localStorage.setItem('team', id);
+    await this.ngOnInit();
   }
 
   async setTeam() {
@@ -150,7 +151,7 @@ export class ProfileTeamComponent implements OnInit {
     if (!confirm('Are you sure?')) {
       return;
     }
-    
+
     (await this.nav.teamService.deleteTeam(this.team?.id as string)).subscribe(
       async (response) => {},
       async (error) => {
