@@ -247,41 +247,23 @@ export class ProfileTeamComponent implements OnInit {
     this.toEditContact();
   }
 
-  async addTeamPlayer(
-    positionType: PositionType,
-    player: string,
-    index: number
-  ) {
-    (
-      await this.nav.teamService.addTeamPlayer(
-        this.team?.id as string,
-        player,
-        positionType
-      )
-    ).subscribe(async (respon) => {
-      this.team = respon;
-      await this.setImage(
-        respon.positions[index].player?.imageProfileUrl as string,
-        index
-      );
-    });
-  }
-
   async addReservervrToMainTeam(
-    positionType: PositionType,
-    player: string,
-    index: number,
+    index_reserver: number,
     index_position: number
   ) {
     (
       await this.nav.teamService.outTeamPosition(
         this.team?.name as string,
-        index
+        index_reserver,
+        index_position
       )
     ).subscribe(async (respon) => {
       if (this.team) {
-        this.team.teamReserve = respon;
-        await this.addTeamPlayer(positionType, player, index_position);
+        this.team = respon;
+        await this.setImage(
+          respon.positions[index_position].player?.imageProfileUrl as string,
+          index_position
+        );
       }
     });
   }

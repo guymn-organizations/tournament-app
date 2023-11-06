@@ -78,7 +78,7 @@
         <div class="row col-12 p-0 m-3 border-top border-success text-dark">
           <div
             class="border border-top-0 p-0 border-success flex-row d-flex align-items-center bg-white"
-            *ngFor="let mem of team?.teamReserve; let i = index"
+            *ngFor="let mem of team?.teamReserve; let index_reserver = index"
           >
             <div class="flex-grow-1 ps-2">
               {{ mem.profileGame.name }}
@@ -101,18 +101,13 @@
                 <li
                   class="dropdown-item"
                   (click)="
-                    addReservervrToMainTeam(
-                      position.positionType,
-                      mem.profileGame.name,
-                      i,
-                      index_position
-                    )
+                    addReservervrToMainTeam(index_reserver, index_position)
                   "
                   *ngFor="
                     let position of team?.positions;
                     let index_position = index
                   "
-                  [ngClass]="{ 'd-none': position.player }"
+                  [ngClass]="{ 'd-non': position.player }"
                 >
                   {{ position.positionName }}
                 </li>

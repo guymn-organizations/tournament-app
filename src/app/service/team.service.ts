@@ -38,10 +38,11 @@ export class TeamService {
 
   async outTeamPosition(
     team_name: string,
-    player_index: number
-  ): Promise<Observable<Profile[]>> {
-    return this.http.put<Profile[]>(
-      `${this.apiUrl}/${team_name}/out_reserver/${player_index}`,
+    player_index: number,
+    index_position: number
+  ): Promise<Observable<Team>> {
+    return this.http.put<Team>(
+      `${this.apiUrl}/${team_name}/out_reserver/${player_index}/${index_position}`,
       null
     );
   }
