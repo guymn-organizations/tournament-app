@@ -52,7 +52,7 @@ export class CreateTourComponent {
 
   async submitCreatetourForm() {
     const tourData: Partial<Tournament> = {
-      name: this.tournamentData.name,
+      name: this.tournamentData.name.toUpperCase(),
       detail: this.tournamentData.detail,
       reward: this.tournamentData.reward,
       startRegisterDate: this.tournamentData.startRegisterDate,
