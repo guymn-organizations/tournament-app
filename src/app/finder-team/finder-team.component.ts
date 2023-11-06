@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Teampost } from '../model/teampost';
-import { PositionType } from '../model/team';
+import { PositionType, Team } from '../model/team';
 import { TeampostService } from '../service/teampost.service';
 import { NgForm } from '@angular/forms';
 
@@ -14,6 +14,9 @@ export class FinderTeamComponent {
   teamPostService : TeampostService = inject(TeampostService)
   nav: NavbarComponent = inject(NavbarComponent);
   teamPosts: Teampost[] = [];
+
+  team?: Team;
+
 
   positionsData: PositionType[] = [];
   images: String[] = [];
@@ -33,6 +36,8 @@ export class FinderTeamComponent {
     console.log("reload")
     this.teamPostService.getAllTeamPost().subscribe(async (data) => {
       this.teamPosts = data;
+      this.team = this.nav.team;
+
       await this.setImage();
     });
   }
