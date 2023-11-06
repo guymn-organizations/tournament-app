@@ -16,9 +16,9 @@ export class Tournament {
   tournamenType: TournamenType[] | undefined; // Adjust the type as needed
   bOqualifyingRound: number | undefined;
   bOfinalRound: number | undefined;
-  // teamJoin: TeamInTournament[]| undefined;
-  // status: Status[]| undefined; // Adjust the type as needed
-  // matchList: Match[]| undefined;
+  teamJoin: TeamInTournament[]| undefined;
+  status: Status[]| undefined; // Adjust the type as needed
+  matchList: Match[]| undefined;
 
   constructor() {}
 }

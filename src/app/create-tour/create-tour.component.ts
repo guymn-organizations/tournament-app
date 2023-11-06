@@ -20,11 +20,19 @@ export class CreateTourComponent {
     startTourDate: new Date(),
     bOqualifyingRound: 0,
     bOfinalRound: 0,
-    // teamJoin: [],
-    // status: [],
-    // matchList: [],
+    teamJoin: [],
+    
+    matchList: [],
     tournamenType: [],
   };
+  
+  status = [
+    Status.รอดำเนินการ,
+    Status.เปิดรับสมัคร,
+    Status.เปิดรับสมัคร,
+    Status.กำลังแข่งขัน,
+    Status.จบการแข่งขัน,
+  ];
 
   selectedImageURL: string | ArrayBuffer | null = null;
 
@@ -62,6 +70,10 @@ export class CreateTourComponent {
       bOfinalRound: this.tournamentData.bOfinalRound,
       bOqualifyingRound: this.tournamentData.bOqualifyingRound,
       tournamenType: this.tournamentData.tournamenType,
+    
+      
+   
+      
     };
     console.log(tourData);
 

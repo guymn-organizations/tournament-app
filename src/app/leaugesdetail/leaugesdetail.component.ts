@@ -34,7 +34,6 @@ export class LeaugesdetailComponent implements OnInit {
     this.route.paramMap.subscribe(async (params) => {
       const id = params.get('id');
       this.checked_id = id as string;
-      await this.setImage();
       await this.setTournament();
     });
   }
@@ -43,8 +42,7 @@ export class LeaugesdetailComponent implements OnInit {
     (await this.tournamentService.getTournamentById(this.checked_id)).subscribe(
       async (res) => {
         this.tournament = res;
-
-        console.log(res);
+        await this.setImage();
       }
     );
   }
@@ -53,13 +51,14 @@ export class LeaugesdetailComponent implements OnInit {
     if (!this.tournament) {
       return;
     }
-   
+
     (
       await this.nav.service.getImage(this.tournament.imageTourUrl as string)
     ).subscribe(
       (res) => {},
       (error) => {
-        console.log('error');
+        console.log(error);
+        this.image = error.error.text;
       }
     );
   }
