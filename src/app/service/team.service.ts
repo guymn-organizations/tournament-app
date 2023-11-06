@@ -29,13 +29,6 @@ export class TeamService {
     return this.http.put<Team>(`${this.apiUrl}/${id}/${type}/${player}`, null);
   }
 
-  async addReserverPlayer(
-    id: string,
-    player: string
-  ): Promise<Observable<Team>> {
-    return this.http.put<Team>(`${this.apiUrl}/${id}/reserver/${player}`, null);
-  }
-
   async outTeamPosition(
     team_name: string,
     player_index: number,

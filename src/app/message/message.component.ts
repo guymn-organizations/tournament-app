@@ -146,9 +146,15 @@ export class MessageComponent implements OnInit {
 
   async acceptRequestToJoinTeam(player: string, type: PositionType) {
     const team_id = localStorage.getItem('team') as string;
-    (
-      await this.nav.teamService.addTeamPlayer(team_id, player, type)
-    ).subscribe();
+    (await this.nav.teamService.addTeamPlayer(team_id, player, type)).subscribe(
+      (res) => {
+        this.nav.service.toPage('/profile/team');
+        this.nav.team = res;
+      },
+      (err) => {
+        alert(err.error);
+      }
+    );
   }
 
   async acceptInviteToJoinTeam(scrims_id: string, type: PositionType) {
@@ -163,9 +169,7 @@ export class MessageComponent implements OnInit {
       (res) => {
         this.message_team[index_message].isRead = res.isRead;
       },
-      (err) => {
-        console.log(err, index_message);
-      }
+      (err) => {}
     );
   }
 }

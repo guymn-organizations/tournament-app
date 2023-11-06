@@ -106,11 +106,13 @@ export class ProfileTeamComponent implements OnInit {
         MessageType.REQUEST_TO_JOIN_TEAM
       )
     ).subscribe(
-      (response) => {
-        console.log(response);
-      },
+      (response) => {},
       (error) => {
-        console.log(error);
+        if (error.status == 200) {
+          alert('You have submitted a request to join the team.');
+          this.teamNameToFind = '';
+          this.teamPositionToFind = PositionType.DSL;
+        }
       }
     );
   }
@@ -129,6 +131,9 @@ export class ProfileTeamComponent implements OnInit {
 
   async toLeavTeam() {
     try {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
       await (
         await this.nav.teamService.leavePlayer(
           this.team?.id as string,
@@ -142,6 +147,10 @@ export class ProfileTeamComponent implements OnInit {
   }
 
   async deleteTeam() {
+    if (!confirm('Are you sure?')) {
+      return;
+    }
+    
     (await this.nav.teamService.deleteTeam(this.team?.id as string)).subscribe(
       async (response) => {},
       async (error) => {
