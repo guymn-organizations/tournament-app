@@ -99,15 +99,22 @@
               </div>
               
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="data-item" >
                 <h5>ประเภท</h5>
               <p class="colorp">{{ tournament.tournamenType }}</p>
               </div>
               
             </div>
+            <div class="col-md-4">
+              <div class="data-item" >
+                <h5>จำนวนทีมที่เข้าร่วม</h5>
+              <p class="colorp"> 0 / {{ tournament.numberOfTeam }}</p>
+              </div>
+              
+            </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="data-item">
                 
                   <h5>เงินรางวัล</h5>
@@ -164,14 +171,14 @@
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Registration</h5>
+          <h5 style="color: black;" class="modal-title">Registration</h5>
           <button type="button" class="close" (click)="closeRegisterModal()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <!-- Add your scrollable registration form or content here -->
-          <p>This content will be scrollable if it overflows the modal.</p>
+          <p style="color: black;">This content will be scrollable if it overflows the modal.</p>
           <!-- Add more content as needed -->
         </div>
       </div>
