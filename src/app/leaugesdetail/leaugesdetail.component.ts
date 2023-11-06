@@ -72,4 +72,22 @@ export class LeaugesdetailComponent implements OnInit {
     localStorage.setItem('isOverview', 'true');
     this.isOverview = true;
   }
+
+  // Function to open the registration modal
+  openRegisterModal() {
+    const modal = document.getElementById('registerModal');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
+  }
+
+  // Function to close the registration modal
+  closeRegisterModal() {
+    const modal = document.getElementById('registerModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+    }
+  }
 }

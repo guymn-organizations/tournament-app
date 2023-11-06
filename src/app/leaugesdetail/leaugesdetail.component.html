@@ -149,7 +149,7 @@
               
             </div>
             <div class="col-md-12">
-              <button class="btn btn-success" type="submit">REGISTER</button>
+              <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
             </div>
           </div>
 
@@ -158,6 +158,24 @@
       </div>
     </div>
   </ng-template>
+
+  <!-- Modal structure -->
+  <div class="modal" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registration</h5>
+          <button type="button" class="close" (click)="closeRegisterModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Add your scrollable registration form or content here -->
+          <p>This content will be scrollable if it overflows the modal.</p>
+          <!-- Add more content as needed -->
+        </div>
+      </div>
+    </div>
 
   <!-- ------------------Teamjoin--------------------------------- -->
 
