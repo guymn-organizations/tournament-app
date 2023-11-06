@@ -39,7 +39,7 @@
             <button
               type="button"
               class="btn btn-success mb-3 text-end"
-              (click)="acceptMessage(message)"
+              (click)="acceptMessage(message, i)"
             >
               accept
             </button>
@@ -94,7 +94,8 @@
             <button
               type="button"
               class="btn btn-success mb-3 text-end"
-              (click)="acceptMessage(message)"
+              (click)="acceptMessage(message, i)"
+              [ngClass]="{ 'd-none': message.isRead }"
             >
               accept
             </button>

@@ -27,7 +27,7 @@ export class MessageService {
     positionType: PositionType,
     messageType: MessageType
   ): Promise<Observable<Message>> {
-    return this.http.put<Message>(
+    return this.http.post<Message>(
       `${this.apiUrl}/${team_name}/${messageType}/${profile_game_name}`,
       positionType
     );
@@ -38,9 +38,13 @@ export class MessageService {
     scrims_id: string,
     teamB: string
   ): Promise<Observable<Message>> {
-    return this.http.put<Message>(
+    return this.http.post<Message>(
       `${this.apiUrl}/${teamA}/REQUEST_TO_JOIN_TEAM/${teamB}`,
       scrims_id
     );
+  }
+
+  async readMessage(id: string): Promise<Observable<Message>> {
+    return this.http.put<Message>(`${this.apiUrl}/is_read/${id}`, null);
   }
 }

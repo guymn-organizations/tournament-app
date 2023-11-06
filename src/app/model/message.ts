@@ -8,10 +8,12 @@ export class Message {
   sendDate: Date;
   scrimsId!: string;
   positionType!: PositionType;
-
+  isRead: boolean;
+  
   constructor(messageType: MessageType) {
     this.sendDate = new Date();
     this.messageType = messageType;
+    this.isRead = false;
   }
 }
 

@@ -25,7 +25,7 @@ export class MessageComponent implements OnInit {
   public messageTeamElement: ElementRef | undefined;
 
   nav: NavbarComponent = inject(NavbarComponent);
-  message: MessageService = inject(MessageService);
+  messageService: MessageService = inject(MessageService);
   scrimsService: ScrimsService = inject(ScrimsService);
 
   message_team: Message[] = [];
@@ -75,7 +75,7 @@ export class MessageComponent implements OnInit {
       return;
     }
 
-    (await this.message.getMessage(slicedMessages)).subscribe((res) => {
+    (await this.messageService.getMessage(slicedMessages)).subscribe((res) => {
       this.message_team = res;
     });
   }
@@ -89,7 +89,7 @@ export class MessageComponent implements OnInit {
       return;
     }
 
-    (await this.message.getMessage(slicedMessages)).subscribe((res) => {
+    (await this.messageService.getMessage(slicedMessages)).subscribe((res) => {
       this.message_profile = [...this.message_profile, ...res];
     });
   }
@@ -129,11 +129,12 @@ export class MessageComponent implements OnInit {
     } catch (teamError) {}
   }
 
-  acceptMessage(message: Message) {
+  acceptMessage(message: Message, index: number) {
     if (message.messageType == MessageType.INVITE_TO_JOIN_TEAM) {
       this.acceptInviteToJoinTeam(message.scrimsId, message.positionType);
     } else if (message.messageType == MessageType.REQUEST_TO_JOIN_TEAM) {
       this.acceptRequestToJoinTeam(message.sender, message.positionType);
+      this.readMessage(message.id, index);
     } else if (message.messageType == MessageType.INVITE_TO_SCRIMS) {
       this.acceptScrims(message.scrimsId, message.sender);
     }
@@ -155,5 +156,16 @@ export class MessageComponent implements OnInit {
     (
       await this.nav.teamService.addTeamPlayer(scrims_id, player, type)
     ).subscribe();
+  }
+
+  async readMessage(id: string, index_message: number) {
+    (await this.messageService.readMessage(id)).subscribe(
+      (res) => {
+        this.message_team[index_message].isRead = res.isRead;
+      },
+      (err) => {
+        console.log(err, index_message);
+      }
+    );
   }
 }
