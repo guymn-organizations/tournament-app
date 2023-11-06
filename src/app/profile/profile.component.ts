@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { GobalServiceService } from '../service/gobal-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,6 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
+  title: string = 'Profile';
+  discription: string = 'Manage data profile';
+
+  nav: NavbarComponent = inject(NavbarComponent);
+  service: GobalServiceService = inject(GobalServiceService);
+
   child = [
     {
       name: 'Profile',
@@ -20,4 +29,18 @@ export class ProfileComponent {
       path: 'team',
     },
   ];
+
+  checkTab: string = '';
+
+  constructor(private router: Router) {
+  }
+
+  ngOnInit() {
+    this.checkTab = this.router.url;
+  }
+
+  isActive(router: string): boolean {
+    this.ngOnInit();
+    return `/profile/${router}` === this.checkTab;
+  }
 }

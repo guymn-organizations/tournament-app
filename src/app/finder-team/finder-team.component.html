@@ -1,5 +1,96 @@
-<div class="border border-black">
-  <div class="container">
-    <p>finder-team works!</p>
+<div class="container">
+  <div class="row">
+    <!-- Left Side -->
+    <div class="col-md-3 col-sm-12">
+      <div class="border-end">
+      <div class="container p-4"><!-- Added padding -->
+        <h2>Role</h2>
+        <div class="d-flex justify-content-between pt-2">
+          <label class="switch"> <!-- Center text -->
+            <input type="checkbox">
+            <span class="slider round "></span>
+          </label>
+          <h3>
+            DSL
+          </h3>
+          <img
+            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/0415b285e2b6c3dcf12be5d7beb1055b.png"
+            alt="lane" width="40px" height="40px" />
+        
+        </div>
+        
+        <div class="d-flex justify-content-between pt-2">
+          <label class="switch"> <!-- Center text -->
+            <input type="checkbox">
+            <span class="slider round "></span>
+          </label>
+          <h3>
+            JG
+          </h3>
+          <img
+            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/d4e7e712a09b01364a8d8af3c6eeb0f5.png"
+            alt="lane" width="40px" height="40px" />
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <label class="switch "> <!-- Center text -->
+            <input type="checkbox">
+            <span class="slider round "></span>
+          </label>
+          <h3>
+            MID
+          </h3>
+          <img
+            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7bb58a9b6f300bf36834f8ec6e25ea0f.png"
+            alt="lane" width="40px" height="40px" />
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <label class="switch"> <!-- Center text -->
+            <input type="checkbox">
+            <span class="slider round "></span>
+          </label>
+          <h3>
+            ADL
+          </h3>
+          <img
+            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7b9491a786796943c73a901bd91cf6a1.png"
+            alt="lane" width="40px" height="40px" />
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <label class="switch"> <!-- Center text -->
+            <input type="checkbox">
+            <span class="slider round "></span>
+          </label>
+          <h3>
+            SUP
+          </h3>
+          <img
+            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/db5db10e92387724ab25f92a8c1e6e9f.png"
+            alt="lane" width="40px" height="40px" />
+        </div>
+      </div>
+    </div>
   </div>
+
+    <!-- Right Side -->
+    <div class="col-md-9 col-sm-12">
+      <div class="d-flex flex-column p-4"> <!-- Added padding -->
+        <div class="d-flex flex-row align-items-center"> <!-- Added flex and alignment -->
+          <div class="col-md-6 col-sm-12">
+            <input type="text" class="form-control m-2" [(ngModel)]="Name"> <!-- Added margin -->
+          </div>
+          <div class="col-md-6 col-sm-12 text-md-end">
+            <button type="button" class="btn btn-success m-2">Post Find Team</button>
+            <!-- Button added and aligned to the right -->
+          </div>
+        </div>
+      </div>
+      <div class="Box-player">
+        <div *ngFor="let user of users" class="my-3">
+          <div>Lane: {{user.name}}</div>
+          <div>PoolHero: {{user.poolhero}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="m-2 text-center">finder-player works!</p> <!-- Added margin and centered text -->
 </div>

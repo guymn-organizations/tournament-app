@@ -1,24 +1,84 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GobalServiceService } from '../service/gobal-service.service';
+import { ProfileService } from '../service/profile.service';
+import { Profile } from '../model/profile';
+import { TeamService } from '../service/team.service';
+import { ProfileGame } from '../model/profile-game';
+import { Team } from '../model/team';
+import { Subscription } from 'rxjs';
+import { Image } from '../model/image';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   service: GobalServiceService = inject(GobalServiceService);
+  profileService: ProfileService = inject(ProfileService);
+  teamService: TeamService = inject(TeamService);
 
   menu = false;
   navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
   navBarImg = [
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140864357437570/370257351_657778326338320_3000149127718713003_n.png?ex=653e7e58&is=652c0958&hm=85b1d127e95ed383906c426ffc1b965388762b7319700229f4b62ec5f4826c21&',
+    '../../assets/img/nav/LEAUGES.png',
     '../../assets/img/nav/SCRIMS.png',
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140863652794388/387344873_730245708930192_4520940304685637453_n.png?ex=653e7e58&is=652c0958&hm=456aceb3e92d9199bc83cd79393efc0a01d9ef9a597fa0b385041be350413d91&',
-    'https://cdn.discordapp.com/attachments/1163138471196622918/1163140864139350148/387593649_2840731006069136_1036389285473139054_n.png?ex=653e7e58&is=652c0958&hm=260356779da873b2e5a45570cf89747f1c8935a2fc9e02316c5bad33096ed024&',
+    '../../assets/img/nav/TOURNAMENT.png',
+    '../../assets/img/nav/FINDER.png',
   ];
 
+  profile?: Profile;
+  profileSubscription: Subscription | undefined;
+  imageProfile: Image | undefined;
+
   constructor() {}
+
+  async ngOnInit() {
+    await this.setProfile();
+    await this.setProfileImage();
+  }
+
+  setProfileData(profile: Profile) {
+    this.profile = profile;
+  }
+
+  async setProfile() {
+    try {
+      const profile_id = localStorage.getItem('profile') as string;
+      this.profile = await (
+        await this.profileService.getProfileById(profile_id)
+      ).toPromise();
+      localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
+    } catch (error) {
+      console.error('Error getting profile data:', error);
+    }
+  }
+
+  async setProfileImage() {
+    (
+      await this.service.getImage(this.profile?.imageProfileUrl as string)
+    ).subscribe(
+      (res) => {},
+      (result) => {
+        this.imageProfile = result.error.text;
+      }
+    );
+  }
+
+  getProfile(): Profile {
+    if (this.profile) {
+      return this.profile;
+    }
+    return new Profile();
+  }
+
+  isLogin(): boolean {
+    return !!this.profile;
+  }
+
+  isGame(): boolean {
+    return !!this.profile?.profileGame;
+  }
 
   navBarRow = this.navBarName.map((name, index) => ({
     name: name,
@@ -32,9 +92,36 @@ export class NavbarComponent {
   checkTab() {
     return true;
   }
-  
+
   toProfile(page: string) {
     this.service.toPage(page);
   }
 
+  goLogin(data: string) {
+    localStorage.setItem('isLogin', data);
+    this.service.toPage('login');
+  }
+
+  logout() {
+    localStorage.setItem('profile', '');
+    this.profile = undefined;
+    this.service.toPage('');
+  }
+
+  async updateProfile() {
+    console.log(this.profile);
+    (
+      await this.profileService.editProfile(
+        this.profile?.id as string,
+        this.profile as Profile
+      )
+    ).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

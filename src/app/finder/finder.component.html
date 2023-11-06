@@ -1,9 +1,20 @@
-<div class="border border-black">
+<div
+  class="finder"
+  [ngClass]="{ 'visually-hidden': !nav.getProfile().profileGame }"
+>
   <div class="container">
-    <p>finder works!</p>
-    <div>
-      <div *ngFor="let router of childName" class="btn" [routerLink]="router">
-        <label> {{ router }}</label>
+    <app-header [title]="title" [discription]="discription"></app-header>
+
+    <div class="d-flex flex-row border-bottom border-white">
+      <div
+        *ngFor="let router of childName"
+        class="p-2"
+        [routerLink]="router.router"
+        [ngClass]="{
+          'border-bottom border-primary border-3': isActive(router.router)
+        }"
+      >
+        <label> {{ router.name }}</label>
       </div>
     </div>
     <router-outlet></router-outlet>

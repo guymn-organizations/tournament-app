@@ -1,5 +1,217 @@
-<div class="border border-black">
-  <div class="container">
-    <p>profile-profile works!</p>
-  </div>
+<div class="mb-5">
+  <h1>Profile</h1>
+  <ng-container *ngIf="isEdit(); else noEditPage">
+    <ng-container *ngTemplateOutlet="EditPage"></ng-container
+  ></ng-container>
 </div>
+
+<ng-template #noEditPage>
+  <div class="container row d-flex">
+    <div class="col-12 col-lg-4 d-flex flex-column">
+      <img
+        [src]="nav.imageProfile"
+        class="col-12 ms-auto me-auto mt-5 border"
+        *ngIf="nav.imageProfile"
+      />
+      <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+        <i
+          class="bi bi-person-fill text-body-tertiary border"
+          *ngIf="!nav.imageProfile"
+          style="font-size: 200px; height: 250px"
+        ></i>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">FIRST NAME</label>
+        <label class="bg-data ps-3 pe-3 p-1">{{
+          nav.getProfile().firstName
+        }}</label>
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">LAST NAME</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().lastName }}
+        </label>
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">EMAIL</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().email }}
+        </label>
+      </div>
+
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">PASSWORD</label>
+        <label class="bg-data ps-3 pe-3 p-1"> ********* </label>
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">BIRTHDAY</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().birthday | date : "d MMMM  y" }}
+        </label>
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">GENDER</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().gender }}
+        </label>
+      </div>
+    </div>
+    <div class="mt-5 d-flex">
+      <button
+        type="button"
+        class="btn btn-success ms-auto"
+        (click)="clickEdit()"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #EditPage>
+  <form
+    #EditForm="ngForm"
+    class="row container"
+    (ngSubmit)="onSubmitEditForm()"
+  >
+    <div class="col-12 col-lg-4 d-flex flex-column">
+      <img
+        [src]="selectedImageURL"
+        class="col-12 ms-auto me-auto mt-5 border"
+        *ngIf="selectedImageURL"
+      />
+      <img
+        [src]="nav.imageProfile"
+        class="col-12 ms-auto me-auto mt-5 border"
+        *ngIf="!selectedImageURL && nav.getProfile().imageProfileUrl"
+      />
+      <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+        <i
+          class="bi bi-person-fill text-body-tertiary border"
+          *ngIf="!nav.getProfile().imageProfileUrl && !selectedImageURL"
+          style="font-size: 200px; height: 250px"
+        ></i>
+      </div>
+
+      <div class="ms-auto me-auto">
+        <label class="btn btn-success mt-3 pt-0 pb-0">
+          <span>
+            <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+          </span>
+          <input
+            class="d-none"
+            type="file"
+            id="fileInput"
+            name="fileInput"
+            (change)="onFileSelected($event)"
+            accept="image/jpeg, image/png"
+          />
+        </label>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">FIRST NAME</label>
+        <input
+          id="first_name"
+          name="first_name"
+          type="text"
+          class="bg-data ps-3 pe-3 p-1"
+          [(ngModel)]="profileData.first_name"
+          required
+        />
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">LAST NAME</label>
+        <input
+          id="last_name"
+          name="last_name"
+          type="text"
+          class="bg-data ps-3 pe-3 p-1"
+          [(ngModel)]="profileData.last_name"
+          required
+        />
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">EMAIL</label>
+        <input
+          id="email"
+          name="email"
+          type="text"
+          class="bg-data ps-3 pe-3 p-1"
+          [(ngModel)]="profileData.email"
+          required
+        />
+      </div>
+
+      <div
+        class="col-12 flex-xl-row flex-column d-flex justify-content-between"
+      >
+        <div class="col-12 col-xl-6 flex-column d-flex">
+          <label class="form-label">PASSWORD</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="bg-data ps-3 pe-3 p-1"
+            [(ngModel)]="profileData.password"
+            required
+          />
+        </div>
+        <div class="col-12 col-xl-6 flex-column d-flex">
+          <label class="form-label">CONFIRM PASSWORD</label>
+          <input
+            id="confirm_password"
+            name="password"
+            type="password"
+            class="bg-data ps-3 pe-3 p-1"
+            [(ngModel)]="profileData.confirm_password"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">BIRTHDAY</label>
+        <input
+          id="birthday"
+          name="birthday"
+          type="date"
+          class="bg-data ps-3 pe-3 p-1"
+          [(ngModel)]="profileData.birthday"
+          required
+        />
+      </div>
+      <div class="col-12 flex-column d-flex">
+        <label class="form-label">GENDER</label>
+        <label class="bg-data ps-3 pe-3 p-1">
+          {{ nav.getProfile().gender }}
+        </label>
+      </div>
+    </div>
+    <div
+      class="col-12 flex-column d-flex justify-content-center align-items-center mt-3"
+    >
+      <label class="text-danger fs-4"> {{ errorMessage }} &nbsp; </label>
+    </div>
+
+    <div class="mt-auto justify-content-between d-flex">
+      <button
+        type="submit"
+        class="mt-5 btn btn-success col-md-4"
+        [disabled]="!EditForm.form.valid"
+      >
+        Submit
+      </button>
+      <button
+        type="reset"
+        class="mt-5 btn btn-danger col-md-4"
+        (click)="clickOutEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</ng-template>

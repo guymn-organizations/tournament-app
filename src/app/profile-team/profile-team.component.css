@@ -1,0 +1,68 @@
+.bg-data {
+  background-color: #28282b;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+}
+img {
+  width: 200px;
+  height: 200px;
+}
+
+.isTeam img {
+  width: 100px;
+  height: 100px;
+}
+.isTeam .img {
+  width: 100px;
+  height: 100px;
+}
+
+.bi-person-fill-add,
+.bi-person-fill {
+  font-size: 100px;
+}
+
+.bi-person-fill-add,
+.bi-arrow-bar-up {
+  cursor: pointer;
+}
+
+.position {
+  height: 326px;
+  width: 200px;
+}
+
+.popup {
+  width: 333px;
+  height: 231px;
+  background-color: #2f2e2e;
+}
+
+input {
+  background-color: #d9d9d9;
+}
+
+::placeholder {
+  color: white;
+  opacity: 0.5; /* Firefox */
+}
+
+.form-select {
+  border-radius: unset;
+  background-color: #28282b;
+}
+
+select {
+  border: #28282b;
+}
+
+.none-img {
+  font-size: 120px;
+}
+
+.bi-chat {
+  cursor: pointer;
+}
