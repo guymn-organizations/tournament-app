@@ -41,7 +41,11 @@
 </ng-template>
 
 <ng-template #ShowScrims>
-  <div class="container scrims-container">
+  <div
+    #ListScrims
+    class="container scrims-container d-flex flex-column"
+    (scroll)="onScrollListScrims()"
+  >
     <div
       class="d-flex flex-column flex-sm-row justify-content-between align-items-center border pt-2 pb-2 ps-5 pe-5 mb-2 bg-gradient list"
       *ngFor="let scrim of getScrims()"
@@ -84,6 +88,12 @@
       >
         Delete
       </button>
+    </div>
+    <div id="loading" class="lds-ellipsis m-auto" *ngIf="pageTotal == pageSize">
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
     </div>
   </div>
 </ng-template>
