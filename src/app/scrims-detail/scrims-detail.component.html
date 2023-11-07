@@ -39,7 +39,7 @@
         <div id="team_member">
           <div
             id="team_image"
-            class="image-member-comtent bg-light border border-2 rounded d-flex m-2"
+            class="d-flex justify-content-start m-2 text-light align-items-center"
             *ngFor="let member of team?.positions; let i = index"
           >
             <div
@@ -66,6 +66,12 @@
                 [innerHTML]="(member.player?.profileGame)!.name[0]"
                 class="text-uppercase text-dark unimage"
               ></h1>
+            </div>
+            <div id="member_name" class="ms-5">
+              <h3 [innerHTML]="member.player?.profileGame?.name">&nbsp;</h3>
+            </div>
+            <div id="member_name" class="ms-auto">
+              <h3 [innerHTML]="member.positionType">&nbsp;</h3>
             </div>
           </div>
         </div>
