@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tournament } from '../model/tournament';
+import { TournamenType, Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { of } from 'rxjs';
@@ -17,12 +17,15 @@ export class LeaugesdetailComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
   checkTab: string = '';
   checked_id: string = '';
-  tournament: Tournament | undefined;
+  tournament!: Tournament;
   image: string | undefined;
 
   isOverview: boolean = true;
 
   teams!: any[];
+
+  tournamenTypeFree: TournamenType = TournamenType.Free;
+  tournamenTypePaid: TournamenType = TournamenType.Paid;
 
   constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
     this.ngOnInit();
@@ -47,7 +50,7 @@ export class LeaugesdetailComponent implements OnInit {
     (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
       (data: any[]) => {
         this.teams = data;
-        if (this.teams.length === this.tournament!.numberOfTeam){
+        if (this.teams.length === this.tournament.numberOfTeam){
           this.createMatchesForTournament();
         }
       },
@@ -139,6 +142,10 @@ export class LeaugesdetailComponent implements OnInit {
         console.error('Error creating matches:', error);
       }
     );
+  }
+
+  showAlertMessage() {
+    alert('Registration is full.');
   }
 
 }

@@ -156,7 +156,12 @@
               
             </div>
             <div class="col-md-12">
-              <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
+              <div *ngIf="teams.length === tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="showAlertMessage()">REGISTER</button>
+              </div>
+              <div *ngIf="teams.length !== tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
+              </div>
             </div>
           </div>
 
@@ -178,8 +183,16 @@
         </div>
         <div class="modal-body">
           <p style="color: black;">{{ tournament.detail }}.</p>
-          <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
-          <button (click)="closeRegisterModal()">Cancel</button>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypeFree)">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypePaid)">
+            <img [src]="tournament.payments" width="400" height="550">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -203,7 +216,7 @@
         <div class="col-md-11">
           <h3 style="font-family: fantasy">TEAM</h3>
         </div>
-        <div class="col-md-1">{{teams.length}} Team</div>
+        <div class="col-md-1">{{teams.length}} / {{tournament.numberOfTeam}} Team</div>
         <div class="col-md-12">
           <div class="line-8-83i"></div>
         </div>
