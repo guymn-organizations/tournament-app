@@ -6,6 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { TeamService } from '../service/team.service';
 import { Team } from '../model/team';
 import { TeamInTournament } from '../model/team-in-tournament';
+import { Match } from '../model/match';
 
 @Component({
   selector: 'app-leaugesdetail',
@@ -29,6 +30,8 @@ export class LeaugesdetailComponent implements OnInit {
   tournamenTypeFree: TournamenType = TournamenType.Free;
   tournamenTypePaid: TournamenType = TournamenType.Paid;
 
+  matches: Match[] = [];
+
   constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
     this.ngOnInit();
   }
@@ -46,6 +49,8 @@ export class LeaugesdetailComponent implements OnInit {
 
     const tournamentId = this.checked_id;
     await this.AllTeamInTournament(tournamentId);
+
+    this.getMatchesForTournament(this.checked_id);
   }
 
   async AllTeamInTournament(tournamentId: string){
@@ -158,4 +163,14 @@ export class LeaugesdetailComponent implements OnInit {
     alert('Registration is full.');
   }
 
+  async getMatchesForTournament(tournamentId: string) {
+    (await this.tournamentService.getAllMatchesForTournament(tournamentId)).subscribe(
+      (matches: Match[]) => {
+        this.matches = matches;
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  }
 }
