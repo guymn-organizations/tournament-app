@@ -22,8 +22,6 @@ export class LeaugesdetailComponent implements OnInit {
 
   isOverview: boolean = true;
 
-  touritems: any[] = Array(10).fill({});
-
   teams!: any[];
 
   constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
