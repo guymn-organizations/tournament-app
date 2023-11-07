@@ -109,7 +109,7 @@
             <div class="col-md-4">
               <div class="data-item" >
                 <h5>จำนวนทีมที่เข้าร่วม</h5>
-              <p class="colorp"> 0 / {{ tournament.numberOfTeam }}</p>
+              <p class="colorp"> {{teams.length}} / {{ tournament.numberOfTeam }}</p>
               </div>
               
             </div>
@@ -178,7 +178,8 @@
         </div>
         <div class="modal-body">
           <p style="color: black;">{{ tournament.detail }}.</p>
-          <button (click)="confirmTeamJoin()">Confirm</button>
+          <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+          <button (click)="closeRegisterModal()">Cancel</button>
         </div>
       </div>
     </div>
