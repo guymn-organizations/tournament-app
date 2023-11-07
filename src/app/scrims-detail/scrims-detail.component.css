@@ -48,7 +48,7 @@ img {
 }
 
 .list-scrims {
-  height: 700px;
+  height: 500px;
   overflow-y: scroll;
   border-radius: 10px;
   background-color: #1a1b20;

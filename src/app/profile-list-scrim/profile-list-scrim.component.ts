@@ -3,6 +3,7 @@ import { ScrimsService } from '../service/scrims.service';
 import { Scrims } from '../model/scrims';
 import { Team } from '../model/team';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-list-scrim',
@@ -24,7 +25,7 @@ export class ProfileListScrimComponent implements OnInit {
   team?: Team;
   images: String[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     await this.setTeam();
@@ -126,5 +127,11 @@ export class ProfileListScrimComponent implements OnInit {
         }
       );
     }
+  }
+
+  toTeamBDetail(id: string) {
+    this.router.navigate(['/scrims', id], {
+      queryParams: { myTeam: this.team?.name },
+    });
   }
 }

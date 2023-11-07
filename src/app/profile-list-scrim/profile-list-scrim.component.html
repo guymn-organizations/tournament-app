@@ -41,40 +41,49 @@
 </ng-template>
 
 <ng-template #ShowScrims>
-  <div
-    class="d-flex flex-column flex-sm-row justify-content-between align-items-center border pt-2 pb-2 ps-5 pe-5 mb-2 bg-gradient list"
-    *ngFor="let scrim of getScrims()"
-  >
-    <div class="vs d-none d-lg-block">VS</div>
-    <div class="logo-team border d-flex bg-white">
-      <img
-        [src]="scrim.image"
-        *ngIf="scrim.image && checkTeamEnemy(scrim.scrim)"
-      />
-      <h1
-        class="text-secondary m-auto text-uppercase"
-        *ngIf="!scrim.image && checkTeamEnemy(scrim.scrim)"
-      >
-        {{ unImgTeam(scrim.scrim) }}
-      </h1>
-      <h1
-        class="text-secondary m-auto text-uppercase"
-        *ngIf="!checkTeamEnemy(scrim.scrim)"
-      >
-        ?
-      </h1>
-    </div>
-    <div class="fs-5 fs-sm-2">{{ scrim.scrim.startDate | date : "d/M/y" }}</div>
-    <div class="fs-5 fs-sm-2">{{ scrim.scrim.startDate | date : "HH:mm" }}</div>
-    <button
-      type="button"
-      class="btn btn-danger"
-      [ngClass]="{
-        'invisible d-sm-block d-none': scrim.scrim.teamA && scrim.scrim.teamB
-      }"
-      (click)="deleteScrims(scrim.scrim)"
+  <div class="container scrims-container">
+    <div
+      class="d-flex flex-column flex-sm-row justify-content-between align-items-center border pt-2 pb-2 ps-5 pe-5 mb-2 bg-gradient list"
+      *ngFor="let scrim of getScrims()"
     >
-      Delete
-    </button>
+      <div class="vs d-none d-lg-block">VS</div>
+      <div
+        class="logo-team border d-flex bg-white"
+        (click)="toTeamBDetail(scrim.scrim.teamB!.id)"
+      >
+        <img
+          [src]="scrim.image"
+          *ngIf="scrim.image && checkTeamEnemy(scrim.scrim)"
+        />
+        <h1
+          class="text-secondary m-auto text-uppercase"
+          *ngIf="!scrim.image && checkTeamEnemy(scrim.scrim)"
+        >
+          {{ unImgTeam(scrim.scrim) }}
+        </h1>
+        <h1
+          class="text-secondary m-auto text-uppercase"
+          *ngIf="!checkTeamEnemy(scrim.scrim)"
+        >
+          ?
+        </h1>
+      </div>
+      <div class="fs-5 fs-sm-2">
+        {{ scrim.scrim.startDate | date : "d/M/y" }}
+      </div>
+      <div class="fs-5 fs-sm-2">
+        {{ scrim.scrim.startDate | date : "HH:mm" }}
+      </div>
+      <button
+        type="button"
+        class="btn btn-danger"
+        [ngClass]="{
+          'invisible d-sm-block d-none': scrim.scrim.teamA && scrim.scrim.teamB
+        }"
+        (click)="deleteScrims(scrim.scrim)"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </ng-template>

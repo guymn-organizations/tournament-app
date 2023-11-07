@@ -94,6 +94,8 @@ export class ScrimsDetailComponent implements OnInit {
         await this.setImageTeam();
         await this.setImagePlayer();
         await this.loadScrims();
+        await this.loadScrims();
+        await this.loadScrims();
       }
     );
   }
@@ -103,7 +105,7 @@ export class ScrimsDetailComponent implements OnInit {
   }
 
   private pageIndex: number = 0;
-  public pageSize: number = 20;
+  public pageSize: number = 5;
   public pageTotal: number = 5;
   public loadding: boolean = false;
 
