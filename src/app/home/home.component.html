@@ -1,23 +1,23 @@
 <div class="border border-black">
   <div class="container">
-    <div class="wrap">
-      <div class="feature">
+    <!-- <div class="wrap">
+      <div class="feature" (click)="nav.service.toPage('leagues/')">
         <h3>FEATURE</h3>
-        <img [src]="featuredTournament.imageTourUrl">
+        <img [src]="image">
       </div>
-    </div>
+    </div> -->
 
 
     <div class="ads-wrap">
       <div class="advert-slider">
         <div class="advert" *ngFor="let advert of adverts">
-          <a [routerLink]="advert.linkAdvertUrl">
+          <a [routerLink]="advert.linkAdvertUrl" target="_blank">
             <img [src]="advert.imageAdvertUrl">
           </a>
         </div>
       </div>
-    
+
     </div>
-    
+
   </div>
 </div>

@@ -1,4 +1,4 @@
-.wrap{
+/* .wrap{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
    grid-column-gap: 90px;
@@ -15,7 +15,7 @@
 }
 .feature{
     margin-left: 50px;
-}
+} */
 
 h3{
     font-weight: bold;
@@ -23,8 +23,8 @@ h3{
 .advert img{
     border: 2px solid rgb(0, 0, 0);
     border-radius: 5px;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     
 }
 
@@ -57,7 +57,10 @@ h3{
   }
   
   .ads-wrap {
-    
+    position: absolute;
+  bottom: 0;
+  left: 15;
+  width: 100%;
     width: 100%; 
     overflow: hidden;
     display: flex;

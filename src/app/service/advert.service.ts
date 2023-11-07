@@ -14,4 +14,9 @@ export class AdvertService {
   async createAdvert(advert: Advert): Promise<Observable<Advert>> {
     return this.http.post<Advert>(this.apiUrl + '/create', advert)
   }
+
+  getAllAdvert(): Observable<Advert[]> {
+    return this.http.get<Advert[]>(this.apiUrl);
+  }
+
 }

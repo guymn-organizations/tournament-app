@@ -1,37 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject} from '@angular/core';
+import { AdvertService} from '../service/advert.service';
+import { Advert } from '../model/advert';
+import { Tournament } from '../model/tournament';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { TournamentService } from '../service/tournament.service';
-import { AdvertService } from '../service/advert.service';
-import { Advert } from '../model/advert.model';
-import { Tournament } from '../model/tournament.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
-  featuredTournament: Tournament | any;
-  adverts!: Advert[] | any;
+export class HomeComponent implements OnInit {
+  featuredTournament: Tournament | undefined;
 
-  constructor(private TournamentService: TournamentService,private AdvertService: AdvertService) {}
+  nav: NavbarComponent = inject(NavbarComponent);
 
-  ngOnInit() {
-    this.TournamentService.getFeaturedTournament().subscribe(
-      (tournament: Tournament ) => {
-        this.featuredTournament = tournament;
+  Tournament: undefined | Tournament;
+  image: string | undefined;
+
+  adverts: Advert[] = [];
+
+  constructor(private advertService: AdvertService, private tournamentService: TournamentService) {}
+
+  async ngOnInit(): Promise<void> {
+    this.advertService.getAllAdvert().subscribe(
+      (adverts: Advert[]) => { 
+        this.adverts = adverts;
       },
       (error) => {
-        console.error('Error fetching featured tournament:', error);
+        console.error('Error fetching featured adverts:', error);
       }
     );
-    this.AdvertService.getAllAdvert().subscribe(
-      (advert: Advert) => {
-        this.adverts = advert;
-      },
-      (error) => {
-        console.error('Error fetching featured advert:', error);
-      }
-    );
+
   }
-
 }
