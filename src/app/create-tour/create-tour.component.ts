@@ -11,6 +11,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./create-tour.component.css'],
 })
 export class CreateTourComponent {
+  TournamenType = TournamenType; 
   tournamentData = {
     name: '',
     detail: '',
@@ -23,7 +24,7 @@ export class CreateTourComponent {
     teamJoin: [],
     
     matchList: [],
-    tournamenType: '',
+    tournamenType: [] as TournamenType[], 
     numberOfTeam : 0
   };
   
@@ -88,7 +89,7 @@ export class CreateTourComponent {
       bOqualifyingRound: this.tournamentData.bOqualifyingRound,
       payments:this.qrcodeImageURL as string,
       numberOfTeam: this.tournamentData.numberOfTeam,
-      
+      tournamenType:this.tournamentData.tournamenType
    
       
     };

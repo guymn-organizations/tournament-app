@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class LeaugesComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
-
   allTournament: undefined | Tournament[];
 
   images: string[] = [];
@@ -39,7 +38,7 @@ export class LeaugesComponent implements OnInit {
     if (!this.allTournament) {
       return;
     }
-    
+
     for (let i = 0; i < this.allTournament?.length; i++) {
       (
         await this.nav.service.getImage(
