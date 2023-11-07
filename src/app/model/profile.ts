@@ -10,8 +10,8 @@ export class Profile {
   lastName!: string;
   password!: string;
   imageProfileUrl!: string;
-  profileGame!: ProfileGame | null;
-  messages!: Message[];
+  profileGame!: ProfileGame ;
+  messages!: string[];
 
   constructor() {}
 }

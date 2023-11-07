@@ -24,6 +24,9 @@ import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component'
 import { HttpClientModule } from '@angular/common/http';
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { HeaderComponent } from './header/header.component';
+import { MessageComponent } from './message/message.component';
+import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
+import { TeampostDetailComponent } from './teampost-detail/teampost-detail.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { HeaderComponent } from './header/header.component';
    
     CreateTourComponent,
     HeaderComponent,
+    MessageComponent,
+    ProfileListScrimComponent,
+    TeampostDetailComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

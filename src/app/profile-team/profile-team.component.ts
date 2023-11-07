@@ -1,38 +1,38 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType, Team } from '../model/team';
-import { Profile } from '../model/profile';
-import { GobalServiceService } from '../service/gobal-service.service';
 import { Image } from '../model/image';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // Import the map operator
-import { TeamService } from '../service/team.service';
+import { MessageService } from '../service/message.service';
+import { MessageType } from '../model/message';
+import { Profile } from '../model/profile';
 
 @Component({
   selector: 'app-profile-team',
   templateUrl: './profile-team.component.html',
-  styleUrls: ['./profile-team.component.css'],
+  styleUrls: [
+    './profile-team.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileTeamComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
+  messageService: MessageService = inject(MessageService);
 
   selectedImageURL: string | ArrayBuffer | null = null;
-
-  isCreateTeam = false;
-  isFindTeam = false;
 
   teamData = {
     id: '',
     name: '',
-    url: '',
+    contact: '',
   };
 
-  position = [
+  positions = [
     PositionType.DSL,
     PositionType.ADL,
     PositionType.JG,
     PositionType.MID,
     PositionType.SUP,
+    PositionType.reserver,
   ];
 
   playerImages: string[] = [];
@@ -48,9 +48,18 @@ export class ProfileTeamComponent implements OnInit {
   constructor() {}
 
   async ngOnInit(): Promise<void> {
-    await this.setTeam();
+    this.team = this.nav.team;
+    if (!this.team) {
+      await this.setTeam();
+    }
     await this.setImageTeam();
     await this.setPlayerImages();
+  }
+
+  async setTeamId(id: string) {
+    this.nav.getProfile().profileGame.myTeam = id;
+    localStorage.setItem('team', id);
+    await this.ngOnInit();
   }
 
   async setTeam() {
@@ -59,114 +68,100 @@ export class ProfileTeamComponent implements OnInit {
       this.team = await (
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
-    } catch (teamError) {
-      console.error('Error fetching team data:', teamError);
-    }
-  }
-
-  clickCreateTeam() {
-    this.errorMessageCreate = '';
-    this.isCreateTeam = !this.isCreateTeam;
-  }
-
-  clickFindTeam() {
-    this.errorMessageFind = '';
-    this.isFindTeam = !this.isFindTeam;
+      this.teamData.contact = this.team?.contact as string;
+    } catch (teamError) {}
   }
 
   async createTeam() {
-    const imageData: Partial<Image> = {
-      imageUrl: this.selectedImageURL as string,
-    };
+    this.errorMessageCreate = '';
+    this.errorMessageFind = '';
 
     const teamData: Partial<Team> = {
       name: this.teamData.name,
       leader: this.nav.getProfile(),
+      imageTeamUrl: this.selectedImageURL as string,
     };
 
-    (await this.nav.service.postImage(imageData as Image))
-      .pipe(
-        map((response) => response['text']()) // Use ['text'] to access the text() method
-      )
-      .subscribe(
-        (result) => console.log(result),
-        async (error) => {
-          if (error.status == 406) {
-            this.errorMessageCreate = error.error;
-          } else if (error.status == 200) {
-            teamData.imageTeamUrl = error.error.text;
-            await this.postTeam(teamData as Team);
-          }
-        }
-      );
-  }
-
-  async postTeam(teamData: Team) {
-    (await this.nav.teamService.createTeam(teamData)).subscribe(
-      async (response) => {
-        // Handle the response here
-        console.log(response);
-        await this.addPlayer(
-          response.id,
-          this.nav.getProfile().id,
-          this.position_type
-        );
+    (await this.nav.teamService.createTeam(teamData as Team)).subscribe(
+      async (respon) => {
+        await this.setTeamId(respon.id);
+        await this.addPlayer(respon.id);
       },
       (error) => {
         this.errorMessageCreate = error.error;
-        // Handle the error
       }
     );
   }
 
-  async addPlayer(id: string, player: string, type: PositionType) {
-    (await this.nav.teamService.addTeamPlayer(id, player, type)).subscribe(
-      async (response) => {
-        await this.nav.ngOnInit();
-      },
-      async (error) => {
-        if (error.status == 201) {
-          await this.nav.ngOnInit();
+  teamNameToFind: string | undefined;
+  teamPositionToFind: PositionType = PositionType.DSL;
+  async getTeamByName() {
+    this.errorMessageCreate = '';
+    this.errorMessageFind = '';
+
+    (
+      await this.messageService.sendJoinTeam(
+        this.teamNameToFind as string,
+        this.nav.profile?.profileGame.name as string,
+        this.teamPositionToFind,
+        MessageType.REQUEST_TO_JOIN_TEAM
+      )
+    ).subscribe(
+      (response) => {},
+      (error) => {
+        if (error.status == 200) {
+          alert('You have submitted a request to join the team.');
+          this.teamNameToFind = '';
+          this.teamPositionToFind = PositionType.DSL;
         }
       }
     );
   }
 
-  async getTeamByCode() {
-    (await this.nav.teamService.getTeamById(this.teamData.id)).subscribe(
-      (response) => {
-        // Handle the response here
-        this.nav.updateProfile();
-      },
-      (error) => {
-        this.errorMessageFind = error.error;
-        // Handle the error
-      }
-    );
+  async addPlayer(id: string) {
+    (
+      await this.nav.teamService.addTeamPlayer(
+        id,
+        this.nav.getProfile().profileGame.name,
+        this.position_type
+      )
+    ).subscribe(async (res) => {
+      await this.ngOnInit();
+    });
   }
 
   async toLeavTeam() {
     try {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
       await (
         await this.nav.teamService.leavePlayer(
           this.team?.id as string,
-          this.nav.getProfile().id
+          this.nav.getProfile().profileGame.name
         )
       ).toPromise();
-    } catch (teamError) {
-      console.error('Error fetching team data:', teamError);
-    }
+      localStorage.setItem('team', '');
+      this.nav.getProfile().profileGame.myTeam = null;
+      this.ngOnInit();
+    } catch (teamError) {}
   }
 
   async deleteTeam() {
-    const response = (
-      await this.nav.teamService.deleteTeam(this.team?.id as string)
-    ).subscribe(
+    if (!confirm('Are you sure?')) {
+      return;
+    }
+
+    (await this.nav.teamService.deleteTeam(this.team?.id as string)).subscribe(
       async (response) => {},
       async (error) => {
-        if (error.status == 202) {
-          this.nav.ngOnInit();
-        }
+        localStorage.setItem('team', '');
+        this.nav.profile!.profileGame.myTeam = null;
+        this.nav.team = undefined;
+        this.selectedImageURL = null;
+        this.teamData.name = '';
+        this.position_type = PositionType.DSL;
+        this.ngOnInit();
       }
     );
   }
@@ -199,6 +194,10 @@ export class ProfileTeamComponent implements OnInit {
     return this.nav.getProfile().id == this.team?.leader.id;
   }
 
+  unImgTeam() {
+    return this.team?.name[0];
+  }
+
   async setImageTeam() {
     (
       await this.nav.service.getImage(this.team?.imageTeamUrl as string)
@@ -208,10 +207,6 @@ export class ProfileTeamComponent implements OnInit {
         this.imageTeam = result.error.text;
       }
     );
-  }
-
-  checkMessage(): boolean {
-    return this.team?.messages.length == 0;
   }
 
   async setPlayerImages() {
@@ -240,5 +235,56 @@ export class ProfileTeamComponent implements OnInit {
       ...data,
       imageUrl: this.playerImages[index] || '',
     }));
+  }
+
+  editContact: boolean = false;
+
+  toEditContact() {
+    this.editContact = !this.editContact;
+  }
+
+  async saveContact() {
+    if (this.teamData.contact == this.team?.contact) {
+      this.toEditContact();
+      return;
+    }
+
+    (
+      await this.nav.teamService.setConact(
+        this.team?.id as string,
+        this.teamData.contact as string
+      )
+    ).subscribe();
+    this.toEditContact();
+  }
+
+  async addReservervrToMainTeam(
+    index_reserver: number,
+    index_position: number
+  ) {
+    (
+      await this.nav.teamService.outTeamPosition(
+        this.team?.name as string,
+        index_reserver,
+        index_position
+      )
+    ).subscribe(async (respon) => {
+      if (this.team) {
+        this.team = respon;
+        await this.setImage(
+          respon.positions[index_position].player?.imageProfileUrl as string,
+          index_position
+        );
+      }
+    });
+  }
+
+  async setImage(id: string, index: number) {
+    (await this.nav.service.getImage(id)).subscribe(
+      (res) => {},
+      async (result) => {
+        this.playerImages[index] = result.error.text;
+      }
+    );
   }
 }

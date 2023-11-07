@@ -19,23 +19,31 @@ export class NavbarComponent implements OnInit {
   teamService: TeamService = inject(TeamService);
 
   menu = false;
-  navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
-  navBarImg = [
-    '../../assets/img/nav/LEAUGES.png',
-    '../../assets/img/nav/SCRIMS.png',
-    '../../assets/img/nav/TOURNAMENT.png',
-    '../../assets/img/nav/FINDER.png',
-  ];
 
   profile?: Profile;
   profileSubscription: Subscription | undefined;
-  imageProfile: Image | undefined;
+  imageProfile: string | undefined;
+
+  team: Team | undefined;
 
   constructor() {}
 
   async ngOnInit() {
     await this.setProfile();
     await this.setProfileImage();
+    await this.setTeam();
+  }
+
+  getProfileMessage() {
+    return this.getProfile()?.messages;
+  }
+
+  setProfileData(profile: Profile) {
+    this.profile = profile;
+  }
+
+  setImageProfile(imageProfile: string) {
+    this.imageProfile = imageProfile;
   }
 
   async setProfile() {
@@ -51,6 +59,9 @@ export class NavbarComponent implements OnInit {
   }
 
   async setProfileImage() {
+    if (!this.profile?.imageProfileUrl) {
+      return;
+    }
     (
       await this.service.getImage(this.profile?.imageProfileUrl as string)
     ).subscribe(
@@ -61,19 +72,23 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  async setTeam() {
+    try {
+      if (!this.profile?.profileGame.myTeam) {
+        return;
+      }
+      const teamId = localStorage.getItem('team') as string;
+      this.team = await (
+        await this.teamService.getTeamById(teamId)
+      ).toPromise();
+    } catch (teamError) {}
+  }
+
   getProfile(): Profile {
     if (this.profile) {
       return this.profile;
     }
     return new Profile();
-  }
-
-  getProfileGame(): ProfileGame {
-    if (this.profile?.profileGame) {
-      return this.profile.profileGame;
-    }
-
-    return new ProfileGame();
   }
 
   isLogin(): boolean {
@@ -84,13 +99,12 @@ export class NavbarComponent implements OnInit {
     return !!this.profile?.profileGame;
   }
 
-  navBarRow = this.navBarName.map((name, index) => ({
-    name: name,
-    img: this.navBarImg[index],
-  }));
-
   clickMenu() {
     this.menu = !this.menu;
+  }
+
+  checkTeam(): boolean {
+    return !!this.team;
   }
 
   checkTab() {
@@ -113,6 +127,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async updateProfile() {
+    console.log(this.profile);
     (
       await this.profileService.editProfile(
         this.profile?.id as string,

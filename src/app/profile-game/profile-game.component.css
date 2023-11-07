@@ -1,21 +1,30 @@
-.profile-game {
-  min-height: 600px;
-}
-
-.bg-data {
-  background-color: #28282b;
-}
-
 label {
   padding-top: 20px;
 }
 
-::placeholder {
-  color: white;
-  opacity: 0.5; /* Firefox */
+img,
+.img-content {
+  height: 100%;
+  width: 100%;
+  object-fit: fill; /* Ensures the image covers the container */
 }
 
-.game-img,
-img {
-  height: 400px;
+:root {
+  --ellipsis-color: white;
+}
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: --ellipsis-color;
 }

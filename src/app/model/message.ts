@@ -1,12 +1,19 @@
-export class Message {
-  sender: string;
-  messageType: MessageType;
-  content: string;
+import { PositionType } from './team';
 
-  constructor(sender: string, messageType: MessageType, content: string) {
-    this.sender = sender;
+export class Message {
+  id!: string;
+  sender!: string;
+  messageType: MessageType;
+  content!: string;
+  sendDate: Date;
+  scrimsId!: string;
+  positionType!: PositionType;
+  isRead: boolean;
+  
+  constructor(messageType: MessageType) {
+    this.sendDate = new Date();
     this.messageType = messageType;
-    this.content = content;
+    this.isRead = false;
   }
 }
 

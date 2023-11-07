@@ -1,4 +1,4 @@
-<div class="mb-5 profile-profile">
+<div class="mb-5">
   <h1>Profile</h1>
   <ng-container *ngIf="isEdit(); else noEditPage">
     <ng-container *ngTemplateOutlet="EditPage"></ng-container
@@ -11,14 +11,29 @@
       <img
         [src]="nav.imageProfile"
         class="col-12 ms-auto me-auto mt-5 border"
-        *ngIf="nav.imageProfile"
+        *ngIf="nav.imageProfile && nav.profile?.imageProfileUrl"
       />
-      <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+      <div
+        class="col-12 m-auto mt-5 d-flex justify-content-center align-items-center img-content"
+        *ngIf="!nav.imageProfile"
+        [ngClass]="{
+          border: !nav.imageProfile && nav.profile?.imageProfileUrl
+        }"
+      >
         <i
           class="bi bi-person-fill text-body-tertiary border"
-          *ngIf="!nav.imageProfile"
+          *ngIf="!nav.imageProfile && !nav.profile?.imageProfileUrl"
           style="font-size: 200px; height: 250px"
         ></i>
+        <div
+          class="lds-ellipsis m-auto"
+          *ngIf="!nav.imageProfile && nav.profile?.imageProfileUrl"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
     <div class="col-12 col-lg-8">
@@ -61,9 +76,12 @@
     <div class="mt-5 d-flex">
       <button
         type="button"
-        class="btn btn-success ms-auto"
-        (click)="clickEdit()"
+        class="btn btn-danger ms-auto"
+        (click)="nav.logout()"
       >
+        Logout
+      </button>
+      <button type="button" class="btn btn-success ms-3" (click)="clickEdit()">
         Edit Profile
       </button>
     </div>

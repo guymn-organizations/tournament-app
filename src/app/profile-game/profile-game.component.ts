@@ -9,9 +9,12 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-profile-game',
   templateUrl: './profile-game.component.html',
-  styleUrls: ['./profile-game.component.css'],
+  styleUrls: [
+    './profile-game.component.css',
+    '../profile/profile.component.css',
+  ],
 })
-export class ProfileGameComponent {
+export class ProfileGameComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
   profileService: ProfileService = inject(ProfileService);
 
@@ -24,7 +27,16 @@ export class ProfileGameComponent {
 
   toEdit = false;
 
+  profileGame: ProfileGame | undefined;
+
+  errorMessage = '';
+
   constructor() {}
+
+  async ngOnInit(): Promise<void> {
+    await this.nav.ngOnInit();
+    await this.setImageGame();
+  }
 
   async setProfileGameData() {
     this.profileGameData.name = this.nav.getProfile().profileGame
@@ -39,39 +51,36 @@ export class ProfileGameComponent {
 
   async clickEdit() {
     await this.setProfileGameData();
+    this.errorMessage = '';
     this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
     await this.setProfileGame();
-    this.toEdit = false;
   }
 
   async setProfileGame() {
-    const imageData: Partial<Image> = {
-      imageUrl: this.selectedImageURL as string,
+    const profileData: Partial<ProfileGame> = {
+      name: this.profileGameData.name,
+      openId: this.profileGameData.openid,
+      imageGameUrl: this.selectedImageURL as string,
     };
 
-    (await this.nav.service.postImage(imageData as Image))
-      .pipe(
-        map((response) => response['text']()) // Use ['text'] to access the text() method
+    (
+      await this.nav.profileService.editProfileGame(
+        this.nav.getProfile().id,
+        profileData as ProfileGame
       )
-      .subscribe(
-        (result) => console.log(result),
-        async (error) => {
-          if (error.status == 406) {
-          } else if (error.status == 200) {
-            if (!this.nav.getProfile().profileGame) {
-              this.nav.getProfile().profileGame = new ProfileGame();
-            }
-            this.nav.getProfileGame().name = this.profileGameData.name;
-            this.nav.getProfileGame().openId = this.profileGameData.openid;
-            this.nav.getProfileGame().imageGameUrl = error.error.text;
-
-            this.nav.updateProfile();
-          }
-        }
-      );
+    ).subscribe(
+      (respon) => {
+        this.nav.getProfile().profileGame = respon;
+        this.nav.setTeam();
+        this.toEdit = false;
+      },
+      (error) => {
+        this.errorMessage = error.error;
+      }
+    );
   }
 
   getGenderIcon(): string {
@@ -80,10 +89,6 @@ export class ProfileGameComponent {
     } else {
       return ' bi h1 m-2 bi-gender-male';
     }
-  }
-
-  checkMessage(): boolean {
-    return this.nav.getProfile().messages.length == 0;
   }
 
   onFileSelected(event: any) {
@@ -102,5 +107,22 @@ export class ProfileGameComponent {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  async setImageGame() {
+    (
+      await this.nav.service.getImage(
+        this.nav.getProfile()?.profileGame?.imageGameUrl as string
+      )
+    ).subscribe(
+      (res) => {},
+      (result) => {
+        this.selectedImageURL = result.error.text;
+      }
+    );
+  }
+
+  goMessage() {
+    this.nav.service.toPage('profile/game/message');
   }
 }

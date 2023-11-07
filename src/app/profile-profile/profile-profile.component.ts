@@ -7,7 +7,10 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-profile-profile',
   templateUrl: './profile-profile.component.html',
-  styleUrls: ['./profile-profile.component.css'],
+  styleUrls: [
+    './profile-profile.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileProfileComponent {
   nav: NavbarComponent = inject(NavbarComponent);
@@ -36,6 +39,7 @@ export class ProfileProfileComponent {
     this.profileData.password = '';
     this.profileData.confirm_password = '';
   }
+
   isEdit(): boolean {
     return !!this.toEdit;
   }
@@ -73,44 +77,25 @@ export class ProfileProfileComponent {
       return;
     }
 
-    const imageData: Partial<Image> = {
-      imageUrl: this.selectedImageURL as string,
+    const profileData: Partial<Profile> = {
+      firstName: this.profileData.first_name,
+      lastName: this.profileData.last_name,
+      email: this.profileData.email,
+      password: this.profileData.password,
+      birthday: this.profileData.birthday,
+      imageProfileUrl: this.selectedImageURL as string,
     };
 
-    (await this.nav.service.postImage(imageData as Image))
-      .pipe(
-        map((response) => response['text']()) // Use ['text'] to access the text() method
+    (
+      await this.nav.profileService.editProfile(
+        this.nav.getProfile().id,
+        profileData as Profile
       )
-      .subscribe(
-        (result) => console.log(result),
-        async (error) => {
-          if (error.status == 200) {
-            await this.deleteImage();
-            this.nav.getProfile().imageProfileUrl = error.error.text;
-            this.nav.getProfile().birthday = this.profileData.birthday as Date;
-            this.nav.getProfile().firstName = this.profileData
-              .first_name as string;
-            this.nav.getProfile().lastName = this.profileData
-              .last_name as string;
-            this.nav.getProfile().email = this.profileData.email as string;
-            this.nav.getProfile().password = this.profileData
-              .password as string;
-            await this.nav.updateProfile();
-            await this.nav.setProfileImage();
-          }
-        }
-      );
+    ).subscribe((respon) => {
+      this.nav.setProfileData(respon);
+      this.nav.setImageProfile(this.selectedImageURL as string);
+    });
 
     this.clickOutEdit();
-  }
-
-  async deleteImage() {
-    if (!!(this.selectedImageURL && this.nav.getProfile().imageProfileUrl)) {
-      (
-        await this.nav.service.deleteImageById(
-          this.nav.getProfile().imageProfileUrl
-        )
-      ).subscribe();
-    }
   }
 }

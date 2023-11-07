@@ -1,4 +1,3 @@
-import { Message } from './message';
 import { Profile } from './profile';
 
 export class Team {
@@ -6,13 +5,14 @@ export class Team {
   name!: string;
   leader!: Profile;
   positions: {
-    position_type: PositionType;
-    position_name: string;
+    positionType: PositionType;
+    positionName: string;
     player: Profile | null;
   }[] = [];
   teamReserve!: Profile[];
-  messages!: Message[];
   imageTeamUrl!: string;
+  messages!: string[];
+  contact!: string;
 
   constructor() {}
 }
@@ -23,6 +23,7 @@ export enum PositionType {
   MID = 'MID',
   ADL = 'ADL',
   SUP = 'SUP',
+  reserver = 'reserver',
 }
 
 // constructor() {

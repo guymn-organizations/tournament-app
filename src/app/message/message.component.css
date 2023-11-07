@@ -1,0 +1,55 @@
+.message-contenter {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.message-contenter::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+.message {
+  width: 100%;
+}
+
+.message {
+  background-image: linear-gradient(#1a1b20, #1a1b20);
+  background-size: 0 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: 0.1s;
+}
+.message:hover {
+  background-size: 100% 100%;
+  color: #fff;
+}
+
+.message-text {
+  font-weight: bolder;
+  font-size: medium;
+}
+
+.type,
+.time {
+  font-weight: normal;
+  font-size: small;
+}
+
+:root {
+  --ellipsis-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: #1a1b20;
+}
