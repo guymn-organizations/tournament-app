@@ -4,6 +4,8 @@ import { Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { of } from 'rxjs';
+import { TeamService } from '../service/team.service';
+import { Team } from '../model/team';
 
 @Component({
   selector: 'app-leaugesdetail',
@@ -22,7 +24,7 @@ export class LeaugesdetailComponent implements OnInit {
 
   touritems: any[] = Array(10).fill({});
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
     this.ngOnInit();
   }
 
@@ -90,4 +92,24 @@ export class LeaugesdetailComponent implements OnInit {
       modal.style.display = 'none';
     }
   }
+
+  async confirmTeamJoin() {
+    try {
+      const tourid = this.checked_id; 
+      const teamId = localStorage.getItem('team') as string; 
+
+      const team: Team | undefined = await (await this.teamService.getTeamById(teamId)).toPromise();
+
+      if (team) {
+        const response = await (await this.tournamentService.addTeamToTournament(tourid, teamId, team)).toPromise();
+
+        console.log('Success:', response);
+      } else {
+        console.error('Team not found');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
 }
