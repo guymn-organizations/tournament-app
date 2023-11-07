@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TournamenType, Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { of } from 'rxjs';
 import { TeamService } from '../service/team.service';
 import { Team } from '../model/team';
+import { TeamInTournament } from '../model/team-in-tournament';
 
 @Component({
   selector: 'app-leaugesdetail',
@@ -22,7 +22,7 @@ export class LeaugesdetailComponent implements OnInit {
 
   isOverview: boolean = true;
 
-  teams!: any[];
+  teamsInTour!: TeamInTournament[];
 
   tournamenTypeFree: TournamenType = TournamenType.Free;
   tournamenTypePaid: TournamenType = TournamenType.Paid;
@@ -49,8 +49,8 @@ export class LeaugesdetailComponent implements OnInit {
   async AllTeamInTournament(tournamentId: string){
     (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
       (data: any[]) => {
-        this.teams = data;
-        if (this.teams.length === this.tournament.numberOfTeam){
+        this.teamsInTour = data;
+        if (this.teamsInTour.length === this.tournament.numberOfTeam){
           this.createMatchesForTournament();
         }
       },
@@ -134,7 +134,7 @@ export class LeaugesdetailComponent implements OnInit {
 
   async createMatchesForTournament() {
     const tournamentId = this.checked_id; 
-    (await this.tournamentService.createMatchesForTournament(tournamentId, this.teams)).subscribe(
+    (await this.tournamentService.createMatchesForTournament(tournamentId, this.teamsInTour)).subscribe(
       (response) => {
         console.log('Matches created successfully:', response);
       },

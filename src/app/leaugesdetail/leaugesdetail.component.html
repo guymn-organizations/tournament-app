@@ -109,7 +109,7 @@
             <div class="col-md-4">
               <div class="data-item" >
                 <h5>จำนวนทีมที่เข้าร่วม</h5>
-              <p class="colorp"> {{teams.length}} / {{ tournament.numberOfTeam }}</p>
+              <p class="colorp"> {{teamsInTour.length}} / {{ tournament.numberOfTeam }}</p>
               </div>
               
             </div>
@@ -156,10 +156,10 @@
               
             </div>
             <div class="col-md-12">
-              <div *ngIf="teams.length === tournament.numberOfTeam">
+              <div *ngIf="teamsInTour.length === tournament.numberOfTeam">
                 <button class="btn btn-success" (click)="showAlertMessage()">REGISTER</button>
               </div>
-              <div *ngIf="teams.length !== tournament.numberOfTeam">
+              <div *ngIf="teamsInTour.length !== tournament.numberOfTeam">
                 <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
               </div>
             </div>
@@ -216,7 +216,7 @@
         <div class="col-md-11">
           <h3 style="font-family: fantasy">TEAM</h3>
         </div>
-        <div class="col-md-1">{{teams.length}} / {{tournament.numberOfTeam}} Team</div>
+        <div class="col-md-1">{{teamsInTour.length}} / {{tournament.numberOfTeam}} Team</div>
         <div class="col-md-12">
           <div class="line-8-83i"></div>
         </div>
@@ -237,8 +237,11 @@
               <div
                 class="col-md-3"
                 class="team-item"
-                *ngFor="let item of teams; let i = index"
+                *ngFor="let item of teamsInTour; let i = index"
+                style="color: black;"
               >
+                <img [src]="teamsInTour[i].team.imageTeamUrl" alt="imageTeam">
+                {{teamsInTour[i].team.name}}
               </div>
             </div>
           </div>
