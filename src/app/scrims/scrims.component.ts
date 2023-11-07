@@ -41,6 +41,7 @@ export class ScrimsComponent implements OnInit {
     if (!this.team) {
       await this.setTeam();
     }
+    await this.addTeamToList(this.team as Team, '', []);
     await this.loadTeamScrims();
   }
 
@@ -56,19 +57,22 @@ export class ScrimsComponent implements OnInit {
     }
   }
 
+  async addTeamToList(team: Team, image: string, scrims: Scrims[]) {
+    const dataToPush = {
+      team: team,
+      image: image,
+      scrims: scrims,
+    };
+    this.scrims_lists.unshift(dataToPush);
+    this.image_id.unshift(team.imageTeamUrl as string);
+  }
+
   async setTeam() {
     try {
       const teamId = localStorage.getItem('team') as string;
       this.team = await (
         await this.nav.teamService.getTeamById(teamId)
       ).toPromise();
-      const dataToPush = {
-        team: this.team as Team,
-        image: '',
-        scrims: [],
-      };
-      this.scrims_lists.unshift(dataToPush);
-      this.image_id.unshift(this.team?.imageTeamUrl as string);
     } catch (teamError) {}
   }
 
