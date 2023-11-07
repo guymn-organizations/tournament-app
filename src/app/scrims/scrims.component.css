@@ -48,6 +48,14 @@
   overflow: hidden;
   margin: 6px;
   position: unset;
+  cursor: pointer;
+  transition: transform 0.3s; /* Define the property you want to animate and its duration */
+}
+
+.card:hover {
+  transform: scale(
+    1.05
+  ); /* Apply a transform when hovering (e.g., scale the element) */
 }
 
 .team-name {

@@ -10,6 +10,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
 import { Scrims } from '../model/scrims';
 import { ScrimsService } from '../service/scrims.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scrims',
@@ -34,7 +35,7 @@ export class ScrimsComponent implements OnInit {
   scrims_lists: { team: Team; image: string; scrims: Scrims[] }[] = [];
   image_id: string[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.team = this.nav.team;
@@ -136,5 +137,9 @@ export class ScrimsComponent implements OnInit {
       this.pageIndex++;
       this.loading = false;
     });
+  }
+
+  goDetail(scrims: { team: Team; image: string; scrims: Scrims[] }) {
+    this.router.navigate(['/scrims', scrims.team.id]);
   }
 }

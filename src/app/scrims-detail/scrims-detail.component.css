@@ -1,0 +1,43 @@
+.lds-ellipsis div:nth-child(1) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: #1a1b20;
+}
+
+.image-comtent {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-member-comtent {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  margin: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.unimage {
+  font-size: 150px;
+  margin: auto;
+}

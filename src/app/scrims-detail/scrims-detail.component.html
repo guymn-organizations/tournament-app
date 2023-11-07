@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-column justify-content-start content">
+      <div
+        id="header-team"
+        class="d-flex flex-row align-items-start justify-content-start mb-5"
+      >
+        <div
+          id="logo-team"
+          class="image-comtent bg-light d-flex border border-2 rounded"
+        >
+          <div
+            id="loading"
+            class="lds-ellipsis m-auto"
+            *ngIf="!image_team && team?.imageTeamUrl"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <img
+            [src]="image_team"
+            *ngIf="image_team && team?.imageTeamUrl"
+            class="m-auto"
+          />
+          <h1
+            *ngIf="!image_team && !team?.imageTeamUrl"
+            [innerHTML]="team!.name[0]"
+            class="text-uppercase text-dark unimage"
+          ></h1>
+        </div>
+        <div id="team_name" class="ms-5">
+          <h1 class="text-light" [innerHTML]="team?.name"></h1>
+        </div>
+      </div>
+      <div id="team-member">
+        <h1 class="text-light">Team Member</h1>
+        <div id="team_member">
+          <div
+            id="team_image"
+            class="image-member-comtent bg-light border border-2 rounded d-flex m-2"
+            *ngFor="let member of team?.positions; let i = index"
+          >
+            <div
+              id="logo-team"
+              class="image-member-comtent bg-light d-flex border border-2 rounded"
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!images_player[i] && member.player?.imageProfileUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="images_player[i]"
+                *ngIf="images_player[i] && member.player?.imageProfileUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!images_player[i] && !member.player?.imageProfileUrl"
+                [innerHTML]="(member.player?.profileGame)!.name[0]"
+                class="text-uppercase text-dark unimage"
+              ></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</div>

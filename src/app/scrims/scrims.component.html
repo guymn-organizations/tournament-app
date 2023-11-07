@@ -15,6 +15,7 @@
         <div
           class="card d-flex flex-column mt-2"
           *ngFor="let scrims of scrims_lists; let index = index"
+          (click)="goDetail(scrims)"
         >
           <h4 class="m-auto team-name" [innerHTML]="scrims.team.name"></h4>
           <div

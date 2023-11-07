@@ -16,6 +16,7 @@ import { ProfileProfileComponent } from './profile-profile/profile-profile.compo
 import { NavbarComponent } from './navbar/navbar.component';
 import { MessageComponent } from './message/message.component';
 import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
+import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'leauges', component: LeaugesComponent },
       { path: 'scrims', component: ScrimsComponent },
       { path: 'tournament', component: TournamentComponent },
+      { path: 'scrims/:id', component: ScrimsDetailComponent },
       {
         path: 'finder',
         component: FinderComponent,
