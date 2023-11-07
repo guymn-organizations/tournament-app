@@ -50,7 +50,7 @@ export class ProfileListScrimComponent implements OnInit {
 
     (await this.scrimsService.createScrims(scrimsData as Scrims)).subscribe(
       (respon) => {
-        this.scrims?.push(respon);
+        this.scrims?.unshift(respon);
       }
     );
     this.postScrim();

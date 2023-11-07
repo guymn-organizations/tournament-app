@@ -9,6 +9,7 @@ import {
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
 import { Scrims } from '../model/scrims';
+import { ScrimsService } from '../service/scrims.service';
 
 @Component({
   selector: 'app-scrims',
@@ -20,6 +21,7 @@ export class ScrimsComponent implements OnInit {
   public messageProfileElement: ElementRef | undefined;
 
   nav: NavbarComponent = inject(NavbarComponent);
+  scrimsService: ScrimsService = inject(ScrimsService);
   title: string = 'Scrims';
   discription: string = 'Find scrims to practice';
   team?: Team;
@@ -70,6 +72,22 @@ export class ScrimsComponent implements OnInit {
     } catch (teamError) {}
   }
 
+  async setSceimsTeam() {
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.scrims_lists.length;
+      index++
+    ) {
+      (
+        await this.scrimsService.getScrimsByTeam(
+          this.scrims_lists[index].team.id
+        )
+      ).subscribe((respon) => {
+        this.scrims_lists[index].scrims = [...respon];
+      });
+    }
+  }
+
   async setImageTeam() {
     for (
       let index = this.pageIndex * this.pageSize;
@@ -110,6 +128,7 @@ export class ScrimsComponent implements OnInit {
       const teamsData = data.filter((team) => team.name != this.team?.name);
       await this.setTeamScrims(teamsData);
       await this.setImageTeam();
+      await this.setSceimsTeam();
       this.pageIndex++;
       this.loading = false;
     });

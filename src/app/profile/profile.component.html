@@ -11,28 +11,33 @@
           <div
             class="fs-5 mb-4 list"
             [ngClass]="{
-              underline: isActive(router.path)
+              underline: isActive('profile')
             }"
-            *ngFor="let router of child"
-            [routerLink]="router.path"
-            [innerHTML]="router.name"
-          ></div>
+            routerLink="profile"
+          >
+            Profile
+          </div>
           <div
             class="fs-5 mb-4 list"
             [ngClass]="{
-              underline: isActive('team'),
-              'd-none': !nav.getProfile().profileGame
+              underline: isActive('game')
             }"
+            routerLink="game"
+          >
+            Profile&nbsp;Game
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{ underline: isActive('team') }"
+            *ngIf="nav.getProfile().profileGame"
             routerLink="team"
           >
             Profile&nbsp;Team
           </div>
           <div
             class="fs-5 mb-4 list"
-            [ngClass]="{
-              underline: isActive('scrims'),
-              'd-none': !nav.profile!.profileGame.myTeam
-            }"
+            [ngClass]="{ underline: isActive('scrims') }"
+            *ngIf="nav.getProfile().profileGame?.myTeam"
             routerLink="scrims"
           >
             List&nbsp;Scrims
