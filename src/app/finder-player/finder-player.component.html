@@ -55,7 +55,7 @@
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'')" />
+            <input type="checkbox" (change)="onChange($event,'SUP')" />
             <span class="slider round"></span>
           </label>
           <h3>SUP</h3>
@@ -80,7 +80,7 @@
       </div>
       <div class="container">
         <div class="row">
-          <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3"     [ngClass]="{ 'hidden': !isSelected(post.post.positions[0]) }">
+          <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3"     [ngClass]="{ 'hidden': !isSelected(post.post) }">
             <div class="card mb-3 game-card">
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">

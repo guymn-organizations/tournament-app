@@ -13,10 +13,12 @@ import { NgForm } from '@angular/forms';
 export class FinderTeamComponent {
   teamPostService : TeampostService = inject(TeampostService)
   nav: NavbarComponent = inject(NavbarComponent);
-  teamPosts: Teampost[] = [];
 
   team?: Team;
 
+  searchPositions: string[] = []; // Initialize an empty array
+
+  teamPosts: Teampost[] = [];
 
   positionsData: PositionType[] = [];
   images: String[] = [];
@@ -38,12 +40,30 @@ export class FinderTeamComponent {
       this.teamPosts = data;
       this.team = this.nav.team;
 
-      await this.setImage();
+      await this.setImages();
     });
   }
-  isSelected(position: PositionType): boolean {
-    return this.selectedPositions.includes(position);
+   isSelected(position: any): boolean {
+    const List = position.positions;
+    let positiondata = "";
+    for (let i = 0; i < List.length; i++) {
+      for (let j = 0; j < this.searchPositions.length; j++) {
+        if (List[i] == this.searchPositions[j]) {
+          positiondata = List[i];
+
+          break;
+
+        }
+
+      }
+    }
+    return this.searchPositions.includes(positiondata);
+
+    // console.log(List);
+    // console.log (this.searchPositions)
+    // return this.searchPositions.includes(position);
   }
+
 
   updateSelection(checked: any, position: PositionType): void {
     if (checked) {
@@ -87,14 +107,22 @@ export class FinderTeamComponent {
       });
       
   }
-  async setImage() {
-    for (let item of this.teamPosts) {
+  async setImages() {
+    if (!this.teamPosts) {
+      return;
+    }
 
-      (await this.nav.service.getImage(item.profile.imageProfileUrl)).subscribe((res) => {
-      }, (error) => {
-        this.images.push(error.error.text)
-      })
-
+    for (let i = 0; i < this.teamPosts?.length; i++) {
+      (
+        await this.nav.service.getImage(
+          this.teamPosts[i].profile.imageProfileUrl as string
+        )
+      ).subscribe(
+        (res) => { },
+        (error) => {
+          this.images[i] = error.error.text;
+        }
+      );
     }
   }
   onChange(event:any,index:any){

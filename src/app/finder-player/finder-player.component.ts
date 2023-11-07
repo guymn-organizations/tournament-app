@@ -13,17 +13,16 @@ import { FormsModule } from '@angular/forms';
 export class FinderPlayerComponent {
   playerPostService: PlayerpostService = inject(PlayerpostService);
   nav: NavbarComponent = inject(NavbarComponent);
-  
-  selectedPositions: string[] = []; // Initialize an empty array
+
+  searchPositions: string[] = []; // Initialize an empty array
 
 
-  selectedRole: PositionType | null = null;
   playerPosts: Playerpost[] = [];
 
   positionsData: PositionType[] = [];
   images: String[] = [];
 
-  // selectedPositions: PositionType[] = [];
+  selectedPositions: PositionType[] = [];
 
   position = [
     PositionType.DSL,
@@ -33,44 +32,46 @@ export class FinderPlayerComponent {
     PositionType.SUP,
   ];
 
-
-
   constructor() {
   }
 
   async ngOnInit() {
-    console.log("reload")
+    // console.log("reload")
     this.playerPostService.getAllPlayerPost().subscribe(async (data) => {
       this.playerPosts = data;
-      await this.setImage();
+      await this.setImages();
     });
   }
 
-  isSelected(position: PositionType): boolean {
-    return this.selectedPositions.includes(position);
-  }
+  isSelected(position: any): boolean {
+    const List = position.positions;
+    let positiondata = "";
+    for (let i = 0; i < List.length; i++) {
+      for (let j = 0; j < this.searchPositions.length; j++) {
+        if (List[i] == this.searchPositions[j]) {
+          positiondata = List[i];
 
-  updateSelection(checked: any, position: PositionType): void {
-    if (checked) {
-      if (!this.selectedPositions.includes(position)) {
-        this.selectedPositions.push(position);
-      }
-      else {
-        const index = this.selectedPositions.indexOf(position);
-        if (index !== -1) {
-          this.selectedPositions.splice(index, 1);
+          break;
+
         }
+
       }
     }
-    console.log(this.selectedPositions);
+    return this.searchPositions.includes(positiondata);
 
+    // console.log(List);
+    // console.log (this.searchPositions)
+    // return this.searchPositions.includes(position);
   }
+
+
 
   getPlayerPosts() {
     const postData = this.playerPosts.map((post, index) => ({
       post: post,
       image: this.images[index],
     }));
+    // console.log(postData)
     return postData
   }
 
@@ -78,7 +79,7 @@ export class FinderPlayerComponent {
 
     const postPlayerData: Partial<Playerpost> = {
       profile: this.nav.getProfile(),
-      // positions: this.selectedPositions,
+      positions: this.selectedPositions,
 
     };
 
@@ -91,26 +92,56 @@ export class FinderPlayerComponent {
       });
   }
 
-  async setImage() {
-    for (let item of this.playerPosts) {
 
-      (await this.nav.service.getImage(item.profile.imageProfileUrl)).subscribe((res) => {
-      }, (error) => {
-        this.images.push(error.error.text)
-      })
+  async setImages() {
+    if (!this.playerPosts) {
+      return;
+    }
+
+    for (let i = 0; i < this.playerPosts?.length; i++) {
+      (
+        await this.nav.service.getImage(
+          this.playerPosts[i].profile.imageProfileUrl as string
+        )
+      ).subscribe(
+        (res) => { },
+        (error) => {
+          this.images[i] = error.error.text;
+        }
+      );
+    }
+  }
+
+  onChange(event: any, positions: string) {
+    if (event.target.checked) {
+      // console.log(event.target)
+      this.searchPositions.push(positions);
+
+      // console.log(this.searchPositions)
+
+    } else {
+      const index = this.searchPositions.indexOf(positions);
+      if (index !== -1) {
+        this.searchPositions.splice(index, 1);
+      }
 
     }
   }
-  onChange(event: any, positions: string) {
-    if (event.target.checked) {
-        this.selectedPositions.push(positions);
-    } else {
-        const index = this.selectedPositions.indexOf(positions);
+  updateSelection(checked: any, position: PositionType): void {
+    if (checked) {
+      if (!this.selectedPositions.includes(position)) {
+        this.selectedPositions.push(position);
+      }
+      else {
+        const index = this.selectedPositions.indexOf(position);
         if (index !== -1) {
-            this.selectedPositions.splice(index, 1);
+          this.selectedPositions.splice(index, 1);
         }
+      }
     }
-}
+    // console.log(this.selectedPositions);
+
+  }
 
 
 }
