@@ -42,9 +42,16 @@ export class LeaugesdetailComponent implements OnInit {
     });
 
     const tournamentId = this.checked_id;
+    await this.AllTeamInTournament(tournamentId);
+  }
+
+  async AllTeamInTournament(tournamentId: string){
     (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
       (data: any[]) => {
         this.teams = data;
+        if (this.teams.length === this.tournament!.numberOfTeam){
+          this.createMatchesForTournament();
+        }
       },
       (error) => {
         console.error('Error:', error);
@@ -122,6 +129,18 @@ export class LeaugesdetailComponent implements OnInit {
     } catch (error) {
       console.error('Error:', error);
     }
+  }
+
+  async createMatchesForTournament() {
+    const tournamentId = this.checked_id; 
+    (await this.tournamentService.createMatchesForTournament(tournamentId, this.teams)).subscribe(
+      (response) => {
+        console.log('Matches created successfully:', response);
+      },
+      (error) => {
+        console.error('Error creating matches:', error);
+      }
+    );
   }
 
 }
