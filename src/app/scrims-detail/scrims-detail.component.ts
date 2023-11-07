@@ -1,4 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TeamService } from '../service/team.service';
 import { ScrimsService } from '../service/scrims.service';
@@ -78,7 +85,54 @@ export class ScrimsDetailComponent implements OnInit {
         this.team = res;
         await this.setImageTeam();
         await this.setImagePlayer();
+        await this.loadScrims();
       }
     );
+  }
+
+  getUnImageTeam() {
+    return this.team?.name[0];
+  }
+
+  private pageIndex: number = 0;
+  public pageSize: number = 20;
+  public pageTotal: number = 5;
+  public loadding: boolean = false;
+
+  async loadScrims() {
+    this.loadding = true;
+    (
+      await this.scrimsService.getScrimsByTeamNoOpponentLazy(
+        this.team_id as string,
+        this.pageIndex,
+        this.pageSize
+      )
+    ).subscribe(
+      (res) => {
+        this.scrims = [...this.scrims, ...res];
+        this.pageTotal = res.length;
+        this.pageIndex++;
+        this.loadding = false;
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
+  }
+
+  @ViewChild('ListScrims', { static: false })
+  public messageProfileElement: ElementRef | undefined;
+
+  @HostListener('scroll', ['$event'])
+  async onScrollListScrims(): Promise<void> {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    if (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
+        nativeElement.scrollHeight - 50 &&
+      !this.loadding
+    ) {
+      await this.loadScrims();
+    }
   }
 }

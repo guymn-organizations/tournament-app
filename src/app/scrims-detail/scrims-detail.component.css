@@ -46,3 +46,20 @@ img {
   font-size: 50px;
   margin: auto;
 }
+
+.list-scrims {
+  height: 700px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  background-color: #1a1b20;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-scrims::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+.list-scrim {
+  font-size: 20px;
+}
