@@ -19,19 +19,18 @@
           สร้างทัวร์นาเมนต์
         </button>
       </div>
-      <div class="col-md-12" style="text-align: center;">
-        <h1 >-การแข่งขันทั้งหมด-</h1>
+      <div class="col-md-12" style="text-align: center">
+        <h1>-การแข่งขันทั้งหมด-</h1>
       </div>
-     
     </div>
 
     <div class="tour-list-wrapper">
-      <div class="tour-item" *ngFor="let tournament of getAllTournament()"
-      (click)="nav.service.toPage('leagues/' + tournament.tour.id)">
-        <div
-          class="img"
-          
-        >
+      <div
+        class="tour-item"
+        *ngFor="let tournament of getAllTournament()"
+        (click)="nav.service.toPage('leagues/' + tournament.tour.id)"
+      >
+        <div class="img">
           <img [src]="tournament.image" alt="Tournament Image" />
         </div>
         <div class="detail">
@@ -112,11 +111,7 @@
               </div>
             </div>
           </div>
-          
-          
         </div>
-
-        
       </div>
     </div>
   </div>

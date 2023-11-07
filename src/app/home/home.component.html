@@ -26,9 +26,107 @@
         </div>
         
       </div>
+      <div class="trendytour">
+        <div class="col-md-12" style="text-align: center;">
+          <h1 >-การแข่งขันที่น่าสนใจ-</h1>
+        </div>
+        <div class="col-md-12 " style="display: flex; justify-content: center; align-items: center; margin-top: 50px; margin-bottom: 50px;">
+          <div class="tour-item" *ngIf="trendyTournament" (click)="nav.service.toPage('leagues/' + trendyTournament.id)">
+          
+            <div
+            class="img"
+            
+          >
+            <img [src]="image" alt="Tournament Image" />
+          </div>
+            <div class="name">
+              <h4 style="font-family: fantasy">{{ trendyTournament.name }}</h4>
+            </div>
+            <div class="data">
+              <div class="row g-2">
+                <div class="col-sm-6">
+                  <div class="data-item" style="text-align: center">
+                    <div class="col-md-12">
+                      <h6>เงินรางวัล</h6>
+                    </div>
+                    <h5 style="color: green; margin: 0">
+                      {{ trendyTournament.reward | number : "1.0-0" }}฿
+                    </h5>
+                  </div>
+                </div>
+  
+                <div class="col-sm-6">
+                  <div class="data-item" style="text-align: center">
+                    <div class="col-md-12">
+                      <h6>ประเภท</h6>
+                    </div>
+                    <h5 style="color: rgb(96, 99, 96); margin: 0">
+                      {{ trendyTournament.tournamenType }}
+                    </h5>
+                  </div>
+                </div>
+  
+                <div class="col-md-12">
+                  <div class="data-date-item" style="text-align: center">
+                    <div class="col-md-12">
+                      <h4>ระยะเวลา</h4>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <p
+                          style="
+                            background-color: rgb(94, 94, 102);
+                            border-radius: 15px;
+                          "
+                        >
+                          เริ่มสมัคร
+                        </p>
+                        <p style="color: rgb(96, 99, 96); margin: 0">
+                          {{ trendyTournament.startRegisterDate }}
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <p
+                          style="
+                            background-color: rgb(94, 94, 102);
+                            border-radius: 15px;
+                          "
+                        >
+                          หมดเวลาสมัคร
+                        </p>
+                        <p style="color: rgb(96, 99, 96); margin: 0">
+                          {{ trendyTournament.endRegisterDate }}
+                        </p>
+                      </div>
+                      <div class="col-sm-4">
+                        <p
+                          style="
+                            background-color: rgb(94, 94, 102);
+                            border-radius: 15px;
+                          "
+                        >
+                          เริ่มแข่ง
+                        </p>
+                        <p style="color: rgb(96, 99, 96); margin: 0">
+                          {{ trendyTournament.startTourDate }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+      
+          </div>
+        </div>
+        
+
+      </div>
+      
     </div>
 
-    <!-- <div class="ads-wrap">
+    <div class="ads-wrap">
       <div class="advert-slider">
         <div class="advert" *ngFor="let advert of adverts">
           <a [routerLink]="advert.linkAdvertUrl" target="_blank">
@@ -37,13 +135,8 @@
         </div>
       </div>
       
-    </div> -->
+    </div>
   </div>
 </body>
 
-<!-- <div class="wrap">
-      <div class="feature" (click)="nav.service.toPage('leagues/')">
-        <h3>FEATURE</h3>
-        <img [src]="image">
-      </div>
-    </div> -->
+

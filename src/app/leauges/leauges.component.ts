@@ -13,8 +13,10 @@ export class LeaugesComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
 
   allTournament: undefined | Tournament[];
-
+  
   images: string[] = [];
+
+  
 
   constructor(private tournament: LeaugesService, private router: Router) {}
 
@@ -23,6 +25,11 @@ export class LeaugesComponent implements OnInit {
       async (tournaments) => {
         this.allTournament = tournaments;
         await this.setImages();
+
+
+        
+        
+       
       }
     );
   }
@@ -35,11 +42,14 @@ export class LeaugesComponent implements OnInit {
     return temp;
   }
 
+  
+
+
   async setImages() {
     if (!this.allTournament) {
       return;
     }
-    
+
     for (let i = 0; i < this.allTournament?.length; i++) {
       (
         await this.nav.service.getImage(

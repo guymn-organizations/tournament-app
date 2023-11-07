@@ -3,7 +3,8 @@ import { AdvertService} from '../service/advert.service';
 import { Advert } from '../model/advert';
 import { Tournament } from '../model/tournament';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { TournamentService } from '../service/tournament.service';
+
+import { LeaugesService } from '../service/leauges.service';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,30 @@ export class HomeComponent implements OnInit {
 
   nav: NavbarComponent = inject(NavbarComponent);
 
-  Tournament: undefined | Tournament;
-  image: string | undefined;
+  
+
+  allTournament: undefined | Tournament[];
+  trendyTournament: Tournament | undefined;
+  image: string | undefined; //trendyimage
 
   adverts: Advert[] = [];
 
-  constructor(private advertService: AdvertService, private tournamentService: TournamentService) {}
+  constructor(private advertService: AdvertService, private tournament: LeaugesService) {}
 
   async ngOnInit(): Promise<void> {
+    (await this.tournament.getAllTournament()).subscribe(
+      async (tournaments) => {
+        this.allTournament = tournaments;
+        
+
+
+        
+        
+        this.trendyTournament = this.gettrendytour();
+        await this.setImage();
+      }
+    );
+
     this.advertService.getAllAdvert().subscribe(
       (adverts: Advert[]) => { 
         this.adverts = adverts;
@@ -33,4 +50,39 @@ export class HomeComponent implements OnInit {
     );
 
   }
+  
+
+  gettrendytour(): Tournament | undefined {
+    if (!this.allTournament) {
+      return undefined;
+    }
+
+    // เรียงลำดับรางวัลจากมากไปน้อย
+    const sortedTournaments = this.allTournament.sort((a, b) => {
+      if (a.reward === undefined) return 1; // Place undefined values at the end
+      if (b.reward === undefined) return -1; // Place undefined values at the end
+      return b.reward - a.reward;
+    });
+
+    // คืนรายการที่มีรางวัลมากที่สุด (อันดับแรกในอาร์เรย์)
+    return sortedTournaments[0];
+  }
+
+   //trendy image
+   async setImage() {
+    if (!this.trendyTournament) {
+      return;
+    }
+
+    (
+      await this.nav.service.getImage(this.trendyTournament.imageTourUrl as string)
+    ).subscribe(
+      (res) => {},
+      (error) => {
+        console.log(error);
+        this.image = error.error.text;
+      }
+    );
+  }
+
 }
