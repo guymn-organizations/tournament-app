@@ -25,6 +25,7 @@ import { MessageComponent } from './message/message.component';
 import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
 import { TeampostDetailComponent } from './teampost-detail/teampost-detail.component';
 import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
     ScrimsDetailComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

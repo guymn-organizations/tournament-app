@@ -139,7 +139,13 @@ export class ScrimsComponent implements OnInit {
     });
   }
 
-  goDetail(scrims: { team: Team; image: string; scrims: Scrims[] }) {
-    this.router.navigate(['/scrims', scrims.team.id]);
+  goDetail(id: string, index: number) {
+    if (index === 0) {
+      this.router.navigate(['profile/scrims']);
+      return;
+    }
+    this.router.navigate(['/scrims', id], {
+      queryParams: { myTeam: this.team?.name },
+    });
   }
 }

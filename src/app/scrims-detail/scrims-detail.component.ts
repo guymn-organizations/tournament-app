@@ -12,6 +12,8 @@ import { ScrimsService } from '../service/scrims.service';
 import { Team } from '../model/team';
 import { Scrims } from '../model/scrims';
 import { GobalServiceService } from '../service/gobal-service.service';
+import { DatePipe } from '@angular/common';
+import { MessageService } from '../service/message.service';
 
 @Component({
   selector: 'app-scrims-detail',
@@ -25,17 +27,23 @@ export class ScrimsDetailComponent implements OnInit {
   teamService: TeamService = inject(TeamService);
   scrimsService: ScrimsService = inject(ScrimsService);
   service: GobalServiceService = inject(GobalServiceService);
+  messageService: MessageService = inject(MessageService);
 
   team: Team | undefined;
+  myTeamName: string = '';
   image_team: string | undefined;
   images_player: string[] = [];
   scrims: Scrims[] = [];
 
   team_id: string | undefined;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, public datepipe: DatePipe) {
     this.route.params.subscribe((params) => {
       this.team_id = params['id'];
+    });
+
+    this.route.queryParams.subscribe((queryParams) => {
+      this.myTeamName = queryParams['myTeam'];
     });
   }
   async ngOnInit(): Promise<void> {
@@ -134,5 +142,32 @@ export class ScrimsDetailComponent implements OnInit {
     ) {
       await this.loadScrims();
     }
+  }
+
+  inviteScrims(scrim: Scrims) {
+    let date = this.datepipe.transform(scrim.startDate, 'dd/MM/yyyy');
+    let time = this.datepipe.transform(scrim.startDate, 'HH:mm');
+
+    let text = `You want to invite team ${this.team?.name} to scrims on ${date} at ${time}.`;
+    if (confirm(text)) {
+      this.senIniteScrims(scrim);
+    }
+  }
+
+  async senIniteScrims(scrim: Scrims) {
+    (
+      await this.messageService.sendToScrims(
+        this.myTeamName,
+        scrim.id,
+        this.team?.name as string
+      )
+    ).subscribe(
+      (res) => {},
+      (error) => {
+        if (error.status == 200) {
+          alert(error.error.text);
+        }
+      }
+    );
   }
 }

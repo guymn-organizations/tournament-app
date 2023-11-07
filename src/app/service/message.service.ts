@@ -35,12 +35,12 @@ export class MessageService {
   }
 
   async sendToScrims(
-    teamA: string,
+    teamB: string,
     scrims_id: string,
-    teamB: string
-  ): Promise<Observable<Message>> {
-    return this.http.post<Message>(
-      `${this.apiUrl}/${teamA}/REQUEST_TO_JOIN_TEAM/${teamB}`,
+    teamA: string
+  ): Promise<Observable<string>> {
+    return this.http.post<string>(
+      `${this.apiUrl}/${teamB}/REQUEST_TO_SCRIMS/${teamA}`,
       scrims_id
     );
   }

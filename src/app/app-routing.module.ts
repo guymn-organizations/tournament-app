@@ -27,7 +27,10 @@ const routes: Routes = [
       { path: 'leauges', component: LeaugesComponent },
       { path: 'scrims', component: ScrimsComponent },
       { path: 'tournament', component: TournamentComponent },
-      { path: 'scrims/:id', component: ScrimsDetailComponent },
+      {
+        path: 'scrims/:id',
+        component: ScrimsDetailComponent,
+      },
       {
         path: 'finder',
         component: FinderComponent,

@@ -41,7 +41,7 @@
         <div id="team_member">
           <div
             id="team_image"
-            class="d-flex justify-content-start m-2 text-light align-items-center"
+            class="d-flex flex-wrap justify-content-start m-2 text-light align-items-center"
             *ngFor="let member of team?.positions; let i = index"
           >
             <div
@@ -98,13 +98,19 @@
           *ngFor="let scrim of scrims"
         >
           <label class="list-scrim me-auto">
-            {{ scrim.startDate | date : "dd/MM/y" }}
+            {{ scrim.startDate | date : "dd/MM/yyyy" }}
           </label>
           <label class="list-scrim">{{
             scrim.startDate | date : "HH:mm"
           }}</label>
 
-          <button type="button" class="btn-success">SCRIMS</button>
+          <button
+            type="button"
+            class="btn-success"
+            (click)="inviteScrims(scrim)"
+          >
+            SCRIMS
+          </button>
         </div>
         <div
           id="loading"
