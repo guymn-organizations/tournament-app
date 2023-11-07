@@ -113,4 +113,18 @@ export class ProfileListScrimComponent implements OnInit {
     }
     return true;
   }
+
+  async deleteScrims(scrim: Scrims) {
+    if (confirm('Are you sure')) {
+      (await this.scrimsService.deleteScrims(scrim.id)).subscribe(
+        (res) => {},
+        (error) => {
+          if (error.status == 200) {
+            alert(error.error.text);
+            this.ngOnInit();
+          }
+        }
+      );
+    }
+  }
 }

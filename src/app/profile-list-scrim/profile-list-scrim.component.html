@@ -69,7 +69,10 @@
     <button
       type="button"
       class="btn btn-danger"
-      [ngClass]="{ 'invisible d-sm-block d-none': scrim.scrim.teamA && scrim.scrim.teamB }"
+      [ngClass]="{
+        'invisible d-sm-block d-none': scrim.scrim.teamA && scrim.scrim.teamB
+      }"
+      (click)="deleteScrims(scrim.scrim)"
     >
       Delete
     </button>

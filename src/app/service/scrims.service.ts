@@ -50,4 +50,8 @@ export class ScrimsService {
   async setTeamB(id: string, team_name: string): Promise<Observable<Scrims>> {
     return this.http.put<Scrims>(`${this.apiUrl}/${id}/add_teamB`, team_name);
   }
+
+  async deleteScrims(id: string): Promise<Observable<string>> {
+    return this.http.delete<string>(`${this.apiUrl}/${id}`);
+  }
 }
