@@ -83,7 +83,7 @@ export class ScrimsComponent implements OnInit {
       index++
     ) {
       (
-        await this.scrimsService.getScrimsByTeam(
+        await this.scrimsService.getScrimsByTeamNoOpponent(
           this.scrims_lists[index].team.id
         )
       ).subscribe((respon) => {

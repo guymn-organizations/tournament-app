@@ -7,7 +7,10 @@ import { NavbarComponent } from '../navbar/navbar.component';
 @Component({
   selector: 'app-profile-list-scrim',
   templateUrl: './profile-list-scrim.component.html',
-  styleUrls: ['./profile-list-scrim.component.css', '../profile/profile.component.css'],
+  styleUrls: [
+    './profile-list-scrim.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileListScrimComponent implements OnInit {
   scrimsService: ScrimsService = inject(ScrimsService);
@@ -86,12 +89,14 @@ export class ProfileListScrimComponent implements OnInit {
       return;
     }
     for (let i = 0; i < images.length; i++) {
-      (await this.nav.service.getImage(images[i])).subscribe(
-        (res) => {},
-        (error) => {
-          this.images[i] = error.error.text;
-        }
-      );
+      if (images[i]) {
+        (await this.nav.service.getImage(images[i])).subscribe(
+          (res) => {},
+          (error) => {
+            this.images[i] = error.error.text;
+          }
+        );
+      }
     }
   }
 
