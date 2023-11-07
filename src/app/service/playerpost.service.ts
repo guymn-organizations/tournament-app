@@ -26,6 +26,10 @@ export class PlayerpostService {
     return this.http.get<Playerpost[]>(`${this.apiUrl}`);
   }
 
+  async getProfileById(id: string): Promise<Observable<Profile>> {
+    return this.http.get<Profile>(`${this.apiUrl}/${id}`);
+  }
+  
   }
 
 

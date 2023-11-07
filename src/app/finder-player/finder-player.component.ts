@@ -4,6 +4,9 @@ import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType } from '../model/team';
 import { FormsModule } from '@angular/forms';
+import { ProfileService } from '../service/profile.service';
+import { Profile } from '../model/profile';
+
 
 @Component({
   selector: 'app-playerpost',
@@ -13,9 +16,11 @@ import { FormsModule } from '@angular/forms';
 export class FinderPlayerComponent {
   playerPostService: PlayerpostService = inject(PlayerpostService);
   nav: NavbarComponent = inject(NavbarComponent);
+  profileService: ProfileService = inject(ProfileService);
 
   searchPositions: string[] = []; // Initialize an empty array
 
+  profile?: Profile;
 
   playerPosts: Playerpost[] = [];
 
@@ -36,7 +41,6 @@ export class FinderPlayerComponent {
   }
 
   async ngOnInit() {
-    // console.log("reload")
     this.playerPostService.getAllPlayerPost().subscribe(async (data) => {
       this.playerPosts = data;
       await this.setImages();
@@ -58,10 +62,6 @@ export class FinderPlayerComponent {
       }
     }
     return this.searchPositions.includes(positiondata);
-
-    // console.log(List);
-    // console.log (this.searchPositions)
-    // return this.searchPositions.includes(position);
   }
 
 
@@ -71,7 +71,7 @@ export class FinderPlayerComponent {
       post: post,
       image: this.images[index],
     }));
-    // console.log(postData)
+ 
     return postData
   }
 
@@ -114,10 +114,9 @@ export class FinderPlayerComponent {
 
   onChange(event: any, positions: string) {
     if (event.target.checked) {
-      // console.log(event.target)
+  
       this.searchPositions.push(positions);
 
-      // console.log(this.searchPositions)
 
     } else {
       const index = this.searchPositions.indexOf(positions);
@@ -139,9 +138,24 @@ export class FinderPlayerComponent {
         }
       }
     }
-    // console.log(this.selectedPositions);
+
 
   }
 
+    async getdataByid(id : any) {
+      
+      try {
+        this.profile = await (
+          await this.profileService.getProfileById(id)
+        ).toPromise();
+
+        localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
+      } catch (error) {
+        console.error('Error getting profile data:', error);
+        
+      }
+      
+    }
+  
 
 }
