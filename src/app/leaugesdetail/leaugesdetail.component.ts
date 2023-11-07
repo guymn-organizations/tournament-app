@@ -21,6 +21,8 @@ export class LeaugesdetailComponent implements OnInit {
   image: string | undefined;
 
   isOverview: boolean = true;
+  isMatching: boolean = false;
+  isTeamJoin: boolean = false;
 
   teamsInTour!: TeamInTournament[];
 
@@ -86,13 +88,21 @@ export class LeaugesdetailComponent implements OnInit {
   }
 
   showTeamjoin() {
-    localStorage.setItem('isOverview', 'false');
     this.isOverview = false;
+    this.isMatching = false;
+    this.isTeamJoin = true;
   }
-
+  
   showOverview() {
-    localStorage.setItem('isOverview', 'true');
     this.isOverview = true;
+    this.isMatching = false;
+    this.isTeamJoin = false;
+  }
+  
+  showMatching() {
+    this.isOverview = false;
+    this.isMatching = true;
+    this.isTeamJoin = false;
   }
 
   // Function to open the registration modal

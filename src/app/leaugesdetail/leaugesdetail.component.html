@@ -14,15 +14,30 @@
     <a
       (click)="showTeamjoin()"
       style="margin-left: 80px"
-      [ngClass]="{ 'border-bottom border-danger border-3': !isOverview }"
+      [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
       >ทีมที่เข้าร่วม</a
+    >
+    <a
+      (click)="showMatching()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      >การแข่งขัน</a
     >
   </div>
   <div class="line-8-83i"></div>
-
-  <ng-container *ngIf="isOverview; else Teamjoinpage">
-    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container
-  ></ng-container>
+  
+  <ng-container *ngIf="isOverview;">
+    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isTeamJoin;">
+    <ng-container *ngTemplateOutlet="Teamjoinpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isMatching;">
+    <ng-container *ngTemplateOutlet="Matchingpage"></ng-container>
+  </ng-container>
+  
 
   <ng-template #Overviewpage>
     <div class="row">
@@ -196,7 +211,7 @@
         </div>
       </div>
     </div>
-
+  </div>
   <!-- ------------------Teamjoin--------------------------------- -->
 
   <ng-template #Teamjoinpage>
@@ -249,4 +264,8 @@
       </div>
     </div>
   </ng-template>
-</div>
+
+  <!-----------------------maching---------------------------->
+  <ng-template #Matchingpage>
+    <p>Matching Content Goes Here</p>
+  </ng-template>
