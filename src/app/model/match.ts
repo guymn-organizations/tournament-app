@@ -1,3 +1,5 @@
+import { TeamInTournament } from "./team-in-tournament";
+
 export class Match {
     id: string;
     teamA: TeamInTournament;
@@ -6,6 +8,7 @@ export class Match {
     report: string[];
     chat: Chat[];
     result: number[]; // [ A, B ]
+    round: string;
   
     constructor(
       id: string,
@@ -14,7 +17,8 @@ export class Match {
       startDate: Date,
       report: string[],
       chat: Chat[],
-      result: number[]
+      result: number[],
+      round: string
     ) {
       this.id = id;
       this.teamA = teamA;
@@ -23,11 +27,8 @@ export class Match {
       this.report = report;
       this.chat = chat;
       this.result = result;
+      this.round = round;
     }
-  }
-  
-  export class TeamInTournament {
-    
   }
   
   export class Chat {

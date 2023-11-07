@@ -267,7 +267,88 @@
 
   <!-----------------------maching---------------------------->
   <ng-template #Matchingpage>
+    <button (click)="createMatchesForTournament()">createMatch</button>
     <div *ngFor="let match of matches">
+      <div *ngIf="match.round.includes('Round 1')">
+
+        <div *ngIf="match.teamA !== null">
+          {{match.round}}
+          <p>teamA</p>
+          <img [src]="match.teamA.team.imageTeamUrl" alt="{{match.teamA.team.name}}">
+          {{match.teamA.team.name}}
+        </div>
+
+        <div *ngIf="match.teamB !== null">
+          <p>teamB</p>
+          <img [src]="match.teamB.team.imageTeamUrl" alt="{{match.teamB.team.name}}">
+          {{match.teamB.team.name}}
+        </div>
+      
+      </div>
+      <div *ngIf="match.round.includes('Round 2')">
+
+        <div *ngIf="match.teamA !== null">
+          {{match.round}}
+          <p>teamA</p>
+          <img [src]="match.teamA.team.imageTeamUrl" alt="{{match.teamA.team.name}}">
+          {{match.teamA.team.name}}
+        </div>
+
+        <div *ngIf="match.teamB !== null">
+          <p>teamB</p>
+          <img [src]="match.teamB.team.imageTeamUrl" alt="{{match.teamB.team.name}}">
+          {{match.teamB.team.name}}
+        </div>
+      
+      </div>
+      <div *ngIf="match.round.includes('Round 3')">
+
+        <div *ngIf="match.teamA !== null">
+          {{match.round}}
+          <p>teamA</p>
+          <img [src]="match.teamA.team.imageTeamUrl" alt="{{match.teamA.team.name}}">
+          {{match.teamA.team.name}}
+        </div>
+
+        <div *ngIf="match.teamB !== null">
+          <p>teamB</p>
+          <img [src]="match.teamB.team.imageTeamUrl" alt="{{match.teamB.team.name}}">
+          {{match.teamB.team.name}}
+        </div>
+      
+      </div>
+      <div *ngIf="match.round.includes('Round 4')">
+
+        <div *ngIf="match.teamA !== null">
+          {{match.round}}
+          <p>teamA</p>
+          <img [src]="match.teamA.team.imageTeamUrl" alt="{{match.teamA.team.name}}">
+          {{match.teamA.team.name}}
+        </div>
+
+        <div *ngIf="match.teamB !== null">
+          <p>teamB</p>
+          <img [src]="match.teamB.team.imageTeamUrl" alt="{{match.teamB.team.name}}">
+          {{match.teamB.team.name}}
+        </div>
+      
+      </div>
+      <div *ngIf="match.round.includes('Round 5')">
+
+        <div *ngIf="match.teamA !== null">
+          {{match.round}}
+          <p>teamA</p>
+          <img [src]="match.teamA.team.imageTeamUrl" alt="{{match.teamA.team.name}}">
+          {{match.teamA.team.name}}
+        </div>
+
+        <div *ngIf="match.teamB !== null">
+          <p>teamB</p>
+          <img [src]="match.teamB.team.imageTeamUrl" alt="{{match.teamB.team.name}}">
+          {{match.teamB.team.name}}
+        </div>
+      
+      </div>
       
     </div>
   </ng-template>

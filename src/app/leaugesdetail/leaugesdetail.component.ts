@@ -30,8 +30,7 @@ export class LeaugesdetailComponent implements OnInit {
   tournamenTypeFree: TournamenType = TournamenType.Free;
   tournamenTypePaid: TournamenType = TournamenType.Paid;
 
-  matches: Match[] = [];
-
+  matches!: Match[];
   constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
     this.ngOnInit();
   }
@@ -57,9 +56,6 @@ export class LeaugesdetailComponent implements OnInit {
     (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
       (data: any[]) => {
         this.teamsInTour = data;
-        if (this.teamsInTour.length === this.tournament.numberOfTeam){
-          this.createMatchesForTournament();
-        }
       },
       (error) => {
         console.error('Error:', error);
@@ -169,7 +165,6 @@ export class LeaugesdetailComponent implements OnInit {
         this.matches = matches;
       },
       (error) => {
-        console.error('Error:', error);
       }
     );
   }

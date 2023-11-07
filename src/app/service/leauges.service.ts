@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Tournament } from '../model/tournament';
 import { Observable } from 'rxjs';
 import { Team } from '../model/team';
-import { Match, TeamInTournament } from '../model/match';
+import { Match } from '../model/match';
+import { TeamInTournament } from '../model/team-in-tournament';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class LeaugesService {
   async getAllTeamInTournament(tournamentId: string): Promise<Observable<any>> {
     return this.http.get(`${this.apiUrl}/${tournamentId}/team`);
   }
-  async createMatchesForTournament(tournamentId: string, teamInTour: TeamInTournament): Promise<Observable<any>> {
+  async createMatchesForTournament(tournamentId: string, teamInTour: TeamInTournament[]): Promise<Observable<any>> {
     return this.http.post(`${this.apiUrl}/${tournamentId}/matching`,teamInTour);
   }
   async getAllMatchesForTournament(tournamentId: string): Promise<Observable<Match[]>> {
