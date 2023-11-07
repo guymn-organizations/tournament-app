@@ -29,4 +29,8 @@ export class LeaugesService {
   async addTeamToTournament(tournamentId: string, teamId: string, team: Team): Promise<Observable<any>> {
     return this.http.post(`${this.apiUrl}/${tournamentId}/teamJoin/${teamId}`, team);
   }
+
+  async getAllTeamInTournament(tournamentId: string): Promise<Observable<any>> {
+    return this.http.get(`${this.apiUrl}/${tournamentId}/team`);
+  }
 }

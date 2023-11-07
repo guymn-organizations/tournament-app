@@ -24,6 +24,8 @@ export class LeaugesdetailComponent implements OnInit {
 
   touritems: any[] = Array(10).fill({});
 
+  teams!: any[];
+
   constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
     this.ngOnInit();
   }
@@ -38,6 +40,16 @@ export class LeaugesdetailComponent implements OnInit {
       this.checked_id = id as string;
       await this.setTournament();
     });
+
+    const tournamentId = this.checked_id;
+    (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
+      (data: any[]) => {
+        this.teams = data;
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
   }
 
   async setTournament() {

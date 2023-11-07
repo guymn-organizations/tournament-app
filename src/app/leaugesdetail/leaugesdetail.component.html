@@ -202,7 +202,7 @@
         <div class="col-md-11">
           <h3 style="font-family: fantasy">TEAM</h3>
         </div>
-        <div class="col-md-1">50 Team</div>
+        <div class="col-md-1">{{teams.length}} Team</div>
         <div class="col-md-12">
           <div class="line-8-83i"></div>
         </div>
@@ -224,7 +224,8 @@
                 class="col-md-3"
                 class="team-item"
                 *ngFor="let item of touritems; let i = index"
-              ></div>
+              >
+              </div>
             </div>
           </div>
         </div>
