@@ -1,14 +1,34 @@
-<div class="border border-black">
-  <div class="container">
-    <!-- <div class="wrap">
-      <div class="feature" (click)="nav.service.toPage('leagues/')">
-        <h3>FEATURE</h3>
-        <img [src]="image">
+<link
+  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
+  rel="stylesheet"
+  type="text/css"
+/>
+<body>
+  <div class="homepage">
+    <div class="row g-2">
+      <div class="col-md-12 text-center">
+        <h1 class="headfont">สร้างการแข่งขันด้วยตัวคุณเอง</h1>
       </div>
-    </div> -->
+      <div class="col-md-12 text-center">
+        <img
+          src="https://vsus.io/_next/image?url=%2Fimages%2Fexample-bracket.png&w=1080&q=75"
+          alt=""
+          style="width: 800px; max-width: 100%; height: auto"
+        />
+      </div>
 
+      <div
+        class="col-md-12"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <div class="button">
+          <button (click)="nav.service.toPage('leauges')" class="Btn">สร้างการแข่งขัน</button>
+        </div>
+        
+      </div>
+    </div>
 
-    <div class="ads-wrap">
+    <!-- <div class="ads-wrap">
       <div class="advert-slider">
         <div class="advert" *ngFor="let advert of adverts">
           <a [routerLink]="advert.linkAdvertUrl" target="_blank">
@@ -16,8 +36,14 @@
           </a>
         </div>
       </div>
-
-    </div>
-
+      
+    </div> -->
   </div>
-</div>
+</body>
+
+<!-- <div class="wrap">
+      <div class="feature" (click)="nav.service.toPage('leagues/')">
+        <h3>FEATURE</h3>
+        <img [src]="image">
+      </div>
+    </div> -->
