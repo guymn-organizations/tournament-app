@@ -267,10 +267,9 @@
 
   <!-----------------------maching---------------------------->
   <ng-template #Matchingpage>
-    <!-- <div *ngIf="teamsInTour.length == tournament.numberOfTeam">
+    <div *ngIf="teamsInTour.length == tournament.numberOfTeam">
       <button (click)="createMatchesForTournament()">createMatch</button>
-    </div> -->
-    <button (click)="createMatchesForTournament()">createMatch</button>
+    </div>
     
     <div *ngFor="let match of matches">
       <div *ngIf="match.round.includes('Round 1')">
