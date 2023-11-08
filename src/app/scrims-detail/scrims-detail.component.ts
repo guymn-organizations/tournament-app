@@ -93,15 +93,26 @@ export class ScrimsDetailComponent implements OnInit {
         this.team = res;
         await this.setImageTeam();
         await this.setImagePlayer();
-        await this.onScrollListScrims();
-        await this.onScrollListScrims();
-        await this.onScrollListScrims();
+        await this.setFirstLoad();
       }
     );
   }
 
   getUnImageTeam() {
     return this.team?.name[0];
+  }
+
+  async setFirstLoad() {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    while (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ==
+        nativeElement.scrollHeight &&
+      this.pageSize === this.pageTotal
+    ) {
+      await this.loadScrims();
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
   }
 
   private pageIndex: number = 0;

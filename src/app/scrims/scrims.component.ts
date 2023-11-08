@@ -42,19 +42,26 @@ export class ScrimsComponent implements OnInit {
       await this.setTeam();
     }
     await this.addTeamToList(this.team as Team, '', []);
-    await this.onScrollScrimsContenter();
-    await this.onScrollScrimsContenter();
-    await this.onScrollScrimsContenter();
+    await this.setFirstLoad();
+  }
+
+  async setFirstLoad() {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    while (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
+        nativeElement.scrollHeight &&
+      this.pageSize === this.pageTotal
+    ) {
+      await this.loadTeamScrims();
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
   }
 
   @HostListener('scroll', ['$event'])
   async onScrollScrimsContenter(): Promise<void> {
     const nativeElement = this.messageProfileElement?.nativeElement;
 
-    console.log(
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop),
-      nativeElement.scrollHeight
-    );
     if (
       nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
         nativeElement.scrollHeight - 10 &&

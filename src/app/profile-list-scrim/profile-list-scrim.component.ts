@@ -36,7 +36,7 @@ export class ProfileListScrimComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.setTeam();
-    await this.loadScrims();
+    await this.setFirstLoad();
   }
 
   getScrims() {
@@ -114,14 +114,15 @@ export class ProfileListScrimComponent implements OnInit {
     return true;
   }
 
-  async deleteScrims(scrim: Scrims) {
+  async deleteScrims(scrim: Scrims, index: number) {
     if (confirm('Are you sure')) {
       (await this.scrimsService.deleteScrims(scrim.id)).subscribe(
         (res) => {},
-        (error) => {
+        async (error) => {
           if (error.status == 200) {
             alert(error.error.text);
-            this.ngOnInit();
+            this.scrims.splice(index, 1);
+            this.images.splice(index, 1);
           }
         }
       );
@@ -134,6 +135,19 @@ export class ProfileListScrimComponent implements OnInit {
     });
   }
 
+  async setFirstLoad() {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    while (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
+        nativeElement.scrollHeight &&
+      this.pageSize === this.pageTotal
+    ) {
+      await this.loadScrims();
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+  }
+
   @ViewChild('ListScrims', { static: false })
   public messageProfileElement: ElementRef | undefined;
 
@@ -143,7 +157,7 @@ export class ProfileListScrimComponent implements OnInit {
 
     if (
       nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
-        nativeElement.scrollHeight - 50 &&
+        nativeElement.scrollHeight - 20 &&
       !this.loadding
     ) {
       await this.loadScrims();
@@ -170,6 +184,7 @@ export class ProfileListScrimComponent implements OnInit {
         this.pageTotal = res.length;
         this.pageIndex++;
         this.loadding = false;
+        console.log(this.scrims);
       },
       (err) => {
         this.pageTotal = -1;
