@@ -2,7 +2,7 @@
   <div class="container">
     <app-header [title]="title" [discription]="discription"></app-header>
 
-    <div>
+    <div class="d-flex flex-column">
       <div class="border-bottom d-lg-flex">
         <label class="fs-5 underline border-2">Scrims Finder</label>
       </div>
@@ -19,7 +19,7 @@
       </div>
       <div
         #ScrimsContenter
-        class="d-flex flex-row justify-content-start align-items-center flex-wrap"
+        class="scrims-contenter d-flex flex-row justify-content-start flex-wrap"
         (scroll)="onScrollScrimsContenter()"
       >
         <div
@@ -61,6 +61,16 @@
               <label>{{ scrim.startDate | date : "HH:mm" }}</label>
             </div>
           </div>
+        </div>
+        <div
+          id="loading"
+          class="lds-ellipsis m-auto"
+          *ngIf="pageTotal == pageSize"
+        >
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
         </div>
       </div>
     </div>

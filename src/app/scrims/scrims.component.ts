@@ -27,10 +27,10 @@ export class ScrimsComponent implements OnInit {
   discription: string = 'Find scrims to practice';
   team?: Team;
 
-  public totalCount = 0;
-  public pageIndex = 0;
-  public pageSize = 10;
-  loading: boolean = false;
+  private pageIndex: number = 0;
+  public pageSize: number = 5;
+  public pageTotal: number = 5;
+  public loadding: boolean = false;
 
   scrims_lists: { team: Team; image: string; scrims: Scrims[] }[] = [];
 
@@ -42,18 +42,25 @@ export class ScrimsComponent implements OnInit {
       await this.setTeam();
     }
     await this.addTeamToList(this.team as Team, '', []);
-    await this.loadTeamScrims();
+    await this.onScrollScrimsContenter();
+    await this.onScrollScrimsContenter();
+    await this.onScrollScrimsContenter();
   }
 
   @HostListener('scroll', ['$event'])
   async onScrollScrimsContenter(): Promise<void> {
     const nativeElement = this.messageProfileElement?.nativeElement;
 
-    if (
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
+    console.log(
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop),
       nativeElement.scrollHeight
+    );
+    if (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
+        nativeElement.scrollHeight - 10 &&
+      !this.loadding
     ) {
-      // await this.loadTeamScrims();
+      await this.loadTeamScrims();
     }
   }
 
@@ -124,21 +131,27 @@ export class ScrimsComponent implements OnInit {
   }
 
   async loadTeamScrims() {
-    this.loading = true;
+    this.loadding = true;
     (
       await this.nav.teamService.getTeamToShowScrims(
         this.pageIndex,
         this.pageSize
       )
-    ).subscribe(async (data) => {
-      const teamsData = data.filter((team) => team.name != this.team?.name);
-      await this.setTeamScrims(teamsData);
-      await this.setImageTeam();
-      await this.setSceimsTeam();
-      this.pageIndex++;
-      this.loading = false;
-      this.scrims_lists_filter = this.scrims_lists;
-    });
+    ).subscribe(
+      async (data) => {
+        const teamsData = data.filter((team) => team.name != this.team?.name);
+        await this.setTeamScrims(teamsData);
+        await this.setImageTeam();
+        await this.setSceimsTeam();
+        this.pageTotal = data.length;
+        this.pageIndex++;
+        this.loadding = false;
+        this.scrims_lists_filter = this.scrims_lists;
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
   }
 
   goDetail(id: string, index: number) {
