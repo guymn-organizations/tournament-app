@@ -267,7 +267,7 @@
 
   <!-----------------------maching---------------------------->
   <ng-template #Matchingpage>
-    <div *ngIf="teamsInTour.length == tournament.numberOfTeam">
+    <div *ngIf="teamsInTour.length == tournament.numberOfTeam && matches == null">
       <button (click)="createMatchesForTournament()">createMatch</button>
     </div>
     
