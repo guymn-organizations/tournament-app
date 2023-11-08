@@ -6,7 +6,17 @@
       <div class="border-bottom d-lg-flex">
         <label class="fs-5 underline border-2">Scrims Finder</label>
       </div>
-
+      <div class="filter d-flex" role="search">
+        <input
+          #filter
+          class="form-control"
+          type="search"
+          placeholder="Search team name"
+          aria-label="Search"
+          (change)="filterScrimsList(filter.value)"
+        />
+        <button class="ms-3 btn btn-success" type="button">Search</button>
+      </div>
       <div
         #ScrimsContenter
         class="d-flex flex-row justify-content-start align-items-center flex-wrap"
@@ -14,7 +24,7 @@
       >
         <div
           class="card d-flex flex-column mt-2"
-          *ngFor="let scrims of scrims_lists; let index = index"
+          *ngFor="let scrims of scrims_lists_filter; let index = index"
           (click)="goDetail(scrims.team.id, index)"
         >
           <h4 class="m-auto team-name" [innerHTML]="scrims.team.name"></h4>
@@ -24,7 +34,7 @@
             <div
               id="loading "
               class="lds-ellipsis m-auto"
-              *ngIf="!scrims.image && image_id[index]"
+              *ngIf="!scrims.image && scrims.team.imageTeamUrl"
             >
               <div></div>
               <div></div>
@@ -33,11 +43,11 @@
             </div>
             <img
               [src]="scrims.image"
-              *ngIf="scrims.image && image_id[index]"
+              *ngIf="scrims.image && scrims.team.imageTeamUrl"
               class="m-auto"
             />
             <h1
-              *ngIf="!image_id[index]"
+              *ngIf="!scrims.team.imageTeamUrl"
               [innerHTML]="scrims.team.name[0]"
               class="text-uppercase text-dark unimage"
             ></h1>
