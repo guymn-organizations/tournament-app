@@ -23,7 +23,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { MessageComponent } from './message/message.component';
 import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
-import { TeampostDetailComponent } from './teampost-detail/teampost-detail.component';
 import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
 import { DatePipe } from '@angular/common';
 
@@ -48,7 +47,6 @@ import { DatePipe } from '@angular/common';
     HeaderComponent,
     MessageComponent,
     ProfileListScrimComponent,
-    TeampostDetailComponent,
     ScrimsDetailComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
