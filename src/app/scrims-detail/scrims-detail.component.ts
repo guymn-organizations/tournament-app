@@ -93,9 +93,9 @@ export class ScrimsDetailComponent implements OnInit {
         this.team = res;
         await this.setImageTeam();
         await this.setImagePlayer();
-        await this.loadScrims();
-        await this.loadScrims();
-        await this.loadScrims();
+        await this.onScrollListScrims();
+        await this.onScrollListScrims();
+        await this.onScrollListScrims();
       }
     );
   }
