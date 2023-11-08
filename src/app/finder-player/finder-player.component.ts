@@ -21,6 +21,7 @@ export class FinderPlayerComponent {
   searchPositions: string[] = []; // Initialize an empty array
 
   profile?: Profile;
+  selectedPlayer: any;
 
   playerPosts: Playerpost[] = [];
 
@@ -142,20 +143,10 @@ export class FinderPlayerComponent {
 
   }
 
-    async getdataByid(id : any) {
-      
-      try {
-        this.profile = await (
-          await this.profileService.getProfileById(id)
-        ).toPromise();
-
-        localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
-      } catch (error) {
-        console.error('Error getting profile data:', error);
-        
-      }
-      
-    }
+  showDetail(id: string) {
+    this.selectedPlayer = this.playerPosts.find((post) => post.id === id);
+    console.log(this.selectedPlayer)
+  }
   
 
 }
