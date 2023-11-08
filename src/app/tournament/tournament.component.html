@@ -8,23 +8,199 @@
       </div>
       <div
         #MatchingContenter
-        class="scrims-contenter d-flex flex-column p-3"
+        class="scrims-contenter p-3"
         (scroll)="onScrollMatchingContenter()"
       >
-        <div class="match-list border rounded bg-light">
-          <div></div>
+        <div
+          class="match border rounded"
+          *ngFor="let match of match_list; let index = index"
+        >
+          <div id="teamA" class="teamA">
+            <div
+              id="logo-teamA"
+              class="image-content bg-light d-flex border border-2 rounded"
+              (click)="
+                toTeamDetail(
+                  match.match.teamA.team.id,
+                  match.match.teamA.team.name
+                )
+              "
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!match.imageA && match.match.teamA.team.imageTeamUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="match.imageA"
+                *ngIf="match.imageA && match.match.teamA.team.imageTeamUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!match.imageA && !match.match.teamA.team.imageTeamUrl"
+                [innerHTML]="match.match.teamA.team.name[0]"
+                class="text-uppercase text-dark unimage"
+              >
+                &nbsp;
+              </h1>
+            </div>
+            <div class="ms-3">
+              <h1 [innerHTML]="match.match.teamA.team.name">&nbsp;</h1>
+            </div>
+          </div>
+          <div id="date" class="both">
+            <div
+              id="resultA"
+              class="text-dark d-flex align-items-center"
+              *ngIf="checkTeamA(match.match.teamA.team.id)"
+            >
+              <div class="d-flex flex-column align-items-center me-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultA', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultA', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+
+              <h1>
+                {{ match.match.resultA[0] }} - {{ match.match.resultA[1] }}
+              </h1>
+
+              <div
+                class="d-flex flex-column align-items-center ms-4"
+                *ngIf="checkTeamA(match.match.teamA.team.id)"
+              >
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultB', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultB', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="resultB" class="text-dark d-flex align-items-center">
+              <div class="d-flex flex-column align-items-center me-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultA', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultA', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+
+              <h1>
+                {{ match.match.resultB[0] }} - {{ match.match.resultB[1] }}
+              </h1>
+
+              <div class="d-flex flex-column align-items-center ms-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultB', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultB', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="date">
+              <label class="me-0">
+                {{ match.match.startDate | date : "dd/MM/yyyy" }}
+              </label>
+            </div>
+          </div>
+          <div id="teamB" class="teamB">
+            <div
+              id="logo-teamB"
+              class="image-content bg-light d-flex border border-2 rounded"
+              (click)="
+                toTeamDetail(
+                  match.match.teamB.team.id,
+                  match.match.teamB.team.name
+                )
+              "
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!match.imageB && match.match.teamB.team.imageTeamUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="match.imageB"
+                *ngIf="match.imageB && match.match.teamB.team.imageTeamUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!match.imageB && !match.match.teamB.team.imageTeamUrl"
+                [innerHTML]="match.match.teamB.team.name[0]"
+                class="text-uppercase text-dark unimage"
+              >
+                &nbsp;
+              </h1>
+            </div>
+            <div class="ms-3">
+              <h1 [innerHTML]="match.match.teamB.team.name">&nbsp;</h1>
+            </div>
+          </div>
         </div>
       </div>
-      <div
-        id="loading"
-        class="lds-ellipsis m-auto"
-        *ngIf="pageTotal == pageSize"
-      >
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+    </div>
+    <div id="loading" class="lds-ellipsis m-auto" *ngIf="pageTotal == pageSize">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 </div>

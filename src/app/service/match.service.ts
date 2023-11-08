@@ -22,4 +22,16 @@ export class MatchService {
 
     return this.http.get<Match[]>(`${this.apiUrl}/${team_id}`, { params });
   }
+
+  setMatchResult(
+    matchId: string,
+    team: string,
+    resultType: string,
+    score: number
+  ): Observable<any> {
+    const url = `${this.apiUrl}/${matchId}/results`;
+    const body = { team, resultType, score };
+
+    return this.http.put(url, body);
+  }
 }

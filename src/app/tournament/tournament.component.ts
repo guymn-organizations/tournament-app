@@ -11,6 +11,7 @@ import { Team } from '../model/team';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Match } from '../model/match';
 import { MatchService } from '../service/match.service';
+import { Image } from '../model/image';
 
 @Component({
   selector: 'app-tournament',
@@ -24,8 +25,8 @@ export class TournamentComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
   matchService: MatchService = inject(MatchService);
 
-  team?: Team;
-  match_list: Match[] = [];
+  team_id?: string = '';
+  match_list: { match: Match; imageA: string; imageB: string }[] = [];
 
   private pageIndex: number = 0;
   public pageSize: number = 7;
@@ -35,27 +36,15 @@ export class TournamentComponent implements OnInit {
   constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    this.team = this.nav.team;
-    if (!this.team) {
-      await this.setTeam();
-    }
-  }
-
-  async setTeam() {
-    try {
-      const teamId = localStorage.getItem('team') as string;
-      this.team = await (
-        await this.nav.teamService.getTeamById(teamId)
-      ).toPromise();
-    } catch (teamError) {}
+    this.team_id = localStorage.getItem('team') as string;
+    await this.loadMatching();
   }
 
   async loadMatching() {
     this.loadding = true;
-    const team_id = localStorage.getItem('team') as string;
     (
       await this.matchService.getMatchList(
-        team_id,
+        this.team_id as string,
         this.pageIndex,
         this.pageSize
       )
@@ -90,9 +79,97 @@ export class TournamentComponent implements OnInit {
     }
   }
 
-  async setMatchList(matchList: Match[]) {}
+  async setMatchList(matchList: Match[]) {
+    for (let index = 0; index < matchList.length; index++) {
+      const dataToPush = {
+        match: matchList[index],
+        imageA: '',
+        imageB: '',
+      };
+      this.match_list.push(dataToPush);
+    }
+  }
 
-  async setImageTeamA() {}
+  async setImageTeamA() {
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.match_list.length;
+      index++
+    ) {
+      if (this.match_list[index].match.teamA.team.imageTeamUrl) {
+        (
+          await this.nav.service.getImage(
+            this.match_list[index].match.teamA.team.imageTeamUrl
+          )
+        ).subscribe(
+          (res) => {},
+          (result) => {
+            if (result.status == 200) {
+              this.match_list[index].imageA = result.error.text;
+            }
+          }
+        );
+      }
+    }
+  }
 
-  async setImageTeamB() {}
+  async setImageTeamB() {
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.match_list.length;
+      index++
+    ) {
+      if (this.match_list[index].match.teamB.team.imageTeamUrl) {
+        (
+          await this.nav.service.getImage(
+            this.match_list[index].match.teamB.team.imageTeamUrl
+          )
+        ).subscribe(
+          (res) => {},
+          (result) => {
+            if (result.status == 200) {
+              this.match_list[index].imageB = result.error.text;
+            }
+          }
+        );
+      }
+    }
+  }
+
+  checkTeamA(id: string): boolean {
+    if (this.team_id != id) {
+      return false;
+    }
+    return true;
+  }
+
+  async setResult(
+    matchId: string,
+    team: string,
+    resultType: string,
+    score: number,
+    index: number
+  ) {
+    this.matchService
+      .setMatchResult(matchId, team, resultType, score)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.match_list[index].match = res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  toTeamDetail(id: string, name: string) {
+    if (id == this.team_id) {
+      this.router.navigate(['/profile/team']);
+    }
+
+    this.router.navigate(['/scrims', id], {
+      queryParams: { myTeam: name },
+    });
+  }
 }
