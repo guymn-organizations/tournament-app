@@ -103,16 +103,24 @@ export class ScrimsDetailComponent implements OnInit {
   }
 
   async setFirstLoad() {
-    const nativeElement = this.messageProfileElement?.nativeElement;
-
-    while (
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ==
-        nativeElement.scrollHeight &&
-      this.pageSize === this.pageTotal
-    ) {
-      await this.loadScrims();
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
+    this.loadding = true;
+    (
+      await this.scrimsService.getScrimsByTeamNoOpponentLazy(
+        this.team_id as string,
+        this.pageIndex,
+        15
+      )
+    ).subscribe(
+      (res) => {
+        this.scrims = [...this.scrims, ...res];
+        this.pageTotal = res.length;
+        this.pageIndex++;
+        this.loadding = false;
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
   }
 
   private pageIndex: number = 0;

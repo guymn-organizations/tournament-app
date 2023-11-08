@@ -46,16 +46,22 @@ export class ScrimsComponent implements OnInit {
   }
 
   async setFirstLoad() {
-    const nativeElement = this.messageProfileElement?.nativeElement;
-
-    while (
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
-        nativeElement.scrollHeight &&
-      this.pageSize === this.pageTotal
-    ) {
-      await this.loadTeamScrims();
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
+    this.loadding = true;
+    (await this.nav.teamService.getTeamToShowScrims(this.pageIndex, 15)).subscribe(
+      async (data) => {
+        const teamsData = data.filter((team) => team.name != this.team?.name);
+        await this.setTeamScrims(teamsData);
+        await this.setImageTeam();
+        await this.setSceimsTeam();
+        this.pageTotal = data.length;
+        this.pageIndex++;
+        this.loadding = false;
+        this.scrims_lists_filter = this.scrims_lists;
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
   }
 
   @HostListener('scroll', ['$event'])

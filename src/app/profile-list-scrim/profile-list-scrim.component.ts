@@ -35,8 +35,11 @@ export class ProfileListScrimComponent implements OnInit {
   constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    await this.setTeam();
-    await this.setFirstLoad();
+    this.team = this.nav.team;
+    if (!this.team) {
+      await this.setTeam();
+    }
+    await this.loadScrims();
   }
 
   getScrims() {
@@ -129,23 +132,17 @@ export class ProfileListScrimComponent implements OnInit {
     }
   }
 
-  toTeamBDetail(id: string) {
+  toTeamBDetail(scrim: Scrims) {
+    let id = '';
+    if (scrim.teamA.id == this.team?.id) {
+      id = scrim.teamB.id;
+    } else if (scrim.teamB.id == this.team?.id) {
+      id = scrim.teamA.id;
+    }
+
     this.router.navigate(['/scrims', id], {
       queryParams: { myTeam: this.team?.name },
     });
-  }
-
-  async setFirstLoad() {
-    const nativeElement = this.messageProfileElement?.nativeElement;
-
-    while (
-      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) ===
-        nativeElement.scrollHeight &&
-      this.pageSize === this.pageTotal
-    ) {
-      await this.loadScrims();
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-    }
   }
 
   @ViewChild('ListScrims', { static: false })
