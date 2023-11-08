@@ -86,6 +86,7 @@ export class ProfileTeamComponent implements OnInit {
       async (respon) => {
         await this.setTeamId(respon.id);
         await this.addPlayer(respon.id);
+        this.nav.team = respon;
       },
       (error) => {
         this.errorMessageCreate = error.error;

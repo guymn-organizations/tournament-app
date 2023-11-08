@@ -76,7 +76,7 @@ export class MessageComponent implements OnInit {
     }
 
     (await this.messageService.getMessage(slicedMessages)).subscribe((res) => {
-      this.message_team = res;
+      this.message_team = [...this.message_team, ...res];
     });
   }
 
@@ -132,16 +132,25 @@ export class MessageComponent implements OnInit {
   acceptMessage(message: Message, index: number) {
     if (message.messageType == MessageType.INVITE_TO_JOIN_TEAM) {
       this.acceptInviteToJoinTeam(message.scrimsId, message.positionType);
+      this.readMessage(message.id, index);
     } else if (message.messageType == MessageType.REQUEST_TO_JOIN_TEAM) {
       this.acceptRequestToJoinTeam(message.sender, message.positionType);
       this.readMessage(message.id, index);
-    } else if (message.messageType == MessageType.INVITE_TO_SCRIMS) {
+    } else if (message.messageType == MessageType.REQUEST_TO_SCRIMS) {
       this.acceptScrims(message.scrimsId, message.sender);
+      this.readMessage(message.id, index);
     }
   }
 
   async acceptScrims(scrims_id: string, team_name: string) {
-    (await this.scrimsService.setTeamB(scrims_id, team_name)).subscribe();
+    (await this.scrimsService.setTeamB(scrims_id, team_name)).subscribe(
+      (res) => {
+        this.nav.service.toPage('profile/scrims');
+      },
+      (err) => {
+        alert(err.error);
+      }
+    );
   }
 
   async acceptRequestToJoinTeam(player: string, type: PositionType) {

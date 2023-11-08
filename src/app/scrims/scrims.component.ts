@@ -10,11 +10,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { Team } from '../model/team';
 import { Scrims } from '../model/scrims';
 import { ScrimsService } from '../service/scrims.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scrims',
   templateUrl: './scrims.component.html',
-  styleUrls: ['./scrims.component.css', '../profile/profile.component.css'],
+  styleUrls: ['./scrims.component.css'],
 })
 export class ScrimsComponent implements OnInit {
   @ViewChild('ScrimsContenter', { static: false })
@@ -32,9 +33,8 @@ export class ScrimsComponent implements OnInit {
   loading: boolean = false;
 
   scrims_lists: { team: Team; image: string; scrims: Scrims[] }[] = [];
-  image_id: string[] = [];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     this.team = this.nav.team;
@@ -64,7 +64,6 @@ export class ScrimsComponent implements OnInit {
       scrims: scrims,
     };
     this.scrims_lists.unshift(dataToPush);
-    this.image_id.unshift(team.imageTeamUrl as string);
   }
 
   async setTeam() {
@@ -95,10 +94,14 @@ export class ScrimsComponent implements OnInit {
   async setImageTeam() {
     for (
       let index = this.pageIndex * this.pageSize;
-      index < this.image_id.length;
+      index < this.scrims_lists.length;
       index++
     ) {
-      (await this.nav.service.getImage(this.image_id[index])).subscribe(
+      (
+        await this.nav.service.getImage(
+          this.scrims_lists[index].team.imageTeamUrl
+        )
+      ).subscribe(
         (res) => {},
         (result) => {
           if (result.status == 200) {
@@ -117,7 +120,6 @@ export class ScrimsComponent implements OnInit {
         scrims: [],
       };
       this.scrims_lists.push(dataToPush);
-      this.image_id.push(teamsData[index].imageTeamUrl);
     }
   }
 
@@ -135,6 +137,29 @@ export class ScrimsComponent implements OnInit {
       await this.setSceimsTeam();
       this.pageIndex++;
       this.loading = false;
+      this.scrims_lists_filter = this.scrims_lists;
     });
+  }
+
+  goDetail(id: string, index: number) {
+    if (index === 0) {
+      this.router.navigate(['profile/scrims']);
+      return;
+    }
+    this.router.navigate(['/scrims', id], {
+      queryParams: { myTeam: this.team?.name },
+    });
+  }
+
+  scrims_lists_filter: { team: Team; image: string; scrims: Scrims[] }[] = [];
+
+  filterScrimsList(text: string) {
+    if (!text) {
+      this.scrims_lists_filter = this.scrims_lists;
+    }
+
+    this.scrims_lists_filter = this.scrims_lists.filter((scrim) =>
+      scrim.team.name.toLowerCase().includes(text.toLowerCase())
+    );
   }
 }

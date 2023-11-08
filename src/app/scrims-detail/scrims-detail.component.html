@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row">
+    <div
+      class="col-12 col-xl-6 d-flex flex-column justify-content-start content"
+    >
+      <div
+        id="header-team"
+        class="d-flex flex-row align-items-start justify-content-start mb-5"
+      >
+        <div
+          id="logo-team"
+          class="image-comtent bg-light d-flex border border-2 rounded"
+        >
+          <div
+            id="loading"
+            class="lds-ellipsis m-auto"
+            *ngIf="!image_team && team?.imageTeamUrl"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <img
+            [src]="image_team"
+            *ngIf="image_team && team?.imageTeamUrl"
+            class="m-auto"
+          />
+          <h1
+            *ngIf="!image_team && !team?.imageTeamUrl"
+            [innerHTML]="getUnImageTeam()"
+            class="text-uppercase text-dark unimage"
+          ></h1>
+        </div>
+        <div id="team_name" class="ms-5">
+          <h1 class="text-light" [innerHTML]="team?.name">&nbsp;</h1>
+        </div>
+      </div>
+      <div id="team-member">
+        <h1 class="text-light">Team Member</h1>
+        <div id="team_member">
+          <div
+            id="team_image"
+            class="d-flex flex-wrap justify-content-start m-2 text-light align-items-center"
+            *ngFor="let member of team?.positions; let i = index"
+          >
+            <div
+              id="logo-team"
+              class="image-member-comtent bg-light d-flex border border-2 rounded"
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!images_player[i] && member.player?.imageProfileUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="images_player[i]"
+                *ngIf="images_player[i] && member.player?.imageProfileUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!images_player[i] && !member.player?.imageProfileUrl"
+                [innerHTML]="(member.player?.profileGame)!.name[0]"
+                class="text-uppercase text-dark unimage"
+              >
+                &nbsp;
+              </h1>
+            </div>
+            <div id="member_name" class="ms-5">
+              <h3 [innerHTML]="member.player?.profileGame?.name">&nbsp;</h3>
+            </div>
+            <div id="member_name" class="ms-auto">
+              <h3 [innerHTML]="member.positionType">&nbsp;</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-12 col-xl-5 d-flex text-light flex-column justify-content-start content"
+    >
+      <div>
+        <h1>List Scrims</h1>
+      </div>
+      <div
+        #ListScrims
+        class="border list-scrims"
+        (scroll)="onScrollListScrims()"
+      >
+        <div
+          id="list-scrim"
+          class="m-2 d-flex flex-row justify-content-end"
+          *ngFor="let scrim of scrims"
+        >
+          <label class="list-scrim me-auto">
+            {{ scrim.startDate | date : "dd/MM/yyyy" }}
+          </label>
+          <label class="list-scrim">{{
+            scrim.startDate | date : "HH:mm"
+          }}</label>
+
+          <button
+            type="button"
+            class="btn-success"
+            (click)="inviteScrims(scrim)"
+          >
+            SCRIMS
+          </button>
+        </div>
+        <div
+          id="loading"
+          class="lds-ellipsis m-auto"
+          *ngIf="pageTotal == pageSize"
+        >
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

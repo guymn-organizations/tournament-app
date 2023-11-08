@@ -1,7 +1,22 @@
+.scrims-container {
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid wheat;
+  padding: 10px;
+}
+.scrims-container::-webkit-scrollbar {
+  width: 0.1em;
+}
+
 .logo-team {
   height: 70px;
   width: 70px;
   overflow: hidden;
+  transition: transform 0.7s;
+}
+
+.logo-team :hover {
+  transform: scale(1.1);
 }
 
 img {
