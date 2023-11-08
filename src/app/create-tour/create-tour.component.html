@@ -1,0 +1,232 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div
+  class="body d-flex justify-content-center justify-content-lg-start"
+  style="background-color: rgb(26, 33, 36)"
+>
+  <div class="createfrom">
+    <h1 style="font-family: fantasy; color:green">CREATE TOURNAMENT</h1>
+    <div class="line-8-83i"></div>
+    <div class="form">
+      <form
+        #createtourForm="ngForm"
+        class="row g-3 needs-validation"
+        novalidate
+        (ngSubmit)="submitCreatetourForm()"
+      >
+        <div class="col-md-7">
+          <label for="validationCustom01" class="form-label"
+            >TOURNAMENT NAME</label
+          >
+          <input
+            type="text"
+            id="Tournament_name"
+            name="Tournament_name"
+            class="form-control"
+            [(ngModel)]="tournamentData.name"
+            required
+            placeholder="Tournament name"
+          />
+        </div>
+        <div class="col-md-5">
+          <label for="validationCustom01" class="form-label">REWARD</label>
+          <input
+            type="number"
+            id="Tournament_reward"
+            name="Tournament_reward"
+            class="form-control"
+            [(ngModel)]="tournamentData.reward"
+            required
+            placeholder="BATH ฿"
+            min="0"
+            step="100"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="formFileLg" class="form-label">Number Of Team</label>
+          <select
+            class="form-select"
+            id="numberOfTeam"
+            name="numberOfTeam"
+            [(ngModel)]="tournamentData.numberOfTeam"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="formFileLg" class="form-label">SELECT TYPE OF TOUR</label>
+          <select
+            id="tournamentType"
+            class="form-select"
+            name="tournamentType"
+            [(ngModel)]="tournamentData.tournamenType"
+          >
+            <option selected disabled value="">Choose...</option>
+            <option value="Free">Free</option>
+            <option value="Paid">Paid</option>
+          </select>
+        </div>
+
+        <div class="col-md-7">
+          <label for="validationCustom01" class="form-label">DETAIL</label>
+          <textarea
+            class="form-control"
+            id="Tournament_detail"
+            name="Tournament_detail"
+            [(ngModel)]="tournamentData.detail"
+            rows="10"
+          >
+          </textarea>
+        </div>
+
+        <div class="col-md-5">
+          <div class="row g-2">
+            <div class="col-md-6">
+              <!-- Image upload -->
+              
+                <label for="formFileLg" class="form-label"
+                  >Image Of Tournament</label
+                >
+                <input
+                  accept="image/*"
+                  (change)="onFileSelected($event, 'image')"
+                  class="form-control form-control-lg"
+                  id="formFileLg"
+                  type="file"
+                  [(ngModel)]="selectedImageURL"
+                />
+              
+            </div>
+            <!-- Paid Qrcode upload -->
+            
+              <div class="col-md-6" *ngIf="tournamentData.tournamenType.includes(TournamenType.Paid)">
+                <label for="formFileLg" class="form-label"
+                  >Qr Code Picture</label
+                >
+                <input
+                  accept="image/*"
+                  (change)="onFileSelected($event, 'qrcode')"
+                  class="form-control form-control-lg"
+                  id="formFileLg"
+                  type="file"
+                  [(ngModel)]="qrcodeImageURL"
+                />
+              </div>
+            
+            <!-- Image Preview -->
+            <div class="col-md-6">
+              <div class="form-group" *ngIf="selectedImageURL">
+                <img
+                  [src]="selectedImageURL"
+                  alt="Selected Image"
+                  width="300"
+                  height="150"
+                />
+              </div>
+            </div>  
+            <!-- Qr Image Preview -->
+        <div class="col-md-6" *ngIf="tournamentData.tournamenType.includes(TournamenType.Paid)">
+          <div class="form-group" *ngIf="qrcodeImageURL">
+            <img 
+              style="margin-left: 50px;"
+              [src]="qrcodeImageURL"
+              alt="Selected Image"
+              width="140"
+              height="190"
+            />
+          </div>
+        </div>          
+          </div>
+        </div>
+        
+
+        <div class="col-md-4">
+          <label for="validationCustom03" class="form-label"
+            >วันที่เริ่มสมัคร</label
+          >
+          <input
+            type="date"
+            id="Tournament_date"
+            name="Tournament_date"
+            class="form-control"
+            [(ngModel)]="tournamentData.startRegisterDate"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom03" class="form-label"
+            >สิ้นสุดการสมัคร</label
+          >
+          <input
+            type="date"
+            id="Tournament_date"
+            name="Tournament_date"
+            class="form-control"
+            [(ngModel)]="tournamentData.endRegisterDate"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="validationCustom03" class="form-label"
+            >วันเริ่มการแข่งขัน</label
+          >
+          <input
+            type="date"
+            id="Tournament_date"
+            name="Tournament_date"
+            class="form-control"
+            [(ngModel)]="tournamentData.startTourDate"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="formFileLg" class="form-label">BOqualifyingRound</label>
+          <select
+            class="form-select"
+            id="BOqualifyingRound"
+            name="BOqualifyingRound"
+            [(ngModel)]="tournamentData.bOqualifyingRound"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option value="3">BO3</option>
+            <option value="5">BO5</option>
+            <option value="7">BO7</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="formFileLg" class="form-label">BOfinalRound</label>
+          <select
+            class="form-select"
+            id="BOfinalRound"
+            name="BOfinalRound"
+            [(ngModel)]="tournamentData.bOfinalRound"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option value="3">BO3</option>
+            <option value="5">BO5</option>
+            <option value="7">BO7</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-danger rounded-pill"
+          [disabled]="!createtourForm.form.valid || !isFormValid()"
+        >
+          CREATE
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

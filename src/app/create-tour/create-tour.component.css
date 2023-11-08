@@ -1,0 +1,54 @@
+.body {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+    height: 100%;
+    width: 100%;
+    
+    overflow-y: scroll;
+  
+    margin-top: 10px;
+    font-family: 'Kanit', sans-serif;
+}
+.createfrom{
+    
+    width: 100%;
+    padding: 50px;
+}
+.form{
+    margin-top: 30px;
+    
+}
+.form-select,.form-input,.form-control{
+    background-color: rgb(255, 255, 255);
+}
+.line-8-83i {
+    width: 80%;
+    height: 0.2rem;
+    position: absolute;
+    
+    background-color: #ffffff;
+}
+.form-label{
+    color:  rgb(255, 255, 255);
+}
+
+/* เพิ่ม CSS Media Query เพื่อปรับขนาด status-bar ในหน้าจอที่มีความกว้างต่าง ๆ */
+@media (max-width: 768px) {
+   
+     .line-8-83i{
+         width: 430px;
+     }
+     
+   }
+   
+   @media (max-width: 480px) {
+    
+    
+    
+     .line-8-83i{
+         width: 280px;
+     }
+   }

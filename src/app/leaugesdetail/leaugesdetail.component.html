@@ -1,0 +1,273 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div class="body" *ngIf="tournament">
+  <div class="bar">
+    <a
+      (click)="showOverview()"
+      [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
+      >ภาพรวม</a
+    >
+    <a
+      (click)="showTeamjoin()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
+      >ทีมที่เข้าร่วม</a
+    >
+    <a
+      (click)="showMatching()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      >การแข่งขัน</a
+    >
+  </div>
+  <div class="line-8-83i"></div>
+  
+  <ng-container *ngIf="isOverview;">
+    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isTeamJoin;">
+    <ng-container *ngTemplateOutlet="Teamjoinpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isMatching;">
+    <ng-container *ngTemplateOutlet="Matchingpage"></ng-container>
+  </ng-container>
+  
+
+  <ng-template #Overviewpage>
+    <div class="row">
+      <div class="col-msm-12">
+        <div class="status">
+          <div class="box">
+            <span
+              class="status-bar"
+              id="รอดำเนินการ"
+              style="
+                background-color: red;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+              "
+            ></span>
+            <p>รอดำเนินการ</p>
+          </div>
+          <div class="box">
+            <span class="status-bar" id="เปิดรับสมัคร"></span>
+            <p>เปิดรับสมัคร</p>
+          </div>
+          <div class="box">
+            <span class="status-bar" id="ปิดรับสมัคร"></span>
+            <p>ปิดรับสมัคร</p>
+          </div>
+          <div class="box">
+            <span class="status-bar" id="กำลังแข่งขัน"></span>
+            <p>กำลังแข่งขัน</p>
+          </div>
+          <div class="box">
+            <span
+              class="status-bar"
+              id="จบการแข่งขัน"
+              style="
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+              "
+            ></span>
+            <p>จบการแข่งขัน</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-12">
+          <div class="img">
+            <img [src]="image" alt="Tournament Image">
+          </div>
+        </div>
+       
+      </div>
+      <div class="col-md-6">
+        <div class="detail">
+          <div class="row g-2">
+            <div class="col-md-12" style="display: grid; place-items: center">
+              <div class="data-item" style="text-align: center;">
+                <h1
+                style="
+                  font-family: fantasy;
+                  -webkit-text-stroke: 2px rgb(21, 21, 21);
+                "
+              >
+                {{ tournament.name }}
+              </h1>
+              </div>
+            
+            </div>
+
+            <div class="col-md-12">
+              <div class="data-item" >
+                <h5>คำอธิบาย</h5>
+              <p class="colorp">{{ tournament.detail }}</p>
+              </div>
+              
+            </div>
+            <div class="col-md-4">
+              <div class="data-item" >
+                <h5>ประเภท</h5>
+              <p class="colorp">{{ tournament.tournamenType }}</p>
+              </div>
+              
+            </div>
+            <div class="col-md-4">
+              <div class="data-item" >
+                <h5>จำนวนทีมที่เข้าร่วม</h5>
+              <p class="colorp"> {{teamsInTour.length}} / {{ tournament.numberOfTeam }}</p>
+              </div>
+              
+            </div>
+
+            <div class="col-sm-4">
+              <div class="data-item">
+                
+                  <h5>เงินรางวัล</h5>
+                
+                <p  style="color: green; font-weight: bold;">
+                  {{ tournament.reward | number : "1.0-0" }}฿
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="data-item" ><h5>วันที่เริ่มสมัคร</h5>
+                <p class="colorp">{{ tournament.startRegisterDate }}</p>
+              </div>
+              
+            </div>
+            <div class="col-md-4">
+              <div class="data-item" ><h5>หมดเวลาสมัคร</h5>
+                <p class="colorp">{{ tournament.endRegisterDate }}</p></div>
+              
+            </div>
+            <div class="col-md-4">
+              <div class="data-item" >
+                <h5>วันที่เริ่มแข่ง</h5>
+              <p class="colorp">{{ tournament.startTourDate }}</p>
+              </div>
+              
+            </div>
+            <div class="col-md-6">
+              <div class="data-item" ><h5>ประเภทการแข่งรอบ Qualify</h5>
+                <p class="colorp">BO : {{ tournament.bOqualifyingRound }}</p></div>
+              
+            </div>
+            <div class="col-md-6">
+              <div class="data-item" >
+                <h5>ประเภทการแข่งรอบ Final</h5>
+              <p class="colorp">BO : {{ tournament.bOfinalRound }}</p>
+              </div>
+              
+            </div>
+            <div class="col-md-12">
+              <div *ngIf="teamsInTour.length === tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="showAlertMessage()">REGISTER</button>
+              </div>
+              <div *ngIf="teamsInTour.length !== tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Modal structure -->
+  <div class="modal" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 style="color: black;" class="modal-title">{{ tournament.name }}</h5>
+          <button type="button" class="close" (click)="closeRegisterModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="color: black;">{{ tournament.detail }}.</p>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypeFree)">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypePaid)">
+            <img [src]="tournament.payments" width="400" height="550">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ------------------Teamjoin--------------------------------- -->
+
+  <ng-template #Teamjoinpage>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="bg">
+          <img
+            src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="row">
+        <div class="col-md-11">
+          <h3 style="font-family: fantasy">TEAM</h3>
+        </div>
+        <div class="col-md-1">{{teamsInTour.length}} / {{tournament.numberOfTeam}} Team</div>
+        <div class="col-md-12">
+          <div class="line-8-83i"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div
+              class="col-md-12"
+              style="font-family: fantasy; font-size: 24px; padding: 20px"
+            >
+              All of team
+            </div>
+          </div>
+          <div
+            class="col-md-10"
+            style="border-left: 1px solid rgb(255, 255, 255); padding: 30px"
+          >
+            <div class="row g-3">
+              <div
+                class="col-md-3"
+                class="team-item"
+                *ngFor="let item of teamsInTour; let i = index"
+                style="color: black;"
+              >
+                <img [src]="teamsInTour[i].team.imageTeamUrl" alt="imageTeam">
+                {{teamsInTour[i].team.name}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-----------------------maching---------------------------->
+  <ng-template #Matchingpage>
+    <div *ngFor="let match of matches">
+      
+    </div>
+  </ng-template>
