@@ -19,13 +19,6 @@ export class NavbarComponent implements OnInit {
   teamService: TeamService = inject(TeamService);
 
   menu = false;
-  navBarName = ['leauges', 'scrims', 'tournament', 'finder'];
-  navBarImg = [
-    '../../assets/img/nav/LEAUGES.png',
-    '../../assets/img/nav/SCRIMS.png',
-    '../../assets/img/nav/TOURNAMENT.png',
-    '../../assets/img/nav/FINDER.png',
-  ];
 
   profile?: Profile;
   profileSubscription: Subscription | undefined;
@@ -106,13 +99,12 @@ export class NavbarComponent implements OnInit {
     return !!this.profile?.profileGame;
   }
 
-  navBarRow = this.navBarName.map((name, index) => ({
-    name: name,
-    img: this.navBarImg[index],
-  }));
-
   clickMenu() {
     this.menu = !this.menu;
+  }
+
+  checkTeam(): boolean {
+    return !!this.team;
   }
 
   checkTab() {

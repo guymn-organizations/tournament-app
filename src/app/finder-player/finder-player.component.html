@@ -3,14 +3,13 @@
     <!-- Left Side -->
 
     <div class="col-md-3 col-sm-12 border-end">
-
       <div class="container p-4">
         <!-- Added padding -->
         <h2>Role</h2>
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'DSL')" />
+            <input type="checkbox" (change)="onChange($event, 'DSL')" />
             <span class="slider round"></span>
           </label>
           <h3>DSL</h3>
@@ -22,7 +21,7 @@
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'JG')" />
+            <input type="checkbox" (change)="onChange($event, 'JG')" />
             <span class="slider round"></span>
           </label>
           <h3>JG</h3>
@@ -33,7 +32,7 @@
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'MID')" />
+            <input type="checkbox" (change)="onChange($event, 'MID')" />
             <span class="slider round"></span>
           </label>
           <h3>MID</h3>
@@ -44,7 +43,7 @@
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'ADL')" />
+            <input type="checkbox" (change)="onChange($event, 'ADL')" />
             <span class="slider round"></span>
           </label>
           <h3>ADL</h3>
@@ -62,7 +61,6 @@
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/db5db10e92387724ab25f92a8c1e6e9f.png"
             alt="lane" width="40px" height="40px" />
-
         </div>
       </div>
     </div>
@@ -82,7 +80,7 @@
         <div class="row">
           <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3"
             [ngClass]="{ 'hidden': !isSelected(post.post) }">
-            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#jointeam" (click)="getdataByid(post.post.id)">
+            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#jointeam">
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">
                   <div class="box-image-game border m-2 img">
@@ -99,14 +97,19 @@
                 <div class="col-lg-8 col-12">
                   <div class="d-flex flex-column justify-content-start">
                     <h5 class="card-title text-start game-profile">
-                      PROFILE: <span class="profile-info">{{ post.post.profile.firstName }} {{
-                        post.post.profile.lastName }}</span>
+                      PROFILE:
+                      <span class="profile-info">{{ post.post.profile.firstName }}
+                        {{ post.post.profile.lastName }}</span>
                     </h5>
                     <h5 class="card-title text-start game-game">
-                      IN-GAME: <span class="profile-game">{{ post.post.profile.profileGame?.name }}</span>
+                      IN-GAME:
+                      <span class="profile-game">{{
+                        post.post.profile.profileGame.name
+                        }}</span>
                     </h5>
                     <h5 class="card-title text-start game-positions overflow-ellipsis">
-                      POSITIONS: <span class="positions">{{ post.post.positions }}</span>
+                      POSITIONS:
+                      <span class="positions">{{ post.post.positions }}</span>
                     </h5>
                   </div>
                 </div>
@@ -116,7 +119,6 @@
         </div>
       </div>
 
-
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -124,20 +126,20 @@
               <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="playerPostForm">
                 <h2 class="mt-2 text-center">Player Information</h2>
 
-                <div class="mb-3 ">
+                <div class="mb-3">
                   <label for="position" class="form-label">POSITIONS</label>
                   <div class="row">
-                      <div class="switch-container col-6" *ngFor="let position of position">
-                        <label class="switch">
-                          <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
-                          <span class="slider round"></span>
-                        </label>
-                        <div class="mt-1">
-                          <h4>{{ position }}</h4>
-                        </div>
+                    <div class="switch-container col-6" *ngFor="let position of position">
+                      <label class="switch">
+                        <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
+                        <span class="slider round"></span>
+                      </label>
+                      <div class="mt-1">
+                        <h4>{{ position }}</h4>
                       </div>
                     </div>
                   </div>
+                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
@@ -153,50 +155,59 @@
         </div>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="jointeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body text-center">
-              <h3>Invite players to join the team</h3>
-              <div class="align-items-center" data-bs-toggle="modal" data-bs-target="#jointeam">
-                <div class="d-flex align-items-center  justify-content-evenly">
-                  <div class="">
-                    <div class="box-image-game border m-2 img">
-                      <div class="lds-ellipsis m-auto">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                      <img [ngClass]=""
+      <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3">
+        <div class="modal fade" id="jointeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <h3>Invite players to join the team</h3>
+                <div class="align-items-center" data-bs-toggle="modal" data-bs-target="#jointeam">
+                  <div class="d-flex align-items-center  justify-content-evenly">
+                    <div class="">
+                      <div class="box-image-game border m-2 img">
+                        <div class="lds-ellipsis m-auto" *ngIf="!post.image">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                        <img [ngClass]="{ 'd-none': !post.image }" [src]="post.image"
                         class="img-fluid rounded-start game-image">
+                      </div>
                     </div>
-                  </div>
-                  <div class="">
-                    <div class="d-flex flex-column justify-content-start">
-                      <h5 class="card-title text-start game-profile">
-                        PROFILE: <span class="profile-info"></span>
-                      </h5>
-                      <h5 class="card-title text-start game-game">
-                        IN-GAME: <span class="profile-game"></span>
-                      </h5>
-                      <h5 class="card-title text-start game-positions overflow-ellipsis">
-                        POSITIONS: <span class="positions"></span>
-                      </h5>
+                    <div class="">
+                      <div class="d-flex flex-column justify-content-start">
+                        <h5 class="card-title text-start game-profile">
+                          <span class="profile-info">PROFILE:
+                            {{ post.post.profile.firstName }}
+                            {{ post.post.profile.lastName }}</span>
+                        </h5>
+                        <h5 class="card-title text-start game-game">
+                          IN-GAME: <span class="profile-game">{{
+                            post.post.profile.profileGame.name
+                            }}</span>
+                        </h5>
+                        <h5 class="card-title text-start game-positions overflow-ellipsis">
+                          POSITIONS:   <span class="positions">{{ post.post.positions }}</span>
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success">Sent request</button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Sent request</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
 
+
       <p class="m-2 text-center">finder-player works!</p>
       <!-- Added margin and centered text -->
     </div>
+  </div>
+</div>

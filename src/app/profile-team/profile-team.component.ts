@@ -157,6 +157,7 @@ export class ProfileTeamComponent implements OnInit {
       async (error) => {
         localStorage.setItem('team', '');
         this.nav.profile!.profileGame.myTeam = null;
+        this.nav.team = undefined;
         this.selectedImageURL = null;
         this.teamData.name = '';
         this.position_type = PositionType.DSL;

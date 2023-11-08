@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PositionType, Team } from '../model/team';
 import { Observable } from 'rxjs';
-import { Message } from '../model/message';
-import { Profile } from '../model/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +17,17 @@ export class TeamService {
 
   async getTeamById(id: string): Promise<Observable<Team>> {
     return this.http.get<Team>(`${this.apiUrl}/${id}`);
+  }
+
+  async getTeamToShowScrims(
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<Team[]>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Team[]>(`${this.apiUrl}/show_scrims`, { params });
   }
 
   async addTeamPlayer(

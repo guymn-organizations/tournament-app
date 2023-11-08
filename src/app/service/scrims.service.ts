@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Scrims } from '../model/scrims';
 import { Observable } from 'rxjs';
@@ -13,6 +13,34 @@ export class ScrimsService {
 
   async getScrimsByTeam(id: string): Promise<Observable<Scrims[]>> {
     return this.http.get<Scrims[]>(`${this.apiUrl}/${id}`);
+  }
+
+  async getScrimsByTeamLazy(
+    id: string,
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<Scrims[]>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<Scrims[]>(`${this.apiUrl}/${id}`, { params });
+  }
+
+  async getScrimsByTeamNoOpponent(id: string): Promise<Observable<Scrims[]>> {
+    return this.http.get<Scrims[]>(`${this.apiUrl}/${id}/no_opponent`);
+  }
+
+  async getScrimsByTeamNoOpponentLazy(
+    id: string,
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<Scrims[]>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<Scrims[]>(`${this.apiUrl}/${id}/no_opponent`, {
+      params,
+    });
   }
 
   async createScrims(scrims: Scrims): Promise<Observable<Scrims>> {

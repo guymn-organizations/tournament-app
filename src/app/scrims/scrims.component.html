@@ -1,110 +1,57 @@
-<div class="Scrim scrim-background" [ngClass]="{ 'visually-hidden': !nav.getProfile().profileGame }"></div>
-<div class="Scrim" [ngClass]="{ 'visually-hidden': !nav.getProfile().profileGame }">
+<div class="Scrim">
   <div class="container">
     <app-header [title]="title" [discription]="discription"></app-header>
 
-    <div class="d-flex flex-row border-bottom border-white">
-      <div *ngFor="let router of childName" class="p-2" [routerLink]="router.router" [ngClass]="{
-          'border-bottom border-primary border-3': isActive(router.router)
-        }">
-        <label> {{ router.name }}</label>
+    <div>
+      <div class="border-bottom d-lg-flex">
+        <label class="fs-5 underline border-2">Scrims Finder</label>
       </div>
-    </div>
-    <router-outlet></router-outlet>
-  </div>
-  <div class="container">
-    <div class="row">
-      <!-- Left Side -->
-      <div class="col-md-3 col-sm-12 border-end">
-        <div class="container p-4">
-          <!-- Added padding -->
-          <h2>TIME</h2>
-          <div class="d-flex justify-content-between pt-2">
-            <label class="switch">
-              <!-- Center text -->
-              <input type="checkbox" (change)="onChange($event,'DSL')" />
-              <span class="slider round"></span>
-            </label>
-            <h3>20.00</h3>
-            <img src="src\assets\img\nine-oclock-11552761195fz4wnxht5u.png" alt="time" width="40px" height="40px" />
-          </div>
 
-          <div class="d-flex justify-content-between pt-2">
-            <label class="switch">
-              <!-- Center text -->
-              <input type="checkbox" (change)="onChange($event,'JG')" />
-              <span class="slider round"></span>
-            </label>
-            <h3>21.00</h3>
-            <img src="src\assets\img\pngegg.png" alt="time" width="40px" height="40px" />
+      <div
+        #ScrimsContenter
+        class="d-flex flex-row justify-content-start align-items-center flex-wrap"
+        (scroll)="onScrollScrimsContenter()"
+      >
+        <div
+          class="card d-flex flex-column mt-2"
+          *ngFor="let scrims of scrims_lists; let index = index"
+        >
+          <h4 class="m-auto team-name" [innerHTML]="scrims.team.name"></h4>
+          <div
+            class="m-auto d-flex flex-column img-content border border-2 rounded bg-light"
+          >
+            <div
+              id="loading "
+              class="lds-ellipsis m-auto"
+              *ngIf="!scrims.image && image_id[index]"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <img
+              [src]="scrims.image"
+              *ngIf="scrims.image && image_id[index]"
+              class="m-auto"
+            />
+            <h1
+              *ngIf="!image_id[index]"
+              [innerHTML]="scrims.team.name[0]"
+              class="text-uppercase text-dark unimage"
+            ></h1>
           </div>
-          <div class="d-flex justify-content-between pt-2">
-            <label class="switch">
-              <!-- Center text -->
-              <input type="checkbox" (change)="onChange($event,'MID')" />
-              <span class="slider round"></span>
-            </label>
-            <h3>22.00</h3>
-            <img src="src\assets\img\pngegg.png" alt="time" width="40px" height="40px" />
+          <div class="card-body">
+            <div
+              class="scrim-list d-flex justify-content-between"
+              *ngFor="let scrim of scrims.scrims"
+            >
+              <label> {{ scrim.startDate | date : "dd/MM/y" }} </label>
+              <label>{{ scrim.startDate | date : "HH:mm" }}</label>
+            </div>
           </div>
         </div>
       </div>
-
-
-      <!-- Right Side (Card Box) -->
-      <div class="col-md-9 col-sm-12">
-        <div class="d-flex flex-column p-4 align-items-end">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card game-card">
-                  <h5 class="card-title text-center mt-4 game-title">Bacon Time</h5>
-                  <img src="https://cdn.oneesports.co.th/cdn-data/sites/3/2023/01/profile-hires-1024x1024.jpg" alt="Image" class="img-thumbnail m-3 p-3 game-image">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col text-start">
-                        <p class="card-text game-date">16/10/2020</p>
-                      </div>
-                      <div class="col text-end">
-                        <p class="card-text game-time">20.00</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="col-md-4">
-                <div class="card game-card">
-                  <h5 class="card-title text-center mt-4 game-title">Bacon Time</h5>
-                  <img src="https://cdn.oneesports.co.th/cdn-data/sites/3/2023/01/profile-hires-1024x1024.jpg" alt="Image" class="img-thumbnail m-3 p-3 game-image">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col text-start">
-                        <p class="card-text game-date">16/10/2020</p>
-                      </div>
-                      <div class="col text-end">
-                        <p class="card-text game-time">20.00</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="col-md-4">
-                <div class="card game-card">
-                  <h5 class="card-title text-center mt-4 game-title">Bacon Time</h5>
-                  <img src="https://cdn.oneesports.co.th/cdn-data/sites/3/2023/01/profile-hires-1024x1024.jpg" alt="Image" class="img-thumbnail m-3 p-3 game-image">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col text-start">
-                        <p class="card-text game-date">16/10/2020</p>
-                      </div>
-                      <div class="col text-end">
-                        <p class="card-text game-time">20.00</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
+</div>
