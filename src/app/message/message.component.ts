@@ -76,7 +76,7 @@ export class MessageComponent implements OnInit {
     }
 
     (await this.messageService.getMessage(slicedMessages)).subscribe((res) => {
-      this.message_team = res;
+      this.message_team = [...this.message_team, ...res];
     });
   }
 
