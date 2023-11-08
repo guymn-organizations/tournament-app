@@ -32,7 +32,11 @@ export class LeaugesdetailComponent implements OnInit {
 
   matches: Match[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private teamService: TeamService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private teamService: TeamService
+  ) {
     this.ngOnInit();
   }
 
@@ -53,11 +57,13 @@ export class LeaugesdetailComponent implements OnInit {
     this.getMatchesForTournament(this.checked_id);
   }
 
-  async AllTeamInTournament(tournamentId: string){
-    (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
+  async AllTeamInTournament(tournamentId: string) {
+    (
+      await this.tournamentService.getAllTeamInTournament(tournamentId)
+    ).subscribe(
       (data: any[]) => {
         this.teamsInTour = data;
-        if (this.teamsInTour.length === this.tournament.numberOfTeam){
+        if (this.teamsInTour.length === this.tournament.numberOfTeam) {
           this.createMatchesForTournament();
         }
       },
@@ -97,13 +103,13 @@ export class LeaugesdetailComponent implements OnInit {
     this.isMatching = false;
     this.isTeamJoin = true;
   }
-  
+
   showOverview() {
     this.isOverview = true;
     this.isMatching = false;
     this.isTeamJoin = false;
   }
-  
+
   showMatching() {
     this.isOverview = false;
     this.isMatching = true;
@@ -130,13 +136,17 @@ export class LeaugesdetailComponent implements OnInit {
 
   async confirmTeamJoin() {
     try {
-      const tourid = this.checked_id; 
-      const teamId = localStorage.getItem('team') as string; 
+      const tourid = this.checked_id;
+      const teamId = localStorage.getItem('team') as string;
 
-      const team: Team | undefined = await (await this.teamService.getTeamById(teamId)).toPromise();
+      const team: Team | undefined = await (
+        await this.teamService.getTeamById(teamId)
+      ).toPromise();
 
       if (team) {
-        const response = await (await this.tournamentService.addTeamToTournament(tourid, teamId, team)).toPromise();
+        const response = await (
+          await this.tournamentService.addTeamToTournament(tourid, teamId, team)
+        ).toPromise();
 
         console.log('Success:', response);
       } else {
@@ -148,8 +158,13 @@ export class LeaugesdetailComponent implements OnInit {
   }
 
   async createMatchesForTournament() {
-    const tournamentId = this.checked_id; 
-    (await this.tournamentService.createMatchesForTournament(tournamentId, this.teamsInTour)).subscribe(
+    const tournamentId = this.checked_id;
+    (
+      await this.tournamentService.createMatchesForTournament(
+        tournamentId,
+        this.teamsInTour[0]
+      )
+    ).subscribe(
       (response) => {
         console.log('Matches created successfully:', response);
       },
@@ -164,7 +179,9 @@ export class LeaugesdetailComponent implements OnInit {
   }
 
   async getMatchesForTournament(tournamentId: string) {
-    (await this.tournamentService.getAllMatchesForTournament(tournamentId)).subscribe(
+    (
+      await this.tournamentService.getAllMatchesForTournament(tournamentId)
+    ).subscribe(
       (matches: Match[]) => {
         this.matches = matches;
       },

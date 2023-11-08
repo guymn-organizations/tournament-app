@@ -1,51 +1,30 @@
-<div class="tournament">
+<div class="Scrim">
   <div class="container">
-    <h1 class="text-start mt-4">YOUR TOURNAMENTS</h1>
+    <app-header [title]="title" [discription]="discription"></app-header>
 
-    <div class="d-flex flex-row border-bottom border-light mb-3">
-      <!-- Add your navigation links here -->
-      <div *ngFor="let router of childName" class="p-2" [routerLink]="router.router" [ngClass]="{
-          'border-bottom border-primary border-3': isActive(router.router)
-        }">
-        <label> {{ router.name }}</label>
+    <div class="d-flex flex-column">
+      <div class="border-bottom d-lg-flex">
+        <label class="fs-5 underline border-2">Matching</label>
       </div>
-    </div>
-
-   
-    <div class="card text-bg-secondary mb-3 rounded-pill">
-      <div class="card-body bg-gray">
-        <div class="row align-items-center">
-          <div class="col-4 d-flex align-items-center fs-4">
-            <img src="https://yt3.googleusercontent.com/_-xP4vEI_q7kn-15nKbIbI9fJ_NmtSotjopG--QRCRq99jdf-9mZoBAOg9YXe_itiusPy1nwhQ=s900-c-k-c0x00ffffff-no-rj" alt="Logo" style="max-width: 100px; max-height: 100px;" class="ps-2">
-            <h1 class="mb-0 ms-2">Bacon</h1>
-          </div>
-          <div class="col-4 text-center text-black">
-            <h1>VS</h1>
-            <h1>19/08/2566</h1>
-          </div>
-          <div class="col-4 d-flex align-items-center fs-4 justify-content-end">
-            <h1 class="me-2">Burirum</h1>
-            <img src="https://pbs.twimg.com/profile_images/1022009667403345920/Oe5Sq3f-_400x400.jpg" alt="Logo" style="max-width: 100px; max-height: 100px;" class="pe-2">
-          </div>
+      <div
+        #MatchingContenter
+        class="scrims-contenter d-flex flex-column p-3"
+        (scroll)="onScrollMatchingContenter()"
+      >
+        <div class="match-list border rounded bg-light">
+          <div></div>
         </div>
       </div>
-    </div>
-     
-    <div class="card text-bg-secondary mb-3 rounded-pill">
-      <div class="card-body bg-gray">
-        <div class="row align-items-center">
-          <div class="col-4 d-flex align-items-center fs-4">
-            <img src="https://yt3.googleusercontent.com/_-xP4vEI_q7kn-15nKbIbI9fJ_NmtSotjopG--QRCRq99jdf-9mZoBAOg9YXe_itiusPy1nwhQ=s900-c-k-c0x00ffffff-no-rj" alt="Logo" style="max-width: 100px; max-height: 100px;" class="ps-2">
-            <h1 class="mb-0 ms-2">Bacon</h1>
-          </div>
-          <div class="col-4 text-center text-black ">
-            <h1>VS</h1>
-            <h1>19/08/2566</h1>
-          </div>
-          <div class="col-4 d-flex align-items-center fs-4 justify-content-end">
-            <h1 class="me-2">Burirum</h1>
-            <img src="https://pbs.twimg.com/profile_images/1022009667403345920/Oe5Sq3f-_400x400.jpg" alt="Logo" style="max-width: 100px; max-height: 100px;" class="pe-2">
-          </div>
-        </div>
+      <div
+        id="loading"
+        class="lds-ellipsis m-auto"
+        *ngIf="pageTotal == pageSize"
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
+  </div>
+</div>

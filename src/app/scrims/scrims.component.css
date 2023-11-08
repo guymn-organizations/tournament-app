@@ -62,7 +62,7 @@
 .Scrim {
   background-color: #15161b;
   color: #fff;
-  min-height: 700px;
+  min-height: 100vh;
 }
 .scrim-background {
   background-color: #15161b;
