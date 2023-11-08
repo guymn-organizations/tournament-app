@@ -7,7 +7,10 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-profile-profile',
   templateUrl: './profile-profile.component.html',
-  styleUrls: ['./profile-profile.component.css'],
+  styleUrls: [
+    './profile-profile.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileProfileComponent {
   nav: NavbarComponent = inject(NavbarComponent);
@@ -36,6 +39,7 @@ export class ProfileProfileComponent {
     this.profileData.password = '';
     this.profileData.confirm_password = '';
   }
+
   isEdit(): boolean {
     return !!this.toEdit;
   }
@@ -89,7 +93,7 @@ export class ProfileProfileComponent {
       )
     ).subscribe((respon) => {
       this.nav.setProfileData(respon);
-      this.nav.setProfileImage();
+      this.nav.setImageProfile(this.selectedImageURL as string);
     });
 
     this.clickOutEdit();

@@ -1,13 +1,5 @@
-.bg-data {
-  background-color: #28282b;
-}
-
-.img {
-  width: 200px;
-  height: 200px;
-}
-
-img {
+img,
+.img-content {
   width: 200px;
   height: 200px;
 }
@@ -39,10 +31,22 @@ img {
   cursor: pointer;
 }
 
-::placeholder {
-  color: #fff;
+:root {
+  --ellipsis-color: white;
 }
 
-input {
-  color: #fff;
+.lds-ellipsis div:nth-child(1) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: --ellipsis-color;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: --ellipsis-color;
 }

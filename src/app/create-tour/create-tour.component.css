@@ -19,13 +19,20 @@
 }
 .form{
     margin-top: 30px;
+    
+}
+.form-select,.form-input,.form-control{
+    background-color: rgb(255, 255, 255);
 }
 .line-8-83i {
     width: 80%;
     height: 0.2rem;
     position: absolute;
     
-    background-color: #777575;
+    background-color: #ffffff;
+}
+.form-label{
+    color:  rgb(255, 255, 255);
 }
 
 /* เพิ่ม CSS Media Query เพื่อปรับขนาด status-bar ในหน้าจอที่มีความกว้างต่าง ๆ */

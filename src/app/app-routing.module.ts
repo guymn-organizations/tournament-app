@@ -18,6 +18,8 @@ import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component'
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { AdvertComponent } from './advert/advert.component';
 
+import { MessageComponent } from './message/message.component';
+import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
 
 const routes: Routes = [
   {
@@ -58,8 +60,16 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Redirect empty path to 'profile'
           { path: 'profile', component: ProfileProfileComponent },
-          { path: 'game', component: ProfileGameComponent },
-          { path: 'team', component: ProfileTeamComponent },
+          {
+            path: 'game',
+            component: ProfileGameComponent,
+          },
+          {
+            path: 'team',
+            component: ProfileTeamComponent,
+          },
+          { path: 'message', component: MessageComponent },
+          { path: 'scrims', component: ProfileListScrimComponent },
         ],
       },
     ],

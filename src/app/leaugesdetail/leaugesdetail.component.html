@@ -14,15 +14,30 @@
     <a
       (click)="showTeamjoin()"
       style="margin-left: 80px"
-      [ngClass]="{ 'border-bottom border-danger border-3': !isOverview }"
+      [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
       >ทีมที่เข้าร่วม</a
+    >
+    <a
+      (click)="showMatching()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      >การแข่งขัน</a
     >
   </div>
   <div class="line-8-83i"></div>
-
-  <ng-container *ngIf="isOverview; else Teamjoinpage">
-    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container
-  ></ng-container>
+  
+  <ng-container *ngIf="isOverview;">
+    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isTeamJoin;">
+    <ng-container *ngTemplateOutlet="Teamjoinpage"></ng-container>
+  </ng-container>
+  
+  <ng-container *ngIf="isMatching;">
+    <ng-container *ngTemplateOutlet="Matchingpage"></ng-container>
+  </ng-container>
+  
 
   <ng-template #Overviewpage>
     <div class="row">
@@ -99,15 +114,22 @@
               </div>
               
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="data-item" >
                 <h5>ประเภท</h5>
               <p class="colorp">{{ tournament.tournamenType }}</p>
               </div>
               
             </div>
+            <div class="col-md-4">
+              <div class="data-item" >
+                <h5>จำนวนทีมที่เข้าร่วม</h5>
+              <p class="colorp"> {{teamsInTour.length}} / {{ tournament.numberOfTeam }}</p>
+              </div>
+              
+            </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
               <div class="data-item">
                 
                   <h5>เงินรางวัล</h5>
@@ -149,7 +171,12 @@
               
             </div>
             <div class="col-md-12">
-              <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
+              <div *ngIf="teamsInTour.length === tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="showAlertMessage()">REGISTER</button>
+              </div>
+              <div *ngIf="teamsInTour.length !== tournament.numberOfTeam">
+                <button class="btn btn-success" (click)="openRegisterModal()">REGISTER</button>
+              </div>
             </div>
           </div>
 
@@ -164,19 +191,27 @@
     <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Registration</h5>
+          <h5 style="color: black;" class="modal-title">{{ tournament.name }}</h5>
           <button type="button" class="close" (click)="closeRegisterModal()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <!-- Add your scrollable registration form or content here -->
-          <p>This content will be scrollable if it overflows the modal.</p>
-          <!-- Add more content as needed -->
+          <p style="color: black;">{{ tournament.detail }}.</p>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypeFree)">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          <div *ngIf="tournament.tournamenType!.includes(tournamenTypePaid)">
+            <img [src]="tournament.payments" width="400" height="550">
+            <button (click)="confirmTeamJoin()" (click)="closeRegisterModal()">Confirm</button>
+            <button (click)="closeRegisterModal()">Cancel</button>
+          </div>
+          
         </div>
       </div>
     </div>
-
+  </div>
   <!-- ------------------Teamjoin--------------------------------- -->
 
   <ng-template #Teamjoinpage>
@@ -196,7 +231,7 @@
         <div class="col-md-11">
           <h3 style="font-family: fantasy">TEAM</h3>
         </div>
-        <div class="col-md-1">50 Team</div>
+        <div class="col-md-1">{{teamsInTour.length}} / {{tournament.numberOfTeam}} Team</div>
         <div class="col-md-12">
           <div class="line-8-83i"></div>
         </div>
@@ -217,12 +252,22 @@
               <div
                 class="col-md-3"
                 class="team-item"
-                *ngFor="let item of touritems; let i = index"
-              ></div>
+                *ngFor="let item of teamsInTour; let i = index"
+                style="color: black;"
+              >
+                <img [src]="teamsInTour[i].team.imageTeamUrl" alt="imageTeam">
+                {{teamsInTour[i].team.name}}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </ng-template>
-</div>
+
+  <!-----------------------maching---------------------------->
+  <ng-template #Matchingpage>
+    <div *ngFor="let match of matches">
+      
+    </div>
+  </ng-template>

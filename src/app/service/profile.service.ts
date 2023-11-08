@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Profile } from '../model/profile';
 import { ProfileGame } from '../model/profile-game';
+import { Message } from '../model/message';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,9 @@ export class ProfileService {
     profileGame: ProfileGame
   ): Promise<Observable<ProfileGame>> {
     return this.http.put<ProfileGame>(`${this.apiUrl}/${id}/game`, profileGame);
+  }
+
+  async getMessage(id: string): Promise<Observable<Message[]>> {
+    return this.http.get<Message[]>(`${this.apiUrl}/${id}/message`);
   }
 }

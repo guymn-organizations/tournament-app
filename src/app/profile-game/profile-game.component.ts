@@ -9,7 +9,10 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-profile-game',
   templateUrl: './profile-game.component.html',
-  styleUrls: ['./profile-game.component.css'],
+  styleUrls: [
+    './profile-game.component.css',
+    '../profile/profile.component.css',
+  ],
 })
 export class ProfileGameComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
@@ -25,6 +28,8 @@ export class ProfileGameComponent implements OnInit {
   toEdit = false;
 
   profileGame: ProfileGame | undefined;
+
+  errorMessage = '';
 
   constructor() {}
 
@@ -46,12 +51,12 @@ export class ProfileGameComponent implements OnInit {
 
   async clickEdit() {
     await this.setProfileGameData();
+    this.errorMessage = '';
     this.toEdit = !this.toEdit;
   }
 
   async onSubmitConnectForm() {
     await this.setProfileGame();
-    this.toEdit = false;
   }
 
   async setProfileGame() {
@@ -61,16 +66,21 @@ export class ProfileGameComponent implements OnInit {
       imageGameUrl: this.selectedImageURL as string,
     };
 
-    console.log(profileData);
-
     (
       await this.nav.profileService.editProfileGame(
         this.nav.getProfile().id,
         profileData as ProfileGame
       )
-    ).subscribe((respon) => {
-      this.nav.getProfile().profileGame = respon;
-    });
+    ).subscribe(
+      (respon) => {
+        this.nav.getProfile().profileGame = respon;
+        this.nav.setTeam();
+        this.toEdit = false;
+      },
+      (error) => {
+        this.errorMessage = error.error;
+      }
+    );
   }
 
   getGenderIcon(): string {
@@ -79,10 +89,6 @@ export class ProfileGameComponent implements OnInit {
     } else {
       return ' bi h1 m-2 bi-gender-male';
     }
-  }
-
-  checkMessage(): boolean {
-    return this.nav.getProfile().messages?.length == 0;
   }
 
   onFileSelected(event: any) {
@@ -117,6 +123,6 @@ export class ProfileGameComponent implements OnInit {
   }
 
   goMessage() {
-    console.log('MessageGame');
+    this.nav.service.toPage('profile/game/message');
   }
 }

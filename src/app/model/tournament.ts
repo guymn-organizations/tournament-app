@@ -19,7 +19,8 @@ export class Tournament {
   teamJoin: TeamInTournament[]| undefined;
   status: Status[]| undefined; // Adjust the type as needed
   matchList: Match[]| undefined;
-
+  numberOfTeam: number | undefined;
+  payments: string | undefined;
   constructor() {}
 }
 

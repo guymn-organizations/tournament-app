@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class LeaugesComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
-
   allTournament: undefined | Tournament[];
   
   images: string[] = [];

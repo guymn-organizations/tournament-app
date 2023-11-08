@@ -1,11 +1,8 @@
-.bg-data {
-  background-color: #28282b;
-}
-
 .img {
   width: 200px;
   height: 200px;
 }
+
 img {
   width: 200px;
   height: 200px;
@@ -15,6 +12,7 @@ img {
   width: 100px;
   height: 100px;
 }
+
 .isTeam .img {
   width: 100px;
   height: 100px;
@@ -33,6 +31,7 @@ img {
 .position {
   height: 326px;
   width: 200px;
+  overflow: hidden;
 }
 
 .popup {
@@ -43,11 +42,6 @@ img {
 
 input {
   background-color: #d9d9d9;
-}
-
-::placeholder {
-  color: white;
-  opacity: 0.5; /* Firefox */
 }
 
 .form-select {
@@ -63,6 +57,23 @@ select {
   font-size: 120px;
 }
 
-.bi-chat {
+.bi-chat,
+li {
   cursor: pointer;
+}
+
+.lds-ellipsis div:nth-child(1) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  background-color: #1a1b20;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  background-color: #1a1b20;
 }

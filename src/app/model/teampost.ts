@@ -1,15 +1,10 @@
-import { ProfileGame } from "./profile-game";
+import { Profile } from "./profile";
+import { PositionType } from "./team";
 
 export class Teampost {
     id!: string;
-    profileGame!: ProfileGame;
-    positon!: Position[];
+  profile!: Profile;
+  positions!: PositionType[];
 }
-export enum Position {
-    DSL = 'DSL',
-    JG = 'JG',
-    MID = 'MID',
-    ADL = 'ADL',
-    SUP = 'SUP',
-  }
+
   

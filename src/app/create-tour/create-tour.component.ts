@@ -11,6 +11,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrls: ['./create-tour.component.css'],
 })
 export class CreateTourComponent {
+  TournamenType = TournamenType; 
   tournamentData = {
     name: '',
     detail: '',
@@ -23,7 +24,8 @@ export class CreateTourComponent {
     teamJoin: [],
     
     matchList: [],
-    tournamenType: [],
+    tournamenType: [] as TournamenType[], 
+    numberOfTeam : 0
   };
   
   status = [
@@ -33,18 +35,24 @@ export class CreateTourComponent {
     Status.กำลังแข่งขัน,
     Status.จบการแข่งขัน,
   ];
+  
+  qrcodeImageURL: string | ArrayBuffer | null = null;
 
   selectedImageURL: string | ArrayBuffer | null = null;
-
+  
   nav: NavbarComponent = inject(NavbarComponent);
 
   constructor(private leauges: LeaugesService, private router: Router) {}
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any, imageType: string) {
     const file: File = event.target.files[0];
-
+  
     if (file) {
-      this.saveImage(file);
+      if (imageType === 'image') {
+        this.saveImage(file);
+      } else if (imageType === 'qrcode') {
+        this.saveQrImage(file);
+      }
     }
   }
 
@@ -52,7 +60,17 @@ export class CreateTourComponent {
     const reader = new FileReader();
     reader.onload = (e) => {
       if (e.target) {
-        this.selectedImageURL = e.target.result;
+        this.selectedImageURL = e.target.result as string;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  saveQrImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target) {
+        this.qrcodeImageURL = e.target.result as string;
       }
     };
     reader.readAsDataURL(file);
@@ -69,9 +87,9 @@ export class CreateTourComponent {
       imageTourUrl: this.selectedImageURL as string,
       bOfinalRound: this.tournamentData.bOfinalRound,
       bOqualifyingRound: this.tournamentData.bOqualifyingRound,
-      tournamenType: this.tournamentData.tournamenType,
-    
-      
+      payments:this.qrcodeImageURL as string,
+      numberOfTeam: this.tournamentData.numberOfTeam,
+      tournamenType:this.tournamentData.tournamenType
    
       
     };
@@ -98,6 +116,7 @@ export class CreateTourComponent {
       this.tournamentData.tournamenType &&
       this.tournamentData.bOfinalRound &&
       this.tournamentData.bOqualifyingRound&&
+      this.tournamentData.numberOfTeam&&
       this.tournamentData.startRegisterDate !== null &&
       this.tournamentData.endRegisterDate !== null &&
       this.tournamentData.startTourDate !== null

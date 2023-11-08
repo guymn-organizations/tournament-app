@@ -1,4 +1,4 @@
-<div class="border border-black profile">
+<div class="profile">
   <div class="container">
     <app-header [title]="title" [discription]="discription"></app-header>
 
@@ -7,25 +7,55 @@
         <label class="fs-5 underline border-2">Manage Profile</label>
       </div>
       <div class="d-flex flex-lg-row mt-4 flex-column">
-        <div
-          class="d-flex flex-column pb-5 border-lg-end me-4"
-          style="min-width: fit-content"
-        >
+        <div class="d-flex flex-column pb-5 border-lg-end me-4">
           <div
             class="fs-5 mb-4 list"
             [ngClass]="{
-              underline: isActive(router.path)
+              underline: isActive('profile')
             }"
-            *ngFor="let router of child"
-            [routerLink]="router.path"
+            routerLink="profile"
           >
-            {{ router.name }}
+            Profile
           </div>
-          <div class="fs-5 mb-4 list logout text-danger" (click)="nav.logout()">
-            Logout
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{
+              underline: isActive('game')
+            }"
+            routerLink="game"
+          >
+            Profile&nbsp;Game
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{ underline: isActive('team') }"
+            *ngIf="nav.getProfile().profileGame"
+            routerLink="team"
+          >
+            Profile&nbsp;Team
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{ underline: isActive('scrims') }"
+            *ngIf="nav.getProfile().profileGame?.myTeam"
+            routerLink="scrims"
+          >
+            List&nbsp;Scrims
+          </div>
+          <div
+            class="fs-5 mb-4 list"
+            [ngClass]="{
+              underline: isActive('message')
+            }"
+            routerLink="message"
+          >
+            Message
           </div>
         </div>
-        <div class="border-start d-none d-lg-block ms-2 me-5"></div>
+        <div
+          class="border-start d-none d-lg-block ms-2 me-5"
+          style="height: 100vh"
+        ></div>
         <div
           class="flex-fill outlet"
           [ngClass]="{

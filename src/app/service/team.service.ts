@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PositionType, Team } from '../model/team';
 import { Observable } from 'rxjs';
@@ -19,6 +19,17 @@ export class TeamService {
     return this.http.get<Team>(`${this.apiUrl}/${id}`);
   }
 
+  async getTeamToShowScrims(
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<Team[]>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Team[]>(`${this.apiUrl}/show_scrims`, { params });
+  }
+
   async addTeamPlayer(
     id: string,
     player: string,
@@ -27,11 +38,15 @@ export class TeamService {
     return this.http.put<Team>(`${this.apiUrl}/${id}/${type}/${player}`, null);
   }
 
-  async addReserverPlayer(
-    id: string,
-    player: string
+  async outTeamPosition(
+    team_name: string,
+    player_index: number,
+    index_position: number
   ): Promise<Observable<Team>> {
-    return this.http.put<Team>(`${this.apiUrl}/${id}/reserver/${player}`, null);
+    return this.http.put<Team>(
+      `${this.apiUrl}/${team_name}/out_reserver/${player_index}/${index_position}`,
+      null
+    );
   }
 
   async leavePlayer(id: string, player: string): Promise<Observable<Team>> {
@@ -40,5 +55,9 @@ export class TeamService {
 
   async deleteTeam(id: string): Promise<Observable<Team>> {
     return this.http.delete<Team>(`${this.apiUrl}/${id}`);
+  }
+
+  async setConact(id: string, contact: string): Promise<Observable<string>> {
+    return this.http.put<string>(`${this.apiUrl}/${id}/set_contact`, contact);
   }
 }

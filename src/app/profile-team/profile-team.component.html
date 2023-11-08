@@ -1,20 +1,18 @@
 <div class="mb-5" [ngClass]="{ 'd-none': !nav.getProfile().profileGame }">
-  <div class="container position-relative">
-    <div class="mb-5">
-      <ng-container *ngIf="nav.getProfile().profileGame?.myTeam; else noTeam">
-        <ng-container *ngTemplateOutlet="isTeam"></ng-container
-      ></ng-container>
-    </div>
-  </div>
+  <h1 class="mb-4">Profile Team</h1>
+  <ng-container *ngIf="nav.getProfile().profileGame?.myTeam; else noTeam">
+    <ng-container *ngTemplateOutlet="isTeam"></ng-container
+  ></ng-container>
 </div>
 
 <ng-template #isTeam>
   <div class="column" [ngClass]="{ 'd-none': !team }">
     <div class="align-items-end d-flex flex-row flex-wrap isTeam">
-      <div class="isTeam me-3 border img bg-light">
+      <div class="isTeam me-3 border img bg-light d-flex">
         <img class="border" [src]="imageTeam" *ngIf="imageTeam" />
+
         <h1
-          class="text-center text-secondary text-uppercase"
+          class="text-center text-secondary text-uppercase m-auto"
           style="font-size: 80px"
           *ngIf="!imageTeam"
         >
@@ -23,16 +21,6 @@
       </div>
       <div id="team-name" class="fs-1" style="width: fit-content">
         {{ team?.name }}
-      </div>
-      <div id="team-id" class="fs-6 m- ms-md-3 mb-2 text-secondary">
-        #{{ team?.id }}
-      </div>
-      <div class="position-relative ms-auto me-4" (click)="goMessage()">
-        <i class="h1 bi bi-chat me-1"> </i>
-        <i
-          class="bi bi-circle-fill position-absolute top-0 end-0 text-warning"
-          [ngClass]="{ 'd-none': checkMessage() }"
-        ></i>
       </div>
     </div>
     <div
@@ -52,6 +40,15 @@
               [src]="mem.imageUrl"
               *ngIf="mem.imageUrl"
             />
+            <div
+              class="lds-ellipsis m-auto"
+              *ngIf="!mem.imageUrl && mem.player?.imageProfileUrl"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
             <i
               *ngIf="!mem.player?.imageProfileUrl && mem.player"
               class="bi bi-person-fill text-body-tertiary"
@@ -69,39 +66,89 @@
             style="width: 100%"
             [ngClass]="{ 'border-top': mem.player }"
           >
-            <div>&nbsp; {{ mem.player?.profileGame?.name }}</div>
+            <div>{{ mem.player?.profileGame?.name }}</div>
           </div>
         </div>
-        <label class="text-success fw-bold">{{ mem.position_name }}</label>
+        <label class="text-success fw-bold">{{ mem.positionName }}</label>
       </div>
     </div>
-    <div class="col-12 mt-5 row" id="team_reserve">
-      <label class="fs-3">Team Reserve</label>
-      <div>
-        <div
-          class="row col-12 col-lg-6 p-0 m-3 border-top border-success bg-white text-dark"
-        >
+    <div class="col-12 row d-flex align-items-start justify-content-evenly">
+      <div class="col-12 col-lg-6 mt-5 row" id="team_reserve">
+        <label class="fs-3">Team Reserve</label>
+        <div class="row col-12 p-0 m-3 border-top border-success text-dark">
           <div
-            class="border border-top-0 p-0 border-success flex-row d-flex align-items-center"
-            *ngFor="let mem of team?.teamReserve"
+            class="border border-top-0 p-0 border-success flex-row d-flex align-items-center bg-white"
+            *ngFor="let mem of team?.teamReserve; let index_reserver = index"
           >
-            <div class="flex-grow-1 ps-2">{{ mem.profileGame.name }}</div>
-            <div class="m-auto p-2 bg-success">
-              <i
-                class="bi bi-arrow-bar-up text-white"
-                [ngClass]="{ 'bi bi-arrow-bar-up': isLeader() }"
-                >&nbsp;</i
+            <div class="flex-grow-1 ps-2">
+              {{ mem.profileGame.name }}
+            </div>
+            <div class="btn-group dropend">
+              <button
+                type="button"
+                class="m-auto p-2 bg-success"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                [disabled]="!isLeader()"
               >
+                <i
+                  class="text-white"
+                  [ngClass]="{ 'bi bi-arrow-bar-up': isLeader() }"
+                  >&nbsp;</i
+                >
+              </button>
+              <ul class="dropdown-menu">
+                <li
+                  class="dropdown-item"
+                  (click)="
+                    addReservervrToMainTeam(index_reserver, index_position)
+                  "
+                  *ngFor="
+                    let position of team?.positions;
+                    let index_position = index
+                  "
+                  [ngClass]="{ 'd-non': position.player }"
+                >
+                  {{ position.positionName }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
         <button
           id="find_reserve"
-          class="btn btn-success m-3 col-12 col-lg-6"
+          class="btn btn-success m-3 col-12"
           *ngIf="isLeader()"
           (click)="nav.service.toPage('finder/player')"
         >
           <i class="bi bi-plus-circle-fill"></i>
+        </button>
+      </div>
+      <div class="col-12 col-lg-6 mt-5 row ms-lg-auto">
+        <label class="fs-3">Contact</label>
+        <textarea
+          type="text"
+          class="col-12 bg-data m-3 text-white"
+          style="height: 100px"
+          [disabled]="!isLeader() || !editContact"
+          [(ngModel)]="teamData.contact"
+        >
+        </textarea>
+        <button
+          class="col-12 btn btn-success ms-auto"
+          style="width: fit-content"
+          [ngClass]="{ 'd-none': !isLeader() || !editContact }"
+          (click)="saveContact()"
+        >
+          Save
+        </button>
+        <button
+          class="col-12 btn btn-success ms-auto"
+          style="width: fit-content"
+          [ngClass]="{ 'd-none': !isLeader() || editContact }"
+          (click)="toEditContact()"
+        >
+          Edit
         </button>
       </div>
     </div>
@@ -187,10 +234,9 @@
               required
             >
               <option selected disabled value="">Choose...</option>
-              <option *ngFor="let po of position" [value]="po">
+              <option *ngFor="let po of positions" [value]="po">
                 {{ po }}
               </option>
-              <option class="text-uppercase" value="reserver">reserve</option>
             </select>
           </div>
           <label class="text-center text-danger col-12">
@@ -212,29 +258,44 @@
     <div class="border"></div>
 
     <div class="mt-5">
-      <h2 class="text-uppercase mb-5">find team by code</h2>
+      <h2 class="text-uppercase mb-5">find team by name</h2>
       <form
         #findTeamForm="ngForm"
-        (ngSubmit)="getTeamByCode()"
+        (ngSubmit)="getTeamByName()"
         class="row container"
       >
         <div class="col-12">
           <div class="col-lg-12 flex-column d-flex">
-            <label class="form-label">Team code</label>
+            <label class="form-label">Team name</label>
             <input
               type="text"
               class="bg-data ps-3 pe-3 p-1 text-white"
-              placeholder="Team code"
-              id="team-code"
-              name="team-code"
-              [(ngModel)]="teamData.id"
+              placeholder="Team name"
+              id="team-name"
+              name="team-name"
+              [(ngModel)]="teamNameToFind"
               required
             />
-            <label class="text-center text-danger">
-              &nbsp;{{ errorMessageFind }}
-            </label>
           </div>
         </div>
+        <div class="col-lg-12 flex-column d-flex mt-4">
+          <label class="form-label">Position</label>
+          <select
+            class="bg-data text-white col-lg-12 container p-2 text-danger"
+            id="position-team"
+            name="position-team"
+            [(ngModel)]="teamPositionToFind"
+            required
+          >
+            <option selected disabled value="">Choose...</option>
+            <option *ngFor="let po of positions" [value]="po">
+              {{ po }}
+            </option>
+          </select>
+        </div>
+        <label class="text-center text-danger">
+          &nbsp;{{ errorMessageFind }}
+        </label>
         <div id="div-submit" class="justify-content-end d-flex">
           <button
             type="submit"
