@@ -108,17 +108,28 @@
               </div>
             </div>
             <div class="col-md-12">
-                <div *ngIf="tournament.teamJoin.length !== tournament.maxNumberTeam">
-                    <button  (click)="confirmTeamJoin()" style="width: 100%" class="btn btn-success">
-                        Register
-                      </button>
-                </div>
-                <div *ngIf="tournament.teamJoin.length == tournament.maxNumberTeam">
-                    <button  (click)="showalert()" style="width: 100%" class="btn btn-success">
-                        Register
-                      </button>
-                </div>
-             
+              <div
+                *ngIf="tournament.teamJoin.length !== tournament.maxNumberTeam"
+              >
+                <button
+                  (click)="confirmTeamJoin()"
+                  style="width: 100%"
+                  class="btn btn-success"
+                >
+                  Register
+                </button>
+              </div>
+              <div
+                *ngIf="tournament.teamJoin.length == tournament.maxNumberTeam"
+              >
+                <button
+                  (click)="showalert()"
+                  style="width: 100%"
+                  class="btn btn-success"
+                >
+                  Register
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -127,86 +138,76 @@
   </div>
 </ng-template>
 <!-------------------------teamjoim-->
-<ng-template #Teamjoinpage >
-    <div class="row">
-      <div class="col-md-12">
-        <div class="bg">
-          <img
-            src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
-            alt=""
-          />
-        </div>
+<ng-template #Teamjoinpage>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="bg">
+        <img
+          src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
+          alt=""
+        />
       </div>
     </div>
+  </div>
 
-    <div class="body">
+  <div class="body">
+    <div class="row">
+      <div class="col-md-11">
+        <h3 style="font-family: fantasy">TEAM</h3>
+      </div>
+
+      <div class="col-md-12">
+        <div class="line-8-83i"></div>
+      </div>
       <div class="row">
-        <div class="col-md-11">
-          <h3 style="font-family: fantasy">TEAM</h3>
-        </div>
-        
-        <div class="col-md-12">
-          <div class="line-8-83i"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2">
-            <div
-              class="col-md-12"
-              style="font-family: fantasy; font-size: 24px; padding: 20px"
-            >
-              All of team
-            </div>
-          </div>
+        <div class="col-md-2">
           <div
-            class="col-md-10"
-            style="border-left: 1px solid rgb(255, 255, 255); padding: 30px"
+            class="col-md-12"
+            style="font-family: fantasy; font-size: 24px; padding: 20px"
           >
+            All of team
+          </div>
+        </div>
+        <div
+          class="col-md-10"
+          style="border-left: 1px solid rgb(255, 255, 255); padding: 30px"
+        >
           <div class="row g-3">
             <div class="team-wrap col-md-3">
-              <div class="team-box" *ngFor="let item of teamsInTour; let i = index" >
-            
-
-                
-              </div>
+              <div
+                class="team-box"
+                *ngFor="let item of teamsInTour; let i = index"
+              ></div>
             </div>
-          </div>
-          
           </div>
         </div>
       </div>
     </div>
-  </ng-template>
-   <!-----------------------maching---------------------------->
-   <ng-template #Matchingpage>
-    <div *ngIf="matches == null">
-      <button (click)="createMatchesForTournament()">create</button>
-    </div>
-  
+  </div>
+</ng-template>
+<!-----------------------maching---------------------------->
+<ng-template #Matchingpage>
+  <div *ngIf="matches == null">
+    <button>create</button>
+  </div>
 
-<div *ngIf="matches && matches.length > 0">
-  <h2>Matches for Tournament</h2>
-  
+  <div *ngIf="matches && matches.length > 0">
+    <h2>Matches for Tournament</h2>
+
     <div *ngFor="let match of matches">
       <div class="match">
         <div class="match-item">
-          <strong>Team 1:</strong> {{ match.teamA.team?.name }} <br>
-          
+          <strong>Team 1:</strong> {{ match.teamA.name }} <br />
         </div>
         <h3 class="vs">vs</h3>
         <div class="match-item">
-          
-          <strong>Team 2:</strong> {{ match.teamB.team?.name }} <br>
+          <strong>Team 2:</strong> {{ match.teamB.name }} <br />
         </div>
       </div>
-      
-   
-     
     </div>
- 
-</div>
+  </div>
 
-<div *ngIf="matches && matches.length === 0">
-  <p>No matches found for the tournament.</p>
-</div>
-
-   </ng-template>
+  <div *ngIf="matches && matches.length === 0">
+    <p>No matches found for the tournament.</p>
+  </div>
+</ng-template>

@@ -4,8 +4,7 @@ import { Tournament } from '../model/tournament';
 import { Observable } from 'rxjs';
 import { Team } from '../model/team';
 import { Match } from '../model/match';
-import { TeamInTournament } from '../model/team-in-tournament';
-import { Profile } from '../model/profile';
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +14,7 @@ export class LeaugesService {
 
   private apiUrl = 'http://localhost:8000/tournament';
 
-  async addTournament(
+  async createTournament(
     data: Tournament,
     profile: string
   ): Promise<Observable<Tournament>> {
@@ -50,15 +49,7 @@ export class LeaugesService {
   async getAllTeamInTournament(tournamentId: string): Promise<Observable<any>> {
     return this.http.get(`${this.apiUrl}/${tournamentId}/team`);
   }
-  async createMatchesForTournament(
-    tournamentId: string,
-    teamInTour: TeamInTournament
-  ): Promise<Observable<any>> {
-    return this.http.post(
-      `${this.apiUrl}/${tournamentId}/matching`,
-      teamInTour
-    );
-  }
+
   async getAllMatchesForTournament(
     tournamentId: string
   ): Promise<Observable<Match[]>> {

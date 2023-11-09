@@ -5,9 +5,7 @@ import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TeamService } from '../service/team.service';
 import { Team } from '../model/team';
-import { TeamInTournament } from '../model/team-in-tournament';
 import { Match } from '../model/match';
-import { TournamentService } from '../service/tournament.service';
 
 @Component({
   selector: 'app-leaugesdetail',
@@ -20,28 +18,31 @@ export class LeaugesdetailComponent implements OnInit {
   tournament: Tournament | undefined;
   imageTournamrnt: string = '';
   checked_id: string = '';
-  check_date : string ='';
-  
+  check_date: string = '';
+
   isOverview: boolean = true;
   isMatching: boolean = false;
   isTeamJoin: boolean = false;
-  teamsInTour!: TeamInTournament[];
+  teamsInTour!: Team[];
   matches!: Match[];
 
-  constructor(private route: ActivatedRoute, private router: Router,private teamService: TeamService,private tournamentService : LeaugesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private teamService: TeamService,
+    private tournamentService: LeaugesService
+  ) {}
 
   async ngOnInit() {
     let data = localStorage.getItem('isOverview');
     this.isOverview = data == 'true';
-    
-    
+
     this.route.paramMap.subscribe(async (params) => {
       const id = params.get('id');
       this.checked_id = id as string;
-      
 
-      const date = params.get('startDateMatch')
-      this.check_date=date as string;
+      const date = params.get('startDateMatch');
+      this.check_date = date as string;
       await this.loadTournament(id as string);
       await this.AllTeamInTournament(this.checked_id);
       await this.getMatchesForTournament(this.checked_id);
@@ -78,13 +79,13 @@ export class LeaugesdetailComponent implements OnInit {
     this.isMatching = false;
     this.isTeamJoin = true;
   }
-  
+
   showOverview() {
     this.isOverview = true;
     this.isMatching = false;
     this.isTeamJoin = false;
   }
-  
+
   showMatching() {
     this.isOverview = false;
     this.isMatching = true;
@@ -93,44 +94,33 @@ export class LeaugesdetailComponent implements OnInit {
 
   async confirmTeamJoin() {
     // if(this.teamsInTour.length){
-      try {
-        const tourid = this.checked_id; 
-        const teamId = localStorage.getItem('team') as string; 
-  
-        const team: Team | undefined = await (await this.teamService.getTeamById(teamId)).toPromise();
-  
-        if (team) {
-          const response = await (await this.tournamentService.addTeamToTournament(tourid, teamId, team)).toPromise();
-  
-          console.log('Success:', response);
-        } else {
-          console.error('Team not found');
-        }
-      } catch (error) {
-        console.error('Error:', error);
+    try {
+      const tourid = this.checked_id;
+      const teamId = localStorage.getItem('team') as string;
+
+      const team: Team | undefined = await (
+        await this.teamService.getTeamById(teamId)
+      ).toPromise();
+
+      if (team) {
+        const response = await (
+          await this.tournamentService.addTeamToTournament(tourid, teamId, team)
+        ).toPromise();
+
+        console.log('Success:', response);
+      } else {
+        console.error('Team not found');
       }
-    // }
-    
-  }
-
-  async createMatchesForTournament() {
-    const tournamentId = this.checked_id;
-  
-    for (const teamInTour of this.teamsInTour) {
-      (await this.tournamentService.createMatchesForTournament(tournamentId, teamInTour)).subscribe(
-        (response) => {
-          console.log('Matches created successfully:', response);
-        },
-        (error) => {
-          console.error('Error creating matches:', error);
-        }
-      );
+    } catch (error) {
+      console.error('Error:', error);
     }
+    // }
   }
 
-  async AllTeamInTournament(tournamentId: string){
-    
-    (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
+  async AllTeamInTournament(tournamentId: string) {
+    (
+      await this.tournamentService.getAllTeamInTournament(tournamentId)
+    ).subscribe(
       async (data: any[]) => {
         this.teamsInTour = data;
       },
@@ -139,14 +129,14 @@ export class LeaugesdetailComponent implements OnInit {
       }
     );
   }
-  
-  
-  showalert(){
-   alert('full team')
+
+  showalert() {
+    alert('full team');
   }
 
   async getMatchesForTournament(tournamentId: string): Promise<void> {
-    (await this.tournamentService.getAllMatchesForTournament(tournamentId))
-      .subscribe(matches => this.matches = matches);
+    (
+      await this.tournamentService.getAllMatchesForTournament(tournamentId)
+    ).subscribe((matches) => (this.matches = matches));
   }
 }

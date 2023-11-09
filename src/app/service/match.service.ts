@@ -34,4 +34,19 @@ export class MatchService {
 
     return this.http.put(url, body);
   }
+
+  getMatchesByRound(
+    round: number,
+    pageIndex: number,
+    pageSize: number,
+    idList: string[]
+  ): Observable<Match[]> {
+    const params = new HttpParams()
+      .set('round', round.toString())
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString())
+      .set('idList', idList.join(','));
+
+    return this.http.get<Match[]>(`${this.apiUrl}/round/${round}`, { params });
+  }
 }

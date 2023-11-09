@@ -64,7 +64,7 @@ export class CreateTourComponent implements OnInit {
 
     console.log(data);
     (
-      await this.leaugesService.addTournament(
+      await this.leaugesService.createTournament(
         data as Tournament,
         localStorage.getItem('profile') as string
       )

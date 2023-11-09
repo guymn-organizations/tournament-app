@@ -21,15 +21,15 @@
               class="image-content bg-light d-flex border border-2 rounded"
               (click)="
                 toTeamDetail(
-                  match.match.teamA.team.id,
-                  match.match.teamA.team.name
+                  match.match.teamA.id,
+                  match.match.teamA.name
                 )
               "
             >
               <div
                 id="loading"
                 class="lds-ellipsis m-auto"
-                *ngIf="!match.imageA && match.match.teamA.team.imageTeamUrl"
+                *ngIf="!match.imageA && match.match.teamA.imageTeamUrl"
               >
                 <div></div>
                 <div></div>
@@ -38,26 +38,26 @@
               </div>
               <img
                 [src]="match.imageA"
-                *ngIf="match.imageA && match.match.teamA.team.imageTeamUrl"
+                *ngIf="match.imageA && match.match.teamA.imageTeamUrl"
                 class="m-auto"
               />
               <h1
-                *ngIf="!match.imageA && !match.match.teamA.team.imageTeamUrl"
-                [innerHTML]="match.match.teamA.team.name[0]"
+                *ngIf="!match.imageA && !match.match.teamA.imageTeamUrl"
+                [innerHTML]="match.match.teamA.name[0]"
                 class="text-uppercase text-dark unimage"
               >
                 &nbsp;
               </h1>
             </div>
             <div class="ms-3">
-              <h1 [innerHTML]="match.match.teamA.team.name">&nbsp;</h1>
+              <h1 [innerHTML]="match.match.teamA.name">&nbsp;</h1>
             </div>
           </div>
           <div id="date" class="both">
             <div
               id="resultA"
               class="text-dark d-flex align-items-center"
-              *ngIf="checkTeamA(match.match.teamA.team.id)"
+              *ngIf="checkTeamA(match.match.teamA.id)"
             >
               <div class="d-flex flex-column align-items-center me-4">
                 <button
@@ -84,7 +84,7 @@
 
               <div
                 class="d-flex flex-column align-items-center ms-4"
-                *ngIf="checkTeamA(match.match.teamA.team.id)"
+                *ngIf="checkTeamA(match.match.teamA.id)"
               >
                 <button
                   class="btn btn-danger add-pont mb-1"
@@ -161,15 +161,15 @@
               class="image-content bg-light d-flex border border-2 rounded"
               (click)="
                 toTeamDetail(
-                  match.match.teamB.team.id,
-                  match.match.teamB.team.name
+                  match.match.teamB.id,
+                  match.match.teamB.name
                 )
               "
             >
               <div
                 id="loading"
                 class="lds-ellipsis m-auto"
-                *ngIf="!match.imageB && match.match.teamB.team.imageTeamUrl"
+                *ngIf="!match.imageB && match.match.teamB.imageTeamUrl"
               >
                 <div></div>
                 <div></div>
@@ -178,19 +178,19 @@
               </div>
               <img
                 [src]="match.imageB"
-                *ngIf="match.imageB && match.match.teamB.team.imageTeamUrl"
+                *ngIf="match.imageB && match.match.teamB.imageTeamUrl"
                 class="m-auto"
               />
               <h1
-                *ngIf="!match.imageB && !match.match.teamB.team.imageTeamUrl"
-                [innerHTML]="match.match.teamB.team.name[0]"
+                *ngIf="!match.imageB && !match.match.teamB.imageTeamUrl"
+                [innerHTML]="match.match.teamB.name[0]"
                 class="text-uppercase text-dark unimage"
               >
                 &nbsp;
               </h1>
             </div>
             <div class="ms-3">
-              <h1 [innerHTML]="match.match.teamB.team.name">&nbsp;</h1>
+              <h1 [innerHTML]="match.match.teamB.name">&nbsp;</h1>
             </div>
           </div>
         </div>
