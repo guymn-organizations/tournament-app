@@ -1,4 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { PlayerpostService } from '../service/playerpost.service';
 import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -11,6 +18,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./finder-player.component.css'],
 })
 export class FinderPlayerComponent {
+  @ViewChild('Content', { static: false })
+  public messageProfileElement: ElementRef | undefined;
+
+  postService: PlayerpostService = inject(PlayerpostService);
+  nav: NavbarComponent = inject(NavbarComponent);
+
   position: PositionType[] = [
     PositionType.DSL,
     PositionType.JG,
@@ -29,10 +42,35 @@ export class FinderPlayerComponent {
 
   playerPost: Playerpost[] = [];
   playerPostFilter: Playerpost[] = [];
+  images: string[] = [];
+
+  private pageIndex: number = 0;
+  public pageSize: number = 5;
+  public pageTotal: number = 5;
+  public loadding: boolean = false;
 
   constructor() {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    await this.setFirstPost();
+  }
+
+  async setFirstPost() {
+    this.postService.getAllPlayerPost(this.pageIndex, 10).subscribe(
+      async (data) => {
+        await this.setPlayerPost(data);
+        await this.setImage();
+        this.pageTotal = data.length;
+        this.pageIndex++;
+        this.loadding = false;
+        this.playerPostFilter = this.playerPost;
+        console.log(this.playerPostFilter);
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
+  }
 
   async onChecked(po: PositionType): Promise<void> {
     const index = this.selected_position.indexOf(po);
@@ -44,7 +82,6 @@ export class FinderPlayerComponent {
     }
 
     await this.filterPlayerPost();
-    console.log(this.selected_position);
   }
 
   async filterPlayerPost(): Promise<void> {
@@ -58,6 +95,63 @@ export class FinderPlayerComponent {
           this.selected_position.includes(position)
         )
       );
+    }
+  }
+
+  async setPlayerPost(playerPosts: Playerpost[]) {
+    this.playerPost.push(...playerPosts);
+  }
+
+  async setImage() {
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.playerPost.length;
+      index++
+    ) {
+      if (this.playerPost[index].profile.imageProfileUrl) {
+        (
+          await this.nav.service.getImage(
+            this.playerPost[index].profile.imageProfileUrl
+          )
+        ).subscribe(
+          (res) => {},
+          (err) => {
+            this.images[index] = err.error.text;
+            console.log(this.images);
+          }
+        );
+      }
+    }
+  }
+
+  async loadPost() {
+    this.loadding = true;
+    
+    this.postService.getAllPlayerPost(this.pageIndex, this.pageSize).subscribe(
+      async (data) => {
+        await this.setPlayerPost(data);
+        await this.setImage();
+        this.pageTotal = data.length;
+        this.pageIndex++;
+        this.loadding = false;
+        this.playerPostFilter = this.playerPost;
+      },
+      (err) => {
+        this.pageTotal = -1;
+      }
+    );
+  }
+
+  @HostListener('scroll', ['$event'])
+  async onScrollPostContenter(): Promise<void> {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    if (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
+        nativeElement.scrollHeight - 10 &&
+      !this.loadding
+    ) {
+      await this.loadPost();
     }
   }
 }

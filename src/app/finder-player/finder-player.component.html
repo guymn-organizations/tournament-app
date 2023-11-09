@@ -1,11 +1,64 @@
-<div class="finder d-flex flex-row">
-  <div class="d-flex flex-column">
-    <div *ngFor="let po of position" class="d-flex align-items-center justify-content-start"
-    style="width: 100px;">
-      <input type="checkbox" (change)="onChecked(po)" checked>
-      <h4 class="ms-4"> {{po}} </h4>
+<div class="finder">
+  <div class="d-flex flex-row">
+    <div class="d-flex flex-column">
+      <div
+        *ngFor="let po of position"
+        class="d-flex align-items-center justify-content-start"
+        style="width: 100px"
+      >
+        <input type="checkbox" (change)="onChecked(po)" checked />
+        <h4 class="ms-4">{{ po }}</h4>
+      </div>
+    </div>
+    <div class="border" style="height: 100vh"></div>
+    <div class="d-flex flex-column flex-fill">
+      <button class="btn btn-success text-upercase ms-auto m-3">
+        create playerpost
+      </button>
+      <div #Content class="post-content" (scroll)="onScrollPostContenter()">
+        <div
+          class="list-post rounded"
+          *ngFor="let post of playerPostFilter; let i = index"
+        >
+          <div
+            id="logo-team"
+            class="image-comtent bg-light d-flex border border-2 rounded"
+          >
+            <div
+              id="loading"
+              class="lds-ellipsis m-auto"
+              *ngIf="!images[i] && post.profile.imageProfileUrl"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <img
+              [src]="images[i]"
+              *ngIf="images[i] && post.profile.imageProfileUrl"
+              class="m-auto"
+            />
+            <h1
+              *ngIf="!images[i] && !post.profile.imageProfileUrl"
+              [innerHTML]="post.profile.profileGame.name[0]"
+              class="text-uppercase text-dark unimage"
+            ></h1>
+          </div>
+          <div>{{ post.profile.profileGame.name }}</div>
+          <div>{{ post.positions }}</div>
+        </div>
+        <div
+          id="loading "
+          class="lds-ellipsis m-auto"
+          *ngIf="pageSize == pageTotal"
+        >
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="border" style="height: 100vh;"></div>
-  <div></div>
 </div>
