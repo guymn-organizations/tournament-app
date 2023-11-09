@@ -14,13 +14,17 @@ import { ProfileGameComponent } from './profile-game/profile-game.component';
 import { ProfileTeamComponent } from './profile-team/profile-team.component';
 import { ProfileProfileComponent } from './profile-profile/profile-profile.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LeaugesdetailComponent } from './leaugesdetail/leaugesdetail.component';
+import { LeaguesDetailComponent } from './leagues-detail/leagues-detail.component';
 import { CreateTourComponent } from './create-tour/create-tour.component';
 import { AdvertComponent } from './advert/advert.component';
-
 import { MessageComponent } from './message/message.component';
 import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scrim.component';
 import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
+import { LeaguesOverviewComponent } from './leagues-overview/leagues-overview.component';
+import { LeaguesTeamComponent } from './leagues-team/leagues-team.component';
+import { LeaguesMatchComponent } from './leagues-match/leagues-match.component';
+import { LeaguesCreaterComponent } from './leagues-creater/leagues-creater.component';
+import { Tournament } from './model/tournament';
 
 const routes: Routes = [
   {
@@ -31,20 +35,24 @@ const routes: Routes = [
       {
         path: 'leauges',
         component: LeaugesComponent,
-       
       },
       { path: 'createtournament', component: CreateTourComponent },
-      { 
-        path: 'leagues/:id', 
-        component: LeaugesdetailComponent,
-        
-       },
+      {
+        path: 'leagues/:id',
+        component: LeaguesDetailComponent,
+        children: [
+          { path: '', redirectTo: 'overview', pathMatch: 'full' },
+          { path: 'overview', component: LeaguesOverviewComponent },
+          { path: 'team', component: LeaguesTeamComponent },
+          { path: 'match', component: LeaguesMatchComponent },
+          { path: 'creater', component: LeaguesCreaterComponent },
+        ],
+      },
       { path: 'scrims', component: ScrimsComponent },
-      { 
-        path: 'tournament', 
-        component: TournamentComponent, 
-       
-       },
+      {
+        path: 'tournament',
+        component: TournamentComponent,
+      },
 
       {
         path: 'scrims/:id',

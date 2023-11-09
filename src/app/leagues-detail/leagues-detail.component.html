@@ -1,1 +1,24 @@
-<p>leagues-detail works!</p>
+<link
+  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
+  rel="stylesheet"
+  type="text/css"
+/>
+<div class="body container">
+  <div class="bar">
+    <a [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
+      >ภาพรวม</a
+    >
+    <a
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
+      >ทีมที่เข้าร่วม</a
+    >
+    <a
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      >การแข่งขัน</a
+    >
+  </div>
+  <div class="line-8-83i"></div>
+  <router-outlet></router-outlet>
+</div>
