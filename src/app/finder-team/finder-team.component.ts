@@ -17,7 +17,10 @@ import { MessageService } from '../service/message.service';
 @Component({
   selector: 'app-finder-team',
   templateUrl: './finder-team.component.html',
-  styleUrls: ['./finder-team.component.css'],
+  styleUrls: [
+    './finder-team.component.css',
+    '../finder-player/finder-player.component.css',
+  ],
 })
 export class FinderTeamComponent {
   @ViewChild('Content', { static: false })
