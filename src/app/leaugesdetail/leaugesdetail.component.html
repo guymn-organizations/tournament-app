@@ -3,73 +3,163 @@
   rel="stylesheet"
   type="text/css"
 />
+<div class="body">
+  <div class="bar">
+    <a
+      (click)="showOverview()"
+      [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
+      >ภาพรวม</a
+    >
+    <a
+      (click)="showTeamjoin()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
+      >ทีมที่เข้าร่วม</a
+    >
+    <a
+      (click)="showMatching()"
+      style="margin-left: 80px"
+      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      >การแข่งขัน</a
+    >
+  </div>
+  <div class="line-8-83i"></div>
+  <ng-container *ngIf="isOverview">
+    <ng-container *ngTemplateOutlet="Overviewpage"></ng-container>
+  </ng-container>
 
-<div class="tournament">
-  <div class="row g">
-    <div class="col-md-6">
+  <ng-container *ngIf="isTeamJoin">
+    <ng-container *ngTemplateOutlet="Teamjoinpage"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isMatching">
+    <ng-container *ngTemplateOutlet="Matchingpage"></ng-container>
+  </ng-container>
+</div>
+<ng-template #Overviewpage>
+  <div class="tournament">
+    <div class="row g">
+      <div class="col-md-6">
         <div class="col-md-12">
-            <div class="img">
-                <div *ngIf="imageTournamrnt">
-                  <img class="bg-light" [src]="imageTournamrnt" alt="Tournament Image" />
-                </div>
-              </div>
+          <div class="img">
+            <div *ngIf="imageTournamrnt">
+              <img
+                class="bg-light"
+                [src]="imageTournamrnt"
+                alt="Tournament Image"
+              />
+            </div>
+          </div>
         </div>
-      
-    </div>
-    <div class="col-md-6">
-      <div class="detail" *ngIf="tournament">
-        <div class="row g-2">
+      </div>
+      <div class="col-md-6">
+        <div class="detail" *ngIf="tournament">
+          <div class="row g-2">
             <div class="col-md-12 text-center">
-                <div class="detail-data">
-                  <h5 style="font-family: fantasy;">CREATE BY :{{ tournament.createer }}</h5>
-                </div>
+              <div class="detail-data">
+                <h5 style="font-family: fantasy">
+                  CREATE BY :{{ tournament.createer }}
+                </h5>
               </div>
-          <div class="col-md-12 text-center">
-            <div class="detail-data">
-              <h3 style="font-family: fantasy;">{{ tournament.name }}</h3>
             </div>
-          </div>
-          <div class="col-md-12 text-center">
-            <div class="detail-data">
-              Detail
-              <p>{{ tournament.detail }}</p>
+            <div class="col-md-12 text-center">
+              <div class="detail-data">
+                <h3 style="font-family: fantasy">{{ tournament.name }}</h3>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 text-center">
-            <div class="detail-data">
-              REWARD
-              <h5 style="color: green">{{ tournament.reward }}฿</h5>
+            <div class="col-md-12 text-center">
+              <div class="detail-data">
+                Detail
+                <p>{{ tournament.detail }}</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-6 text-center">
-            <div class="detail-data">
-              ค่าสมัคร
-              <p>{{ tournament.fee }}฿</p>
+            <div class="col-md-6 text-center">
+              <div class="detail-data">
+                REWARD
+                <h5 style="color: green">{{ tournament.reward }}฿</h5>
+              </div>
             </div>
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="detail-data">
-              เริ่มแข่ง
-              <p>{{ tournament.startDateMatch }}</p>
+            <div class="col-md-6 text-center">
+              <div class="detail-data">
+                ค่าสมัคร
+                <p>{{ tournament.fee }}฿</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="detail-data">
-              BO match
-              <p>{{ tournament.BO }}</p>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                เริ่มแข่ง
+                <p>{{ tournament.startDateMatch }}</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="detail-data">
-              จำนวนทีม
-              <p>{{ tournament.teamJoin.length }}/{{ tournament.maxNumberTeam }} </p>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                BO match
+                <p>{{ tournament.BO }}</p>
+              </div>
             </div>
-          </div>
-          <div class="col-md-12">
-            <button style="width: 100%;" class="btn btn-success">Register</button>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                จำนวนทีม
+                <p>
+                  {{ tournament.teamJoin.length }}/{{
+                    tournament.maxNumberTeam
+                  }}
+                </p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <button style="width: 100%" class="btn btn-success">
+                Register
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+<!-------------------------teamjoim-->
+<ng-template #Teamjoinpage>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="bg">
+          <img
+            src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="row">
+        <div class="col-md-11">
+          <h3 style="font-family: fantasy">TEAM</h3>
+        </div>
+        
+        <div class="col-md-12">
+          <div class="line-8-83i"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div
+              class="col-md-12"
+              style="font-family: fantasy; font-size: 24px; padding: 20px"
+            >
+              All of team
+            </div>
+          </div>
+          <div
+            class="col-md-10"
+            style="border-left: 1px solid rgb(255, 255, 255); padding: 30px"
+          >
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+   <!-----------------------maching---------------------------->
+   <ng-template #Matchingpage>
+    
+   </ng-template>

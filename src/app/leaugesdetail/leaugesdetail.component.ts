@@ -19,9 +19,16 @@ export class LeaugesdetailComponent implements OnInit {
   tournament: Tournament | undefined;
   imageTournamrnt: string = '';
 
+  isOverview: boolean = true;
+  isMatching: boolean = false;
+  isTeamJoin: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   async ngOnInit() {
+    let data = localStorage.getItem('isOverview');
+    this.isOverview = data == 'true';
+    
+    
     this.route.paramMap.subscribe(async (params) => {
       const id = params.get('id');
       await this.loadTournament(id as string);
@@ -51,5 +58,23 @@ export class LeaugesdetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  showTeamjoin() {
+    this.isOverview = false;
+    this.isMatching = false;
+    this.isTeamJoin = true;
+  }
+  
+  showOverview() {
+    this.isOverview = true;
+    this.isMatching = false;
+    this.isTeamJoin = false;
+  }
+  
+  showMatching() {
+    this.isOverview = false;
+    this.isMatching = true;
+    this.isTeamJoin = false;
   }
 }
