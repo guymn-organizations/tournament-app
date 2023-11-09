@@ -32,8 +32,8 @@ export class LeaugesService {
     return this.http.get<Tournament[]>(`${this.apiUrl}`, { params });
   }
 
-  async getTournamentById(id: string): Promise<Observable<any>> {
-    return this.http.get<Tournament[]>(`${this.apiUrl}/${id}`);
+  async getTournamentById(id: string): Promise<Observable<Tournament>> {
+    return this.http.get<Tournament>(`${this.apiUrl}/${id}`);
   }
 
   async addTeamToTournament(
