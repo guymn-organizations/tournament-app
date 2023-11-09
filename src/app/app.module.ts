@@ -30,6 +30,11 @@ import { TeampostDetailComponent } from './teampost-detail/teampost-detail.compo
 import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
 import { DatePipe } from '@angular/common';
 import { DetailmatchComponent } from './detailmatch/detailmatch.component';
+import { LeaguesDetailComponent } from './leagues-detail/leagues-detail.component';
+import { LeaguesOverviewComponent } from './leagues-overview/leagues-overview.component';
+import { LeaguesTeamComponent } from './leagues-team/leagues-team.component';
+import { LeaguesMatchComponent } from './leagues-match/leagues-match.component';
+import { LeaguesCreaterComponent } from './leagues-creater/leagues-creater.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +63,11 @@ import { DetailmatchComponent } from './detailmatch/detailmatch.component';
     TeampostDetailComponent,
     ScrimsDetailComponent,
     DetailmatchComponent,
+    LeaguesDetailComponent,
+    LeaguesOverviewComponent,
+    LeaguesTeamComponent,
+    LeaguesMatchComponent,
+    LeaguesCreaterComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [DatePipe],
