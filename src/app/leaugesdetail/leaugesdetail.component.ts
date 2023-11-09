@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TournamenType, Tournament } from '../model/tournament';
+import { Tournament } from '../model/tournament';
 import { LeaugesService } from '../service/leauges.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { TeamService } from '../service/team.service';
@@ -26,9 +26,6 @@ export class LeaugesdetailComponent implements OnInit {
   isTeamJoin: boolean = false;
 
   teamsInTour!: TeamInTournament[];
-
-  tournamenTypeFree: TournamenType = TournamenType.Free;
-  tournamenTypePaid: TournamenType = TournamenType.Paid;
 
   matches: Match[] = [];
 
@@ -58,19 +55,19 @@ export class LeaugesdetailComponent implements OnInit {
   }
 
   async AllTeamInTournament(tournamentId: string) {
-    (
-      await this.tournamentService.getAllTeamInTournament(tournamentId)
-    ).subscribe(
-      (data: any[]) => {
-        this.teamsInTour = data;
-        if (this.teamsInTour.length === this.tournament.numberOfTeam) {
-          this.createMatchesForTournament();
-        }
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
+    // (
+    //   await this.tournamentService.getAllTeamInTournament(tournamentId)
+    // ).subscribe(
+    //   (data: any[]) => {
+    //     this.teamsInTour = data;
+    //     if (this.teamsInTour.length === this.tournament.numberOfTeam) {
+    //       this.createMatchesForTournament();
+    //     }
+    //   },
+    //   (error) => {
+    //     console.error('Error:', error);
+    //   }
+    // );
   }
 
   async setTournament() {

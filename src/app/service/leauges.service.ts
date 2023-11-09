@@ -21,7 +21,7 @@ export class LeaugesService {
   async getAllTournament(
     pageIndex: number,
     pageSize: number
-  ): Promise<Observable<any>> {
+  ): Promise<Observable<Tournament[]>> {
     const params = new HttpParams()
       .set('pageIndex', pageIndex.toString())
       .set('pageSize', pageSize.toString());
