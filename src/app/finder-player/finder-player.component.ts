@@ -154,21 +154,21 @@ export class FinderPlayerComponent {
     console.log(this.selectedPlayer)
   }
 
-  sendJoinRequest() {
-    // Construct the data you want to send.
-    const teamName = this.team?.name as string;
-    const profileGameName = this.profile?.profileGame?.name as string; // Replace with the actual game name.
+  // sendJoinRequest() {
+  //   // Construct the data you want to send.
+  //   const teamName = this.team?.name as string;
+  //   const profileGameName = this.profile?.profileGame?.name as string; // Replace with the actual game name.
 
-    // Call your service method to send the request.
-    this.messageService.sendRequestToJoinTeam(teamName, profileGameName)
-      .subscribe(response => {
-        // Handle the response from the service if needed.
-        console.log('Join request sent successfully:', response);
-        // You can also close the modal or perform any other action here.
-      }, error => {
-        // Handle any errors that occur during the request.
-        console.error('Error sending join request:', error);
-      });
-  }
+  //   // Call your service method to send the request.
+  //   this.messageService.sendRequestToJoinTeam(teamName, profileGameName)
+  //     .subscribe(response => {
+  //       // Handle the response from the service if needed.
+  //       console.log('Join request sent successfully:', response);
+  //       // You can also close the modal or perform any other action here.
+  //     }, error => {
+  //       // Handle any errors that occur during the request.
+  //       console.error('Error sending join request:', error);
+  //     });
+  // }
 
 }
