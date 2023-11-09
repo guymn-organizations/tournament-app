@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, inject } from '@angular/core';
 import { PlayerpostService } from '../service/playerpost.service';
 import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -8,6 +8,7 @@ import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
 import { MessageService } from '../service/message.service';
 import { TeampostService } from '../service/teampost.service';
+import { MessageType } from '../model/message';
 
 
 @Component({
@@ -22,59 +23,81 @@ export class FinderPlayerComponent {
   profileService: ProfileService = inject(ProfileService);
 
   searchPositions: string[] = []; // Initialize an empty array
+  @ViewChild('Content', { static: false })
+  public messageProfileElement: ElementRef | undefined;
 
   profile?: Profile;
-  selectedPlayer: any;
+  selectedPlayer: Playerpost | undefined;
+  selectedPlayer_img: string = '';
 
   team?: Team;
-
   playerPosts: Playerpost[] = [];
+  playerPostsFilter: Playerpost[] = [];
 
   positionsData: PositionType[] = [];
-  images: String[] = [];
+  images: string[] = [];
 
-  selectedPositions: PositionType[] = [];
-
-  position = [
+  position: PositionType[] = [
     PositionType.DSL,
-    PositionType.ADL,
     PositionType.JG,
     PositionType.MID,
+    PositionType.ADL,
     PositionType.SUP,
   ];
+
+  selected_position: PositionType[] = [
+    PositionType.DSL,
+    PositionType.JG,
+    PositionType.MID,
+    PositionType.ADL,
+    PositionType.SUP,
+  ];
+
+
+  private pageIndex: number = 0;
+  public pageSize: number = 7;
+  public pageTotal: number = 7;
+  public loadding: boolean = false;
 
   constructor(private messageService: MessageService, private teamPostService: TeampostService) {
   }
 
   async ngOnInit() {
-    this.playerPostService.getAllPlayerPost().subscribe(async (data) => {
-      this.playerPosts = data;
-      this.team = this.nav.team;
-      await this.setImages();
-    });
-  }
-
-  isSelected(position: any): boolean {
-    const List = position.positions;
-    let positiondata = "";
-    for (let i = 0; i < List.length; i++) {
-      for (let j = 0; j < this.searchPositions.length; j++) {
-        if (List[i] == this.searchPositions[j]) {
-          positiondata = List[i];
-
-          break;
-
-        }
-
-      }
+    this.team = this.nav.team
+    if (!this.team) {
+      await this.setTeam()
     }
-    return this.searchPositions.includes(positiondata);
+    this.profile = this.nav.profile
+    if (!this.profile) {
+      await this.setProfile();
+    }
+    await this.loadPlayerPosts();
+  };
+
+  async setProfile() {
+    try {
+      const profile_id = localStorage.getItem('profile') as string;
+      this.profile = await (
+        await this.profileService.getProfileById(profile_id)
+      ).toPromise();
+      localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
+    } catch (error) {
+      console.error('Error getting profile data:', error);
+    }
   }
 
+  async setTeam() {
+    try {
 
+      const teamId = localStorage.getItem('team') as string;
+      this.team = await (
+        await this.nav.teamService.getTeamById(teamId)
+      ).toPromise();
+    } catch (teamError) { }
+  }
 
   getPlayerPosts() {
-    const postData = this.playerPosts.map((post, index) => ({
+    const postData = this.playerPostsFilter.map((post, index) => ({
       post: post,
       image: this.images[index],
     }));
@@ -86,7 +109,7 @@ export class FinderPlayerComponent {
 
     const postPlayerData: Partial<Playerpost> = {
       profile: this.nav.getProfile(),
-      positions: this.selectedPositions,
+      positions: this.position,
 
     };
 
@@ -106,69 +129,99 @@ export class FinderPlayerComponent {
     }
 
     for (let i = 0; i < this.playerPosts?.length; i++) {
-      (
-        await this.nav.service.getImage(
-          this.playerPosts[i].profile.imageProfileUrl as string
+      if (this.playerPosts[i].profile.imageProfileUrl) {
+        (
+          await this.nav.service.getImage(
+            this.playerPosts[i].profile.imageProfileUrl as string
+          )
+        ).subscribe(
+          (res) => { },
+          (error) => {
+            this.images[i] = error.error.text;
+          }
+        );
+      }
+    }
+  }
+
+  async onChecked(po: PositionType): Promise<void> {
+    const index = this.selected_position.indexOf(po);
+
+    if (index !== -1) {
+      this.selected_position.splice(index, 1);
+    } else {
+      this.selected_position.push(po);
+    }
+
+    await this.filterPlayerPost();
+  }
+
+  async filterPlayerPost(): Promise<void> {
+    if (this.selected_position.length === 5) {
+      // If no positions selected, show all players
+      this.playerPostsFilter = this.playerPosts;
+    } else {
+      // Filter players based on selected positions
+      this.playerPostsFilter = this.playerPosts.filter((player) =>
+        player.positions.some((position: PositionType) =>
+          this.selected_position.includes(position)
         )
-      ).subscribe(
-        (res) => { },
-        (error) => {
-          this.images[i] = error.error.text;
-        }
       );
     }
   }
 
-  onChange(event: any, positions: string) {
-    if (event.target.checked) {
 
-      this.searchPositions.push(positions);
+  showDetail(i: number) {
+    this.selectedPlayer = this.playerPosts[i];
+    this.selectedPlayer_img = this.images[i];
+  }
+
+  async setPost(data: Playerpost[]) {
+    this.playerPosts = [...this.playerPosts, ...data];
+
+  }
 
 
-    } else {
-      const index = this.searchPositions.indexOf(positions);
-      if (index !== -1) {
-        this.searchPositions.splice(index, 1);
+  async loadPlayerPosts() {
+    this.loadding = true;
+    (
+      this.playerPostService.getAllPlayerPost(this.pageIndex, this.pageSize)
+    ).subscribe(
+      async (data) => {
+        await this.setPost(data);
+        await this.setImages();
+        this.pageTotal = data.length;
+        this.pageIndex++;
+        this.loadding = false;
+        this.playerPostsFilter = this.playerPosts;
+      },
+      (error) => {
+        this.pageTotal = -1;
       }
+    );
+  }
 
+  @HostListener('scroll', ['$event'])
+  async onScrollPlayerContenter(): Promise<void> {
+    const nativeElement = this.messageProfileElement?.nativeElement;
+
+    if (
+      nativeElement.clientHeight + Math.round(nativeElement.scrollTop) >=
+      nativeElement.scrollHeight - 10 &&
+      !this.loadding
+    ) {
+      await this.loadPlayerPosts();
     }
   }
-  updateSelection(checked: any, position: PositionType): void {
-    if (checked) {
-      if (!this.selectedPositions.includes(position)) {
-        this.selectedPositions.push(position);
-      }
-      else {
-        const index = this.selectedPositions.indexOf(position);
-        if (index !== -1) {
-          this.selectedPositions.splice(index, 1);
-        }
-      }
-    }
 
-
+  async sendMesageInvtePlayer(name: string) {
+    (await this.messageService.sendJoinTeam(this.team?.name as string, name, PositionType.reserver, MessageType.INVITE_TO_JOIN_TEAM)).subscribe((res) => {
+      console.log(res)
+    },
+      (err) => {
+        console.log(err)
+      });
+    alert("Success")
   }
-
-  showDetail(id: string) {
-    this.selectedPlayer = this.playerPosts.find((post) => post.id === id);
-    console.log(this.selectedPlayer)
-  }
-
-  // sendJoinRequest() {
-  //   // Construct the data you want to send.
-  //   const teamName = this.team?.name as string;
-  //   const profileGameName = this.profile?.profileGame?.name as string; // Replace with the actual game name.
-
-  //   // Call your service method to send the request.
-  //   this.messageService.sendRequestToJoinTeam(teamName, profileGameName)
-  //     .subscribe(response => {
-  //       // Handle the response from the service if needed.
-  //       console.log('Join request sent successfully:', response);
-  //       // You can also close the modal or perform any other action here.
-  //     }, error => {
-  //       // Handle any errors that occur during the request.
-  //       console.error('Error sending join request:', error);
-  //     });
-  // }
 
 }

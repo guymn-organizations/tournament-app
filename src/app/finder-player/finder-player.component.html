@@ -6,61 +6,15 @@
       <div class="container p-4">
         <!-- Added padding -->
         <h2>Role</h2>
-        <div class="d-flex justify-content-between pt-2">
+        <div class="d-flex justify-content-between pt-2" *ngFor="let po of position">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'DSL')" />
+            <input type="checkbox" (change)="onChecked(po)" checked />
             <span class="slider round"></span>
           </label>
-          <h3>DSL</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/0415b285e2b6c3dcf12be5d7beb1055b.png"
-            alt="lane" width="40px" height="40px" />
-        </div>
+          <h3>{{po}}</h3>
 
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'JG')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>JG</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/d4e7e712a09b01364a8d8af3c6eeb0f5.png"
-            alt="lane" width="40px" height="40px" />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'MID')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>MID</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7bb58a9b6f300bf36834f8ec6e25ea0f.png"
-            alt="lane" width="40px" height="40px" />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'ADL')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>ADL</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7b9491a786796943c73a901bd91cf6a1.png"
-            alt="lane" width="40px" height="40px" />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'SUP')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>SUP</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/db5db10e92387724ab25f92a8c1e6e9f.png"
-            alt="lane" width="40px" height="40px" />
+
         </div>
       </div>
     </div>
@@ -76,12 +30,10 @@
           </button>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let post of getPlayerPosts()" class="col-md-6 my-3"
-            [ngClass]="{ 'hidden': !isSelected(post.post) }">
-            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#jointeam"
-              (click)="showDetail(post.post.id)">
+      <div class="d-flex flex-column container post-container">
+        <div #Content class="row" (scroll)="onScrollPlayerContenter()">
+          <div *ngFor=" let post of getPlayerPosts();let i=index" class="col-md-6 my-3">
+            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#jointeam" (click)="showDetail(i)">
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">
                   <div class="box-image-game border m-2 img">
@@ -118,6 +70,12 @@
             </div>
           </div>
         </div>
+        <div class="lds-ellipsis m-auto" *ngIf="pageTotal == pageSize">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -132,7 +90,7 @@
                   <div class="row">
                     <div class="switch-container col-6" *ngFor="let position of position">
                       <label class="switch">
-                        <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
+                        <input type="checkbox" class="switch-input" (change)="onChecked(position)" />
                         <span class="slider round"></span>
                       </label>
                       <div class="mt-1">
@@ -169,24 +127,25 @@
                   <div class="d-flex align-items-center justify-content-evenly">
                     <div>
                       <div class="box-image-game border m-2 img">
-                        <div class="lds-ellipsis m-auto" *ngIf="!selectedPlayer.image">
+                        <div class="lds-ellipsis m-auto"
+                          *ngIf="selectedPlayer.profile.imageProfileUrl && !selectedPlayer_img">
                           <div></div>
                           <div></div>
                           <div></div>
                           <div></div>
                         </div>
-                        <img [ngClass]="{ 'd-none': !selectedPlayer.image }" [src]="selectedPlayer.image"
-                          class="img-fluid rounded-start game-image">
+                        <img *ngIf="selectedPlayer.profile.imageProfileUrl && selectedPlayer_img"
+                          [src]="selectedPlayer_img" class="img-fluid rounded-start game-image">
                       </div>
                     </div>
                     <div>
                       <div class="d-flex flex-column justify-content-start">
                         <h5 class="card-title text-start game-profile">
-                          <span class="profile-info">PROFILE: {{ selectedPlayer.profile?.firstName }} {{
-                            selectedPlayer.profile?.lastName }}</span>
+                          <span class="profile-info">PROFILE: {{ selectedPlayer.profile.firstName }} {{
+                            selectedPlayer.profile.lastName }}</span>
                         </h5>
                         <h5 class="card-title text-start game-game">
-                          IN-GAME: <span class="profile-game">{{ selectedPlayer.profile?.profileGame?.name
+                          IN-GAME: <span class="profile-game">{{ selectedPlayer.profile.profileGame.name
                             }}</span>
                         </h5>
                         <h5 class="card-title text-start game-positions overflow-ellipsis">
@@ -201,7 +160,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success">Sent request</button>
+              <button type="button" class="btn btn-success"
+                (click)="sendMesageInvtePlayer(selectedPlayer?.profile!.profileGame.name)">Sent request</button>
             </div>
           </div>
         </div>
@@ -209,7 +169,5 @@
 
 
 
-      <p class="m-2 text-center">finder-player works!</p>
-      <!-- Added margin and centered text -->
     </div>
   </div>
