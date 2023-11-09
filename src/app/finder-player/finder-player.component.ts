@@ -11,106 +11,53 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./finder-player.component.css'],
 })
 export class FinderPlayerComponent {
-  playerPostService: PlayerpostService = inject(PlayerpostService);
-  nav: NavbarComponent = inject(NavbarComponent);
-  
-  selectedPositions: string[] = []; // Initialize an empty array
-
-
-  selectedRole: PositionType | null = null;
-  playerPosts: Playerpost[] = [];
-
-  positionsData: PositionType[] = [];
-  images: String[] = [];
-
-  // selectedPositions: PositionType[] = [];
-
-  position = [
+  position: PositionType[] = [
     PositionType.DSL,
-    PositionType.ADL,
     PositionType.JG,
     PositionType.MID,
+    PositionType.ADL,
     PositionType.SUP,
   ];
 
+  selected_position: PositionType[] = [
+    PositionType.DSL,
+    PositionType.JG,
+    PositionType.MID,
+    PositionType.ADL,
+    PositionType.SUP,
+  ];
 
+  playerPost: Playerpost[] = [];
+  playerPostFilter: Playerpost[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 
-  async ngOnInit() {
-    console.log("reload")
-    this.playerPostService.getAllPlayerPost().subscribe(async (data) => {
-      this.playerPosts = data;
-      await this.setImage();
-    });
-  }
+  async ngOnInit() {}
 
-  isSelected(position: PositionType): boolean {
-    return this.selectedPositions.includes(position);
-  }
+  async onChecked(po: PositionType): Promise<void> {
+    const index = this.selected_position.indexOf(po);
 
-  updateSelection(checked: any, position: PositionType): void {
-    if (checked) {
-      if (!this.selectedPositions.includes(position)) {
-        this.selectedPositions.push(position);
-      }
-      else {
-        const index = this.selectedPositions.indexOf(position);
-        if (index !== -1) {
-          this.selectedPositions.splice(index, 1);
-        }
-      }
-    }
-    console.log(this.selectedPositions);
-
-  }
-
-  getPlayerPosts() {
-    const postData = this.playerPosts.map((post, index) => ({
-      post: post,
-      image: this.images[index],
-    }));
-    return postData
-  }
-
-  async Postform() {
-
-    const postPlayerData: Partial<Playerpost> = {
-      profile: this.nav.getProfile(),
-      // positions: this.selectedPositions,
-
-    };
-
-    (
-      await this.playerPostService.createPost(postPlayerData as Playerpost)
-    ).subscribe((res) => {
-    },
-      async (error) => {
-        await this.ngOnInit();
-      });
-  }
-
-  async setImage() {
-    for (let item of this.playerPosts) {
-
-      (await this.nav.service.getImage(item.profile.imageProfileUrl)).subscribe((res) => {
-      }, (error) => {
-        this.images.push(error.error.text)
-      })
-
-    }
-  }
-  onChange(event: any, positions: string) {
-    if (event.target.checked) {
-        this.selectedPositions.push(positions);
+    if (index !== -1) {
+      this.selected_position.splice(index, 1);
     } else {
-        const index = this.selectedPositions.indexOf(positions);
-        if (index !== -1) {
-            this.selectedPositions.splice(index, 1);
-        }
+      this.selected_position.push(po);
     }
-}
 
+    await this.filterPlayerPost();
+    console.log(this.selected_position);
+  }
 
+  async filterPlayerPost(): Promise<void> {
+    if (this.selected_position.length === 0) {
+      // If no positions selected, show all players
+      this.playerPostFilter = this.playerPost;
+    } else {
+      // Filter players based on selected positions
+      this.playerPostFilter = this.playerPost.filter((player) =>
+        player.positions.some((position) =>
+          this.selected_position.includes(position)
+        )
+      );
+    }
+  }
 }
