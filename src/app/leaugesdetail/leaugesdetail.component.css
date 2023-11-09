@@ -8,9 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  background-color: white;
+  
+  
 
+}
+.img img{
+  border: 1px solid rgba(61, 61, 61, 0.264);
+  box-shadow: 5px 10px #888888;
+  border-radius: 10px;
 }
 .detail-data{
   height: 100%;

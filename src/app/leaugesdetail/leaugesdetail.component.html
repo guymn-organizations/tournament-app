@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="img">
         <div *ngIf="imageTournamrnt">
-          <img [src]="imageTournamrnt" alt="Tournament Image" />
+          <img class="bg-light" [src]="imageTournamrnt" alt="Tournament Image" />
         </div>
       </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="row g-2">
           <div class="col-md-12 text-center">
             <div class="detail-data">
-              <h3>{{ tournament.name }}</h3>
+              <h3 style="font-family: fantasy;">{{ tournament.name }}</h3>
             </div>
           </div>
           <div class="col-md-12 text-center">
