@@ -1,5 +1,4 @@
-// team-in-tournament.model.ts
-import { Team } from './team'; // Import the Team model if you have one
+import { Team } from './team';
 
 export class TeamInTournament {
   team: Team;
@@ -14,4 +13,3 @@ export class TeamInTournament {
     this.lose = lose;
   }
 }
-

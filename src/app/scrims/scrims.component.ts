@@ -47,7 +47,9 @@ export class ScrimsComponent implements OnInit {
 
   async setFirstLoad() {
     this.loadding = true;
-    (await this.nav.teamService.getTeamToShowScrims(this.pageIndex, 15)).subscribe(
+    (
+      await this.nav.teamService.getTeamToShowScrims(this.pageIndex, 15)
+    ).subscribe(
       async (data) => {
         const teamsData = data.filter((team) => team.name != this.team?.name);
         await this.setTeamScrims(teamsData);
@@ -117,18 +119,20 @@ export class ScrimsComponent implements OnInit {
       index < this.scrims_lists.length;
       index++
     ) {
-      (
-        await this.nav.service.getImage(
-          this.scrims_lists[index].team.imageTeamUrl
-        )
-      ).subscribe(
-        (res) => {},
-        (result) => {
-          if (result.status == 200) {
-            this.scrims_lists[index].image = result.error.text;
+      if (this.scrims_lists[index].team.imageTeamUrl) {
+        (
+          await this.nav.service.getImage(
+            this.scrims_lists[index].team.imageTeamUrl
+          )
+        ).subscribe(
+          (res) => {},
+          (result) => {
+            if (result.status == 200) {
+              this.scrims_lists[index].image = result.error.text;
+            }
           }
-        }
-      );
+        );
+      }
     }
   }
 

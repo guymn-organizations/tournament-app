@@ -1,51 +1,206 @@
-<div class="tournament">
+<div class="Scrim">
   <div class="container">
-    <h1 class="text-start mt-4">YOUR TOURNAMENTS</h1>
+    <app-header [title]="title" [discription]="discription"></app-header>
 
-    <div class="d-flex flex-row border-bottom border-light mb-3">
-      <!-- Add your navigation links here -->
-      <div *ngFor="let router of childName" class="p-2" [routerLink]="router.router" [ngClass]="{
-          'border-bottom border-primary border-3': isActive(router.router)
-        }">
-        <label> {{ router.name }}</label>
+    <div class="d-flex flex-column">
+      <div class="border-bottom d-lg-flex">
+        <label class="fs-5 underline border-2">Matching</label>
       </div>
-    </div>
+      <div
+        #MatchingContenter
+        class="scrims-contenter p-3"
+        (scroll)="onScrollMatchingContenter()"
+      >
+        <div
+          class="match border rounded"
+          *ngFor="let match of match_list; let index = index"
+        >
+          <div id="teamA" class="teamA">
+            <div
+              id="logo-teamA"
+              class="image-content bg-light d-flex border border-2 rounded"
+              (click)="
+                toTeamDetail(
+                  match.match.teamA.team.id,
+                  match.match.teamA.team.name
+                )
+              "
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!match.imageA && match.match.teamA.team.imageTeamUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="match.imageA"
+                *ngIf="match.imageA && match.match.teamA.team.imageTeamUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!match.imageA && !match.match.teamA.team.imageTeamUrl"
+                [innerHTML]="match.match.teamA.team.name[0]"
+                class="text-uppercase text-dark unimage"
+              >
+                &nbsp;
+              </h1>
+            </div>
+            <div class="ms-3">
+              <h1 [innerHTML]="match.match.teamA.team.name">&nbsp;</h1>
+            </div>
+          </div>
+          <div id="date" class="both">
+            <div
+              id="resultA"
+              class="text-dark d-flex align-items-center"
+              *ngIf="checkTeamA(match.match.teamA.team.id)"
+            >
+              <div class="d-flex flex-column align-items-center me-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultA', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultA', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
 
-   
-    <div class="card text-bg-secondary mb-3 rounded-pill">
-      <div class="card-body bg-gray">
-        <div class="row align-items-center">
-          <div class="col-4 d-flex align-items-center fs-4">
-            <img src="https://yt3.googleusercontent.com/_-xP4vEI_q7kn-15nKbIbI9fJ_NmtSotjopG--QRCRq99jdf-9mZoBAOg9YXe_itiusPy1nwhQ=s900-c-k-c0x00ffffff-no-rj" alt="Logo" style="max-width: 100px; max-height: 100px;" class="ps-2">
-            <h1 class="mb-0 ms-2">Bacon</h1>
+              <h1>
+                {{ match.match.resultA[0] }} - {{ match.match.resultA[1] }}
+              </h1>
+
+              <div
+                class="d-flex flex-column align-items-center ms-4"
+                *ngIf="checkTeamA(match.match.teamA.team.id)"
+              >
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultB', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamA', 'resultB', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="resultB" class="text-dark d-flex align-items-center">
+              <div class="d-flex flex-column align-items-center me-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultA', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultA', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+
+              <h1>
+                {{ match.match.resultB[0] }} - {{ match.match.resultB[1] }}
+              </h1>
+
+              <div class="d-flex flex-column align-items-center ms-4">
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultB', 1, index)
+                  "
+                >
+                  <i class="bi bi-caret-up-fill"></i>
+                </button>
+                <button
+                  class="btn btn-danger add-pont mb-1"
+                  (click)="
+                    setResult(match.match.id, 'teamB', 'resultB', -1, index)
+                  "
+                >
+                  <i class="bi bi-caret-down-fill"></i>
+                </button>
+              </div>
+            </div>
+
+            <div id="date">
+              <label class="me-0">
+                {{ match.match.startDate | date : "dd/MM/yyyy" }}
+              </label>
+            </div>
           </div>
-          <div class="col-4 text-center text-black">
-            <h1>VS</h1>
-            <h1>19/08/2566</h1>
-          </div>
-          <div class="col-4 d-flex align-items-center fs-4 justify-content-end">
-            <h1 class="me-2">Burirum</h1>
-            <img src="https://pbs.twimg.com/profile_images/1022009667403345920/Oe5Sq3f-_400x400.jpg" alt="Logo" style="max-width: 100px; max-height: 100px;" class="pe-2">
+          <div id="teamB" class="teamB">
+            <div
+              id="logo-teamB"
+              class="image-content bg-light d-flex border border-2 rounded"
+              (click)="
+                toTeamDetail(
+                  match.match.teamB.team.id,
+                  match.match.teamB.team.name
+                )
+              "
+            >
+              <div
+                id="loading"
+                class="lds-ellipsis m-auto"
+                *ngIf="!match.imageB && match.match.teamB.team.imageTeamUrl"
+              >
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <img
+                [src]="match.imageB"
+                *ngIf="match.imageB && match.match.teamB.team.imageTeamUrl"
+                class="m-auto"
+              />
+              <h1
+                *ngIf="!match.imageB && !match.match.teamB.team.imageTeamUrl"
+                [innerHTML]="match.match.teamB.team.name[0]"
+                class="text-uppercase text-dark unimage"
+              >
+                &nbsp;
+              </h1>
+            </div>
+            <div class="ms-3">
+              <h1 [innerHTML]="match.match.teamB.team.name">&nbsp;</h1>
+            </div>
           </div>
         </div>
       </div>
     </div>
-     
-    <div class="card text-bg-secondary mb-3 rounded-pill">
-      <div class="card-body bg-gray">
-        <div class="row align-items-center">
-          <div class="col-4 d-flex align-items-center fs-4">
-            <img src="https://yt3.googleusercontent.com/_-xP4vEI_q7kn-15nKbIbI9fJ_NmtSotjopG--QRCRq99jdf-9mZoBAOg9YXe_itiusPy1nwhQ=s900-c-k-c0x00ffffff-no-rj" alt="Logo" style="max-width: 100px; max-height: 100px;" class="ps-2">
-            <h1 class="mb-0 ms-2">Bacon</h1>
-          </div>
-          <div class="col-4 text-center text-black ">
-            <h1>VS</h1>
-            <h1>19/08/2566</h1>
-          </div>
-          <div class="col-4 d-flex align-items-center fs-4 justify-content-end">
-            <h1 class="me-2">Burirum</h1>
-            <img src="https://pbs.twimg.com/profile_images/1022009667403345920/Oe5Sq3f-_400x400.jpg" alt="Logo" style="max-width: 100px; max-height: 100px;" class="pe-2">
-          </div>
-        </div>
-      </div>
+    <div id="loading" class="lds-ellipsis m-auto" *ngIf="pageTotal == pageSize">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
+  </div>
+</div>
