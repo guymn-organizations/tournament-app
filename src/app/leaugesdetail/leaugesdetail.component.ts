@@ -14,8 +14,23 @@ import { Match } from '../model/match';
   styleUrls: ['./leaugesdetail.component.css'],
 })
 export class LeaugesdetailComponent implements OnInit {
+  leaugesService: LeaugesService = inject(LeaugesService);
   tournament: Tournament | undefined;
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.route.paramMap.subscribe(async (params) => {
+      const id = params.get('id');
+      await this.setTournament(id as string);
+    });
+  }
+
+  async setTournament(id: string) {
+    (await this.leaugesService.getTournamentById(id)).subscribe((res) => {
+      this.tournament = res;
+    });
+  }
+
+  
 }
