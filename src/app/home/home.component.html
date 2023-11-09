@@ -44,7 +44,7 @@
             </div>
             <div class="data">
               <div class="row g-2">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                   <div class="data-item" style="text-align: center">
                     <div class="col-md-12">
                       <h6>เงินรางวัล</h6>
@@ -58,60 +58,22 @@
                 <div class="col-sm-6">
                   <div class="data-item" style="text-align: center">
                     <div class="col-md-12">
-                      <h6>ประเภท</h6>
+                      <h6>ค่าสมัคร</h6>
                     </div>
-                    <h5 style="color: rgb(96, 99, 96); margin: 0">
-                      <!-- {{ trendyTournament.tournamenType }} -->
+                    <h5 style="color: rgb(255, 0, 0); margin: 0">
+                      {{ trendyTournament.fee }}฿
                     </h5>
                   </div>
                 </div>
   
-                <div class="col-md-12">
-                  <div class="data-date-item" style="text-align: center">
+                <div class="col-md-6">
+                  <div class="data-item" style="text-align: center">
                     <div class="col-md-12">
-                      <h4>ระยะเวลา</h4>
+                      <h6>จำนวนทีม</h6>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <p
-                          style="
-                            background-color: rgb(94, 94, 102);
-                            border-radius: 15px;
-                          "
-                        >
-                          เริ่มสมัคร
-                        </p>
-                        <p style="color: rgb(96, 99, 96); margin: 0">
-                          <!-- {{ trendyTournament.startRegisterDate }} -->
-                        </p>
-                      </div>
-                      <div class="col-sm-4">
-                        <p
-                          style="
-                            background-color: rgb(94, 94, 102);
-                            border-radius: 15px;
-                          "
-                        >
-                          หมดเวลาสมัคร
-                        </p>
-                        <p style="color: rgb(96, 99, 96); margin: 0">
-                          <!-- {{ trendyTournament.endRegisterDate }} -->
-                        </p>
-                      </div>
-                      <div class="col-sm-4">
-                        <p
-                          style="
-                            background-color: rgb(94, 94, 102);
-                            border-radius: 15px;
-                          "
-                        >
-                          เริ่มแข่ง
-                        </p>
-                        <p style="color: rgb(96, 99, 96); margin: 0">
-                          <!-- {{ trendyTournament.startTourDate }} -->
-                        </p>
-                      </div>
-                    </div>
+                    <h5 style="color: rgb(255, 255, 255); margin: 0">
+                      {{ trendyTournament.teamJoin.length }}/{{ trendyTournament.maxNumberTeam }} 
+                    </h5>
                   </div>
                 </div>
               </div>
