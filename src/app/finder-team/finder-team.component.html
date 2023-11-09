@@ -3,66 +3,79 @@
     <!-- Left Side -->
 
     <div class="col-md-3 col-sm-12 border-end">
-
       <div class="container p-4">
         <!-- Added padding -->
         <h2>Role</h2>
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'DSL')" />
+            <input type="checkbox" (change)="onChange($event, 'DSL')" />
             <span class="slider round"></span>
           </label>
           <h3>DSL</h3>
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/0415b285e2b6c3dcf12be5d7beb1055b.png"
-            alt="lane" width="40px" height="40px" />
+            alt="lane"
+            width="40px"
+            height="40px"
+          />
         </div>
 
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'JG')" />
+            <input type="checkbox" (change)="onChange($event, 'JG')" />
             <span class="slider round"></span>
           </label>
           <h3>JG</h3>
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/d4e7e712a09b01364a8d8af3c6eeb0f5.png"
-            alt="lane" width="40px" height="40px" />
+            alt="lane"
+            width="40px"
+            height="40px"
+          />
         </div>
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'MID')" />
+            <input type="checkbox" (change)="onChange($event, 'MID')" />
             <span class="slider round"></span>
           </label>
           <h3>MID</h3>
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7bb58a9b6f300bf36834f8ec6e25ea0f.png"
-            alt="lane" width="40px" height="40px" />
+            alt="lane"
+            width="40px"
+            height="40px"
+          />
         </div>
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'ADL')" />
+            <input type="checkbox" (change)="onChange($event, 'ADL')" />
             <span class="slider round"></span>
           </label>
           <h3>ADL</h3>
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7b9491a786796943c73a901bd91cf6a1.png"
-            alt="lane" width="40px" height="40px" />
+            alt="lane"
+            width="40px"
+            height="40px"
+          />
         </div>
         <div class="d-flex justify-content-between pt-2">
           <label class="switch">
             <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event,'SUP')" />
+            <input type="checkbox" (change)="onChange($event, 'SUP')" />
             <span class="slider round"></span>
           </label>
           <h3>SUP</h3>
           <img
             src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/db5db10e92387724ab25f92a8c1e6e9f.png"
-            alt="lane" width="40px" height="40px" />
-
+            alt="lane"
+            width="40px"
+            height="40px"
+          />
         </div>
       </div>
     </div>
@@ -72,55 +85,89 @@
       <div class="d-flex flex-column p-4 align-items-end">
         <!-- Added padding -->
         <div class="col-md-6 col-sm-12 text-md-end">
-          <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button
+            type="button"
+            class="btn btn-success m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
             Post Find Player
           </button>
         </div>
       </div>
       <div class="container">
         <div class="row">
-            <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
-                <div class="card game-card mb-3">
-                    <div class="row g-0 d-flex align-items-center">
-                        <div class="col-lg-4 col-12">
-                            <div class="d-flex justify-content-center border img">
-                                <img [src]="post.image" class="img-fluid game-image" alt="...">
-                            </div>
-                        </div>
-                        <div class="col-lg-8 col-12">
-                          <div class="d-flex flex-column justify-content-start">
-                              <h5 class="card-title text-start game-profile">
-                                  TEAM: <span class="profile-info"></span>
-                              </h5>
-                              <h5 class="card-title text-start game-positions overflow-ellipsis">
-                                  POSITIONS: <span class="positions">{{ post.post.positions }}</span>
-                              </h5>
-                          </div>
-                      </div>
-                    </div>
+          <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
+            <div class="card game-card mb-3">
+              <div class="row g-0 d-flex align-items-center">
+                <div class="col-lg-4 col-12">
+                  <div class="d-flex justify-content-center border img">
+                    <img
+                      [src]="post.image"
+                      class="img-fluid game-image"
+                      alt="..."
+                    />
+                  </div>
                 </div>
+                <div class="col-lg-8 col-12">
+                  <div class="d-flex flex-column justify-content-start">
+                    <h5 class="card-title text-start game-profile">
+                      TEAM: <span class="profile-info"></span>
+                    </h5>
+                    <h5
+                      class="card-title text-start game-positions overflow-ellipsis"
+                    >
+                      POSITIONS:
+                      <span class="positions">{{ post.post.positions }}</span>
+                    </h5>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">
                 Create Team Post
               </h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="modal-body">
-              <form #PostTeamForm="ngForm" (ngSubmit)="Postform()" id="teamPostForm">
+              <form
+                #PostTeamForm="ngForm"
+                (ngSubmit)="Postform()"
+                id="teamPostForm"
+              >
                 <h2 class="mt-2">Team Information</h2>
 
                 <div class="mb-3">
                   <label for="position" class="form-label">POSITIONS</label>
-                  <div class="switch-container" *ngFor="let position of position">
+                  <div
+                    class="switch-container"
+                    *ngFor="let position of position"
+                  >
                     <label class="switch">
-                      <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
+                      <input
+                        type="checkbox"
+                        class="switch-input"
+                        (change)="updateSelection($event, position)"
+                      />
                       <span class="slider round"></span>
                     </label>
                     <div class="mt-1">
@@ -129,11 +176,20 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
                     Close
                   </button>
-                  <button type="submit" class="btn btn-success" id="submitform" [disabled]="!PostTeamForm.form.valid"
-                    data-bs-dismiss="modal">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    id="submitform"
+                    [disabled]="!PostTeamForm.form.valid"
+                    data-bs-dismiss="modal"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -142,7 +198,6 @@
           </div>
         </div>
       </div>
-
-      <p class="m-2 text-center">finder-player works!</p>
-      <!-- Added margin and centered text -->
     </div>
+  </div>
+</div>
