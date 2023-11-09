@@ -49,6 +49,8 @@ export class FinderPlayerComponent {
   public pageTotal: number = 5;
   public loadding: boolean = false;
 
+  public show: boolean = true;
+
   constructor() {}
 
   async ngOnInit() {
@@ -64,7 +66,6 @@ export class FinderPlayerComponent {
         this.pageIndex++;
         this.loadding = false;
         this.playerPostFilter = this.playerPost;
-        console.log(this.playerPostFilter);
       },
       (err) => {
         this.pageTotal = -1;
@@ -126,7 +127,7 @@ export class FinderPlayerComponent {
 
   async loadPost() {
     this.loadding = true;
-    
+
     this.postService.getAllPlayerPost(this.pageIndex, this.pageSize).subscribe(
       async (data) => {
         await this.setPlayerPost(data);
@@ -153,5 +154,25 @@ export class FinderPlayerComponent {
     ) {
       await this.loadPost();
     }
+  }
+
+  selected_to_create: PositionType[] = [];
+
+  cheangePage() {
+    this.show = !this.show;
+    this.selected_to_create = [];
+  }
+
+  checkToCreate(po: PositionType) {
+    const index = this.selected_to_create.indexOf(po);
+
+    if (index !== -1) {
+      // If the position is already in selected_to_create, remove it
+      this.selected_to_create.splice(index, 1);
+    } else {
+      // If the position is not in selected_to_create, add it
+      this.selected_to_create.push(po);
+    }
+
   }
 }
