@@ -137,6 +137,7 @@
 
 .scrims-contenter {
   height: 500px;
+  max-height: 500px;
   margin-bottom: 20px;
   overflow-y: scroll;
   border-radius: 10px;

@@ -14,7 +14,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-leauges',
   templateUrl: './leauges.component.html',
-  styleUrls: ['./leauges.component.css', '../scrims/scrims.component.css'],
+  styleUrls: [
+    './leauges.component.css',
+    '../scrims/scrims.component.css',
+    '../tournament/tournament.component.css',
+  ],
 })
 export class LeaugesComponent implements OnInit {
   title: string = 'Leauges';
@@ -56,8 +60,7 @@ export class LeaugesComponent implements OnInit {
       await this.leaugesService.getAllTournament(this.pageIndex, this.pageSize)
     ).subscribe(
       (res) => {
-        console.log(res);
-
+        this.allTournament = [...this.allTournament, ...res];
         this.pageTotal = res.length;
         this.pageIndex++;
         this.loadding = false;

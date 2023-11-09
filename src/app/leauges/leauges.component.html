@@ -6,31 +6,40 @@
       <div class="border-bottom d-lg-flex">
         <label class="fs-5 underline border-2">Tournament Finder</label>
       </div>
-      <div class="filter-tour d-flex justify-content-between flex-wrap" role="search">
+      <div
+        class="filter-tour d-flex justify-content-between flex-wrap"
+        role="search"
+      >
         <input
           #filter
           class="form-control"
-          style="width: 500px;"
+          style="width: 500px"
           type="search"
           placeholder="Search tournament name"
           aria-label="Search"
           (change)="filterTourList(filter.value)"
         />
         <button class="ms-3 btn btn-success" type="button">Search</button>
-        <button class="ms-auto mt-3 mt-lg-0 btn btn-success "  type="button" (click)="goCreate()">
+        <button
+          class="ms-auto mt-3 mt-lg-0 btn btn-success"
+          type="button"
+          (click)="goCreate()"
+        >
           CREATE&nbsp;TOURNAMENT
         </button>
       </div>
 
       <div
         #TourContenter
-        class="scrims-contenter d-flex flex-row justify-content-start flex-wrap"
+        class="scrims-contenter d-flex flex-column justify-content-start "
         (scroll)="onScrollTourContenter()"
       >
         <div
-          class="card d-flex flex-column mt-2"
+          class="match mt-2 rounded border"
           *ngFor="let tour of allTournamentFilter; let index = index"
-        ></div>
+        >
+          ZFseofuisiopj
+        </div>
       </div>
     </div>
   </div>
