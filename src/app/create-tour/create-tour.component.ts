@@ -63,11 +63,14 @@ export class CreateTourComponent implements OnInit {
     };
 
     console.log(data);
-    (await this.leaugesService.addTournament(data as Tournament)).subscribe(
-      (res) => {
-        this.goAllTour();
-      }
-    );
+    (
+      await this.leaugesService.addTournament(
+        data as Tournament,
+        localStorage.getItem('profile') as string
+      )
+    ).subscribe((res) => {
+      this.goAllTour();
+    });
   }
 
   goAllTour() {
