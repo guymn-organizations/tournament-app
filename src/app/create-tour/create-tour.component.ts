@@ -15,6 +15,8 @@ export class CreateTourComponent implements OnInit {
   leaugesService: LeaugesService = inject(LeaugesService);
   selectedImageURL: string | ArrayBuffer | null = null;
 
+  loadding: boolean = false;
+
   tourData: Partial<Tournament> = {
     name: '',
     detail: '',
@@ -62,13 +64,14 @@ export class CreateTourComponent implements OnInit {
       fee: this.tourData.fee,
     };
 
-    console.log(data);
+    this.loadding = true;
     (
       await this.leaugesService.createTournament(
         data as Tournament,
         localStorage.getItem('profile') as string
       )
     ).subscribe((res) => {
+      this.loadding = false;
       this.goAllTour();
     });
   }
