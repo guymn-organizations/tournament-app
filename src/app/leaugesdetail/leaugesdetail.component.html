@@ -187,9 +187,19 @@
   <h2>Matches for Tournament</h2>
   
     <div *ngFor="let match of matches">
+      <div class="match">
+        <div class="match-item">
+          <strong>Team 1:</strong> {{ match.teamA.team?.name }} <br>
+          
+        </div>
+        <h3 class="vs">vs</h3>
+        <div class="match-item">
+          
+          <strong>Team 2:</strong> {{ match.teamB.team?.name }} <br>
+        </div>
+      </div>
       
-      <strong>Team 1:</strong> {{ match.teamA.team?.name }} <br>
-      <strong>Team 2:</strong> {{ match.teamB.team?.name }} <br>
+   
      
     </div>
  

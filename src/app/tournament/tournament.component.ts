@@ -94,20 +94,20 @@ export class TournamentComponent implements OnInit {
       index < this.match_list.length;
       index++
     ) {
-    //   if (this.match_list[index].match.teamA.team.imageTeamUrl) {
-    //     (
-    //       await this.nav.service.getImage(
-    //         this.match_list[index].match.teamA.team.imageTeamUrl
-    //       )
-    //     ).subscribe(
-    //       (res) => {},
-    //       (result) => {
-    //         if (result.status == 200) {
-    //           this.match_list[index].imageA = result.error.text;
-    //         }
-    //       }
-    //     );
-    //   }
+      if (this.match_list[index].match.teamA.team.imageTeamUrl) {
+        (
+          await this.nav.service.getImage(
+            this.match_list[index].match.teamA.team.imageTeamUrl
+          )
+        ).subscribe(
+          (res) => {},
+          (result) => {
+            if (result.status == 200) {
+              this.match_list[index].imageA = result.error.text;
+            }
+          }
+        );
+      }
     }
   }
 

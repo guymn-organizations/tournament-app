@@ -29,6 +29,7 @@ import { ProfileListScrimComponent } from './profile-list-scrim/profile-list-scr
 import { TeampostDetailComponent } from './teampost-detail/teampost-detail.component';
 import { ScrimsDetailComponent } from './scrims-detail/scrims-detail.component';
 import { DatePipe } from '@angular/common';
+import { DetailmatchComponent } from './detailmatch/detailmatch.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DatePipe } from '@angular/common';
     ProfileListScrimComponent,
     TeampostDetailComponent,
     ScrimsDetailComponent,
+    DetailmatchComponent,
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, FormsModule],
   providers: [DatePipe],
