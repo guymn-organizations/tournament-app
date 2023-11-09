@@ -3,3 +3,24 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.image-tour-content {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.match {
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.match:hover {
+  transform: scale(1.01);
+}
+img {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}

@@ -42,7 +42,7 @@ export class LeaugesComponent implements OnInit {
   constructor(private tournament: LeaugesService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    this.loadTournament();
+    await this.loadTournament();
   }
 
   filterTourList(text: string) {
@@ -55,12 +55,41 @@ export class LeaugesComponent implements OnInit {
     );
   }
 
+  async setImages() {
+    for (
+      let index = this.pageIndex * this.pageSize;
+      index < this.allTournament.length;
+      index++
+    ) {
+      if (this.allTournament[index].imageTourUrl) {
+        (
+          await this.nav.service.getImage(
+            this.allTournament[index].imageTourUrl as string
+          )
+        ).subscribe(
+          (res) => {},
+          (result) => {
+            if (result.status == 200) {
+              this.images[index] = result.error.text;
+            }
+          }
+        );
+      }
+    }
+  }
+
+  async setAllTournament(tours: Tournament[]) {
+    this.allTournament = [...this.allTournament, ...tours];
+  }
+
   async loadTournament() {
+    this.loadding = true;
     (
       await this.leaugesService.getAllTournament(this.pageIndex, this.pageSize)
     ).subscribe(
-      (res) => {
-        this.allTournament = [...this.allTournament, ...res];
+      async (res) => {
+        await this.setAllTournament(res);
+        await this.setImages();
         this.pageTotal = res.length;
         this.pageIndex++;
         this.loadding = false;
@@ -71,6 +100,7 @@ export class LeaugesComponent implements OnInit {
       }
     );
   }
+
   @HostListener('scroll', ['$event'])
   async onScrollTourContenter(): Promise<void> {
     const nativeElement = this.messageProfileElement?.nativeElement;

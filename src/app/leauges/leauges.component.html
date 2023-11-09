@@ -31,14 +31,46 @@
 
       <div
         #TourContenter
-        class="scrims-contenter d-flex flex-column justify-content-start "
+        class="scrims-contenter d-flex flex-column justify-content-start ps-3 pe-3"
         (scroll)="onScrollTourContenter()"
       >
         <div
           class="match mt-2 rounded border"
           *ngFor="let tour of allTournamentFilter; let index = index"
         >
-          ZFseofuisiopj
+          <div class="d-flex image-tour-content bg-light border rounded">
+            <div
+              id="loading "
+              class="lds-ellipsis m-auto"
+              *ngIf="tour.imageTourUrl && !images[index]"
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <img
+              [src]="images[index]"
+              *ngIf="tour.imageTourUrl && images[index]"
+              class="m-auto"
+            />
+            <h1
+              *ngIf="!tour.imageTourUrl && !images[index]"
+              [innerHTML]="tour.name?.charAt(0)"
+              class="text-uppercase text-light-emphasis m-auto"
+              style="font-size: 80px;"
+            ></h1>
+          </div>
+        </div>
+        <div
+          id="loading"
+          class="lds-ellipsis m-auto"
+          *ngIf="pageTotal == pageSize"
+        >
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
+          <div class="bg-light"></div>
         </div>
       </div>
     </div>
