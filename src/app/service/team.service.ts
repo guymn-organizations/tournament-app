@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TeamService {
+  getAllAdvert(pageIndex: number, pageSize: number) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:8000/teams'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}

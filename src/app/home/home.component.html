@@ -22,11 +22,12 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <div class="button">
-          <button (click)="nav.service.toPage('leauges')" class="Btn">สร้างการแข่งขัน</button>
+          <button (click)="nav.service.toPage('leauges')" class="Btn">
+            สร้างการแข่งขัน
+          </button>
         </div>
-        
       </div>
-      <div class="trendytour">
+      <!-- <div class="trendytour">
         <div class="col-md-12" style="text-align: center;">
           <h1 >-การแข่งขันที่น่าสนใจ-</h1>
         </div>
@@ -122,21 +123,53 @@
         </div>
         
 
+      </div> -->
+      <div class="col-md-12 text-center" style="margin-top: 300px">
+        <h1 class="headfont">sponsers</h1>
       </div>
-      
     </div>
+    
+    <div
+      #AdvertContenter
+      class="d-flex flex-row justify-content-start align-items-center flex-wrap"
+      (scroll)="onScrollScrimsContenter()"
+    >
+    <div class="col-md-12 ads-wrap">
+      <div
+      class="card d-flex flex-column mt-2"
+      *ngFor="let advert of adverts"
+    >
+    <div
+          class="m-auto d-flex flex-column img-content border border-2 rounded bg-light"
+        >
+          <div
+            id="loading"
+            class="lds-ellipsis m-auto"
+            *ngIf="!advert.imageAdvertUrl"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
 
-    <div class="ads-wrap">
-      <div class="advert-slider">
-        <div class="advert" *ngFor="let advert of adverts">
-          <a [routerLink]="advert.linkAdvertUrl" target="_blank">
-            <img [src]="advert.imageAdvertUrl">
+          <a style="width: 100%; height: 100%;"  href="{{advert.linkAdvertUrl}}"  target="_blank">
+            <img
+            [src]="advert.imageAdvertUrl"
+            *ngIf="advert.imageAdvertUrl"
+            
+            class="m-auto"
+          />
           </a>
+         
+          
         </div>
-      </div>
+    
+  </div>
+    </div>
+      
       
     </div>
+    
   </div>
 </body>
-
-

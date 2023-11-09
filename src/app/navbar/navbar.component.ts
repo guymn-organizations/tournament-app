@@ -7,6 +7,8 @@ import { ProfileGame } from '../model/profile-game';
 import { Team } from '../model/team';
 import { Subscription } from 'rxjs';
 import { Image } from '../model/image';
+import { Advert } from '../model/advert.model';
+import { AdvertService } from '../service/advert.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +19,7 @@ export class NavbarComponent implements OnInit {
   service: GobalServiceService = inject(GobalServiceService);
   profileService: ProfileService = inject(ProfileService);
   teamService: TeamService = inject(TeamService);
-
+  advertService: AdvertService =inject(AdvertService);
   menu = false;
 
   profile?: Profile;
