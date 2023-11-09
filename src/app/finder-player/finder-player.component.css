@@ -5,7 +5,6 @@
   height: 34px;
 }
 
-
 .switch input {
   opacity: 0;
   width: 0;
@@ -36,15 +35,15 @@
   transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
   background-color: #2196f3;
 }
 
-input:focus+.slider {
+input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -58,8 +57,6 @@ input:checked+.slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
-
 
 .modal-content {
   background-color: #15161b;
@@ -89,7 +86,6 @@ input:checked+.slider:before {
 .img {
   height: 100px;
   width: 100px;
-
 }
 
 .switch-container {
@@ -116,7 +112,6 @@ input:checked+.slider:before {
 .slider.round {
   border-radius: 34px;
 }
-
 
 .image-container {
   padding: 10px;
@@ -154,7 +149,6 @@ input:checked+.slider:before {
   /* Title font size */
   font-weight: bold;
   /* Title font weight */
-
 }
 
 /* Game Card Image Styling */
@@ -270,9 +264,15 @@ input:checked+.slider:before {
 
 .post-container {
   height: 500px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 .post-container::-webkit-scrollbar {
   width: 0.1em;
+}
+
+.finder {
+  background-color: #15161b;
+  color: #fff;
+  height: 100vh;
 }

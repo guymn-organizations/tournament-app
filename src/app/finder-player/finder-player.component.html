@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container finder">
   <div class="row">
     <!-- Left Side -->
 
@@ -6,15 +6,16 @@
       <div class="container p-4">
         <!-- Added padding -->
         <h2>Role</h2>
-        <div class="d-flex justify-content-between pt-2" *ngFor="let po of position">
+        <div
+          class="d-flex justify-content-between pt-2"
+          *ngFor="let po of position"
+        >
           <label class="switch">
             <!-- Center text -->
             <input type="checkbox" (change)="onChecked(po)" checked />
             <span class="slider round"></span>
           </label>
-          <h3>{{po}}</h3>
-
-
+          <h3>{{ po }}</h3>
         </div>
       </div>
     </div>
@@ -25,15 +26,28 @@
         <!-- Added padding -->
 
         <div class="col-md-6 col-sm-12 text-md-end">
-          <button type="button" class="btn btn-success m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button
+            type="button"
+            class="btn btn-success m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
             Post Find Team
           </button>
         </div>
       </div>
       <div class="d-flex flex-column container post-container">
         <div #Content class="row" (scroll)="onScrollPlayerContenter()">
-          <div *ngFor=" let post of getPlayerPosts();let i=index" class="col-md-6 my-3">
-            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#jointeam" (click)="showDetail(i)">
+          <div
+            *ngFor="let post of getPlayerPosts(); let i = index"
+            class="col-md-6 my-3"
+          >
+            <div
+              class="card mb-3 game-card"
+              data-bs-toggle="modal"
+              data-bs-target="#jointeam"
+              (click)="showDetail(i)"
+            >
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">
                   <div class="box-image-game border m-2 img">
@@ -43,24 +57,31 @@
                       <div></div>
                       <div></div>
                     </div>
-                    <img [ngClass]="{ 'd-none': !post.image }" [src]="post.image"
-                      class="img-fluid rounded-start game-image">
+                    <img
+                      [ngClass]="{ 'd-none': !post.image }"
+                      [src]="post.image"
+                      class="img-fluid rounded-start game-image"
+                    />
                   </div>
                 </div>
                 <div class="col-lg-8 col-12">
                   <div class="d-flex flex-column justify-content-start">
                     <h5 class="card-title text-start game-profile">
                       PROFILE:
-                      <span class="profile-info">{{ post.post.profile.firstName }}
-                        {{ post.post.profile.lastName }}</span>
+                      <span class="profile-info"
+                        >{{ post.post.profile.firstName }}
+                        {{ post.post.profile.lastName }}</span
+                      >
                     </h5>
                     <h5 class="card-title text-start game-game">
                       IN-GAME:
                       <span class="profile-game">{{
                         post.post.profile.profileGame.name
-                        }}</span>
+                      }}</span>
                     </h5>
-                    <h5 class="card-title text-start game-positions overflow-ellipsis">
+                    <h5
+                      class="card-title text-start game-positions overflow-ellipsis"
+                    >
                       POSITIONS:
                       <span class="positions">{{ post.post.positions }}</span>
                     </h5>
@@ -78,19 +99,36 @@
         </div>
       </div>
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class=" modal-body">
-              <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="playerPostForm">
+            <div class="modal-body">
+              <form
+                #PostPlayerForm="ngForm"
+                (ngSubmit)="Postform()"
+                id="playerPostForm"
+              >
                 <h2 class="mt-2 text-center">Player Information</h2>
 
                 <div class="mb-3">
                   <label for="position" class="form-label">POSITIONS</label>
                   <div class="row">
-                    <div class="switch-container col-6" *ngFor="let position of position">
+                    <div
+                      class="switch-container col-6"
+                      *ngFor="let position of position"
+                    >
                       <label class="switch">
-                        <input type="checkbox" class="switch-input" (change)="onChecked(position)" />
+                        <input
+                          type="checkbox"
+                          class="switch-input"
+                          (change)="onChecked(position)"
+                        />
                         <span class="slider round"></span>
                       </label>
                       <div class="mt-1">
@@ -100,11 +138,20 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
                     Close
                   </button>
-                  <button type="submit" class="btn btn-success" id="submitform" [disabled]="!PostPlayerForm.form.valid"
-                    data-bs-dismiss="modal">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    id="submitform"
+                    [disabled]="!PostPlayerForm.form.valid"
+                    data-bs-dismiss="modal"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -115,7 +162,13 @@
       </div>
 
       <!-- Modal Invite Player -->
-      <div class="modal fade" id="jointeam" tabindex="-1" aria-labelledby="jointeamLabel" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="jointeam"
+        tabindex="-1"
+        aria-labelledby="jointeamLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-body text-center">
@@ -127,29 +180,49 @@
                   <div class="d-flex align-items-center justify-content-evenly">
                     <div>
                       <div class="box-image-game border m-2 img">
-                        <div class="lds-ellipsis m-auto"
-                          *ngIf="selectedPlayer.profile.imageProfileUrl && !selectedPlayer_img">
+                        <div
+                          class="lds-ellipsis m-auto"
+                          *ngIf="
+                            selectedPlayer.profile.imageProfileUrl &&
+                            !selectedPlayer_img
+                          "
+                        >
                           <div></div>
                           <div></div>
                           <div></div>
                           <div></div>
                         </div>
-                        <img *ngIf="selectedPlayer.profile.imageProfileUrl && selectedPlayer_img"
-                          [src]="selectedPlayer_img" class="img-fluid rounded-start game-image">
+                        <img
+                          *ngIf="
+                            selectedPlayer.profile.imageProfileUrl &&
+                            selectedPlayer_img
+                          "
+                          [src]="selectedPlayer_img"
+                          class="img-fluid rounded-start game-image"
+                        />
                       </div>
                     </div>
                     <div>
                       <div class="d-flex flex-column justify-content-start">
                         <h5 class="card-title text-start game-profile">
-                          <span class="profile-info">PROFILE: {{ selectedPlayer.profile.firstName }} {{
-                            selectedPlayer.profile.lastName }}</span>
+                          <span class="profile-info"
+                            >PROFILE: {{ selectedPlayer.profile.firstName }}
+                            {{ selectedPlayer.profile.lastName }}</span
+                          >
                         </h5>
                         <h5 class="card-title text-start game-game">
-                          IN-GAME: <span class="profile-game">{{ selectedPlayer.profile.profileGame.name
-                            }}</span>
+                          IN-GAME:
+                          <span class="profile-game">{{
+                            selectedPlayer.profile.profileGame.name
+                          }}</span>
                         </h5>
-                        <h5 class="card-title text-start game-positions overflow-ellipsis">
-                          POSITIONS: <span class="positions">{{selectedPlayer.positions.join(', ') }}</span>
+                        <h5
+                          class="card-title text-start game-positions overflow-ellipsis"
+                        >
+                          POSITIONS:
+                          <span class="positions">{{
+                            selectedPlayer.positions.join(", ")
+                          }}</span>
                         </h5>
                       </div>
                     </div>
@@ -159,15 +232,28 @@
               <!-- End of displaying PROFILE information from selectedPlayer -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success"
-                (click)="sendMesageInvtePlayer(selectedPlayer?.profile!.profileGame.name)">Sent request</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="
+                  sendMesageInvtePlayer(
+                    (selectedPlayer?.profile)!.profileGame.name
+                  )
+                "
+              >
+                Sent request
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
   </div>
+</div>
