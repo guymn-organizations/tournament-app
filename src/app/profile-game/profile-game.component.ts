@@ -27,6 +27,8 @@ export class ProfileGameComponent implements OnInit {
 
   toEdit = false;
 
+  loadding: boolean = false;
+
   profileGame: ProfileGame | undefined;
 
   errorMessage = '';
@@ -60,6 +62,7 @@ export class ProfileGameComponent implements OnInit {
   }
 
   async setProfileGame() {
+    this.loadding = true;
     const profileData: Partial<ProfileGame> = {
       name: this.profileGameData.name,
       openId: this.profileGameData.openid,
@@ -76,9 +79,11 @@ export class ProfileGameComponent implements OnInit {
         this.nav.getProfile().profileGame = respon;
         this.nav.setTeam();
         this.toEdit = false;
+        this.loadding = false;
       },
       (error) => {
         this.errorMessage = error.error;
+        this.loadding = false;
       }
     );
   }

@@ -26,6 +26,8 @@ export class ProfileTeamComponent implements OnInit {
     contact: '',
   };
 
+  loadding: boolean = false;
+
   positions = [
     PositionType.DSL,
     PositionType.ADL,
@@ -73,6 +75,7 @@ export class ProfileTeamComponent implements OnInit {
   }
 
   async createTeam() {
+    this.loadding = true;
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
 
@@ -87,9 +90,11 @@ export class ProfileTeamComponent implements OnInit {
         await this.setTeamId(respon.id);
         await this.addPlayer(respon.id);
         this.nav.team = respon;
+        this.loadding = false;
       },
       (error) => {
         this.errorMessageCreate = error.error;
+        this.loadding = false;
       }
     );
   }
@@ -97,6 +102,7 @@ export class ProfileTeamComponent implements OnInit {
   teamNameToFind: string | undefined;
   teamPositionToFind: PositionType = PositionType.DSL;
   async getTeamByName() {
+    this.loadding = true;
     this.errorMessageCreate = '';
     this.errorMessageFind = '';
 
@@ -115,6 +121,7 @@ export class ProfileTeamComponent implements OnInit {
           this.teamNameToFind = '';
           this.teamPositionToFind = PositionType.DSL;
         }
+        this.loadding = false;
       }
     );
   }

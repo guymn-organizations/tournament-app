@@ -27,6 +27,8 @@ export class ProfileProfileComponent {
   toEdit = false;
   errorMessage: string = '';
 
+  loadding: boolean = false;
+
   selectedImageURL: string | ArrayBuffer | null = null;
 
   constructor() {}
@@ -77,6 +79,8 @@ export class ProfileProfileComponent {
       return;
     }
 
+    this.loadding = true;
+
     const profileData: Partial<Profile> = {
       firstName: this.profileData.first_name,
       lastName: this.profileData.last_name,
@@ -94,6 +98,7 @@ export class ProfileProfileComponent {
     ).subscribe((respon) => {
       this.nav.setProfileData(respon);
       this.nav.setImageProfile(this.selectedImageURL as string);
+      this.loadding = false;
     });
 
     this.clickOutEdit();

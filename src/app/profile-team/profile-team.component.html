@@ -249,7 +249,14 @@
             [disabled]="!teamForm.form.valid"
             class="mt-5 btn btn-success col-md-4"
           >
-            Create team
+            <div class="m-auto" *ngIf="!loadding">Create team</div>
+            <div
+              class="m-auto spinner-border text-white"
+              *ngIf="loadding"
+              role="status"
+            >
+              <span class="sr-only"></span>
+            </div>
           </button>
         </div>
       </form>
@@ -300,9 +307,16 @@
           <button
             type="submit"
             [disabled]="!findTeamForm.form.valid"
-            class="mt-5 btn btn-success col-md-4"
+            class="d-flex align-items-center btn btn-success col-md-4"
           >
-            Find team
+            <div class="m-auto" *ngIf="!loadding">Find team</div>
+            <div
+              class="m-auto spinner-border text-white"
+              *ngIf="loadding"
+              role="status"
+            >
+              <span class="sr-only"></span>
+            </div>
           </button>
         </div>
       </form>

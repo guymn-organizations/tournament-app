@@ -77,3 +77,7 @@ li {
 .lds-ellipsis div:nth-child(4) {
   background-color: #1a1b20;
 }
+
+.btn {
+  height: 50px;
+}

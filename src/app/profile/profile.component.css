@@ -36,6 +36,10 @@
   opacity: 0.5; /* Firefox */
 }
 
+.btn {
+  height: 50px;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
