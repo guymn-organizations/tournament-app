@@ -66,3 +66,9 @@
   font-family: 'Kanit', sans-serif;
  
 }
+.team-box{
+  border-radius: 10px;
+  width: 70px;
+  height: 70px;
+  background-color: white;
+}

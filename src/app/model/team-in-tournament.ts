@@ -1,15 +1,12 @@
 import { Team } from './team';
 
 export class TeamInTournament {
-  team: Team;
-  score: number;
-  win: number;
-  lose: number;
+  id: string | undefined;
+  team: Team | undefined;
+  win: number = 0;
 
-  constructor(team: Team, score: number, win: number, lose: number) {
+  constructor(team?: Team, win: number = 0) {
     this.team = team;
-    this.score = score;
     this.win = win;
-    this.lose = lose;
   }
 }
