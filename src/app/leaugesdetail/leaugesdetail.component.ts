@@ -42,6 +42,7 @@ export class LeaugesdetailComponent implements OnInit {
       const date = params.get('startDateMatch')
       this.check_date=date as string;
       await this.loadTournament(id as string);
+      await this.AllTeamInTournament(this.checked_id);
     });
   }
 
@@ -123,6 +124,18 @@ export class LeaugesdetailComponent implements OnInit {
         }
       );
     }
+  }
+
+  async AllTeamInTournament(tournamentId: string){
+    
+    (await this.tournamentService.getAllTeamInTournament(tournamentId)).subscribe(
+      async (data: any[]) => {
+        this.teamsInTour = data;
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
   }
   
   
