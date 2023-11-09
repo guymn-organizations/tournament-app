@@ -7,3 +7,6 @@ img {
   height: 300px;
   object-fit: cover;
 }
+.underline {
+  border-bottom: 2px solid #00c2ff;
+}
