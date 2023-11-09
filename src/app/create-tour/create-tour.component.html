@@ -1,23 +1,147 @@
-<link
-  href="https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin"
-  rel="stylesheet"
-  type="text/css"
-/>
-
-<div
-  class="body d-flex justify-content-center justify-content-lg-start"
-  style="background-color: rgb(26, 33, 36)"
->
-  <div class="createfrom">
-    <h1 style="font-family: fantasy; color: green">CREATE TOURNAMENT</h1>
-    <div class="line-8-83i"></div>
-    <div class="form">
-      <form
-        #createtourForm="ngForm"
-        class="row g-3 needs-validation"
-        novalidate
-        (ngSubmit)="submitCreatetourForm()"
-      ></form>
-    </div>
+<div class="container text-light create-tour">
+  <div class="m-3">
+    <h1>CREATE TOURNAMENT</h1>
+    <form
+      #CreateTour="ngForm"
+      class="row container d-flex"
+      (ngSubmit)="onSubmitCreateTour()"
+    >
+      <div class="mt-5 col-12 col-xl-4 d-flex flex-column">
+        <div class="img-tour-content border mt-5 ms-auto me-auto">
+          <img
+            [src]="selectedImageURL"
+            class="col-12 m-auto"
+            *ngIf="selectedImageURL"
+          />
+        </div>
+        <div class="ms-auto me-auto">
+          <label class="btn btn-success mt-3 pt-0 pb-0">
+            <span>
+              <i class="fs-4 bi bi-cloud-arrow-up-fill ps-5 pe-5"></i>
+            </span>
+            <input
+              class="d-none"
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              (change)="onFileSelected($event)"
+              accept="image/jpeg, image/png"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="col-12 col-xl-6 flex-fill mt-xl-5 ms-xl-5 flex-column d-flex flex-fill"
+      >
+        <label class="form-label">Name</label>
+        <input
+          type="text"
+          class="bg-data ps-3 pe-3 p-1"
+          placeholder="Tournament name"
+          id="tournament-name"
+          name="tournament-name"
+          [(ngModel)]="tourData.name"
+          required
+          [maxLength]="12"
+        />
+        <label class="form-label mt-3">Tournament detail</label>
+        <textarea
+          type="text"
+          style="height: 100%; min-height: 170px"
+          class="bg-data ps-3 pe-3 p-1"
+          id="detail"
+          name="detail"
+          [(ngModel)]="tourData.detail"
+        ></textarea>
+      </div>
+      <div class="col-12 col-lg-4 flex-column d-flex flex-fill mt-5">
+        <label class="form-label">Competing Date</label>
+        <input
+          type="date"
+          class="bg-data ps-3 pe-3 p-1"
+          id="competing"
+          name="competing"
+          required
+          [(ngModel)]="startDateMatch"
+        />
+      </div>
+      <div class="col-6 col-lg-2 flex-column d-flex flex-fill mt-5">
+        <label class="form-label">BO</label>
+        <select
+          class="form-select bg-data"
+          id="BO"
+          name="BO"
+          [(ngModel)]="BO"
+          required
+        >
+          <option>3</option>
+          <option>5</option>
+          <option>7</option>
+        </select>
+      </div>
+      <div class="col-6 col-lg-2 flex-column d-flex flex-fill mt-5">
+        <label class="form-label">Max team in tournamnet</label>
+        <select
+          class="form-select bg-data"
+          id="maxNumberTeam"
+          name="maxNumberTeam"
+          [(ngModel)]="maxNumberTeam"
+          required
+        >
+          <option>16</option>
+          <option>32</option>
+          <option>64</option>
+          <option>128</option>
+          <option>256</option>
+          <option>512</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-6 flex-fill flex-column d-flex flex-fill">
+        <label class="form-label">Reward</label>
+        <div class="d-flex align-items-center">
+          <input
+            type="number"
+            class="bg-data ps-3 pe-3 p-1 flex-fill"
+            placeholder="Tournament of the competition"
+            id="tournament-reward"
+            name="tournament-reward"
+            [(ngModel)]="tourData.reward"
+            required
+          />
+          <h2 class="form-label ms-3">Bath</h2>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 flex-fill flex-column d-flex flex-fill">
+        <label class="form-label">Fee</label>
+        <div class="d-flex align-items-center">
+          <input
+            type="number"
+            class="bg-data ps-3 pe-3 p-1 flex-fill"
+            placeholder="Tournament entry fee"
+            id="tournament-fee"
+            name="tournament-fee"
+            [(ngModel)]="tourData.fee"
+            required
+          />
+          <h2 class="form-label ms-3">Bath</h2>
+        </div>
+      </div>
+      <div class="mt-auto justify-content-between d-flex">
+        <button
+          type="submit"
+          class="mt-5 btn btn-success col-md-4"
+          [disabled]="!CreateTour.form.valid"
+        >
+          Submit
+        </button>
+        <button
+          type="reset"
+          class="mt-5 btn btn-danger col-md-4"
+          (click)="goAllTour()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
   </div>
 </div>
