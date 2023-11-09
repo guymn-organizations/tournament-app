@@ -48,4 +48,10 @@ export class MessageService {
   async readMessage(id: string): Promise<Observable<Message>> {
     return this.http.put<Message>(`${this.apiUrl}/is_read/${id}`, null);
   }
+
+  sendRequestToJoinTeam(teamName: string, profileGameName: string, positionType: string) {
+    const url = `${this.apiUrl}/${teamName}/REQUEST_TO_JOIN_TEAM/${profileGameName}`;
+    const body = positionType;
+    return this.http.post(url, body);
+  }
 }

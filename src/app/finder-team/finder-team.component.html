@@ -82,7 +82,8 @@
         <div class="row">
           <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3"
             [ngClass]="{ 'hidden': !isSelected(post.post) }">
-            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#findplayer">
+            <div class="card mb-3 game-card " data-bs-toggle="modal" data-bs-target="#findplayer"
+              (click)="showDetail(post.post.id)">
               <div class="row g-0 d-flex align-items-center">
                 <div class="col-lg-4 col-12">
                   <div class="box-image-game border m-2 img">
@@ -112,88 +113,94 @@
         </div>
       </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  Create Player Post
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class=" modal-body">
-                <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="playerPostForm">
-                  <h2 class="mt-2">Player Information</h2>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Create Player Post
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class=" modal-body">
+              <form #PostPlayerForm="ngForm" (ngSubmit)="Postform()" id="playerPostForm">
+                <h2 class="mt-2">Player Information</h2>
 
-                  <div class="mb-3 ">
-                    <label for="position" class="form-label">POSITIONS</label>
-                    <div class="switch-container" *ngFor="let position of position">
-                      <label class="switch">
-                        <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
-                        <span class="slider round"></span>
-                      </label>
-                      <div class="mt-1">
-                        <h4>{{ position }}</h4>
-                      </div>
+                <div class="mb-3 ">
+                  <label for="position" class="form-label">POSITIONS</label>
+                  <div class="switch-container" *ngFor="let position of position">
+                    <label class="switch">
+                      <input type="checkbox" class="switch-input" (change)="updateSelection($event, position)" />
+                      <span class="slider round"></span>
+                    </label>
+                    <div class="mt-1">
+                      <h4>{{ position }}</h4>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                      Close
-                    </button>
-                    <button type="submit" class="btn btn-success" id="submitform"
-                      [disabled]="!PostPlayerForm.form.valid" data-bs-dismiss="modal">
-                      Save Changes
-                    </button>
-                  </div>
-                </form>
-              </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-success" id="submitform" [disabled]="!PostPlayerForm.form.valid"
+                    data-bs-dismiss="modal">
+                    Save Changes
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <!-- Modal -->
-        <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
-        <div class="modal fade" id="findplayer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-body text-center">
-                <h3>Invite players to join the team</h3>
-                <div class="align-items-center" data-bs-toggle="modal" data-bs-target="#findplayer">
-                  <div class="d-flex align-items-center  justify-content-evenly">
-                    <div class="">
+      </div>
+
+      <!-- Modal Invite Player -->
+      <div class="modal fade" id="findplayer" tabindex="-1" aria-labelledby="playerteamLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <h3>Invite players to join the team</h3>
+
+              <!-- Display PROFILE information from selectedPlayer -->
+              <div *ngIf="selectedPlayer">
+                <div class="align-items-center">
+                  <div class="d-flex align-items-center justify-content-evenly">
+                    <div>
                       <div class="box-image-game border m-2 img">
-                        <div class="lds-ellipsis m-auto" *ngIf="!imageTeam">
+                        <div class="lds-ellipsis m-auto" *ngIf="!selectedPlayer.imageTeamUrl">
                           <div></div>
                           <div></div>
                           <div></div>
                           <div></div>
                         </div>
-                        <img [ngClass]="{ 'd-none': !imageTeam }" [src]="imageTeam"
+                        <img [ngClass]="{ 'd-none': !selectedPlayer.imageTeamUrl }" [src]="selectedPlayer.imageTeamUrl"
                           class="img-fluid rounded-start game-image">
                       </div>
                     </div>
-                    <div class="">
+                    <div>
                       <div class="d-flex flex-column justify-content-start">
                         <h5 class="card-title text-start game-profile">
-                          TEAM: <span class="profile-info"> {{ team?.name }}</span>
+                          <span class="profile-info">TEAM: {{ team?.name }} </span>
                         </h5>
                         <h5 class="card-title text-start game-positions overflow-ellipsis">
-                          POSITIONS: <span class="positions">{{ post.post.positions }}</span>
+                          POSITIONS: <span class="positions">{{selectedPlayer.positions.join(', ') }}</span>
                         </h5>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Sent request</button>
-              </div>
+              <!-- End of displaying PROFILE information from selectedPlayer -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" >Send request</button>
             </div>
           </div>
         </div>
       </div>
 
-        <p class="m-2 text-center">finder-player works!</p>
-        <!-- Added margin and centered text -->
-      </div>
+
+      <p class="m-2 text-center">finder-player works!</p>
+      <!-- Added margin and centered text -->
+    </div>
+  </div>

@@ -7,6 +7,9 @@ import { NgForm } from '@angular/forms';
 import { Image } from '../model/image';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
+import { TeamService } from '../service/team.service';
+import { MessageService } from '../service/message.service';
+import { ProfileGame } from '../model/profile-game';
 
 @Component({
   selector: 'app-finder-team',
@@ -21,8 +24,10 @@ export class FinderTeamComponent {
 
   searchPositions: string[] = []; // Initialize an empty array
   profile?: Profile;
-
+  selectedPlayer : any;
   teamPosts: Teampost[] = [];
+  profileGame!: ProfileGame;
+  positionTypes!: PositionType[];
 
   imageTeam: Image | undefined;
   team?: Team;
@@ -38,7 +43,10 @@ export class FinderTeamComponent {
     PositionType.MID,
     PositionType.SUP,
   ];
-  constructor() { }
+
+  teamPostData: any = {};
+
+  constructor(private teamservice: TeamService, private messageService: MessageService) { }
 
   async ngOnInit() {
     this.teamPostService.getAllTeamPost().subscribe(async (data) => {
@@ -128,19 +136,61 @@ export class FinderTeamComponent {
   }
 
 
-  async getdataByid(id : any) {
-      
-    try {
-      this.profile = await (
-        await this.profileService.getProfileById(id)
-      ).toPromise();
+  async showDetail(id: string) {
 
-      localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
+    this.selectedPlayer = this.teamPosts.find((post) => post.id === id);
+    console.log(this.selectedPlayer)
+
+    const teamId = localStorage.getItem('team') as string; // Replace with the actual team ID you want to fetch
+
+    try {
+      this.team = await (await this.teamservice.getTeamById(teamId)).toPromise();
+      console.log(this.team); // Use the result you've already fetched
     } catch (error) {
-      console.error('Error getting profile data:', error);
-      
+      console.error('Error fetching team data:', error);
     }
-    
+  }
+  
+
+  async postFindPlayer(teamPostData: any) {
+    try {
+      await this.createPost(teamPostData);
+    } catch (error) {
+      console.error('Error creating post:', error);
+      // Handle the error here
+    }
+  }
+
+  async createPost(teamPostData: any) {
+    try {
+      // Call your service method to create a post
+      const response = await this.teamPostService.createPost(teamPostData);
+      console.log('Post created successfully:', response);
+      // Handle the successful response here
+    } catch (error) {
+      console.error('Error creating post:', error);
+      // Handle the error here
+    }
+  }
+  
+  sendRequest(teamName: Team, profileGameName: ProfileGame, positionType: PositionType[]) {
+    const requestData = {
+      teamName: this.team?.name as string,
+      profileGameName: this.profileGame.name as string,
+      positionType: this.positionTypes as unknown as string
+    };
+
+    this.messageService.sendRequestToJoinTeam(requestData.teamName, requestData.profileGameName, requestData.positionType)
+      .subscribe(
+        response => {
+          console.log('Request sent successfully', response);
+          // Handle the success response here
+        },
+        error => {
+          console.error('Error sending request', error);
+          // Handle the error here
+        }
+      );
   }
 }
 
