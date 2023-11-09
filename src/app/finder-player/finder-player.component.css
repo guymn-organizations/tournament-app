@@ -71,15 +71,18 @@
   flex-wrap: wrap;
   margin: 20px;
   margin-top: 0;
-  padding-right: 20px;
   padding-left: 20px;
-  padding-right: 20px;
   height: 500px;
   max-height: 500px;
   margin-bottom: 20px;
   overflow-y: scroll;
   border-radius: 10px;
   background-color: #1a1b20;
+  cursor: pointer;
+}
+
+.list-post:hover {
+  transform: scale(1.05);
 }
 
 .post-content::-webkit-scrollbar {
@@ -88,12 +91,18 @@
 
 .list-post {
   border: 2px solid white;
-  height: 300px;
-  width: 200px;
+  height: 230px;
+  width: 250px;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-right: 20px;
+  transition: transform 0.3s;
 }
 
 .image-comtent {
   width: 100px;
   height: 100px;
   overflow: hidden;
+  margin: auto;
+  margin-top: 20px;
 }

@@ -1,160 +1,108 @@
-.switch {
-  position: relative;
+.lds-ellipsis {
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
+.lds-ellipsis div {
   position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
+  top: 33px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+  background-color: #1a1b20;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+  background-color: #1a1b20;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+  background-color: #1a1b20;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+  background-color: #1a1b20;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
 }
 
-body {
-  background-color: black; /* Set the background color to black */
+.finder {
+  background-color: #15161b;
+  color: #fff;
+  height: 100vh;
 }
 
-.modal-content {
-  background-color: #15161b; /* Dark background color for the modal content */
-  color: white; /* Text color for the modal content */
-  border: 2px solid #ff0000; /* Add a blue border for the modal content */
-}
-
-.modal-title {
-  color: #ff0000; /* Blue color for the modal title */
-}
-
-.btn-primary {
-  background-color: #007bff; /* Blue color for the "Save Changes" button */
-}
-
-.btn-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover for the "Save Changes" button */
-}
-
-.img img,
-.img {
-  height: 100px;
-  width: 100px;
-
-}
-
-.switch-container {
+.post-content {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px; /* Add spacing between items if necessary */
-}
-
-.switch {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 10px; /* Add spacing between the checkbox and text */
-}
-
-.slider {
-  /* Your existing styles for the slider */
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-.image-container {
-  padding: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: 20px;
+  margin-top: 0;
+  padding-left: 20px;
+  height: 500px;
+  max-height: 500px;
+  margin-bottom: 20px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  background-color: #1a1b20;
+  cursor: pointer;
 }
 
-.image-container img {
-  width: 200px;
-  height: 20px; /* You may adjust the image height as needed */
-}
-
-.game-card {
-  background-color: #1a1a1a;
-  border: 2px solid #ff9900;
-  color: #ff9900;
-  box-shadow: 0 0 10px rgba(255, 153, 0, 0.6);
-  margin: 20px;
-}
-
-.game-title {
-  color: #ff9900;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.game-image {
-  width: 200px;
-  height: 150px;
-  border: 4px solid #ff9900;
-}
-
-.game-date,
-.game-time {
-  font-size: 18px;
-}
-
-.game-date {
-  color: #ff9900;
-  margin-top: 10px;
-}
-
-.game-time {
-  color: #ff0909;
-  margin-top: 10px;
-}
-
-.game-card:hover {
+.list-post:hover {
   transform: scale(1.05);
-  transition: transform 0.2s ease;
+}
+
+.post-content::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+.list-post {
+  border: 2px solid white;
+  height: 230px;
+  width: 250px;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-right: 20px;
+  transition: transform 0.3s;
+}
+
+.image-comtent {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 20px;
 }

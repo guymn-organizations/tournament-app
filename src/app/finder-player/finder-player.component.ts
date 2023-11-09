@@ -11,6 +11,9 @@ import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { PositionType } from '../model/team';
 import { FormsModule } from '@angular/forms';
+import { Profile } from '../model/profile';
+import { MessageService } from '../service/message.service';
+import { MessageType } from '../model/message';
 
 @Component({
   selector: 'app-playerpost',
@@ -23,6 +26,7 @@ export class FinderPlayerComponent {
 
   postService: PlayerpostService = inject(PlayerpostService);
   nav: NavbarComponent = inject(NavbarComponent);
+  messaheService: MessageService = inject(MessageService);
 
   position: PositionType[] = [
     PositionType.DSL,
@@ -51,10 +55,22 @@ export class FinderPlayerComponent {
 
   public show: boolean = true;
 
+  profile: Profile | undefined;
   constructor() {}
 
   async ngOnInit() {
+    this.profile = this.nav.profile;
+    if (!this.profile) {
+      await this.setProfile();
+    }
     await this.setFirstPost();
+  }
+
+  async setProfile() {
+    const id = localStorage.getItem('profile') as string;
+    (await this.nav.profileService.getProfileById(id)).subscribe((res) => {
+      this.profile = res;
+    });
   }
 
   async setFirstPost() {
@@ -88,7 +104,9 @@ export class FinderPlayerComponent {
   async filterPlayerPost(): Promise<void> {
     if (this.selected_position.length === 0) {
       // If no positions selected, show all players
-      this.playerPostFilter = this.playerPost;
+      this.playerPostFilter = this.playerPost.filter(
+        (player) => player.positions.length == 0
+      );
     } else {
       // Filter players based on selected positions
       this.playerPostFilter = this.playerPost.filter((player) =>
@@ -165,14 +183,49 @@ export class FinderPlayerComponent {
 
   checkToCreate(po: PositionType) {
     const index = this.selected_to_create.indexOf(po);
-
     if (index !== -1) {
-      // If the position is already in selected_to_create, remove it
       this.selected_to_create.splice(index, 1);
     } else {
-      // If the position is not in selected_to_create, add it
       this.selected_to_create.push(po);
     }
+  }
 
+  async post() {
+    const data: Partial<Playerpost> = {
+      profile: this.profile,
+      positions: this.selected_to_create,
+    };
+    (await this.postService.createPost(data as Playerpost)).subscribe((res) => {
+      this.playerPost.unshift(res);
+      this.cheangePage();
+    });
+  }
+
+  async inviteToJoinTeam(profileGameName: string) {
+    if (!confirm(`Do you want to invite ${profileGameName} to your team?`)) {
+      return;
+    }
+
+    const teamName = localStorage.getItem('teamName') as string;
+
+    (
+      await this.messaheService.sendJoinTeam(
+        teamName,
+        profileGameName,
+        PositionType.reserver,
+        MessageType.INVITE_TO_JOIN_TEAM
+      )
+    ).subscribe(
+      (res) => {},
+      (err) => {
+        if (err.status == 200) {
+          alert('Success to send INVITE_TO_JOIN_TEAM message');
+        }
+      }
+    );
+  }
+
+  checkMy(name: string) {
+    return this.profile?.profileGame.name === name;
   }
 }

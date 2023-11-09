@@ -1,10 +1,8 @@
-import { Profile } from "./profile";
-import { PositionType } from "./team";
+import { Profile } from './profile';
+import { PositionType, Team } from './team';
 
 export class Teampost {
-    id!: string;
-  profile!: Profile;
+  id!: string;
+  team!: Team;
   positions!: PositionType[];
 }
-
-  

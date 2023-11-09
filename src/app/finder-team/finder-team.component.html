@@ -1,203 +1,107 @@
-<div class="container">
-  <div class="row">
-    <!-- Left Side -->
-
-    <div class="col-md-3 col-sm-12 border-end">
-      <div class="container p-4">
-        <!-- Added padding -->
-        <h2>Role</h2>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'DSL')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>DSL</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/0415b285e2b6c3dcf12be5d7beb1055b.png"
-            alt="lane"
-            width="40px"
-            height="40px"
-          />
-        </div>
-
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'JG')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>JG</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/d4e7e712a09b01364a8d8af3c6eeb0f5.png"
-            alt="lane"
-            width="40px"
-            height="40px"
-          />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'MID')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>MID</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7bb58a9b6f300bf36834f8ec6e25ea0f.png"
-            alt="lane"
-            width="40px"
-            height="40px"
-          />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'ADL')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>ADL</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/7b9491a786796943c73a901bd91cf6a1.png"
-            alt="lane"
-            width="40px"
-            height="40px"
-          />
-        </div>
-        <div class="d-flex justify-content-between pt-2">
-          <label class="switch">
-            <!-- Center text -->
-            <input type="checkbox" (change)="onChange($event, 'SUP')" />
-            <span class="slider round"></span>
-          </label>
-          <h3>SUP</h3>
-          <img
-            src="https://cdn-webth.garenanow.com/webth/cdn/gth/rov/non-events/official/db5db10e92387724ab25f92a8c1e6e9f.png"
-            alt="lane"
-            width="40px"
-            height="40px"
-          />
-        </div>
+<div class="finder">
+  <div class="d-flex flex-row">
+    <div class="d-flex flex-column">
+      <div
+        *ngFor="let po of position"
+        class="d-flex align-items-center justify-content-start"
+        style="width: 100px"
+      >
+        <input type="checkbox" (change)="onChecked(po)" checked />
+        <h5 class="ms-4">{{ po }}</h5>
       </div>
     </div>
-
-    <!-- Right Side -->
-    <div class="col-md-9 col-sm-12">
-      <div class="d-flex flex-column p-4 align-items-end">
-        <!-- Added padding -->
-        <div class="col-md-6 col-sm-12 text-md-end">
-          <button
-            type="button"
-            class="btn btn-success m-2"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-          >
-            Post Find Player
-          </button>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let post of getTeamPosts()" class="col-md-6 my-3">
-            <div class="card game-card mb-3">
-              <div class="row g-0 d-flex align-items-center">
-                <div class="col-lg-4 col-12">
-                  <div class="d-flex justify-content-center border img">
-                    <img
-                      [src]="post.image"
-                      class="img-fluid game-image"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-8 col-12">
-                  <div class="d-flex flex-column justify-content-start">
-                    <h5 class="card-title text-start game-profile">
-                      TEAM: <span class="profile-info"></span>
-                    </h5>
-                    <h5
-                      class="card-title text-start game-positions overflow-ellipsis"
-                    >
-                      POSITIONS:
-                      <span class="positions">{{ post.post.positions }}</span>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
+    <div class="border" style="height: 100vh"></div>
+    <div class="d-flex flex-column flex-fill">
+      <button
+        class="btn btn-success text-upercase ms-auto m-3"
+        (click)="cheangePage()"
+        *ngIf="show"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Create Team Post
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form
-                #PostTeamForm="ngForm"
-                (ngSubmit)="Postform()"
-                id="teamPostForm"
-              >
-                <h2 class="mt-2">Team Information</h2>
+        create teampost
+      </button>
+      <button
+        class="btn btn-success text-upercase ms-auto m-3"
+        (click)="cheangePage()"
+        *ngIf="!show"
+      >
+        show teanpost
+      </button>
 
-                <div class="mb-3">
-                  <label for="position" class="form-label">POSITIONS</label>
-                  <div
-                    class="switch-container"
-                    *ngFor="let position of position"
-                  >
-                    <label class="switch">
-                      <input
-                        type="checkbox"
-                        class="switch-input"
-                        (change)="updateSelection($event, position)"
-                      />
-                      <span class="slider round"></span>
-                    </label>
-                    <div class="mt-1">
-                      <h4>{{ position }}</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="submit"
-                    class="btn btn-success"
-                    id="submitform"
-                    [disabled]="!PostTeamForm.form.valid"
-                    data-bs-dismiss="modal"
-                  >
-                    Save Changes
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ng-container *ngIf="show; else createPost">
+        <ng-container *ngTemplateOutlet="showPost"></ng-container
+      ></ng-container>
     </div>
   </div>
 </div>
+
+<ng-template #createPost>
+  <div class="d-flex">
+    <div class="row d-flex flex-column flex-lg-row ms-auto me-auto">
+      <div
+        *ngFor="let po of position"
+        class="d-flex align-items-center justify-content-start"
+        style="width: 100px"
+      >
+        <input type="checkbox" (change)="checkToCreate(po)" />
+        <h5 class="ms-4">{{ po }}</h5>
+      </div>
+      <button (click)="post()">post</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showPost>
+  <div #Content class="post-content" (scroll)="onScrollPostContenter()">
+    <div
+      class="list-post rounded d-flex flex-column"
+      *ngFor="let post of teamPostFilter; let i = index"
+    >
+      <div
+        id="logo-team"
+        class="image-comtent bg-light d-flex border border-2 rounded"
+      >
+        <div
+          id="loading"
+          class="lds-ellipsis m-auto"
+          *ngIf="!images[i] && post.team.imageTeamUrl"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <img
+          [src]="images[i]"
+          *ngIf="images[i] && post.team.imageTeamUrl"
+          class="m-auto"
+        />
+        <h1
+          *ngIf="!images[i] && !post.team.imageTeamUrl"
+          [innerHTML]="post.team.name[0]"
+          class="text-uppercase text-dark unimage m-auto"
+        ></h1>
+      </div>
+      <div class="mt-3 ms-2 me-auto">
+        <div>Name : {{ post.team.name }}</div>
+        <div>Positions : {{ post.positions }}</div>
+      </div>
+      <button
+        *ngIf="!checkMy(post.team.name)"
+        class="ms-auto btn btn-success"
+        (click)="requestToJoinTeam(post.team.name)"
+      >
+        invite
+      </button>
+    </div>
+    <div
+      id="loading "
+      class="lds-ellipsis m-auto"
+      *ngIf="pageSize == pageTotal"
+    >
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
+      <div class="bg-light"></div>
+    </div>
+  </div>
+</ng-template>

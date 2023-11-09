@@ -53,6 +53,10 @@ export class NavbarComponent implements OnInit {
         await this.profileService.getProfileById(profile_id)
       ).toPromise();
       localStorage.setItem('team', this.profile?.profileGame?.myTeam as string);
+      localStorage.setItem(
+        'profileName',
+        this.profile?.profileGame?.name as string
+      );
     } catch (error) {
       console.error('Error getting profile data:', error);
     }
@@ -81,6 +85,7 @@ export class NavbarComponent implements OnInit {
       this.team = await (
         await this.teamService.getTeamById(teamId)
       ).toPromise();
+      localStorage.setItem('teamName', this.team?.name as string);
     } catch (teamError) {}
   }
 
