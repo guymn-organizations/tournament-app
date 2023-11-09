@@ -37,6 +37,7 @@
         <div
           class="match mt-2 rounded border justify-content-start"
           *ngFor="let tour of allTournamentFilter; let index = index"
+          (click)="goDetail(tour.id)"
         >
           <div class="d-flex image-tour-content bg-light border rounded">
             <div

@@ -117,4 +117,8 @@ export class LeaugesComponent implements OnInit {
   goCreate() {
     this.router.navigate(['createtournament']);
   }
+
+  goDetail(id: string | undefined) {
+    this.router.navigate(['/leagues/', id]);
+  }
 }
