@@ -1,3 +1,61 @@
 <div class="tournament">
-
+  <div class="row g-2">
+    <div class="col-md-6">
+      <div class="img">
+        <div *ngIf="imageTournamrnt">
+          <img [src]="imageTournamrnt" alt="Tournament Image" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="detail" *ngIf="tournament">
+        <div class="row g-2">
+          <div class="col-md-12 text-center">
+            <div class="detail-data">
+              <h3>{{ tournament.name }}</h3>
+            </div>
+          </div>
+          <div class="col-md-12 text-center">
+            <div class="detail-data">
+              Detail
+              <p>{{ tournament.detail }}</p>
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="detail-data">
+              REWARD
+              <h5 style="color: green">{{ tournament.reward }}฿</h5>
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="detail-data">
+              ค่าสมัคร
+              <p>{{ tournament.fee }}฿</p>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="detail-data">
+              เริ่มแข่ง
+              <p>{{ tournament.startDateMatch }}</p>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="detail-data">
+              BO match
+              <p>{{ tournament.BO }}</p>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="detail-data">
+              จำนวนทีม
+              <p>{{ tournament.teamJoin.length }}/{{ tournament.maxNumberTeam }} </p>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button style="width: 100%;" class="btn btn-success">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

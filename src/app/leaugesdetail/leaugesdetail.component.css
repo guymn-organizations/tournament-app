@@ -1,3 +1,22 @@
 .tournament {
+  color: white;
   height: 100vh;
+  padding: 50px;
+}
+.img{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+
+}
+.detail-data{
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  
+  background-color: rgba(44, 44, 44, 0.823);
 }
