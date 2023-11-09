@@ -178,5 +178,25 @@
   </ng-template>
    <!-----------------------maching---------------------------->
    <ng-template #Matchingpage>
-     <button (click)="createMatchesForTournament()">create</button>
+    <div *ngIf="matches == null">
+      <button (click)="createMatchesForTournament()">create</button>
+    </div>
+  
+
+<div *ngIf="matches && matches.length > 0">
+  <h2>Matches for Tournament</h2>
+  
+    <div *ngFor="let match of matches">
+      
+      <strong>Team 1:</strong> {{ match.teamA.team?.name }} <br>
+      <strong>Team 2:</strong> {{ match.teamB.team?.name }} <br>
+     
+    </div>
+ 
+</div>
+
+<div *ngIf="matches && matches.length === 0">
+  <p>No matches found for the tournament.</p>
+</div>
+
    </ng-template>

@@ -26,6 +26,7 @@ export class LeaugesdetailComponent implements OnInit {
   isMatching: boolean = false;
   isTeamJoin: boolean = false;
   teamsInTour!: TeamInTournament[];
+  matches!: Match[];
 
   constructor(private route: ActivatedRoute, private router: Router,private teamService: TeamService,private tournamentService : LeaugesService) {}
 
@@ -43,6 +44,7 @@ export class LeaugesdetailComponent implements OnInit {
       this.check_date=date as string;
       await this.loadTournament(id as string);
       await this.AllTeamInTournament(this.checked_id);
+      await this.getMatchesForTournament(this.checked_id);
     });
   }
 
@@ -141,5 +143,10 @@ export class LeaugesdetailComponent implements OnInit {
   
   showalert(){
    alert('full team')
+  }
+
+  async getMatchesForTournament(tournamentId: string): Promise<void> {
+    (await this.tournamentService.getAllMatchesForTournament(tournamentId))
+      .subscribe(matches => this.matches = matches);
   }
 }
