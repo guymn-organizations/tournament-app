@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   public messageProfileElement: ElementRef | undefined;
   public totalCount = 0;
   public pageIndex = 0;
-  public pageSize = 10;
+  public pageSize = 5;
   loading: boolean = false;
 
   allTournament: undefined | Tournament[];
