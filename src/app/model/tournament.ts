@@ -1,3 +1,5 @@
+import { Profile } from './profile';
+
 export class Tournament {
   id: string | undefined;
   name: string | undefined;
@@ -12,6 +14,7 @@ export class Tournament {
   status: Status | undefined;
   matchList: string[];
   maxNumberTeam: number | undefined;
+  createer: Profile | undefined;
 
   constructor() {
     this.teamJoin = [];
