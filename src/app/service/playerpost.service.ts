@@ -29,7 +29,7 @@ export class PlayerpostService {
   async getProfileById(id: string): Promise<Observable<Profile>> {
     return this.http.get<Profile>(`${this.apiUrl}/${id}`);
   }
-  
+
   }
 
 

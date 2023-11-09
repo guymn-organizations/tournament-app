@@ -5,6 +5,7 @@ import { Image } from '../model/image';
 import { MessageService } from '../service/message.service';
 import { MessageType } from '../model/message';
 import { Profile } from '../model/profile';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-team',
@@ -45,8 +46,11 @@ export class ProfileTeamComponent implements OnInit {
   imageTeam: Image | undefined;
   team?: Team;
 
-  constructor() {}
-
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParams.subscribe((params) => {
+      const requestData = params; 
+    });
+  }
   async ngOnInit(): Promise<void> {
     this.team = this.nav.team;
     if (!this.team) {

@@ -2,10 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { PlayerpostService } from '../service/playerpost.service';
 import { Playerpost } from '../model/playerpost';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { PositionType } from '../model/team';
+import { PositionType, Team } from '../model/team';
 import { FormsModule } from '@angular/forms';
 import { ProfileService } from '../service/profile.service';
 import { Profile } from '../model/profile';
+import { MessageService } from '../service/message.service';
+import { TeampostService } from '../service/teampost.service';
 
 
 @Component({
@@ -15,6 +17,7 @@ import { Profile } from '../model/profile';
 })
 export class FinderPlayerComponent {
   playerPostService: PlayerpostService = inject(PlayerpostService);
+
   nav: NavbarComponent = inject(NavbarComponent);
   profileService: ProfileService = inject(ProfileService);
 
@@ -22,6 +25,8 @@ export class FinderPlayerComponent {
 
   profile?: Profile;
   selectedPlayer: any;
+
+  team?: Team;
 
   playerPosts: Playerpost[] = [];
 
@@ -38,12 +43,13 @@ export class FinderPlayerComponent {
     PositionType.SUP,
   ];
 
-  constructor() {
+  constructor(private messageService: MessageService, private teamPostService: TeampostService) {
   }
 
   async ngOnInit() {
     this.playerPostService.getAllPlayerPost().subscribe(async (data) => {
       this.playerPosts = data;
+      this.team = this.nav.team;
       await this.setImages();
     });
   }
@@ -72,7 +78,7 @@ export class FinderPlayerComponent {
       post: post,
       image: this.images[index],
     }));
- 
+
     return postData
   }
 
@@ -115,7 +121,7 @@ export class FinderPlayerComponent {
 
   onChange(event: any, positions: string) {
     if (event.target.checked) {
-  
+
       this.searchPositions.push(positions);
 
 
@@ -147,6 +153,22 @@ export class FinderPlayerComponent {
     this.selectedPlayer = this.playerPosts.find((post) => post.id === id);
     console.log(this.selectedPlayer)
   }
-  
+
+  sendJoinRequest() {
+    // Construct the data you want to send.
+    const teamName = this.team?.name as string;
+    const profileGameName = this.profile?.profileGame?.name as string; // Replace with the actual game name.
+
+    // Call your service method to send the request.
+    this.messageService.sendRequestToJoinTeam(teamName, profileGameName)
+      .subscribe(response => {
+        // Handle the response from the service if needed.
+        console.log('Join request sent successfully:', response);
+        // You can also close the modal or perform any other action here.
+      }, error => {
+        // Handle any errors that occur during the request.
+        console.error('Error sending join request:', error);
+      });
+  }
 
 }

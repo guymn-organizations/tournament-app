@@ -43,6 +43,7 @@ export class ScrimsComponent implements OnInit {
     }
     await this.addTeamToList(this.team as Team, '', []);
     await this.loadTeamScrims();
+    
   }
 
   @HostListener('scroll', ['$event'])

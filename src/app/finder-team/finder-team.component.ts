@@ -10,6 +10,7 @@ import { Profile } from '../model/profile';
 import { TeamService } from '../service/team.service';
 import { MessageService } from '../service/message.service';
 import { ProfileGame } from '../model/profile-game';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finder-team',
@@ -46,7 +47,7 @@ export class FinderTeamComponent {
 
   teamPostData: any = {};
 
-  constructor(private teamservice: TeamService, private messageService: MessageService) { }
+  constructor(private teamservice: TeamService, private messageService: MessageService ,private router: Router) { }
 
   async ngOnInit() {
     this.teamPostService.getAllTeamPost().subscribe(async (data) => {
@@ -173,25 +174,25 @@ export class FinderTeamComponent {
     }
   }
   
-  sendRequest(teamName: Team, profileGameName: ProfileGame, positionType: PositionType[]) {
-    const requestData = {
-      teamName: this.team?.name as string,
-      profileGameName: this.profileGame.name as string,
-      positionType: this.positionTypes as unknown as string
-    };
+  // sendRequest(teamName: Team, profileGameName: ProfileGame, positionType: PositionType[]) {
+  //   const requestData = {
+  //     teamName: this.team?.name as string,
+  //     profileGameName: this.profileGame.name as string,
+  //     positionType: this.positionTypes as unknown as string
+  //   };
 
-    this.messageService.sendRequestToJoinTeam(requestData.teamName, requestData.profileGameName, requestData.positionType)
-      .subscribe(
-        response => {
-          console.log('Request sent successfully', response);
-          // Handle the success response here
-        },
-        error => {
-          console.error('Error sending request', error);
-          // Handle the error here
-        }
-      );
-  }
+  //   this.messageService.sendRequestToJoinTeam(requestData.teamName, requestData.profileGameName, requestData.positionType)
+  //     .subscribe(
+  //       response => {
+  //         console.log('Request sent successfully', response);
+  //         // Handle the success response here
+  //       },
+  //       error => {
+  //         console.error('Error sending request', error);
+  //         // Handle the error here
+  //       }
+  //     );
+  // }
 }
 
 
