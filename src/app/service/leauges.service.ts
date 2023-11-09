@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Tournament } from '../model/tournament';
 import { Observable } from 'rxjs';
 import { Team } from '../model/team';
@@ -18,8 +18,14 @@ export class LeaugesService {
     return this.http.post(`${this.apiUrl}/create`, data);
   }
 
-  async getAllTournament(): Promise<Observable<any>> {
-    return this.http.get<Tournament[]>(`${this.apiUrl}`);
+  async getAllTournament(
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<any>> {
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<Tournament[]>(`${this.apiUrl}`, { params });
   }
 
   async getTournamentById(id: string): Promise<Observable<any>> {

@@ -11,24 +11,19 @@ import { Router } from '@angular/router';
 })
 export class LeaugesComponent implements OnInit {
   nav: NavbarComponent = inject(NavbarComponent);
-  allTournament: undefined | Tournament[];
-  
-  images: string[] = [];
+  allTournament: Tournament[] = [];
 
-  
+  images: string[] = [];
 
   constructor(private tournament: LeaugesService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
-    (await this.tournament.getAllTournament()).subscribe(
+    console.log("object");
+    (await this.tournament.getAllTournament(0, 10)).subscribe(
       async (tournaments) => {
         this.allTournament = tournaments;
         await this.setImages();
-
-
-        
-        
-       
+        console.log(this.allTournament);
       }
     );
   }
@@ -41,25 +36,24 @@ export class LeaugesComponent implements OnInit {
     return temp;
   }
 
-  
-
-
   async setImages() {
     if (!this.allTournament) {
       return;
     }
 
     for (let i = 0; i < this.allTournament?.length; i++) {
-      (
-        await this.nav.service.getImage(
-          this.allTournament[i].imageTourUrl as string
-        )
-      ).subscribe(
-        (res) => {},
-        (error) => {
-          this.images[i] = error.error.text;
-        }
-      );
+      if (this.allTournament[i].imageTourUrl) {
+        (
+          await this.nav.service.getImage(
+            this.allTournament[i].imageTourUrl as string
+          )
+        ).subscribe(
+          (res) => {},
+          (error) => {
+            this.images[i] = error.error.text;
+          }
+        );
+      }
     }
   }
 }
