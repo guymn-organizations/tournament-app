@@ -4,6 +4,7 @@ import { LeaugesService } from '../service/leauges.service';
 import { Status, Tournament } from '../model/tournament';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { LeaugesComponent } from '../leauges/leauges.component';
 
 @Component({
   selector: 'app-create-tour',

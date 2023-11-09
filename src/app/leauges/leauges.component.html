@@ -35,7 +35,7 @@
         (scroll)="onScrollTourContenter()"
       >
         <div
-          class="match mt-2 rounded border"
+          class="match mt-2 rounded border justify-content-start"
           *ngFor="let tour of allTournamentFilter; let index = index"
         >
           <div class="d-flex image-tour-content bg-light border rounded">
@@ -58,10 +58,23 @@
               *ngIf="!tour.imageTourUrl && !images[index]"
               [innerHTML]="tour.name?.charAt(0)"
               class="text-uppercase text-light-emphasis m-auto"
-              style="font-size: 80px;"
+              style="font-size: 80px"
             ></h1>
           </div>
+          <div>
+            <h1>{{ tour.name }} | Reward : {{ tour.reward }} Bath</h1>
+            <h4>
+              start matching : {{ tour.startDateMatch | date : "dd/MM/yyy" }}
+            </h4>
+          </div>
+          <div class="ms-auto">
+            <h4>Fee : {{ tour.fee }} Bath</h4>
+            <label for="">
+              {{ tour.teamJoin.length }}/{{ tour.maxNumberTeam }} team</label
+            >
+          </div>
         </div>
+
         <div
           id="loading"
           class="lds-ellipsis m-auto"

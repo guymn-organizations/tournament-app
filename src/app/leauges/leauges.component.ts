@@ -35,7 +35,7 @@ export class LeaugesComponent implements OnInit {
   public pageTotal: number = 5;
   public loadding: boolean = false;
 
-  allTournament: Tournament[] = [];
+  public allTournament: Tournament[] = [];
   allTournamentFilter: Tournament[] = [];
   images: string[] = [];
 
