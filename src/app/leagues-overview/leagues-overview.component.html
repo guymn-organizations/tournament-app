@@ -69,9 +69,6 @@
               </div>
             </div>
             <div class="col-md-12">
-              <div
-                *ngIf="tournament.teamJoin.length !== tournament.maxNumberTeam"
-              >
                 <button
                 (click)="addTeamToTournament()"
                   style="width: 100%"
@@ -79,18 +76,6 @@
                 >
                   Register
                 </button>
-              </div>
-              <div
-                *ngIf="tournament.teamJoin.length == tournament.maxNumberTeam"
-              >
-                <button
-                  (click)="showalert()"
-                  style="width: 100%"
-                  class="btn btn-success"
-                >
-                  Register
-                </button>
-              </div>
             </div>
           </div>
         </div>
