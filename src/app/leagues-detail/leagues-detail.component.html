@@ -4,25 +4,28 @@
   type="text/css"
 />
 <div class="body container">
-  <div class="bar">
+  <div class="bar border-bottom">
     <label
-      [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
+      [ngClass]="{
+        underline: checkTab('overview')
+      }"
       routerLink="overview"
       >Overview</label
     >
     <label
       style="margin-left: 80px"
-      [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
+      [ngClass]="{ underline: checkTab('match') }"
       routerLink="match"
       >Match</label
     >
     <label
       style="margin-left: 80px"
-      [ngClass]="{ 'border-bottom border-danger border-3': isCreater }"
+      [ngClass]="{
+        underline: checkTab('creater')
+      }"
       routerLink="creater"
       >creater</label
     >
   </div>
-  <div class="line-8-83i"></div>
   <router-outlet></router-outlet>
 </div>

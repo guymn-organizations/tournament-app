@@ -15,36 +15,20 @@ import { TournamentService } from '../service/tournament.service';
   styleUrls: ['./leagues-creater.component.css'],
 })
 export class LeaguesCreaterComponent {
-  leaugesService: LeaugesService = inject(LeaugesService);
-  nav: NavbarComponent = inject(NavbarComponent);
-  tournament: Tournament | undefined;
-  imageTournamrnt: string = '';
-
-  check_date: string = '';
-  checked_id: string = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private teamService: TeamService,
-    private tournamentService: TournamentService
-  ) {
-    const currentUrl = this.router.url;
-
-    const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
-  }
+  leaguesService: LeaugesService = inject(LeaugesService);
+  tour: Tournament | undefined;
+  constructor(private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     const currentUrl = this.router.url;
 
     const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
 
-    this.checked_id = urlArray[1];
     await this.loadTournament(urlArray[1]);
   }
   async loadTournament(id: string) {
-    (await this.leaugesService.getTournamentById(id)).subscribe(async (res) => {
-      // await this.setTournament(res);
+    (await this.leaguesService.getTournamentById(id)).subscribe((res) => {
+      this.tour = res;
     });
   }
 }

@@ -14,25 +14,24 @@ import { TournamentService } from '../service/tournament.service';
   styleUrls: ['./leagues-detail.component.css'],
 })
 export class LeaguesDetailComponent {
-  isOverview: boolean = true;
-  isMatching: boolean = false;
-  isCreater: boolean = false;
-
- 
-  checked_id: string = '';
+  checked_tab: string = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private teamService: TeamService
   ) {}
-
-  async ngOnInit() {
-    this.route.paramMap.subscribe(async (params) => {
-      const id = params.get('id');
-      this.checked_id = id as string;
-     
-    });
+  async ngOnInit(): Promise<void> {
+    this.click();
   }
 
-  
+  click() {
+    const currentUrl = this.router.url;
+    const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
+    this.checked_tab = urlArray[2];
+  }
+
+  checkTab(tab: string): boolean {
+    this.click();
+    return tab == this.checked_tab;
+  }
 }

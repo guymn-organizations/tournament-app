@@ -1,3 +1,4 @@
+import { Alert } from './alert';
 import { Profile } from './profile';
 
 export class Tournament {
@@ -15,10 +16,12 @@ export class Tournament {
   matchList: string[];
   maxNumberTeam: number | undefined;
   createer: Profile | undefined;
+  alerts: Alert[];
 
   constructor() {
     this.teamJoin = [];
     this.matchList = [];
+    this.alerts = [];
   }
 }
 
