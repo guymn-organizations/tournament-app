@@ -18,14 +18,17 @@
       routerLink="match"
       >Match</label
     >
-    <label
-      style="margin-left: 80px"
-      [ngClass]="{
-        underline: checkTab('creater')
-      }"
-      routerLink="creater"
-      >creater</label
-    >
+    <div *ngIf="tour?.createer?.id === profile">
+      <label
+        style="margin-left: 80px"
+        [ngClass]="{
+          underline: checkTab('creater')
+        }"
+        routerLink="creater"
+        >creater</label
+      >
+    </div>
+    
   </div>
   <router-outlet></router-outlet>
 </div>
