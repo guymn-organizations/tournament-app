@@ -20,7 +20,9 @@ export class MatchService {
       .set('pageIndex', pageIndex.toString())
       .set('pageSize', pageSize.toString());
 
-    return this.http.get<Match[]>(`${this.apiUrl}/${team_id}`, { params });
+    return this.http.get<Match[]>(`${this.apiUrl}/${team_id}/getTour`, {
+      params,
+    });
   }
 
   setMatchResult(
@@ -50,7 +52,11 @@ export class MatchService {
     return this.http.get<Match[]>(`${this.apiUrl}/round/${round}`, { params });
   }
 
-  async getMatchesByTeam(teamId: string, pageIndex: number, pageSize: number): Promise<Observable<any>> {
+  async getMatchesByTeam(
+    teamId: string,
+    pageIndex: number,
+    pageSize: number
+  ): Promise<Observable<any>> {
     const url = `${this.apiUrl}/match/${teamId}?pageIndex=${pageIndex}&pageSize=${pageSize}`;
     return this.http.get(url);
   }
