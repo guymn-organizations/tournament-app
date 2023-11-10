@@ -16,7 +16,7 @@ export class TournamentService {
   }
 
   addTeamToTournament(tournamentId: string, teamId: string): Observable<any> {
-    const endpoint = `${this.apiUrl}/tournament/${tournamentId}/teamJoin/${teamId}`;
+    const endpoint = `${this.apiUrl}/${tournamentId}/teamJoin/${teamId}`;
     return this.http.post(endpoint, {});
   }
 }
