@@ -1,7 +1,9 @@
 <div class="container mt-5">
   <div class="d-flex flex-column">
-    <div *ngFor="let alert of tour?.alerts" class="border">
-        
+    <div *ngFor="let alert of tour?.alerts" class="border d-flex flex-column">
+      <label class="bg-white text-dark m-3" style="height: 50px">
+        {{ alert }}
+      </label>
     </div>
   </div>
 </div>
