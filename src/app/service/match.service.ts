@@ -31,10 +31,15 @@ export class MatchService {
     resultType: string,
     score: number
   ): Observable<any> {
-    const url = `${this.apiUrl}/${matchId}/results`;
-    const body = { team, resultType, score };
+    
+    const apiUrl = `${this.apiUrl}/${matchId}/results`;
 
-    return this.http.put(url, body);
+    const params = new HttpParams()
+      .set('team', team)
+      .set('resultType', resultType)
+      .set('score', score.toString());
+
+    return this.http.put(apiUrl, null, { params });
   }
 
   getMatchesByRound(
