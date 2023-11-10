@@ -65,6 +65,7 @@ export class FinderTeamComponent {
     if (!this.team) {
       await this.setTeam();
     }
+
     await this.setFirstPost();
   }
 
@@ -76,6 +77,7 @@ export class FinderTeamComponent {
   }
 
   async setFirstPost() {
+    this.loadding = true;
     this.postService.getAllTeamPost(this.pageIndex, 10).subscribe(
       async (data) => {
         await this.setTeamPost(data);
@@ -136,7 +138,6 @@ export class FinderTeamComponent {
           (res) => {},
           (err) => {
             this.images[index] = err.error.text;
-            console.log(this.images);
           }
         );
       }

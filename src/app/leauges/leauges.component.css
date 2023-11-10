@@ -27,10 +27,8 @@ img {
   margin: auto;
 }
 .detail {
-
   width: 100%;
-  height: 100%;
-
+  height: 60%;
 }
 .name {
   background-color: rgb(12, 17, 18, 0.823);
