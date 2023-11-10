@@ -119,8 +119,8 @@ export class FinderTeamComponent {
     }
   }
 
-  async setTeamPost(teamPosts: Teampost[]) {
-    this.teamPost.push(...teamPosts);
+  async setTeamPost(res: Teampost[]) {
+    this.teamPost = [...this.teamPost, ...res];
   }
 
   async setImage() {

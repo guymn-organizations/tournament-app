@@ -32,8 +32,6 @@ export class LeaguesOverviewComponent implements OnInit {
     const currentUrl = this.router.url;
 
     const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
-
-  
   }
 
   async ngOnInit(): Promise<void> {
@@ -41,7 +39,7 @@ export class LeaguesOverviewComponent implements OnInit {
 
     const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
 
-    this.checked_id=urlArray[1];
+    this.checked_id = urlArray[1];
     await this.loadTournament(urlArray[1]);
   }
   async loadTournament(id: string) {
@@ -69,7 +67,6 @@ export class LeaguesOverviewComponent implements OnInit {
     );
   }
 
-
   showalert() {
     alert('full team');
   }
@@ -78,19 +75,27 @@ export class LeaguesOverviewComponent implements OnInit {
     const tournamentId = localStorage.getItem('tournament') as string;
     const teamId = localStorage.getItem('team') as string;
     this.tournamentService.addTeamToTournament(tournamentId, teamId).subscribe(
-      response => {
+      (response) => {
         console.log('Team added to tournament successfully', response);
         // Handle success, update UI, etc.
         alert('Team added to tournament successfully');
       },
-      error => {
+      (error) => {
         console.error('Failed to add team to tournament', error);
         // Handle error, show error message, etc.
         if (error.status === 404) {
           alert('Tournament or team not found.');
-        } else if (error.status === 400 && error.error.includes("Team is already part of the tournament.")) {
+        } else if (
+          error.status === 400 &&
+          error.error.includes('Team is already part of the tournament.')
+        ) {
           alert('Team is already part of the tournament.');
-        } else if (error.status === 400 && error.error.includes("Team must have at least 5 players to join the tournament.")) {
+        } else if (
+          error.status === 400 &&
+          error.error.includes(
+            'Team must have at least 5 players to join the tournament.'
+          )
+        ) {
           alert('Team must have at least 5 players to join the tournament.');
         } else {
           alert('Failed to add team to tournament. Please try again later.');
@@ -98,5 +103,4 @@ export class LeaguesOverviewComponent implements OnInit {
       }
     );
   }
-  
 }

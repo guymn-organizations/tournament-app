@@ -1,32 +1,50 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatchService } from '../service/match.service';
+import { LeaugesService } from '../service/leauges.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Tournament } from '../model/tournament';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TeamService } from '../service/team.service';
+import { TournamentService } from '../service/tournament.service';
 
 @Component({
   selector: 'app-leagues-creater',
   templateUrl: './leagues-creater.component.html',
-  styleUrls: ['./leagues-creater.component.css']
+  styleUrls: ['./leagues-creater.component.css'],
 })
 export class LeaguesCreaterComponent {
-  matches: any[] = [];
+  leaugesService: LeaugesService = inject(LeaugesService);
+  nav: NavbarComponent = inject(NavbarComponent);
+  tournament: Tournament | undefined;
+  imageTournamrnt: string = '';
 
-  constructor(private matchService: MatchService) {}
+  check_date: string = '';
+  checked_id: string = '';
 
-  ngOnInit(): void {
-    this.getMatchesByTeam(localStorage.getItem('team') as string); // Replace with the actual team ID
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private teamService: TeamService,
+    private tournamentService: TournamentService
+  ) {
+    const currentUrl = this.router.url;
+
+    const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
   }
 
-  async getMatchesByTeam(teamId: string): Promise<void> {
-    (await this.matchService.getMatchesByTeam(teamId, 0, 7)).subscribe(
-      (response) => {
-        this.matches = response;
-        console.log('Matches for the team:', this.matches);
-      },
-      (error) => {
-        console.error('Failed to retrieve matches:', error);
-        // Handle error, show error message, etc.
-      }
-    );
+  async ngOnInit(): Promise<void> {
+    const currentUrl = this.router.url;
+
+    const urlArray: string[] = currentUrl.split('/').filter((el) => el !== '');
+
+    this.checked_id = urlArray[1];
+    await this.loadTournament(urlArray[1]);
+  }
+  async loadTournament(id: string) {
+    (await this.leaugesService.getTournamentById(id)).subscribe(async (res) => {
+      // await this.setTournament(res);
+    });
   }
 }
