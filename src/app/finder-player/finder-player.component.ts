@@ -136,7 +136,6 @@ export class FinderPlayerComponent {
           (res) => {},
           (err) => {
             this.images[index] = err.error.text;
-            console.log(this.images);
           }
         );
       }

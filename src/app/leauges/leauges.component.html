@@ -39,7 +39,7 @@
           *ngFor="let tour of allTournamentFilter; let index = index"
           (click)="goDetail(tour.id)"
         >
-          <div class="img">
+          <div class="img d-flex">
             <div
               id="loading"
               class="lds-ellipsis m-auto"
@@ -71,7 +71,9 @@
                 <div class="col-md-12 text-center">
                   <div class="data-item">
                     Reward :
-                    <h3 style="color: green; font-family: fantasy;">{{ tour.reward }} ฿</h3>
+                    <h3 style="color: green; font-family: fantasy">
+                      {{ tour.reward }} ฿
+                    </h3>
                   </div>
                 </div>
                 <div class="col-md-6">
