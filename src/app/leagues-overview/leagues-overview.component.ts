@@ -72,7 +72,7 @@ export class LeaguesOverviewComponent implements OnInit {
   }
 
   addTeamToTournament(): void {
-    const tournamentId = localStorage.getItem('tournament') as string;
+    const tournamentId = this.checked_id;
     const teamId = localStorage.getItem('team') as string;
     this.tournamentService.addTeamToTournament(tournamentId, teamId).subscribe(
       (response) => {
