@@ -1,1 +1,18 @@
-<p>leagues-match works!</p>
+<div *ngIf="matches && matches.length > 0">
+    <h2>Matches for Tournament</h2>
+    <div *ngFor="let match of matches">
+      <div class="match">
+        {{match.id}}
+        <div class="match-item">
+          <strong>Team 1:</strong> {{ match.teamA.name }} <br />
+        </div>
+        <h3 class="vs">vs</h3>
+        <div class="match-item">
+          <strong>Team 2:</strong> {{ match.teamB.name }} <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="matches && matches.length === 0">
+    <p>No matches found for the tournament.</p>
+  </div>
