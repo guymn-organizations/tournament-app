@@ -1,0 +1,29 @@
+.tournament {
+    color: white;
+    height: 100%;
+    margin-top: 10px;
+  }
+  .img {
+    height: 400px;
+    width: 400px;
+  }
+ 
+
+  .img img {
+    height: 400px;
+    width: 550px;
+    border: 1px solid rgba(61, 61, 61, 0.264);
+    
+    border-radius: 10px;
+  }
+  .detail-data {
+    height: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+  
+    background-color: rgba(44, 44, 44, 0.823);
+  }
+ 
+
+  

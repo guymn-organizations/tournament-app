@@ -1,1 +1,99 @@
-<p>leagues-overview works!</p>
+<div class="tournament">
+    <div class="row g">
+      <div class="col-md-6">
+        <div class="col-md-12">
+          <div class="img">
+            <div *ngIf="imageTournamrnt">
+              <img
+                class="bg-light"
+                [src]="imageTournamrnt"
+                alt="Tournament Image"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="detail" *ngIf="tournament">
+          <div class="row g-2">
+            <div class="col-md-12 text-center">
+              <div class="detail-data">
+                <h5 style="font-family: fantasy">
+                  CREATE BY :{{ tournament.createer }}
+                </h5>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <div class="detail-data">
+                <h3 style="font-family: fantasy">{{ tournament.name }}</h3>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <div class="detail-data">
+                Detail
+                <p>{{ tournament.detail }}</p>
+              </div>
+            </div>
+            <div class="col-md-6 text-center">
+              <div class="detail-data">
+                REWARD
+                <h5 style="color: green">{{ tournament.reward }}฿</h5>
+              </div>
+            </div>
+            <div class="col-md-6 text-center">
+              <div class="detail-data">
+                ค่าสมัคร
+                <p>{{ tournament.fee }}฿</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                เริ่มแข่ง
+                <p>{{ tournament.startDateMatch }}</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                BO match
+                <p>{{ tournament.BO }}</p>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="detail-data">
+                จำนวนทีม
+                <p>
+                  {{ tournament.teamJoin.length }}/{{
+                    tournament.maxNumberTeam
+                  }}
+                </p>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div
+                *ngIf="tournament.teamJoin.length !== tournament.maxNumberTeam"
+              >
+                <button
+                (click)="addTeamToTournament()"
+                  style="width: 100%"
+                  class="btn btn-success"
+                >
+                  Register
+                </button>
+              </div>
+              <div
+                *ngIf="tournament.teamJoin.length == tournament.maxNumberTeam"
+              >
+                <button
+                  (click)="showalert()"
+                  style="width: 100%"
+                  class="btn btn-success"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

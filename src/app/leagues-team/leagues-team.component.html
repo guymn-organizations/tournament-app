@@ -1,1 +1,46 @@
-<p>leagues-team works!</p>
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="bg">
+        <img
+          src="https://i.ytimg.com/vi/4DRU06aFW_Q/maxresdefault.jpg"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="row">
+      <div class="col-md-11">
+        <h3 style="font-family: fantasy">TEAM</h3>
+      </div>
+
+      <div class="col-md-12">
+        <div class="line-8-83i"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div
+            class="col-md-12"
+            style="font-family: fantasy; font-size: 24px; padding: 20px"
+          >
+            All of team
+          </div>
+        </div>
+        <div
+          class="col-md-10"
+          style="border-left: 1px solid rgb(255, 255, 255); padding: 30px"
+        >
+          <div class="row g-3">
+            <div class="team-wrap col-md-3">
+              <div
+                class="team-box"
+                *ngFor="let item of teamsInTour; let i = index"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -14,4 +14,9 @@ export class TournamentService {
   getFeaturedTournament(): Observable<Tournament> {
     return this.http.get<Tournament>(this.apiUrl + '/Featured');
   }
+
+  addTeamToTournament(tournamentId: string, teamId: string): Observable<any> {
+    const endpoint = `${this.apiUrl}/tournament/${tournamentId}/teamJoin/${teamId}`;
+    return this.http.post(endpoint, {});
+  }
 }
