@@ -5,18 +5,22 @@
 />
 <div class="body container">
   <div class="bar">
-    <a [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
-      >ภาพรวม</a
+    <label
+      [ngClass]="{ 'border-bottom border-danger border-3': isOverview }"
+      routerLink="overview"
+      >Overview</label
     >
-    <a
+    <label
       style="margin-left: 80px"
       [ngClass]="{ 'border-bottom border-danger border-3': isTeamJoin }"
-      >ทีมที่เข้าร่วม</a
+      routerLink="team"
+      >Team List</label
     >
-    <a
+    <label
       style="margin-left: 80px"
       [ngClass]="{ 'border-bottom border-danger border-3': isMatching }"
-      >การแข่งขัน</a
+      routerLink="match"
+      >Match</label
     >
   </div>
   <div class="line-8-83i"></div>

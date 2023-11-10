@@ -9,4 +9,5 @@ export class LeaguesDetailComponent {
   isOverview: boolean = true;
   isMatching: boolean = false;
   isTeamJoin: boolean = false;
+  
 }

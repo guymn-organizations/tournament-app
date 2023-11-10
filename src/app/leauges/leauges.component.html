@@ -31,15 +31,15 @@
 
       <div
         #TourContenter
-        class="scrims-contenter d-flex flex-column justify-content-start ps-3 pe-3"
+        class="tour-list-wrapper"
         (scroll)="onScrollTourContenter()"
       >
         <div
-          class="match mt-2 rounded border justify-content-start"
+          class="tour-item"
           *ngFor="let tour of allTournamentFilter; let index = index"
           (click)="goDetail(tour.id)"
         >
-          <div class="d-flex image-tour-content bg-light border rounded">
+          <div class="img">
             <div
               id="loading"
               class="lds-ellipsis m-auto"
@@ -62,29 +62,51 @@
               style="font-size: 80px"
             ></h1>
           </div>
-          <div>
-            <h1>{{ tour.name }} | Reward : {{ tour.reward }} Bath</h1>
-            <h4>
-              start matching : {{ tour.startDateMatch | date : "dd/MM/yyy" }}
-            </h4>
+          <div class="detail">
+            <div class="name">
+              <h4 style="font-family: fantasy">{{ tour.name }}</h4>
+            </div>
+            <div class="data">
+              <div class="row g-2">
+                <div class="col-md-12 text-center">
+                  <div class="data-item">
+                    Reward :
+                    <h3 style="color: green; font-family: fantasy;">{{ tour.reward }} ฿</h3>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="data-item">
+                    start matching :
+                    <h4>
+                      {{ tour.startDateMatch | date : "dd/MM/yyy" }}
+                    </h4>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="data-item">
+                    <h4>Fee : {{ tour.fee }} Bath</h4>
+                    <label for="">
+                      {{ tour.teamJoin.length }}/{{
+                        tour.maxNumberTeam
+                      }}
+                      team</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="ms-auto">
-            <h4>Fee : {{ tour.fee }} Bath</h4>
-            <label for="">
-              {{ tour.teamJoin.length }}/{{ tour.maxNumberTeam }} team</label
-            >
-          </div>
-        </div>
 
-        <div
-          id="loading"
-          class="lds-ellipsis m-auto"
-          *ngIf="pageTotal == pageSize"
-        >
-          <div class="bg-light"></div>
-          <div class="bg-light"></div>
-          <div class="bg-light"></div>
-          <div class="bg-light"></div>
+          <div
+            id="loading"
+            class="lds-ellipsis m-auto"
+            *ngIf="pageTotal == pageSize"
+          >
+            <div class="bg-light"></div>
+            <div class="bg-light"></div>
+            <div class="bg-light"></div>
+            <div class="bg-light"></div>
+          </div>
         </div>
       </div>
     </div>
